@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alejandro Cancelas — ML Systems Engineer</title>
+  <title>Alejandro Cancelas — ML Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -11,191 +11,422 @@
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <div class="nav-brand">
-      <div class="nav-dot"></div>
-      <div class="nav-id"><strong>Alejandro Cancelas</strong> <span>/ ml-systems-engineer</span></div>
-    </div>
-    <ul class="nav-links">
-      <li><a href="#about">about</a></li>
-      <li><a href="#projects">projects</a></li>
-      <li><a href="#stack">stack</a></li>
-      <li><a href="#contact">contact</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-eyebrow">ML Systems Engineer · Data Systems</div>
-
-    <h1>
-      Building ML systems that<br/>
-      <span class="hl">work beyond the notebook.</span>
-    </h1>
-
-    <p class="hero-sub">
-      I design and build end-to-end machine learning systems: data ingestion, feature engineering, model training,
-      evaluation, and deployment-ready pipelines. The focus is not on models in isolation, but on systems that
-      remain stable once they leave the notebook environment.
-    </p>
-
-    <div class="hero-chips">
-      <span class="chip blue">Python · PyTorch · Scikit-learn · Polars</span>
-      <span class="chip green">Docker · Linux · uv · FastAPI</span>
-      <span class="chip amber">Azure Certified · Power BI</span>
-      <span class="chip">ASIR background</span>
-    </div>
-
-    <a class="hero-cta" href="https://github.com/cacelass" target="_blank">
-      github.com/cacelass
-    </a>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="section" id="about">
-  <div class="container">
-    <div class="sec-head">
-      <span class="sec-num">01</span>
-      <div class="sec-divider"></div>
-      <span class="sec-tag">about</span>
-      <span class="sec-title">Engineering identity</span>
-    </div>
-
-    <div class="about-grid">
-
-      <div class="about-card">
-        <div class="about-card-lbl">Approach</div>
-        <p>
-          I approach ML as a systems discipline. A model only has value if it can be reproduced, validated, and deployed consistently.
-          Everything else is experimentation, not engineering.
-        </p>
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><strong>Alejandro Cancelas</strong> <span>/ ml-engineer</span></div>
       </div>
-
-      <div class="about-card">
-        <div class="about-card-lbl">Systems background</div>
-        <p>
-          ASIR-trained, with strong focus on systems administration and databases. Work includes schema design, query optimisation,
-          indexing strategies, and understanding execution plans under real load.
-        </p>
-      </div>
-
-      <div class="about-card">
-        <div class="about-card-lbl">Production mindset</div>
-        <p>
-          I design pipelines that are resilient to schema changes, models that output calibrated probabilities instead of raw scores,
-          and evaluation frameworks that explicitly prevent data leakage before deployment.
-        </p>
-      </div>
-
-      <div class="about-card">
-        <div class="about-card-lbl">Tooling philosophy</div>
-        <p>
-          Tools are not ideology. I choose based on constraints: simplicity when possible, complexity when necessary.
-          Gradient boosting, linear models, or deep learning — depends on the problem, not preference.
-        </p>
-      </div>
-
+      <ul class="nav-links">
+        <li><a href="#about">about</a></li>
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#stack">stack</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
     </div>
-  </div>
-</section>
+  </nav>
 
-<!-- PROJECTS -->
-<section class="section" id="projects">
-  <div class="container">
-    <div class="sec-head">
-      <span class="sec-num">02</span>
-      <div class="sec-divider"></div>
-      <span class="sec-tag">projects</span>
-      <span class="sec-title">Selected systems</span>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">ML Engineer · Data Systems</div>
+      <h1>Building ML systems that<br /><span class="hl">work beyond the notebook.</span></h1>
+      <p class="hero-sub">
+        End-to-end machine learning pipelines — from data ingestion and feature engineering to deployment-ready code.
+        Systems administration background means I think about infrastructure, environment isolation, and failure modes
+        before I think about model architecture.
+      </p>
+      <div class="hero-chips">
+        <span class="chip blue">Python · PyTorch · Scikit-learn · Polars</span>
+        <span class="chip green">Docker · Linux · uv · FastAPI</span>
+        <span class="chip amber">Azure Certified · Power BI</span>
+        <span class="chip">ASIR background</span>
+      </div>
+      <a class="hero-cta" href="https://github.com/cacelass" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+        </svg>
+        github.com/cacelass
+      </a>
     </div>
+  </section>
 
-    <div class="proj-list">
-
-      <div class="proj-card">
-        <div class="proj-name">
-          <a href="https://github.com/cacelass/dskit" target="_blank">dskit</a>
+  <section class="section" id="about">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">about</span>
+        <span class="sec-title">Engineering identity</span>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+          </div>
+          <div class="about-card-lbl">Approach</div>
+          <p>I treat ML problems as <strong>systems problems first</strong>. A model that can't be reproduced or re-deployed is a liability. My workflow enforces clean separation between ingestion, feature computation, training, and evaluation — by structure, not convention.</p>
         </div>
-        <p>
-          Reproducible ML project scaffold designed to eliminate environment drift and enforce consistent structure across projects.
-          Built to solve one of the most common failure points in ML: lack of standardisation.
-        </p>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-name">
-          <a href="https://github.com/cacelass/credit-risk-classifier" target="_blank">credit-risk-classifier</a>
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
+          </div>
+          <div class="about-card-lbl">Systems background</div>
+          <p>Trained and worked as a <strong>Systems Technician (ASIR)</strong>. What drew me most to the field was <strong>databases</strong> — from schema design and query writing to index tuning and execution plan analysis. I find the full range compelling: modelling, SQL craft, and squeezing performance out of a slow query.</p>
         </div>
-        <p>
-          Credit risk system focused on interpretability and decision usability. Uses calibrated probabilities, explicit thresholding,
-          and evaluation aligned with business constraints rather than pure model metrics. AUC 0.81.
-        </p>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-name">
-          <a href="https://github.com/cacelass/retainml" target="_blank">retainml</a>
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+              <polyline points="16 7 22 7 22 13" />
+            </svg>
+          </div>
+          <div class="about-card-lbl">Production awareness</div>
+          <p>I design pipelines that don't break when schemas change, models that return <strong>calibrated probabilities</strong> rather than raw scores, and evaluation setups that catch leakage before it reaches production.</p>
         </div>
-        <p>
-          Customer churn prediction system that outputs ranked intervention lists instead of binary labels.
-          Designed for operational decision-making, separating model output from business logic.
-        </p>
-      </div>
-
-      <div class="proj-card">
-        <div class="proj-name">
-          <a href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">Stock-Market-Prediction</a>
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="21 16 21 8 12 3 3 8 3 16 12 21 21 16" />
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+              <line x1="12" y1="22.08" x2="12" y2="12" />
+            </svg>
+          </div>
+          <div class="about-card-lbl">Tooling philosophy</div>
+          <p>Stack is context-dependent. I default to <code>uv</code> for environment management, Polars for large tabular data, scikit-learn for well-understood problems. <strong>I don't use deep learning when gradient boosting will do.</strong></p>
         </div>
-        <p>
-          Time series prediction system built under strict temporal validation constraints. No random splits, no leakage,
-          and evaluation aligned with real deployment conditions. Marginal improvement over baseline — expected in noisy markets.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- STACK -->
-<section class="section" id="stack">
-  <div class="container">
-    <div class="sec-head">
-      <span class="sec-num">03</span>
-      <div class="sec-divider"></div>
-      <span class="sec-tag">stack</span>
-      <span class="sec-title">Capability model</span>
-    </div>
-
-    <div class="stack-grid">
-      <div class="stack-card">
-        <div class="stack-card-lbl">Core engineering</div>
-        <p>Python · SQL · Docker · Linux · Git · FastAPI · Bash</p>
-      </div>
-
-      <div class="stack-card">
-        <div class="stack-card-lbl">ML / Data</div>
-        <p>Scikit-learn · PyTorch · Pandas · Polars · NumPy · Matplotlib</p>
-      </div>
-
-      <div class="stack-card">
-        <div class="stack-card-lbl">Infrastructure</div>
-        <p>Azure · MySQL · Apache · Power BI · SQLAlchemy</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer id="contact">
-  <div class="footer-inner">
-    <strong>Alejandro Cancelas</strong>
-    <span>— ML Systems Engineer · Galicia, ES</span>
-  </div>
-</footer>
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">projects</span>
+        <span class="sec-title">Selected systems</span>
+      </div>
+
+      <div class="dskit-card">
+        <div class="dskit-badge">Featured project</div>
+        <div class="dskit-title"><a href="https://github.com/cacelass/dskit" target="_blank">dskit</a></div>
+        <div class="dskit-subtitle">
+          A <strong>production-grade Data Science project scaffold</strong> built to eliminate environment drift, enforce reproducibility, and standardise the structure of every ML project from day one.
+        </div>
+        <div class="dskit-grid">
+          <div class="dskit-stat">
+            <div class="dskit-stat-lbl">Problem solved</div>
+            <div class="dskit-stat-val">Repetitive setup and inconsistent structure are the primary cause of reproducibility failure — not the models.</div>
+          </div>
+          <div class="dskit-stat">
+            <div class="dskit-stat-lbl">Stack</div>
+            <div class="dskit-stat-val"><code>uv</code> · Cookiecutter · Sphinx · Polars/Pandas dual support · structured layout</div>
+          </div>
+          <div class="dskit-stat">
+            <div class="dskit-stat-lbl">What it enforces</div>
+            <div class="dskit-stat-val">Separation of <code>data/raw</code>, <code>features/</code>, <code>models/</code>, <code>pipelines/</code>. Pinned lockfiles. Auto-generated docs.</div>
+          </div>
+        </div>
+        <div class="dskit-decisions">
+          <div class="dskit-dec-lbl">Why it's built this way</div>
+          <div class="dskit-dec-list">
+            <div class="dskit-dec-item">
+              <span class="dskit-dec-arrow">→</span>
+              <span class="dskit-dec-text"><strong>uv over pip/conda</strong> — faster resolution, reproducible lockfiles, no hidden global state that silently breaks other projects.</span>
+            </div>
+            <div class="dskit-dec-item">
+              <span class="dskit-dec-arrow">→</span>
+              <span class="dskit-dec-text"><strong>Convention over configuration</strong> — opinionated defaults reduce decision fatigue at project start without blocking customisation.</span>
+            </div>
+            <div class="dskit-dec-item">
+              <span class="dskit-dec-arrow">→</span>
+              <span class="dskit-dec-text"><strong>Production layout, not Kaggle layout</strong> — raw vs processed data separation enforced structurally, not by honour system.</span>
+            </div>
+            <div class="dskit-dec-item">
+              <span class="dskit-dec-arrow">→</span>
+              <span class="dskit-dec-text"><strong>Sphinx by default</strong> — documentation is a first-class deliverable. Auto-generated from docstrings, zero extra setup.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-list">
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">
+              <a href="https://github.com/cacelass/credit-risk-classifier" target="_blank">credit-risk-classifier</a>
+              <span class="proj-desc"> — credit approval system</span>
+            </div>
+            <span class="proj-tag">credit risk · classification</span>
+          </div>
+          <p class="proj-problem">
+            Predict loan default probability from applicant data, with <strong>interpretability as a first-class constraint</strong> — not an afterthought.
+          </p>
+          <div class="proj-grid">
+            <div class="proj-field">
+              <div class="proj-field-lbl">Approach</div>
+              <div class="proj-field-val">Logistic Regression + Random Forest with feature importance analysis, post-training probability calibration, and business-aligned threshold tuning via F-beta optimisation.</div>
+            </div>
+            <div class="proj-field">
+              <div class="proj-field-lbl">Key constraint</div>
+              <div class="proj-field-val">Decision threshold is a <strong>business parameter, not a model constant</strong> — decoupled into config so decisioning teams can adjust without triggering a retraining cycle.</div>
+            </div>
+          </div>
+          <div class="dec-block">
+            <div class="dec-lbl">Engineering decisions</div>
+            <ul>
+              <li>Chose LR + RF over GBTs — feature importances must be explainable to non-technical stakeholders in credit contexts.</li>
+              <li>Probability calibration applied explicitly — raw classifier scores are not probabilities; treating them as such breaks downstream scoring.</li>
+              <li>Stratified k-fold CV to handle class imbalance without oversampling artefacts.</li>
+            </ul>
+          </div>
+          <div class="metric-block">
+            <span class="metric-lbl">Result</span>
+            <span class="metric-val">AUC 0.81 with interpretable models. Stakeholder trust, not benchmark performance, is the success criterion here.</span>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">
+              <a href="https://github.com/cacelass/retainml" target="_blank">retainml</a>
+              <span class="proj-desc"> — churn prediction system</span>
+            </div>
+            <span class="proj-tag">retention · supervised ML</span>
+          </div>
+          <p class="proj-problem">
+            Predict customer abandonment probability and output <strong>ranked intervention lists</strong> — the distinction between a model result and an operationally usable product.
+          </p>
+          <div class="proj-grid">
+            <div class="proj-field">
+              <div class="proj-field-lbl">Approach</div>
+              <div class="proj-field-val">Supervised classification with recency/frequency feature engineering over rolling time windows. Output is a <strong>calibrated risk score, not a binary label</strong> — downstream decisioning is decoupled from the model layer.</div>
+            </div>
+            <div class="proj-field">
+              <div class="proj-field-lbl">Architecture decision</div>
+              <div class="proj-field-val">Business logic (who to contact, what offer to assign) lives in a separate rule layer. Model retraining and rule changes have different cadences — they should not be coupled.</div>
+            </div>
+          </div>
+          <div class="dec-block">
+            <div class="dec-lbl">Engineering decisions</div>
+            <ul>
+              <li>Rolling window features with <strong>Polars</strong> — avoids materialising wide intermediate DataFrames on large customer bases.</li>
+              <li>AUC-ROC for model selection; Precision@K for operational utility — these answer different questions and both matter.</li>
+              <li>Score output, not label: operations teams need to prioritise a finite call list, not act on a binary flag.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">
+              <a href="https://github.com/cacelass/global-exclusion-risk-ml" target="_blank">global-exclusion-risk-ml</a>
+              <span class="proj-desc"> — socioeconomic clustering</span>
+            </div>
+            <span class="proj-tag">unsupervised ML · clustering</span>
+          </div>
+          <p class="proj-problem">
+            Identify latent risk patterns across socioeconomic indicators for countries — without a predefined label or ground truth.
+          </p>
+          <div class="proj-grid">
+            <div class="proj-field">
+              <div class="proj-field-lbl">Approach</div>
+              <div class="proj-field-val">K-means + hierarchical clustering with dimensionality reduction for visualisation. Cluster validation via silhouette analysis — k selection is principled, not arbitrary.</div>
+            </div>
+            <div class="proj-field">
+              <div class="proj-field-lbl">Evaluation challenge</div>
+              <div class="proj-field-val">No ground truth labels. Internal metrics (silhouette, inertia) plus domain plausibility checks. A mathematically valid cluster that is semantically nonsensical has no utility.</div>
+            </div>
+          </div>
+          <div class="dec-block">
+            <div class="dec-lbl">Engineering decisions</div>
+            <ul>
+              <li>Features normalised before clustering — Euclidean distance is scale-sensitive; unnormalised indicators break the distance metric.</li>
+              <li>Silhouette scores documented to show k selection is principled, not arbitrary.</li>
+              <li>Results cross-referenced against domain knowledge — cluster validity is necessary but not sufficient for usefulness.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">
+              <a href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">Stock-Market-Prediction</a>
+              <span class="proj-desc"> — financial time series</span>
+            </div>
+            <span class="proj-tag">time series · classification</span>
+          </div>
+          <p class="proj-problem">
+            Predict directional price movements in a <strong>non-stationary, low signal-to-noise domain</strong> where most published results fail out-of-sample.
+          </p>
+          <div class="proj-grid">
+            <div class="proj-field">
+              <div class="proj-field-lbl">Approach</div>
+              <div class="proj-field-val">Binary classification with <strong>strict temporal validation</strong> — walk-forward CV to simulate realistic deployment conditions. No random splits that cause future data to leak into training.</div>
+            </div>
+            <div class="proj-field">
+              <div class="proj-field-lbl">Honest framing</div>
+              <div class="proj-field-val">Marginal beat over naïve baseline is the <strong>expected outcome in efficient markets</strong>, not a failure. The value is the rigorous evaluation setup, not the model performance.</div>
+            </div>
+          </div>
+          <div class="dec-block">
+            <div class="dec-lbl">Engineering decisions</div>
+            <ul>
+              <li>Temporal validation is non-negotiable — random k-fold on time series is data leakage that inflates every single metric.</li>
+              <li>Baseline comparison required — results that don't beat a naïve majority-class predictor are not results.</li>
+            </ul>
+          </div>
+          <div class="metric-block">
+            <span class="metric-lbl">Result</span>
+            <span class="metric-val">Marginal improvement over baseline. The project demonstrates evaluation rigour in a domain where most practitioners overfit silently.</span>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">
+              <a href="https://github.com/cacelass/rps-predictive-agent" target="_blank">rps-predictive-agent</a>
+              <span class="proj-desc"> — behavioural pattern detection</span>
+            </div>
+            <span class="proj-tag">online learning · agents</span>
+          </div>
+          <p class="proj-problem">
+            Detect and exploit statistical regularities in human behavioural sequences — a controlled environment to study <strong>online frequency estimation and adaptive decision-making</strong>.
+          </p>
+          <div class="proj-grid">
+            <div class="proj-field">
+              <div class="proj-field-lbl">Approach</div>
+              <div class="proj-field-val">Agent that builds frequency models of opponent move history, uses them to bias action selection, and updates online as new observations arrive — no batch retraining.</div>
+            </div>
+            <div class="proj-field">
+              <div class="proj-field-lbl">Engineering value</div>
+              <div class="proj-field-val">Core pattern — <strong>online frequency estimation → decision under uncertainty → adaptive update</strong> — is structurally identical to recommendation engines and multi-armed bandit systems.</div>
+            </div>
+          </div>
+          <div class="dec-block">
+            <div class="dec-lbl">Engineering decisions</div>
+            <ul>
+              <li>Intentionally no ML libraries — forces explicit implementation of the probabilistic mechanism rather than wrapping a library call.</li>
+              <li>Architecture is the signal: demonstrates sequential decision-making under uncertainty, not game-playing ability.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="stack">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">stack</span>
+        <span class="sec-title">Capability model</span>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-card">
+          <div class="stack-card-lbl">Core engineering</div>
+          <div class="stack-items">
+            <span class="stack-item">Python</span>
+            <span class="stack-item">SQL</span>
+            <span class="stack-item">PL/SQL</span>
+            <span class="stack-item">Hive</span>
+            <span class="stack-item">Linux</span>
+            <span class="stack-item">Docker</span>
+            <span class="stack-item">Git</span>
+            <span class="stack-item">Bash</span>
+            <span class="stack-item">uv</span>
+            <span class="stack-item">FastAPI</span>
+            <span class="stack-item">Nginx</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-card-lbl">ML / Data pipeline</div>
+          <div class="stack-items">
+            <span class="stack-item">Scikit-learn</span>
+            <span class="stack-item">PyTorch</span>
+            <span class="stack-item">Polars</span>
+            <span class="stack-item">Pandas</span>
+            <span class="stack-item">NumPy</span>
+            <span class="stack-item">Cookiecutter</span>
+            <span class="stack-item">Sphinx</span>
+            <span class="stack-item">Matplotlib</span>
+            <span class="stack-item">Seaborn</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-card-lbl">Cloud / Infrastructure</div>
+          <div class="stack-items">
+            <span class="stack-item">Azure</span>
+            <span class="stack-item">MySQL</span>
+            <span class="stack-item">SQLAlchemy</span>
+            <span class="stack-item">Apache</span>
+            <span class="stack-item">NoSQL</span>
+            <span class="stack-item">Power BI</span>
+          </div>
+          <div class="cert-row">
+            <span class="cert-badge">Azure Data Fundamentals</span>
+            <span class="cert-badge">Power BI / DAX</span>
+            <span class="cert-badge">ASIR</span>
+          </div>
+        </div>
+        <div class="stack-card">
+          <div class="stack-card-lbl">Domain knowledge</div>
+          <div class="stack-items">
+            <span class="stack-item">Credit risk</span>
+            <span class="stack-item">Churn modelling</span>
+            <span class="stack-item">Time series</span>
+            <span class="stack-item">Clustering</span>
+            <span class="stack-item">Calibration</span>
+            <span class="stack-item">Leakage detection</span>
+            <span class="stack-item">Climate / social AI</span>
+          </div>
+        </div>
+        <div class="stack-card full">
+          <div class="stack-card-lbl">What I can build</div>
+          <div class="cap-grid">
+            <span class="cap-item">End-to-end supervised pipelines (classification + regression)</span>
+            <span class="cap-item">Reproducible project environments with versioned dependencies via uv</span>
+            <span class="cap-item">Feature engineering for tabular financial and behavioural data</span>
+            <span class="cap-item">Evaluation frameworks with explicit data leakage controls</span>
+            <span class="cap-item">Batch scoring systems designed for operational consumption</span>
+            <span class="cap-item">Containerised ML services (Docker + FastAPI) for cloud or on-premise</span>
+            <span class="cap-item">Business outputs — calibrated probabilities, ranked scores, configurable thresholds</span>
+            <span class="cap-item">Unsupervised pattern discovery with principled cluster validation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li>
+          <a href="https://github.com/cacelass" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            github.com/cacelass
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>
 
 </body>
 </html>
