@@ -6,7 +6,7 @@
   <title>ClimaSafe — Alejandro Cancelas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body class="proj-page">
@@ -31,7 +31,7 @@
       <h1>Heat and cold risk warning<br /><span class="hl">before the day arrives.</span></h1>
       <p class="hero-sub">
         A system that estimates the temperature risk level (safe / caution / danger) for each Spanish
-        province and day, from ERA5 weather variables — so dangerous days can be anticipated before
+        province and day, from ERA5 weather variables, so dangerous days can be anticipated before
         they happen. An XGBoost + LSTM ensemble, calibrated via conformal prediction, tracked in MLflow,
         with a Telegram bot.
       </p>
@@ -84,23 +84,23 @@
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Target</strong> — mortality percentiles from MoMo (X30/X31), computed <strong>per province</strong> so small provinces are not penalised.</span>
+          <span class="dskit-dec-text"><strong>Target</strong>: mortality percentiles from MoMo (X30/X31), computed <strong>per province</strong> so small provinces are not penalised.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Features</strong> — thermal comfort indices (Heat Index, WBGT, Wind Chill) at the riskiest hour, plus the daily 24 h distribution and temporal persistence (lags, rolling means, consecutive cold-day streaks).</span>
+          <span class="dskit-dec-text"><strong>Features</strong>: thermal comfort indices (Heat Index, WBGT, Wind Chill) at the riskiest hour, plus the daily 24 h distribution and temporal persistence (lags, rolling means, consecutive cold-day streaks).</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Split by date, not random</strong> — avoids leaking days of the same wave between train and test.</span>
+          <span class="dskit-dec-text"><strong>Split by date, not random</strong>: avoids leaking days of the same wave between train and test.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Selection metric</strong> — recall of the risk classes (Rec_riesgo), not accuracy.</span>
+          <span class="dskit-dec-text"><strong>Selection metric</strong>: recall of the risk classes (Rec_riesgo), not accuracy.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Tracking</strong> — MLflow with temporal cross-validation by year.</span>
+          <span class="dskit-dec-text"><strong>Tracking</strong>: MLflow with temporal cross-validation by year.</span>
         </div>
       </div>
     </div>
@@ -121,7 +121,7 @@
       <div class="proj-field-val proj-wide">
         Beyond the classifier, the project delivers <strong>conformal prediction</strong>, individual risk
         personalisation (age, sex, comorbidities, activity), km² risk maps, SHAP explainability, and a
-        Telegram bot — built as part of the <strong>ANFAIA Summer Grants 2026</strong> and generated from
+        Telegram bot, built as part of the <strong>ANFAIA Summer Grants 2026</strong> and generated from
         the <a href="dskit.html">dskit</a> template.
       </div>
     </div>

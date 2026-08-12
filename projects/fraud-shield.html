@@ -6,7 +6,7 @@
   <title>fraud-shield — Alejandro Cancelas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body class="proj-page">
@@ -30,7 +30,7 @@
       <div class="hero-eyebrow">fraud-shield · fraud detection</div>
       <h1>Fraud detection for the<br /><span class="hl">real fintech constraints.</span></h1>
       <p class="hero-sub">
-        An end-to-end fraud detection pipeline for financial transactions — built for the constraints of a
+        An end-to-end fraud detection pipeline for financial transactions, built for the constraints of a
         real banking or fintech environment: severe class imbalance, the cost of false negatives,
         interpretability for audit, and a structure that extends to batch or streaming production.
       </p>
@@ -58,7 +58,7 @@
       <div class="dskit-grid">
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Dataset</div>
-          <div class="dskit-stat-val">PaySim — ~6.3M transactions, ~0.1% fraud</div>
+          <div class="dskit-stat-val">PaySim (~6.3M transactions, ~0.1% fraud)</div>
         </div>
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Model</div>
@@ -66,7 +66,7 @@
         </div>
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Tracking</div>
-          <div class="dskit-stat-val">MLflow — runs, params, registered models</div>
+          <div class="dskit-stat-val">MLflow (runs, params, registered models)</div>
         </div>
       </div>
     </div>
@@ -83,27 +83,27 @@
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Account drain signals</strong> — <code>balance_diff_orig</code> / <code>balance_diff_dest</code> capture the strongest fraud behaviour.</span>
+          <span class="dskit-dec-text"><strong>Account drain signals</strong>: <code>balance_diff_orig</code> / <code>balance_diff_dest</code> capture the strongest fraud behaviour.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Risk-channel encoding</strong> — <code>is_high_risk_type</code> (TRANSFER/CASH_OUT), where fraud actually occurs.</span>
+          <span class="dskit-dec-text"><strong>Risk-channel encoding</strong>: <code>is_high_risk_type</code> (TRANSFER/CASH_OUT), where fraud actually occurs.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Log transforms</strong> — <code>log1p</code> compresses heavy-tailed amount distributions.</span>
+          <span class="dskit-dec-text"><strong>Log transforms</strong>: <code>log1p</code> compresses heavy-tailed amount distributions.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>No leakage</strong> — <code>isFlaggedFraud</code> (unavailable in production) is dropped.</span>
+          <span class="dskit-dec-text"><strong>No leakage</strong>: <code>isFlaggedFraud</code> (unavailable in production) is dropped.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Evaluated on PR</strong> — precision-recall on the fraud class, not accuracy on the 99.9% majority.</span>
+          <span class="dskit-dec-text"><strong>Evaluated on PR</strong>: precision-recall on the fraud class, not accuracy on the 99.9% majority.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Interpretability</strong> — feature importance plots for auditability.</span>
+          <span class="dskit-dec-text"><strong>Interpretability</strong>: feature importance plots for auditability.</span>
         </div>
       </div>
     </div>
@@ -119,11 +119,11 @@
       </div>
       <div class="metric-block">
         <span class="metric-lbl">ROC-AUC</span>
-        <span class="metric-val"><strong>0.998</strong> — verified in the logged MLflow run, with fraud-class precision/recall/F1 around <strong>0.84 / 0.77 / 0.80</strong> at the tuned decision threshold.</span>
+        <span class="metric-val"><strong>0.998</strong>: verified in the logged MLflow run, with fraud-class precision/recall/F1 around <strong>0.84 / 0.77 / 0.80</strong> at the tuned decision threshold.</span>
       </div>
       <div class="metric-block">
         <span class="metric-lbl">Trade-off</span>
-        <span class="metric-val">Accuracy 0.9996 is present but presented as secondary — the metric that matters is catching the 0.1% that is fraud.</span>
+        <span class="metric-val">Accuracy 0.9996 is present but presented as secondary; the metric that matters is catching the 0.1% that is fraud.</span>
       </div>
     </div>
   </section>

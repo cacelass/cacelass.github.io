@@ -6,7 +6,7 @@
   <title>MeshHarmes — Alejandro Cancelas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body class="proj-page">
@@ -30,7 +30,7 @@
       <div class="hero-eyebrow">MeshHarmes · agent harness</div>
       <h1>The rules of agent work<br /><span class="hl">written in code.</span></h1>
       <p class="hero-sub">
-        An agent harness and project infrastructure for general Python work — where the game rules are
+        An agent harness and project infrastructure for general Python work, where the game rules are
         written <strong>in code, not in a prompt</strong>: an entry gate that decides whether work can proceed,
         a backlog with acceptance criteria, memory outside the context window, and a permission gate for
         irreversible actions.
@@ -53,7 +53,7 @@
       <div class="proj-field-val proj-wide">
         An AI generates code much faster than a human reviews it. MeshHarmes is the environment that puts
         the reins on: a repository to start projects where an AI agent does part of the work, with a gate,
-        a verifiable backlog and a permission system — <strong>agnostic of the AI provider</strong>, in pure
+        a verifiable backlog and a permission system, <strong>agnostic of the AI provider</strong>, in pure
         Python with zero dependencies.
       </div>
       <div class="dskit-grid">
@@ -63,7 +63,7 @@
         </div>
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Purity</div>
-          <div class="dskit-stat-val"><code>agents/</code> is stdlib-only — works before anything is installed</div>
+          <div class="dskit-stat-val"><code>agents/</code> is stdlib-only, working before anything is installed</div>
         </div>
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Gate</div>
@@ -84,27 +84,27 @@
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>The gate is code, not convention</strong> — <code>harness finish</code> refuses to close a feature unless the gate passes with real command evidence.</span>
+          <span class="dskit-dec-text"><strong>The gate is code, not convention</strong>: <code>harness finish</code> refuses to close a feature unless the gate passes with real command evidence.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>One resource, one owner</strong> — only the <code>harness</code> agent writes the backlog; the <code>implementer</code> is the only one that touches product code.</span>
+          <span class="dskit-dec-text"><strong>One resource, one owner</strong>: only the <code>harness</code> agent writes the backlog; the <code>implementer</code> is the only one that touches product code.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Memory outside the context window</strong> — progress lives in files (<code>harness/progress/</code>), searchable via RAG after each close.</span>
+          <span class="dskit-dec-text"><strong>Memory outside the context window</strong>: progress lives in files (<code>harness/progress/</code>), searchable via RAG after each close.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>A permission gate for irreversible actions</strong> — destructive actions are declared in <code>agents/contracts.py</code> and refuse to run without explicit authorisation.</span>
+          <span class="dskit-dec-text"><strong>A permission gate for irreversible actions</strong>: destructive actions are declared in <code>agents/contracts.py</code> and refuse to run without explicit authorisation.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Provider-agnostic</strong> — any coding agent that can run shell commands can use it; no vendor SDK.</span>
+          <span class="dskit-dec-text"><strong>Provider-agnostic</strong>: any coding agent that can run shell commands can use it; no vendor SDK.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Prompt-injection aware</strong> — external data is data, never instructions; irreversible actions still ask for confirmation.</span>
+          <span class="dskit-dec-text"><strong>Prompt-injection aware</strong>: external data is data, never instructions; irreversible actions still ask for confirmation.</span>
         </div>
       </div>
       <div class="metric-block">

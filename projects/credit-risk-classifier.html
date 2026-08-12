@@ -6,7 +6,7 @@
   <title>credit-risk-classifier — Alejandro Cancelas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
 </head>
 <body class="proj-page">
@@ -52,14 +52,14 @@
       <div class="proj-field-val proj-wide">
         Retail banks run marketing campaigns over their customer base. Calling everyone is expensive;
         calling the wrong people wastes budget and harms the relationship. The model <strong>ranks the base by
-        subscription probability</strong>. The dataset is imbalanced — 88.7% of customers do not subscribe
-        versus 11.3% who do — so the evaluation centres on the ability to <strong>prioritise the positive
+        subscription probability</strong>. The dataset is imbalanced: 88.7% of customers do not subscribe
+        versus 11.3% who do, so the evaluation centres on the ability to <strong>prioritise the positive
         class</strong>, not on accuracy.
       </div>
       <div class="dskit-grid">
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Dataset</div>
-          <div class="dskit-stat-val">UCI Bank Marketing — 41,188 records · 20 features</div>
+          <div class="dskit-stat-val">UCI Bank Marketing (41,188 records, 20 features)</div>
         </div>
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Model</div>
@@ -84,23 +84,23 @@
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Split before transforming</strong> — the scaler and label encoders are fitted on the <strong>train set only</strong>, avoiding data leakage into the test set.</span>
+          <span class="dskit-dec-text"><strong>Split before transforming</strong>: the scaler and label encoders are fitted on the <strong>train set only</strong>, avoiding data leakage into the test set.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Stratified split</strong> — preserves the 88.7/11.3 class ratio in both folds.</span>
+          <span class="dskit-dec-text"><strong>Stratified split</strong>: preserves the 88.7/11.3 class ratio in both folds.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>PR-AUC and recall of the positive class</strong> — the trade-off that matters for prioritising a call list.</span>
+          <span class="dskit-dec-text"><strong>PR-AUC and recall of the positive class</strong>: the trade-off that matters for prioritising a call list.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Persisted artefacts</strong> — encoders, scaler and column order are reused in inference so production applies exactly the training transformations.</span>
+          <span class="dskit-dec-text"><strong>Persisted artefacts</strong>: encoders, scaler and column order are reused in inference so production applies exactly the training transformations.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Metrics saved to <code>reports/metrics.json</code></strong> — results are reproducible, not a screenshot of a notebook.</span>
+          <span class="dskit-dec-text"><strong>Metrics saved to <code>reports/metrics.json</code></strong>: results are reproducible, not a screenshot of a notebook.</span>
         </div>
       </div>
     </div>
@@ -120,7 +120,7 @@
       </div>
       <div class="metric-block">
         <span class="metric-lbl">PR-AUC</span>
-        <span class="metric-val"><strong>0.651</strong> — versus a 0.113 positive-class baseline, and recall 0.92 on the positive class at precision 0.46.</span>
+        <span class="metric-val"><strong>0.651</strong>: versus a 0.113 positive-class baseline, and recall 0.92 on the positive class at precision 0.46.</span>
       </div>
       <div class="proj-field-val proj-wide">
         Honest framing matters: this is a <strong>propensity / cross-sell</strong> model, not a credit risk
