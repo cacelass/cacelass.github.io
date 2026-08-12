@@ -441,6 +441,54 @@
     .proj-wide strong { color: var(--text); font-weight: 500; }
     .proj-wide a { color: var(--accent2); }
 
+    /* ── TERMINAL SIGNATURE (hero) ── */
+    .hero-term {
+      display: inline-flex; align-items: center; flex-wrap: wrap;
+      font-family: var(--mono); font-size: 0.8rem;
+      background: var(--surface); border: 1px solid var(--border-hi);
+      border-radius: var(--r); padding: 10px 16px; margin-bottom: 32px;
+      max-width: 100%; overflow: hidden;
+    }
+    .term-prompt { color: var(--green); font-weight: 500; }
+    .term-sep { color: var(--dim); }
+    .term-path { color: var(--accent2); }
+    .term-dollar { color: var(--muted); margin: 0 8px 0 6px; }
+    .term-cmd { color: var(--text); }
+    .term-cursor {
+      display: inline-block; width: 8px; height: 1.05em;
+      margin-left: 6px; background: var(--accent);
+      animation: blink 1.1s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ── SECTION MARKERS AS COMMANDS ── */
+    .sec-num { color: var(--green); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* ── MICRO-INTERACTIONS ── */
+    .feat-meta a, .proj-name a, .more-name a { transition: color 0.15s, transform 0.15s; }
+    .feat-meta a:hover { transform: translateX(3px); }
+    .hero-cta:hover { transform: translateY(-1px); }
+    .nav-links a:active, .hero-cta:active, .feat-meta a:active { transform: none; }
+
+    /* ── ACCESSIBILITY ── */
+    :focus-visible {
+      outline: 2px solid var(--accent2);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+      .term-cursor { animation: none; opacity: 0; }
+      html { scroll-behavior: auto; }
+    }
+
     @media (max-width: 640px) {
       .about-grid, .stack-grid { grid-template-columns: 1fr; }
       .stack-card.full { grid-column: 1; }
@@ -453,4 +501,5 @@
       .nav-links { display: none; }
       .hero { padding: 60px 0 48px; }
       .proj-hero { padding: 52px 0 40px; }
+      .hero-term { font-size: 0.72rem; }
     }

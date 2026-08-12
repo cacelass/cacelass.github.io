@@ -36,6 +36,11 @@
         as first-class constraints. I'm passionate about data: I learn constantly, take on hard problems,
         and I'm always working to make the next system better than the last.
       </p>
+      <div class="hero-term" role="presentation">
+        <span class="term-prompt">cacelass@gh</span><span class="term-sep">:</span><span class="term-path">~/systems</span><span class="term-dollar">$</span>
+        <span class="term-cmd">./build_ml_system --domain banking</span>
+        <span class="term-cursor"></span>
+      </div>
       <div class="hero-chips">
         <span class="chip blue">Python · Scikit-learn · LightGBM · XGBoost · Polars</span>
         <span class="chip green">Docker · Linux · uv · FastAPI · MLflow</span>
@@ -53,13 +58,13 @@
 
   <section class="section" id="about">
     <div class="container">
-      <div class="sec-head">
-        <span class="sec-num">01</span>
+      <div class="sec-head reveal">
+        <span class="sec-num">$</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">about</span>
         <span class="sec-title">Engineering identity</span>
       </div>
-      <div class="about-grid">
+      <div class="about-grid reveal">
         <div class="about-card">
           <div class="about-card-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -108,14 +113,14 @@
 
   <section class="section" id="projects">
     <div class="container">
-      <div class="sec-head">
-        <span class="sec-num">02</span>
+      <div class="sec-head reveal">
+        <span class="sec-num">$</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">projects</span>
         <span class="sec-title">Selected systems</span>
       </div>
 
-      <div class="featured-grid">
+      <div class="featured-grid reveal">
 
         <div class="feat-card">
           <div class="feat-top">
@@ -177,7 +182,7 @@
         <span class="sec-tag">more</span>
         <span class="sec-title">Further work</span>
       </div>
-      <div class="more-list">
+      <div class="more-list reveal">
         <div class="more-item">
           <div class="more-name"><a href="https://github.com/cacelass/cyberforest" target="_blank">cyberforest</a></div>
           <div class="more-desc">Two-level intrusion detection (LightGBM + KMeans) on CIC-IDS2017 with SMOTE and MLflow tracking.</div>
@@ -209,13 +214,13 @@
 
   <section class="section" id="stack">
     <div class="container">
-      <div class="sec-head">
-        <span class="sec-num">03</span>
+      <div class="sec-head reveal">
+        <span class="sec-num">$</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">stack</span>
         <span class="sec-title">Capability model</span>
       </div>
-      <div class="stack-grid">
+      <div class="stack-grid reveal">
         <div class="stack-card">
           <div class="stack-card-lbl">Core engineering</div>
           <div class="stack-items">
@@ -313,6 +318,20 @@
       </ul>
     </div>
   </footer>
+
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
 
 </body>
 </html>
