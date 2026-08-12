@@ -21,28 +21,31 @@
         <li><a href="#about">about</a></li>
         <li><a href="#projects">projects</a></li>
         <li><a href="#stack">stack</a></li>
+        <li><a href="#contact">contact</a></li>
       </ul>
     </div>
   </nav>
 
   <section class="hero">
     <div class="container">
-      <div class="hero-eyebrow">ML Engineer · banking &amp; data systems</div>
+      <div class="hero-eyebrow">ML Engineer · Data Systems · Finance</div>
       <h1>Decision systems for finance<br /><span class="hl">that survive production.</span></h1>
       <p class="hero-sub">
-        End-to-end ML for <strong>credit, fraud, AML and investment</strong> — ingestion to deployment,
-        with calibration, reproducible evaluation and leakage control as constraints, not afterthoughts.
-        Six public systems, real numbers, no inflated metrics.
+        I build end-to-end machine learning systems for <strong>credit, fraud, AML and investment analysis</strong> —
+        from data ingestion to deployment-ready code, with calibration, reproducibility and honest evaluation
+        as first-class constraints. I'm passionate about data: I learn constantly, take on hard problems,
+        and I'm always working to make the next system better than the last.
       </p>
       <div class="hero-term" role="presentation">
         <span class="term-prompt">cacelass@gh</span><span class="term-sep">:</span><span class="term-path">~/systems</span><span class="term-dollar">$</span>
         <span class="term-cmd">./build_ml_system --domain banking</span>
         <span class="term-cursor"></span>
       </div>
-      <div class="hero-meta">
-        <span class="meta-item"><span class="meta-k">status</span> open to work</span>
-        <span class="meta-item"><span class="meta-k">base</span> Galicia, ES</span>
-        <span class="meta-item"><span class="meta-k">focus</span> credit · fraud · AML · genai</span>
+      <div class="hero-chips">
+        <span class="chip blue">Python · Scikit-learn · LightGBM · XGBoost · Polars</span>
+        <span class="chip green">Docker · Linux · uv · FastAPI · MLflow</span>
+        <span class="chip amber">Fraud · Credit Risk · AML · Time Series</span>
+        <span class="chip">ASIR background</span>
       </div>
       <a class="hero-cta" href="https://github.com/cacelass" target="_blank">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -59,26 +62,51 @@
         <span class="sec-num">$</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">about</span>
-        <span class="sec-title">Profile</span>
+        <span class="sec-title">Engineering identity</span>
       </div>
-
-      <div class="profile-spec reveal">
-        <div class="spec-row"><span class="spec-k">role</span><span class="spec-v">ML Engineer — credit, fraud, AML, investment</span></div>
-        <div class="spec-row"><span class="spec-k">background</span><span class="spec-v">Systems Technician (ASIR) — databases, infra, Linux</span></div>
-        <div class="spec-row"><span class="spec-k">approach</span><span class="spec-v">systems-first: structure over convention, calibration over raw scores</span></div>
-        <div class="spec-row"><span class="spec-k">evaluation</span><span class="spec-v">leakage-controlled, out-of-sample, baseline-first</span></div>
-      </div>
-
-      <p class="about-note reveal">
-        Trained as a systems technician, drawn to databases and query performance, and now building ML
-        systems with that infrastructure mindset: environment isolation, failure modes and reproducible
-        pipelines before model architecture. I learn fast and take on problems I haven't solved before —
-        every system on this page was new to me when I started it.
-      </p>
-
-      <div class="metric-block reveal">
-        <span class="metric-lbl">How I work</span>
-        <span class="metric-val">No feature ships without a metric attached to it. If I can't reproduce the number, I don't claim it.</span>
+      <div class="about-grid reveal">
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+          </div>
+          <div class="about-card-lbl">Approach</div>
+          <p>I treat ML problems as <strong>systems problems first</strong>. A model that can't be reproduced or re-deployed is a liability. My workflow enforces clean separation between ingestion, feature computation, training, and evaluation — by structure, not convention. In finance that discipline is what makes a system auditable.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
+          </div>
+          <div class="about-card-lbl">Systems background</div>
+          <p>Trained and worked as a <strong>Systems Technician (ASIR)</strong>. What drew me most to the field was <strong>databases</strong> — from schema design and query writing to index tuning and execution plan analysis. That background shapes how I think about every ML system: infrastructure, environment isolation, and failure modes before model architecture.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+              <polyline points="16 7 22 7 22 13" />
+            </svg>
+          </div>
+          <div class="about-card-lbl">Production awareness</div>
+          <p>I design pipelines that don't break when schemas change, models that return <strong>calibrated probabilities</strong> rather than raw scores, and evaluation setups that catch leakage before it reaches production. I know the difference between a metric that looks good and a decision that holds up out-of-sample.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="21 16 21 8 12 3 3 8 3 16 12 21 21 16" />
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+              <line x1="12" y1="22.08" x2="12" y2="12" />
+            </svg>
+          </div>
+          <div class="about-card-lbl">Passion</div>
+          <p>I'm passionate about data <strong>inside and outside work</strong>. I love learning, taking on challenges and getting better at what I do. My professional aspiration is to build decision systems that real institutions trust — in credit, fraud and investment — and to keep growing as an ML engineer on every project.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -89,52 +117,64 @@
         <span class="sec-num">$</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">projects</span>
-        <span class="sec-title">Systems shipped</span>
+        <span class="sec-title">Selected systems</span>
       </div>
 
-      <div class="sys-list reveal">
+      <div class="featured-grid reveal">
 
-        <a class="sys-row" href="projects/fraud-shield.html">
-          <span class="sys-name">fraud-shield</span>
-          <span class="sys-domain">fraud detection</span>
-          <span class="sys-result">ROC-AUC 0.998</span>
-          <span class="sys-arrow">→</span>
-        </a>
+        <div class="feat-card">
+          <div class="feat-top">
+            <div class="feat-name"><a href="projects/dskit.html">dskit</a></div>
+            <span class="proj-tag">scaffold · harness</span>
+          </div>
+          <p class="feat-desc">Production-grade Data Science project scaffold with an AI harness: reproducible environments, verified backlog, and a quality gate enforced in code.</p>
+          <div class="feat-meta"><a href="projects/dskit.html">view project →</a></div>
+        </div>
 
-        <a class="sys-row" href="projects/credit-risk-classifier.html">
-          <span class="sys-name">credit-risk-classifier</span>
-          <span class="sys-domain">banking · propensity</span>
-          <span class="sys-result">ROC-AUC 0.948 · PR-AUC 0.651</span>
-          <span class="sys-arrow">→</span>
-        </a>
+        <div class="feat-card">
+          <div class="feat-top">
+            <div class="feat-name"><a href="projects/climasafe.html">ClimaSafe</a></div>
+            <span class="proj-tag">early warning · ML</span>
+          </div>
+          <p class="feat-desc">Early-warning system for heat and cold mortality risk across Spanish provinces — XGBoost + LSTM ensemble, conformal prediction, MLflow, Telegram bot.</p>
+          <div class="feat-meta"><a href="projects/climasafe.html">view project →</a></div>
+        </div>
 
-        <a class="sys-row" href="projects/climasafe.html">
-          <span class="sys-name">ClimaSafe</span>
-          <span class="sys-domain">early warning · ML</span>
-          <span class="sys-result">recall 0.737 heat</span>
-          <span class="sys-arrow">→</span>
-        </a>
+        <div class="feat-card">
+          <div class="feat-top">
+            <div class="feat-name"><a href="projects/fraud-shield.html">fraud-shield</a></div>
+            <span class="proj-tag">fraud detection</span>
+          </div>
+          <p class="feat-desc">Fraud detection on financial transactions (PaySim): imbalance-first evaluation, precision-recall as the primary metric, threshold tuning, MLflow tracked.</p>
+          <div class="feat-meta"><a href="projects/fraud-shield.html">view project →</a></div>
+        </div>
 
-        <a class="sys-row" href="projects/stock-market-prediction.html">
-          <span class="sys-name">Stock-Market-Prediction</span>
-          <span class="sys-domain">time series · finance</span>
-          <span class="sys-result">OOS backtest · costs</span>
-          <span class="sys-arrow">→</span>
-        </a>
+        <div class="feat-card">
+          <div class="feat-top">
+            <div class="feat-name"><a href="projects/credit-risk-classifier.html">credit-risk-classifier</a></div>
+            <span class="proj-tag">banking · propensity</span>
+          </div>
+          <p class="feat-desc">Retail banking propensity model (UCI Bank Marketing) with leakage-free preprocessing and real persisted metrics: ROC-AUC 0.948, PR-AUC 0.651.</p>
+          <div class="feat-meta"><a href="projects/credit-risk-classifier.html">view project →</a></div>
+        </div>
 
-        <a class="sys-row" href="projects/dskit.html">
-          <span class="sys-name">dskit</span>
-          <span class="sys-domain">scaffold · harness</span>
-          <span class="sys-result">gate enforced in code</span>
-          <span class="sys-arrow">→</span>
-        </a>
+        <div class="feat-card">
+          <div class="feat-top">
+            <div class="feat-name"><a href="projects/stock-market-prediction.html">Stock-Market-Prediction</a></div>
+            <span class="proj-tag">time series · finance</span>
+          </div>
+          <p class="feat-desc">Time-series classification with strict temporal validation, out-of-sample backtest with costs, and drift monitoring — honest about where the model fails.</p>
+          <div class="feat-meta"><a href="projects/stock-market-prediction.html">view project →</a></div>
+        </div>
 
-        <a class="sys-row" href="projects/meshharmes.html">
-          <span class="sys-name">MeshHarmes</span>
-          <span class="sys-domain">agent harness</span>
-          <span class="sys-result">24 agents · 0 deps</span>
-          <span class="sys-arrow">→</span>
-        </a>
+        <div class="feat-card">
+          <div class="feat-top">
+            <div class="feat-name"><a href="projects/meshharmes.html">MeshHarmes</a></div>
+            <span class="proj-tag">agent harness</span>
+          </div>
+          <p class="feat-desc">Agent harness: 24 Python agents, a permission gate, and a verified backlog — the rules of AI-assisted work written in code, not in prompts.</p>
+          <div class="feat-meta"><a href="projects/meshharmes.html">view project →</a></div>
+        </div>
 
       </div>
 
@@ -145,25 +185,28 @@
       <div class="more-list reveal">
         <div class="more-item">
           <div class="more-name"><a href="https://github.com/cacelass/cyberforest" target="_blank">cyberforest</a></div>
-          <div class="more-desc">Two-level intrusion detection (LightGBM + KMeans) on CIC-IDS2017.</div>
+          <div class="more-desc">Two-level intrusion detection (LightGBM + KMeans) on CIC-IDS2017 with SMOTE and MLflow tracking.</div>
+          <div class="more-tag">security</div>
         </div>
         <div class="more-item">
           <div class="more-name"><a href="https://github.com/cacelass/retainml" target="_blank">retainml</a></div>
-          <div class="more-desc">Churn probability with a modular RF pipeline.</div>
+          <div class="more-desc">Churn probability for customer data with a modular RF pipeline and feature engineering.</div>
+          <div class="more-tag">churn · ML</div>
         </div>
         <div class="more-item">
           <div class="more-name"><a href="https://github.com/cacelass/global-exclusion-risk-ml" target="_blank">global-exclusion-risk-ml</a></div>
           <div class="more-desc">Unsupervised clustering of 167 countries by socioeconomic indicators.</div>
+          <div class="more-tag">clustering</div>
         </div>
         <div class="more-item">
           <div class="more-name"><a href="https://github.com/cacelass/rps-predictive-agent" target="_blank">rps-predictive-agent</a></div>
           <div class="more-desc">Online frequency-based predictive agent for Rock-Paper-Scissors.</div>
+          <div class="more-tag">agents</div>
         </div>
       </div>
 
       <div class="scope-note">
-        <strong>In development:</strong> a portfolio manager to decide when to reinvest and when to withdraw —
-        built on the evaluation rigour of <a href="projects/stock-market-prediction.html">Stock-Market-Prediction</a>.
+        <strong>In development:</strong> a portfolio manager system to decide when to reinvest and when to withdraw — built on the evaluation rigour of <a href="projects/stock-market-prediction.html">Stock-Market-Prediction</a>.
       </div>
 
     </div>
@@ -175,53 +218,98 @@
         <span class="sec-num">$</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">stack</span>
-        <span class="sec-title">Tooling</span>
+        <span class="sec-title">Capability model</span>
       </div>
-
-      <div class="stack-cols reveal">
-        <div class="stack-col">
-          <div class="stack-col-k">engineering</div>
-          <div class="stack-col-v">Python · SQL · PL/SQL · Hive · Linux · Docker · Git · Bash · uv · FastAPI · Nginx</div>
+      <div class="stack-grid reveal">
+        <div class="stack-card">
+          <div class="stack-card-lbl">Core engineering</div>
+          <div class="stack-items">
+            <span class="stack-item">Python</span>
+            <span class="stack-item">SQL</span>
+            <span class="stack-item">PL/SQL</span>
+            <span class="stack-item">Hive</span>
+            <span class="stack-item">Linux</span>
+            <span class="stack-item">Docker</span>
+            <span class="stack-item">Git</span>
+            <span class="stack-item">Bash</span>
+            <span class="stack-item">uv</span>
+            <span class="stack-item">FastAPI</span>
+            <span class="stack-item">Nginx</span>
+          </div>
         </div>
-        <div class="stack-col">
-          <div class="stack-col-k">ml / data</div>
-          <div class="stack-col-v">Scikit-learn · LightGBM · XGBoost · PyTorch · Polars · Pandas · NumPy · MLflow · Optuna</div>
+        <div class="stack-card">
+          <div class="stack-card-lbl">ML / Data pipeline</div>
+          <div class="stack-items">
+            <span class="stack-item">Scikit-learn</span>
+            <span class="stack-item">LightGBM</span>
+            <span class="stack-item">XGBoost</span>
+            <span class="stack-item">PyTorch</span>
+            <span class="stack-item">Polars</span>
+            <span class="stack-item">Pandas</span>
+            <span class="stack-item">NumPy</span>
+            <span class="stack-item">MLflow</span>
+            <span class="stack-item">Optuna</span>
+            <span class="stack-item">Matplotlib</span>
+            <span class="stack-item">Seaborn</span>
+          </div>
         </div>
-        <div class="stack-col">
-          <div class="stack-col-k">infra / cloud</div>
-          <div class="stack-col-v">Azure · MySQL · SQLAlchemy · Apache · NoSQL · Power BI</div>
+        <div class="stack-card">
+          <div class="stack-card-lbl">Cloud / Infrastructure</div>
+          <div class="stack-items">
+            <span class="stack-item">Azure</span>
+            <span class="stack-item">MySQL</span>
+            <span class="stack-item">SQLAlchemy</span>
+            <span class="stack-item">Apache</span>
+            <span class="stack-item">NoSQL</span>
+            <span class="stack-item">Power BI</span>
+          </div>
+          <div class="cert-row">
+            <span class="cert-badge">Azure Data Fundamentals</span>
+            <span class="cert-badge">Power BI / DAX</span>
+            <span class="cert-badge">ASIR</span>
+          </div>
         </div>
-        <div class="stack-col">
-          <div class="stack-col-k">domain</div>
-          <div class="stack-col-v">Fraud detection · Credit risk · Churn · Time series · Clustering · Calibration · Leakage control · Conformal prediction</div>
+        <div class="stack-card">
+          <div class="stack-card-lbl">Domain knowledge</div>
+          <div class="stack-items">
+            <span class="stack-item">Fraud detection</span>
+            <span class="stack-item">Credit risk</span>
+            <span class="stack-item">Churn modelling</span>
+            <span class="stack-item">Time series</span>
+            <span class="stack-item">Clustering</span>
+            <span class="stack-item">Calibration</span>
+            <span class="stack-item">Leakage detection</span>
+            <span class="stack-item">Conformal prediction</span>
+          </div>
         </div>
-        <div class="stack-col">
-          <div class="stack-col-k">ai engineering</div>
-          <div class="stack-col-v">Generative AI · RAG · AI Harness · LoRA · Fine-tuning · MCP · AI Agents</div>
+        <div class="stack-card">
+          <div class="stack-card-lbl">AI engineering</div>
+          <div class="stack-items">
+            <span class="stack-item">Generative AI</span>
+            <span class="stack-item">RAG</span>
+            <span class="stack-item">AI Harness</span>
+            <span class="stack-item">LoRA</span>
+            <span class="stack-item">Fine-tuning</span>
+            <span class="stack-item">MCP</span>
+            <span class="stack-item">AI Agents</span>
+          </div>
         </div>
-      </div>
-
-      <div class="cert-line reveal">
-        <span class="cert-badge">Azure Data Fundamentals</span>
-        <span class="cert-badge">Power BI / DAX</span>
-        <span class="cert-badge">ASIR</span>
-      </div>
-
-      <div class="stack-card full cap-block reveal">
-        <div class="stack-card-lbl">What I can build</div>
-        <div class="cap-grid">
-          <span class="cap-item">End-to-end supervised pipelines (classification + regression)</span>
-          <span class="cap-item">Fraud and AML detection with imbalance-first evaluation</span>
-          <span class="cap-item">Credit scoring with calibrated probabilities and decoupled thresholds</span>
-          <span class="cap-item">Reproducible environments with versioned dependencies via uv</span>
-          <span class="cap-item">Evaluation frameworks with explicit data leakage controls</span>
-          <span class="cap-item">Time-series models with temporal validation and OOS backtest</span>
-          <span class="cap-item">Containerised ML services (Docker + FastAPI)</span>
-          <span class="cap-item">Drift monitoring for models in production</span>
-          <span class="cap-item">RAG systems with verifiable sources and guardrails</span>
-          <span class="cap-item">AI harnesses that enforce quality gates in code</span>
-          <span class="cap-item">Multi-agent systems with deterministic Python agents</span>
-          <span class="cap-item">LLM fine-tuning and LoRA adaptation</span>
+        <div class="stack-card full">
+          <div class="stack-card-lbl">What I can build</div>
+          <div class="cap-grid">
+            <span class="cap-item">End-to-end supervised pipelines (classification + regression)</span>
+            <span class="cap-item">Fraud and AML detection with imbalance-first evaluation</span>
+            <span class="cap-item">Credit scoring with calibrated probabilities and decoupled thresholds</span>
+            <span class="cap-item">Reproducible project environments with versioned dependencies via uv</span>
+            <span class="cap-item">Evaluation frameworks with explicit data leakage controls</span>
+            <span class="cap-item">Time-series models with temporal validation and out-of-sample backtest</span>
+            <span class="cap-item">Containerised ML services (Docker + FastAPI) for cloud or on-premise</span>
+            <span class="cap-item">Drift monitoring for models in production</span>
+            <span class="cap-item">RAG systems with verifiable sources and guardrails</span>
+            <span class="cap-item">AI harnesses that enforce quality gates in code</span>
+            <span class="cap-item">Multi-agent systems with deterministic Python agents</span>
+            <span class="cap-item">LLM fine-tuning and LoRA adaptation</span>
+          </div>
         </div>
       </div>
     </div>
