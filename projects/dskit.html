@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dskit — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body class="proj-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../index.html" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ dskit</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">about</a></li>
+        <li><a href="../index.html#projects">projects</a></li>
+        <li><a href="../index.html#stack">stack</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow">dskit · scaffold · harness</div>
+      <h1>Production-grade DS scaffold<br /><span class="hl">with the rules in code.</span></h1>
+      <p class="hero-sub">
+        A <a href="https://copier.readthedocs.io" target="_blank">copier</a> template that starts ML projects organised, reproducible and
+        production-ready — with an AI harness that governs how agents work on the project, a verifiable backlog,
+        and a definition of "done" enforced in code, not asked of the model.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="https://github.com/cacelass/dskit" target="_blank">github.com/cacelass/dskit</a>
+        <a class="hero-cta" href="../index.html">← back to projects</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">problem</span>
+        <span class="sec-title">What it solves</span>
+      </div>
+      <div class="proj-field-val proj-wide">
+        Most ML failures are not model failures — they are <strong>reproducibility and consistency failures</strong>.
+        Repetitive setup and inconsistent structure are the primary cause of broken projects. dskit eliminates
+        environment drift and enforces a standard project layout from day one.
+      </div>
+      <div class="dskit-grid">
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Type</div>
+          <div class="dskit-stat-val">Copier template · 4 ML profiles: supervisado, no_supervisado, redes_neuronales, hibrido</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Stack</div>
+          <div class="dskit-stat-val"><code>uv</code> · Copier · Sphinx · 6 NN architectures · Auto/CrossEntropy/MSELoss/L1/BCE</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Version</div>
+          <div class="dskit-stat-val">1.15.1 · CI green · Apache-2.0</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">harness</span>
+        <span class="sec-title">The AI harness</span>
+      </div>
+      <p class="proj-field-val proj-wide">
+        An AI model generates code much faster than a human reviews it. The harness puts the reins on:
+        it lives inside the generated repo, travels with the project and is shared by the whole team.
+      </p>
+      <div class="dskit-dec-list">
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>AGENTS.md</strong> — the entry point. The first thing any agent reads.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>init.sh</strong> — the gate: environment, harness files, backlog and test suite.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>harness/featureslist.json</strong> — a backlog with <strong>verifiable</strong> acceptance criteria.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>harness/progress/</strong> — memory outside the context window: current task and history.</span>
+        </div>
+      </div>
+      <div class="metric-block">
+        <span class="metric-lbl">The rule</span>
+        <span class="metric-val">No feature is marked <code>done</code> unless <code>./init.sh</code> passes in green with real command evidence. That is not a prompt instruction — <code>harness finish</code> applies it in Python, so it cannot be talked around.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">design</span>
+        <span class="sec-title">Why it's built this way</span>
+      </div>
+      <div class="dskit-dec-list">
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>uv over pip/conda</strong> — faster resolution, reproducible lockfiles, no hidden global state.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Convention over configuration</strong> — opinionated defaults reduce decision fatigue without blocking customisation.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Production layout, not Kaggle layout</strong> — raw vs processed data separated structurally, not by honour system.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Sphinx by default</strong> — documentation is a first-class deliverable, auto-generated from docstrings.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Two agent layers</strong> — reasoning agents (<code>lider</code>, <code>explorer</code>, <code>implementer</code>, <code>reviewer</code>) and 30 deterministic Python agents.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>One resource, one owner</strong> — contracts in <code>agents/contracts.py</code> declare what each agent may and may not do, validated by tests.</span>
+        </div>
+      </div>
+      <div class="metric-block">
+        <span class="metric-lbl">Ecosystem</span>
+        <span class="metric-val">dskit generated the <a href="climasafe.html">ClimaSafe</a> project and shares its harness philosophy with <a href="meshharmes.html">MeshHarmes</a>.</span>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass/dskit" target="_blank">github.com/cacelass/dskit</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>

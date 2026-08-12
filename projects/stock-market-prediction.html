@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock-Market-Prediction — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body class="proj-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../index.html" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ Stock-Market-Prediction</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">about</a></li>
+        <li><a href="../index.html#projects">projects</a></li>
+        <li><a href="../index.html#stack">stack</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow">Stock-Market-Prediction · time series · finance</div>
+      <h1>Financial time series<br /><span class="hl">evaluated honestly.</span></h1>
+      <p class="hero-sub">
+        Directional price movement prediction in a non-stationary, low signal-to-noise domain — where the
+        stated goal is not profitability but <strong>facing overfitting and data leakage rigorously</strong>.
+        Temporal validation, out-of-sample backtest with costs, conformal prediction and drift monitoring.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">github.com/cacelass/Stock-Market-Prediction</a>
+        <a class="hero-cta" href="../index.html">← back to projects</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">problem</span>
+        <span class="sec-title">What it solves</span>
+      </div>
+      <div class="proj-field-val proj-wide">
+        Predict whether an asset rises more than 2% in 5 days using Random Forest over multi-ticker data
+        plus sentiment features. The honest framing is explicit: most published results in this domain fail
+        out-of-sample, and this project treats that as <strong>the problem to solve</strong> — not a model
+        to squeeze.
+      </div>
+      <div class="dskit-grid">
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Task</div>
+          <div class="dskit-stat-val">Binary classification, multi-ticker + VADER sentiment</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Rigour</div>
+          <div class="dskit-stat-val">~160 tests · anti-leakage enforced in code · Optuna tuning</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Ops</div>
+          <div class="dskit-stat-val">FastAPI · PSI drift monitoring · conformal prediction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">decisions</span>
+        <span class="sec-title">Engineering decisions</span>
+      </div>
+      <div class="dskit-dec-list">
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Temporal validation is non-negotiable</strong> — walk-forward splits, no random k-fold on time series.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Scaler fitted on train only</strong> — the test set never touches the scaler.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Target built with <code>shift(-5)</code></strong> — the future only labels, never leaks into features.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Out-of-sample backtest with costs</strong> — 0.1% commission + 0.05% slippage, threshold calibrated on validation only.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Leakage tests in CI</strong> — tests verify no feature correlates ≥0.95 with the target.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Baseline-first discipline</strong> — results that don't beat a naïve baseline are not results.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">results</span>
+        <span class="sec-title">The honest outcome</span>
+      </div>
+      <div class="metric-block">
+        <span class="metric-lbl">Backtest OOS</span>
+        <span class="metric-val">Portfolio <strong>77.50%</strong> vs buy &amp; hold <strong>281.70%</strong> — the strategy does not beat buy &amp; hold after costs, and the report says so explicitly.</span>
+      </div>
+      <div class="metric-block">
+        <span class="metric-lbl">Per-ticker AUC</span>
+        <span class="metric-val">≈0.50–0.57 with train/test accuracy gaps documented — an honest, reproducible picture of a domain where most practitioners overfit silently.</span>
+      </div>
+      <div class="proj-field-val proj-wide">
+        The value is the <strong>evaluation rigour</strong>, not the model performance: knowing when a model
+        does not work is precisely what protects real capital. This is the foundation for the portfolio
+        manager system in development.
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">github.com/cacelass/Stock-Market-Prediction</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>

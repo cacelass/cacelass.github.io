@@ -368,6 +368,79 @@
     }
     .footer-links a:hover { border-color: var(--accent); color: var(--accent2); }
 
+    /* ── FEATURED PROJECT CARDS (index) ── */
+    .featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+    .feat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r2);
+      padding: 22px 24px;
+      display: flex; flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .feat-card:hover { border-color: var(--border-hi); background: var(--surface2); }
+    .feat-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .feat-name { font-family: var(--mono); font-size: 0.92rem; font-weight: 500; }
+    .feat-name a { color: var(--text); transition: color 0.15s; }
+    .feat-name a:hover { color: var(--accent2); }
+    .feat-desc { font-size: 0.845rem; color: var(--muted); line-height: 1.7; font-weight: 300; flex: 1; }
+    .feat-desc strong { color: var(--text); font-weight: 500; }
+    .feat-meta { margin-top: 6px; }
+    .feat-meta a {
+      font-family: var(--mono); font-size: 0.7rem; color: var(--accent2);
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .feat-meta a:hover { color: #fff; }
+
+    .more-head { display: flex; align-items: center; gap: 12px; margin: 8px 0 14px; }
+    .more-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .more-item {
+      display: grid; grid-template-columns: 200px 1fr auto;
+      align-items: baseline; gap: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 12px 16px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .more-item:hover { border-color: var(--border-hi); background: var(--surface2); }
+    .more-name { font-family: var(--mono); font-size: 0.8rem; font-weight: 500; }
+    .more-name a { color: var(--text); }
+    .more-name a:hover { color: var(--accent2); }
+    .more-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+    .more-tag {
+      font-family: var(--mono); font-size: 0.62rem; color: var(--muted);
+      border: 1px solid var(--border-hi); border-radius: 20px;
+      padding: 2px 10px; white-space: nowrap;
+    }
+
+    /* ── PROJECT DETAIL PAGES ── */
+    .nav-back { color: var(--muted); transition: color 0.15s; }
+    .nav-back:hover { color: var(--accent2); }
+    .proj-page nav .nav-id strong { color: var(--text); }
+    .proj-page nav .nav-id span { color: var(--muted); }
+    .proj-hero {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .proj-hero h1 {
+      font-size: clamp(1.7rem, 4.2vw, 2.5rem);
+      font-weight: 600; line-height: 1.15;
+      color: #fff; letter-spacing: -0.03em; margin-bottom: 18px;
+    }
+    .proj-hero h1 .hl {
+      background: linear-gradient(135deg, var(--accent2) 0%, var(--purple) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .proj-hero .hero-sub { font-size: 1rem; color: var(--muted); max-width: 620px; line-height: 1.75; margin-bottom: 28px; font-weight: 300; }
+    .proj-hero .hero-sub a { color: var(--accent2); }
+    .proj-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .proj-wide { max-width: 720px; font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-bottom: 22px; }
+    .proj-wide strong { color: var(--text); font-weight: 500; }
+    .proj-wide a { color: var(--accent2); }
+
     @media (max-width: 640px) {
       .about-grid, .stack-grid { grid-template-columns: 1fr; }
       .stack-card.full { grid-column: 1; }
@@ -375,6 +448,9 @@
       .cap-grid { grid-template-columns: 1fr; }
       .dskit-grid { grid-template-columns: 1fr; }
       .dskit-dec-list { grid-template-columns: 1fr; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .more-item { grid-template-columns: 1fr; gap: 6px; }
       .nav-links { display: none; }
       .hero { padding: 60px 0 48px; }
+      .proj-hero { padding: 52px 0 40px; }
     }

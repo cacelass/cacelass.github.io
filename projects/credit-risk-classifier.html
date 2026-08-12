@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>credit-risk-classifier — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body class="proj-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../index.html" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ credit-risk-classifier</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">about</a></li>
+        <li><a href="../index.html#projects">projects</a></li>
+        <li><a href="../index.html#stack">stack</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow">credit-risk-classifier · banking · propensity</div>
+      <h1>Prioritise the right customers<br /><span class="hl">before the call.</span></h1>
+      <p class="hero-sub">
+        A retail banking propensity model on the UCI Bank Marketing dataset: predict the probability that a
+        customer subscribes a term deposit during a marketing campaign, so the campaign team can prioritise
+        who to call. Built with leakage-free preprocessing and persisted, reproducible metrics.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="https://github.com/cacelass/credit-risk-classifier" target="_blank">github.com/cacelass/credit-risk-classifier</a>
+        <a class="hero-cta" href="../index.html">← back to projects</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">problem</span>
+        <span class="sec-title">What it solves</span>
+      </div>
+      <div class="proj-field-val proj-wide">
+        Retail banks run marketing campaigns over their customer base. Calling everyone is expensive;
+        calling the wrong people wastes budget and harms the relationship. The model <strong>ranks the base by
+        subscription probability</strong>. The dataset is imbalanced — 88.7% of customers do not subscribe
+        versus 11.3% who do — so the evaluation centres on the ability to <strong>prioritise the positive
+        class</strong>, not on accuracy.
+      </div>
+      <div class="dskit-grid">
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Dataset</div>
+          <div class="dskit-stat-val">UCI Bank Marketing — 41,188 records · 20 features</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Model</div>
+          <div class="dskit-stat-val">Random Forest, <code>class_weight='balanced'</code></div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Output</div>
+          <div class="dskit-stat-val">Subscription probability + persisted metrics</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">decisions</span>
+        <span class="sec-title">Engineering decisions</span>
+      </div>
+      <div class="dskit-dec-list">
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Split before transforming</strong> — the scaler and label encoders are fitted on the <strong>train set only</strong>, avoiding data leakage into the test set.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Stratified split</strong> — preserves the 88.7/11.3 class ratio in both folds.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>PR-AUC and recall of the positive class</strong> — the trade-off that matters for prioritising a call list.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Persisted artefacts</strong> — encoders, scaler and column order are reused in inference so production applies exactly the training transformations.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Metrics saved to <code>reports/metrics.json</code></strong> — results are reproducible, not a screenshot of a notebook.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">results</span>
+        <span class="sec-title">Real numbers</span>
+      </div>
+      <div class="metric-block">
+        <span class="metric-lbl">ROC-AUC</span>
+        <span class="metric-val"><strong>0.948</strong></span>
+      </div>
+      <div class="metric-block">
+        <span class="metric-lbl">PR-AUC</span>
+        <span class="metric-val"><strong>0.651</strong> — versus a 0.113 positive-class baseline, and recall 0.92 on the positive class at precision 0.46.</span>
+      </div>
+      <div class="proj-field-val proj-wide">
+        Honest framing matters: this is a <strong>propensity / cross-sell</strong> model, not a credit risk
+        model. The campaign-interaction variables (call duration, pdays) make it right for <strong>prioritising
+        and segmenting</strong>, not for predicting the result before the call is made.
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass/credit-risk-classifier" target="_blank">github.com/cacelass/credit-risk-classifier</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>

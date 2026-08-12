@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClimaSafe — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body class="proj-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../index.html" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ ClimaSafe</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">about</a></li>
+        <li><a href="../index.html#projects">projects</a></li>
+        <li><a href="../index.html#stack">stack</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow">ClimaSafe · early warning · ML</div>
+      <h1>Heat and cold risk warning<br /><span class="hl">before the day arrives.</span></h1>
+      <p class="hero-sub">
+        A system that estimates the temperature risk level (safe / caution / danger) for each Spanish
+        province and day, from ERA5 weather variables — so dangerous days can be anticipated before
+        they happen. An XGBoost + LSTM ensemble, calibrated via conformal prediction, tracked in MLflow,
+        with a Telegram bot.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
+        <a class="hero-cta" href="../index.html">← back to projects</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">problem</span>
+        <span class="sec-title">What it solves</span>
+      </div>
+      <div class="proj-field-val proj-wide">
+        Temperature extremes have a direct, lagged effect on mortality. The system models the
+        relationship between daily meteorological variables and mortality attributed to heat (X30)
+        and cold (X31), then produces <strong>province-day risk levels</strong>. It is an early-warning
+        system: it prioritises <strong>not missing risky days</strong> (recall) over avoiding false alarms.
+      </div>
+      <div class="dskit-grid">
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Models</div>
+          <div class="dskit-stat-val">XGBoost (heat) · RandomForest (cold) · LSTM province_hybrid</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Data</div>
+          <div class="dskit-stat-val">ERA5 (ECMWF) · AEMET · Open-Meteo · MoMo mortality</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Scope</div>
+          <div class="dskit-stat-val">Risk per province and day · heat and cold · UV as future line</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">approach</span>
+        <span class="sec-title">Modelling</span>
+      </div>
+      <div class="dskit-dec-list">
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Target</strong> — mortality percentiles from MoMo (X30/X31), computed <strong>per province</strong> so small provinces are not penalised.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Features</strong> — thermal comfort indices (Heat Index, WBGT, Wind Chill) at the riskiest hour, plus the daily 24 h distribution and temporal persistence (lags, rolling means, consecutive cold-day streaks).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Split by date, not random</strong> — avoids leaking days of the same wave between train and test.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Selection metric</strong> — recall of the risk classes (Rec_riesgo), not accuracy.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Tracking</strong> — MLflow with temporal cross-validation by year.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">results</span>
+        <span class="sec-title">Real numbers</span>
+      </div>
+      <div class="metric-block">
+        <span class="metric-lbl">Rec_riesgo (calibrated thresholds)</span>
+        <span class="metric-val">XGBoost <strong>0.668</strong> (heat) · RF <strong>0.612</strong> (cold) · LSTM <strong>0.737</strong> heat / <strong>0.708</strong> cold.</span>
+      </div>
+      <div class="proj-field-val proj-wide">
+        Beyond the classifier, the project delivers <strong>conformal prediction</strong>, individual risk
+        personalisation (age, sex, comorbidities, activity), km² risk maps, SHAP explainability, and a
+        Telegram bot — built as part of the <strong>ANFAIA Summer Grants 2026</strong> and generated from
+        the <a href="dskit.html">dskit</a> template.
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
