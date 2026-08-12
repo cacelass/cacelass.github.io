@@ -27,6 +27,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 15px; scroll-behavior: smooth; }
     body {
+      overflow-x: clip;
       color: var(--text);
       font-family: var(--sans);
       font-weight: 400;
@@ -100,6 +101,7 @@
       padding: 88px 0 76px;
       border-bottom: 1px solid var(--border);
       position: relative;
+      overflow-x: clip;
     }
     .hero::after {
       content: '';
