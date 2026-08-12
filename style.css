@@ -146,6 +146,7 @@
       padding: 9px 16px; transition: border-color 0.2s, background 0.2s;
     }
     .hero-cta:hover { border-color: var(--accent); background: var(--accent-lo); color: #fff; }
+    .hero-cta + .hero-cta { margin-left: 10px; }
 
     /* ── SECTION ── */
     .section { padding: 72px 0; border-bottom: 1px solid var(--border); }
