@@ -28,11 +28,11 @@
   <section class="proj-hero">
     <div class="container">
       <div class="hero-eyebrow">dskit · scaffold · harness</div>
-      <h1>Production-grade DS scaffold<br /><span class="hl">with the rules in code.</span></h1>
+      <h1>A production-grade ML scaffold<br /><span class="hl">with the rules in code.</span></h1>
       <p class="hero-sub">
-        A <a href="https://copier.readthedocs.io" target="_blank">copier</a> template that starts ML projects organised, reproducible and
-        production-ready — with an AI harness that governs how agents work on the project, a verifiable backlog,
-        and a definition of "done" enforced in code, not asked of the model.
+        A <a href="https://copier.readthedocs.io" target="_blank">copier</a> template that generates complete ML projects —
+        from environment and layout to API, monitoring, RAG and an AI harness. It doesn't just start a project:
+        it ships with the quality pipeline and the governance already wired in.
       </p>
       <div class="proj-links">
         <a class="hero-cta" href="https://github.com/cacelass/dskit" target="_blank">github.com/cacelass/dskit</a>
@@ -52,16 +52,17 @@
       <div class="proj-field-val proj-wide">
         Most ML failures are not model failures — they are <strong>reproducibility and consistency failures</strong>.
         Repetitive setup and inconsistent structure are the primary cause of broken projects. dskit eliminates
-        environment drift and enforces a standard project layout from day one.
+        environment drift and enforces a standard project layout from day one, so every generated project
+        starts reproducible, testable and deployment-ready.
       </div>
       <div class="dskit-grid">
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Type</div>
-          <div class="dskit-stat-val">Copier template · 4 ML profiles: supervisado, no_supervisado, redes_neuronales, hibrido</div>
+          <div class="dskit-stat-val">Copier template · 4 ML profiles · 30 Python agents</div>
         </div>
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Stack</div>
-          <div class="dskit-stat-val"><code>uv</code> · Copier · Sphinx · 6 NN architectures · Auto/CrossEntropy/MSELoss/L1/BCE</div>
+          <div class="dskit-stat-val"><code>uv</code> · Copier · Sphinx · PyTorch · FastAPI · MLflow · Optuna</div>
         </div>
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Version</div>
@@ -76,21 +77,170 @@
       <div class="sec-head reveal">
         <span class="sec-num">02</span>
         <div class="sec-divider"></div>
+        <span class="sec-tag">generation</span>
+        <span class="sec-title">One command, a full project</span>
+      </div>
+      <div class="proj-field-val proj-wide">
+        <code>copier copy --trust gh:cacelass/dskit mi_proyecto</code> generates a project with the exact ML
+        flavour you need. Four profiles set the defaults: <code>minimo</code>, <code>estandar</code>,
+        <code>completo</code> and <code>manual</code> (one question at a time).
+      </div>
+      <div class="dskit-dec-list">
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>4 ML types</strong> — <code>supervisado</code>, <code>no_supervisado</code>, <code>redes_neuronales</code>, <code>hibrido</code>; task <code>clasificacion</code> / <code>regresion</code>.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>11 model selectors</strong> — RandomForest, ExtraTrees, GradientBoosting, XGBoost, LightGBM, CatBoost, LogisticRegression, KNN, DecisionTree, SVM, or all in parallel.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>6 NN architectures</strong> — MLP, CNN1D, LSTM, GRU, Transformer, ResNet; 5 optimisers and 5 loss functions.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>6 clustering algorithms</strong> — KMeans, Agglomerative, DBSCAN, GaussianMixture, Spectral, Birch.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Python 3.10–3.13</strong> and license (MIT, BSD-3, Apache-2.0 or none) chosen at generation time.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Live template</strong> — <code>copier update</code> brings improvements from later versions without restarting; answers are kept in <code>.copier-answers.yml</code>.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">modules</span>
+        <span class="sec-title">Optional modules, opt-in</span>
+      </div>
+      <div class="dskit-dec-list">
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>API</strong> — FastAPI with <code>/health</code>, <code>/info</code>, <code>/predict</code>; Pydantic V2 schemas (<code>make serve</code>).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>MLflow</strong> — experiment tracking, artifacts and Model Registry (<code>make mlflow</code>).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Optuna HPO</strong> — per-model objective functions; best params saved to <code>artifacts/</code> (<code>make tune</code>).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Monitoring</strong> — KS/chi² drift + performance vs baseline with Evidently (<code>make monitor</code>).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>RAG</strong> — local hybrid retrieval (ChromaDB + BM25), offline, no API key: indexes code, docs, harness memory and a knowledge corpus (<code>make index-rag</code>).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Spec-driven</strong> — Gherkin contract with a human gate before coding, mutation testing and CRAP metric (<code>make mutation</code>).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Conformal prediction</strong> — coverage-guaranteed, distribution-free sets and intervals.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Calibration</strong> — temperature scaling for neural networks.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>SHAP</strong> — feature importance automatically computed on the best model.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>DuckDB</strong> — SQL directly over CSV/Parquet/JSON (<code>make query</code>).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Docker + Gradio chat</strong> — containerised model interface (<code>make docker-run</code>).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>MCP servers</strong> — filesystem, git, fetch and more for the coding assistant.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">04</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">quality</span>
+        <span class="sec-title">Quality pipeline</span>
+      </div>
+      <div class="dskit-dec-list">
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong><code>make check</code></strong> — lint + typecheck + test + harness in one battery.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong><code>make security</code></strong> — bandit + pip-audit; <code>make audit</code> — radon cc + team audit.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Tests for every layer</strong> — train, predict, features, dataset, API, tuning, monitoring, with a <code>patch_paths</code> fixture that isolates the filesystem.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>TorchMetrics</strong> — consistent metrics between training and evaluation (Accuracy/F1/Precision/Recall, MAE/RMSE/R²).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Early stopping</strong> and configurable validation split for neural networks; TensorBoard wired in.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Profiling</strong> — cProfile → snakeviz (<code>make profile</code>); lockfile regeneration (<code>make lock</code>).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>CI runs the harness gate</strong> and fails if agent prompts drift from the code.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Live PRD</strong> — <code>docs/prd.md</code> regenerates from the backlog every time a feature closes.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">05</span>
+        <div class="sec-divider"></div>
         <span class="sec-tag">harness</span>
         <span class="sec-title">The AI harness</span>
       </div>
       <p class="proj-field-val proj-wide">
         An AI model generates code much faster than a human reviews it. The harness puts the reins on:
         it lives inside the generated repo, travels with the project and is shared by the whole team.
+        It is <strong>provider-agnostic</strong> — any coding agent that reads <code>AGENTS.md</code> and can run shell commands can use it.
       </p>
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>AGENTS.md</strong> — the entry point. The first thing any agent reads.</span>
+          <span class="dskit-dec-text"><strong>AGENTS.md</strong> — the entry point. The first thing any agent reads. <code>CLAUDE.md</code> only points to it, no duplication.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>init.sh</strong> — the gate: environment, harness files, backlog and test suite.</span>
+          <span class="dskit-dec-text"><strong>init.sh</strong> — the gate: environment, harness files, backlog and test suite. Exit != 0 means stop.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
@@ -98,7 +248,23 @@
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>harness/progress/</strong> — memory outside the context window: current task and history.</span>
+          <span class="dskit-dec-text"><strong>harness/progress/</strong> — memory outside the context window: current task and append-only history.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Two agent layers</strong> — reasoning agents (<code>lider</code>, <code>explorer</code>, <code>implementer</code>, <code>reviewer</code>) and 30 deterministic Python agents (git, test, docker, data, ml, docs…).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>One resource, one owner</strong> — contracts in <code>agents/contracts.py</code> declare what each agent may and may not do, validated by tests.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Prompt discipline</strong> — agent prompts are derived from code; <code>make prompts-check</code> fails CI if they desynchronise.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Multi-assistant</strong> — <code>make assistants-sync</code> mirrors the agents to <code>.claude/agents/</code>; a <code>SessionEnd</code> hook runs the gate when the session closes.</span>
         </div>
       </div>
       <div class="metric-block">
@@ -111,36 +277,16 @@
   <section class="section">
     <div class="container">
       <div class="sec-head reveal">
-        <span class="sec-num">03</span>
+        <span class="sec-num">06</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">design</span>
-        <span class="sec-title">Why it's built this way</span>
+        <span class="sec-tag">layout</span>
+        <span class="sec-title">Generated structure</span>
       </div>
-      <div class="dskit-dec-list">
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>uv over pip/conda</strong> — faster resolution, reproducible lockfiles, no hidden global state.</span>
-        </div>
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Convention over configuration</strong> — opinionated defaults reduce decision fatigue without blocking customisation.</span>
-        </div>
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Production layout, not Kaggle layout</strong> — raw vs processed data separated structurally, not by honour system.</span>
-        </div>
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Sphinx by default</strong> — documentation is a first-class deliverable, auto-generated from docstrings.</span>
-        </div>
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Two agent layers</strong> — reasoning agents (<code>lider</code>, <code>explorer</code>, <code>implementer</code>, <code>reviewer</code>) and 30 deterministic Python agents.</span>
-        </div>
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>One resource, one owner</strong> — contracts in <code>agents/contracts.py</code> declare what each agent may and may not do, validated by tests.</span>
-        </div>
+      <div class="proj-field-val proj-wide">
+        Every project ships with a production layout: package + <code>data/{raw,interim,processed,external}</code>,
+        <code>models/artifacts/</code>, <code>reports/</code>, <code>tests/</code>, an optional Obsidian
+        <code>vault/</code> for project knowledge, and <code>.copier-answers.yml</code> so the template can
+        evolve without restarting.
       </div>
       <div class="metric-block">
         <span class="metric-lbl">Ecosystem</span>
