@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClimaSafe Telegram — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .code-block {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border-hi);
+      border-radius: var(--r);
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 12px 0 24px;
+    }
+    .note {
+      background: var(--surface);
+      border: 1px solid var(--border-hi);
+      border-left: 3px solid var(--accent2);
+      border-radius: var(--r);
+      padding: 12px 16px;
+      font-size: 0.835rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .note strong { color: var(--text); font-weight: 500; }
+  </style>
+</head>
+<body class="proj-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../index.html" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ ClimaSafe · Telegram</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">about</a></li>
+        <li><a href="../index.html#projects">projects</a></li>
+        <li><a href="../index.html#stack">stack</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow">ClimaSafe · Telegram bot</div>
+      <h1>Heat and cold risk,<br /><span class="hl">right in your chat.</span></h1>
+      <p class="hero-sub">
+        The ClimaSafe Telegram bot answers with your personal risk level, manages your profile and
+        routines, and sends daily alerts before dangerous days arrive. Responses are drafted by a
+        local LLM running on your machine.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="mcp.html">MCP server</a>
+        <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
+        <a class="hero-cta" href="../projects/climasafe.html">← back to project</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">01</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">create</span>
+        <span class="sec-title">Create the bot with @BotFather</span>
+      </div>
+      <div class="dskit-dec-list">
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text">Open <strong>@BotFather</strong> in Telegram and send <code>/newbot</code>.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text">Choose a <strong>name</strong> (what users see) and a <strong>username</strong> ending in <code>bot</code>.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text">Copy the <strong>API token</strong> that BotFather returns. It looks like <code>123456:ABC-DEF...</code>.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">02</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">token</span>
+        <span class="sec-title">Where the token goes</span>
+      </div>
+      <div class="proj-field-val proj-wide">
+        The token goes in a <code>.env</code> file at the <strong>root of the ClimaSafe repository</strong>:
+      </div>
+      <pre class="code-block">TELEGRAM_BOT_TOKEN=123456:ABC-DEF...  # never commit this</pre>
+      <div class="proj-field-val proj-wide">
+        Start with <code>.env.example</code> as a reference: copy it to <code>.env</code> and fill in
+        your token. The token is a secret: it never goes in the code, never in the repository, never
+        in a commit.
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">run</span>
+        <span class="sec-title">Run it locally</span>
+      </div>
+      <div class="proj-field-val proj-wide">
+        The bot is started from the repository root with the Makefile targets:
+        <code>make spacebot</code> (first-time setup) and <code>make spacebot-start</code> (run the
+        bot). The daily alert and prediction pipeline runs on a schedule.
+      </div>
+      <div class="note">
+        <strong>El LLM del bot es local (Ollama).</strong> The bot drafts its replies with a local
+        LLM — <strong>Ollama</strong> serving <strong>qwen3:climasafe</strong>, a fine-tuned model —
+        not with a cloud API. For the bot to work, run the repository while Ollama serves the model.
+        Everything else — the form, the risk prediction and the daily alerts — is deterministic and
+        works regardless of the LLM.
+      </div>
+      <div class="proj-field-val proj-wide">
+        Source and setup details:
+        <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>.
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
+
+</body>
+</html>
