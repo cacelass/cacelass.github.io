@@ -30,10 +30,13 @@
       <div class="hero-eyebrow">ClimaSafe · early warning · ML</div>
       <h1>Heat and cold risk warning<br /><span class="hl">before the day arrives.</span></h1>
       <p class="hero-sub">
-        A system that estimates the temperature risk level (safe / caution / danger) for each Spanish
-        province and day, from ERA5 weather variables, so dangerous days can be anticipated before
-        they happen. An XGBoost + LSTM ensemble, calibrated via conformal prediction, tracked in MLflow,
-        with a Telegram bot.
+        A personalized early-warning system for heat and cold stress. It estimates your cardiovascular
+        risk level (safe / caution / danger) for any Spanish location, day and hour, from thermal comfort
+        indices and a <strong>conformal-weighted ensemble</strong> of XGBoost (heat), RandomForest (cold) and an
+        LSTM with province embedding, and then personalises the population risk with
+        <strong>literature-based individual factors</strong> — age, sex, body fat, comorbidities, medication,
+        acclimatisation, activity. Live forecast from Open-Meteo; target built from MoMo mortality
+        attributable to heat (X30) and cold (X31).
       </p>
       <div class="proj-links">
         <a class="hero-cta" href="../climasafe/probar-ya/">Probar ya</a>
@@ -59,19 +62,23 @@
         relationship between daily meteorological variables and mortality attributed to heat (X30)
         and cold (X31), then produces <strong>province-day risk levels</strong>. It is an early-warning
         system: it prioritises <strong>not missing risky days</strong> (recall) over avoiding false alarms.
+        On top of the population risk, it computes an <strong>individual risk</strong> — a 72-year-old with
+        diabetes, antipsychotics and no acclimatisation is not a 25-year-old runner — by applying
+        multiplicative factors extracted from the epidemiological literature, with a physical safety
+        override when the Heat Index or Wind Chill crosses dangerous thresholds.
       </div>
       <div class="dskit-grid">
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Models</div>
-          <div class="dskit-stat-val">XGBoost (heat) · RandomForest (cold) · LSTM province_hybrid</div>
+          <div class="dskit-stat-val">XGBoost (heat) · RandomForest (cold) · LSTM province_hybrid · thermal indices</div>
         </div>
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Data</div>
-          <div class="dskit-stat-val">ERA5 (ECMWF) · AEMET · Open-Meteo · MoMo mortality</div>
+          <div class="dskit-stat-val">ERA5 (train) · Open-Meteo (live) · AEMET · OpenUV · MoMo mortality</div>
         </div>
         <div class="dskit-stat">
           <div class="dskit-stat-lbl">Scope</div>
-          <div class="dskit-stat-val">Risk per province and day · heat and cold · UV as future line</div>
+          <div class="dskit-stat-val">Personalized risk per person, province, day and hour · heat and cold</div>
         </div>
       </div>
     </div>
@@ -106,6 +113,14 @@
           <span class="dskit-dec-arrow">→</span>
           <span class="dskit-dec-text"><strong>Tracking</strong>: MLflow with temporal cross-validation by year.</span>
         </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Ensemble</strong>: conformal-weighted average — each model is weighted by the size of its conformal prediction set (the smaller the set, the more it is trusted), with isotonic calibration for the cold channel.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text"><strong>Personalisation</strong>: multiplicative factors from the epidemiological literature (age, sex, body fat, acclimatisation, comorbidities, medication, social situation, activity intensity, duration and hour, wind chill saturation, cumulative fatigue), capped to avoid double counting, plus physical overrides by Heat Index / Wind Chill.</span>
+        </div>
       </div>
     </div>
   </section>
@@ -124,9 +139,11 @@
       </div>
       <div class="proj-field-val proj-wide">
         Beyond the classifier, the project delivers <strong>conformal prediction</strong>, individual risk
-        personalisation (age, sex, comorbidities, activity), km² risk maps, SHAP explainability, and a
-        Telegram bot, built as part of the <strong>ANFAIA Summer Grants 2026</strong> and generated from
-        the <a href="dskit.html">dskit</a> template.
+        personalisation, per-hour risk profiles, a <strong>weekly forecast with conformal confidence bands</strong>,
+        km² risk maps, SHAP explainability, counterfactual recommendations, a <strong>Telegram bot</strong>,
+        <strong>MCP servers</strong> for AI assistants, RAG over the documentation, and a <strong>fine-tuned Qwen3
+        LLM</strong> (LoRA) for natural-language answers — all built as part of the
+        <strong>ANFAIA Summer Grants 2026</strong> and generated from the <a href="dskit.html">dskit</a> template.
       </div>
     </div>
   </section>
