@@ -176,12 +176,12 @@
     <div class="nav-inner">
       <div class="nav-brand">
         <div class="nav-dot"></div>
-        <div class="nav-id"><a href="../index.html" class="nav-back">← index</a> <strong>ClimaSafe</strong> <span>/ probar-ya</span></div>
+        <div class="nav-id"><a href="../../index.html" class="nav-back">← index</a> <strong>ClimaSafe</strong> <span>/ probar-ya</span></div>
       </div>
       <ul class="nav-links" style="display:flex;gap:18px;list-style:none;">
         <li><a href="#formulario">formulario</a></li>
         <li><a href="#resultado">resultado</a></li>
-        <li><a href="README.md" target="_blank">README</a></li>
+        <li><a href="../../projects/climasafe.html">volver</a></li>
       </ul>
     </div>
   </nav>
@@ -196,8 +196,8 @@
         Open-Meteo; si no hay red, se usa un escenario precargado.
       </p>
       <div class="proj-links">
+        <a class="hero-cta" href="../../projects/climasafe.html">← Volver</a>
         <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
-        <a class="hero-cta" href="README.md" target="_blank">cómo regenerar / desplegar</a>
       </div>
     </div>
   </section>
@@ -348,6 +348,22 @@
           <div class="field" style="display:flex;align-items:flex-end;">
             <button id="predecir" class="hero-cta" disabled>Predecir riesgo →</button>
           </div>
+        </div>
+        <div class="field">
+          <label for="ocupacion">Ocupación en la salida (solo si vas a trabajar)</label>
+          <select id="ocupacion">
+            <option value="">— no es una salida laboral —</option>
+            <option value="oficina">Oficina / bajo techo</option>
+            <option value="reparto">Reparto / conducción</option>
+            <option value="mantenimiento">Mantenimiento exterior</option>
+            <option value="construccion">Construcción</option>
+            <option value="campo">Campo / agricultura</option>
+          </select>
+        </div>
+        <div class="checks" style="margin-top:4px;">
+          <label class="check"><input type="checkbox" id="falta_sueno"> Dormí mal / menos de 6 h</label>
+          <label class="check"><input type="checkbox" id="enfermedad_reciente"> Estoy resfriado / enfermo</label>
+          <label class="check"><input type="checkbox" id="fiesta"> Fiesta / celebración (alcohol + baile)</label>
         </div>
       </div>
 
