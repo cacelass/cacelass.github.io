@@ -452,6 +452,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#modelos-soportados-cualquiera-via-litellm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modelos soportados: cualquiera, vía LiteLLM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modelos soportados: cualquiera, vía LiteLLM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seleccion-automatica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selección automática
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#modelo-fine-tuneado-qwen3climasafe" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -463,10 +491,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#modelo-base-vs-modelo-de-instrucciones" class="md-nav__link">
+  <a href="#modelo-base-vs-modelo-de-instrucciones-conclusiones" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Modelo base vs modelo de instrucciones
+        Modelo base vs modelo de instrucciones — conclusiones
       
     </span>
   </a>
@@ -541,6 +569,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#modelos-soportados-cualquiera-via-litellm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modelos soportados: cualquiera, vía LiteLLM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modelos soportados: cualquiera, vía LiteLLM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seleccion-automatica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selección automática
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#modelo-fine-tuneado-qwen3climasafe" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -552,10 +608,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#modelo-base-vs-modelo-de-instrucciones" class="md-nav__link">
+  <a href="#modelo-base-vs-modelo-de-instrucciones-conclusiones" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Modelo base vs modelo de instrucciones
+        Modelo base vs modelo de instrucciones — conclusiones
       
     </span>
   </a>
@@ -610,14 +666,58 @@
 recomendaciones salen de modelos ML e índices, no de un LLM. El LLM se usa
 solo para <strong>redactar</strong> respuestas en lenguaje natural (bot de Telegram y chat
 web): recibe el resultado real del pipeline y lo explica con tus palabras.</p>
+<h2 id="modelos-soportados-cualquiera-via-litellm">Modelos soportados: cualquiera, vía LiteLLM</h2>
+<p>La capa de LLM usa <strong>LiteLLM</strong> (<code>litellm.completion</code>), que habla con
+prácticamente cualquier proveedor con una sola API. El modelo se configura con
+el formato LiteLLM:</p>
+<table>
+<thead>
+<tr>
+<th>Proveedor</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ollama local</td>
+<td><code>ollama/qwen3:climasafe</code> · <code>ollama/qwen2.5:1.5b</code></td>
+</tr>
+<tr>
+<td>Groq</td>
+<td><code>groq/llama-3.3-70b-versatile</code></td>
+</tr>
+<tr>
+<td>OpenAI</td>
+<td><code>gpt-4o</code></td>
+</tr>
+<tr>
+<td>Gemini</td>
+<td><code>gemini/gemini-1.5-flash</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>LLMConfig</code> acepta cualquiera de esos formatos, así que <strong>el sistema soporta
+cualquier modelo</strong> de cualquier proveedor — solo hay que indicarlo.</p>
+<h3 id="seleccion-automatica">Selección automática</h3>
+<p>En Ollama, <code>LLMConfig.mejor_disponible()</code> elige el mejor modelo instalado en
+este orden:</p>
+<ol>
+<li><strong><code>qwen3:climasafe</code></strong> — el fine-tuneado (ver abajo), preferido si existe.</li>
+<li><code>qwen2.5:7b</code> — calidad máxima local (GPU).</li>
+<li><code>qwen3:1.7b</code> — mejor relación calidad/peso medida en el benchmark (LLM-003):
+   clase 38 %, formato 100 %, inventa cifras 13 %, error de índice 0.297.</li>
+<li><code>qwen2.5:1.5b</code> — mínimo viable en CPU (el benchmark lo descartó para
+   producción: inventa cifras en el 100 % de las respuestas).</li>
+</ol>
+<p>Si no hay ningún LLM disponible, el sistema cae a <strong>modo determinista</strong> (sin
+redacción LLM): la predicción y los factores siguen funcionando igual.</p>
 <h2 id="modelo-fine-tuneado-qwen3climasafe">Modelo fine-tuneado: qwen3:climasafe</h2>
 <p>Sobre Qwen3 se aplica un <strong>LoRA</strong> (fine-tuning de bajo rango) con un dataset
 sintético de preguntas y respuestas ClimaSafe (pares generados con el propio
 pipeline de predicción, para que las respuestas sean factuales). El resultado
-se cuantiza a GGUF (q4_k_m) y se sirve con Ollama.</p>
-<p>El bot lo prioriza automáticamente: <code>check_ollama()</code> detecta <code>qwen3:climasafe</code>
-y lo usa como modelo preferente sobre el Qwen3 base.</p>
-<h2 id="modelo-base-vs-modelo-de-instrucciones">Modelo base vs modelo de instrucciones</h2>
+se cuantiza a GGUF (q4_k_m) y se sirve con Ollama. Es el <strong>preferido por
+defecto</strong>: si está instalado, <code>mejor_disponible()</code> lo prioriza.</p>
+<h2 id="modelo-base-vs-modelo-de-instrucciones-conclusiones">Modelo base vs modelo de instrucciones — conclusiones</h2>
 <p>Hay dos variantes del mismo modelo:</p>
 <ul>
 <li><strong>Modelo base (Qwen3 base):</strong> entrenado con billones de textos para predecir
@@ -628,13 +728,20 @@ y lo usa como modelo preferente sobre el Qwen3 base.</p>
   humanas, SFT + RLHF/DPO). Sabe comportarse como asistente: formato, ayuda,
   "no lo sé".</li>
 </ul>
-<p><strong>Por qué importa en este proyecto:</strong> el primer fine-tuning se hizo sobre el
-modelo <strong>base</strong> con un dataset de <strong>instrucciones</strong>. Ese desajuste (pedirle al
-base que aprenda a la vez a comportarse como asistente y el formato ClimaSafe)
-es la receta clásica de alucinaciones: el modelo da el formato correcto solo
-~20 % de las veces e inventa el resto. La conclusión práctica: para el próximo
-LoRA, partir de <strong>Qwen3 instruct</strong> — ya sabe seguir instrucciones y solo tiene
-que aprender el dominio ClimaSafe, con menos ejemplos y menos alucinaciones.</p>
+<p><strong>Conclusión de este proyecto:</strong> el primer fine-tuning se hizo sobre el modelo
+<strong>base</strong> con un dataset de <strong>instrucciones</strong>. Ese desajuste (pedirle al base
+que aprenda a la vez a comportarse como asistente y el formato ClimaSafe) es la
+receta clásica de alucinaciones: el modelo da el formato correcto solo ~20 % de
+las veces e inventa el resto.</p>
+<p><strong>Qué hacer en el próximo LoRA:</strong></p>
+<ul>
+<li>Partir de <strong>Qwen3 instruct</strong>, no del base: ya sabe seguir instrucciones y
+  solo tiene que aprender el dominio ClimaSafe → menos ejemplos necesarios y
+  menos alucinaciones.</li>
+<li>El benchmark apoya la misma idea en los modelos sin fine-tunear: el
+  <code>qwen3:1.7b</code> (mejor instruido) supera claramente al <code>qwen2.5:1.5b</code> (clase
+  38 % vs 32 %, pero sobre todo inventa cifras 13 % vs 100 %).</li>
+</ul>
 <h2 id="rag">RAG</h2>
 <p>Además del fine-tuning, los factores de riesgo y la documentación se indexan
 con <strong>sqlite-vec</strong> (embeddings semánticos). Ante una pregunta, el sistema
@@ -642,10 +749,11 @@ recupera los fragmentos relevantes y el LLM responde citando las fuentes
 (RAG sobre <code>documentacion/</code>).</p>
 <h2 id="estado-actual-y-pipeline">Estado actual y pipeline</h2>
 <ul>
+<li><code>climasafeai/llm/rag_qwen.py</code> — selección de modelo (LiteLLM), RAG y
+  redacción (<code>_chat_litellm</code>).</li>
 <li><code>climasafeai/llm/fine_tune.py</code> — entrenamiento LoRA y exportación a GGUF.</li>
 <li><code>climasafeai/llm/generar_dataset.py</code> — dataset sintético desde el pipeline
   real de predicción.</li>
-<li><code>climasafeai/llm/rag_qwen.py</code> — selección de modelo, RAG y redacción.</li>
 <li>El entrenamiento se lanza desde el notebook de Colab
   (<code>notebooks/llm-fine-tuning-colab.ipynb</code>) con GPU T4 gratuita.</li>
 </ul>
