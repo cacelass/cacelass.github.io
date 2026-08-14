@@ -1,0 +1,2951 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://cacelass.github.io/climasafe/documentacion/ml/retos_tecnicos_viabilidad/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Retos técnicos — estudio de viabilidad - ClimaSafe</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#retos-tecnicos-estudio-de-viabilidad" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="ClimaSafe" class="md-header__button md-logo" aria-label="ClimaSafe" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ClimaSafe
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Retos técnicos — estudio de viabilidad
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../inicio/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../inicio_rapido/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Inicio rápido
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../componentes/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Componentes (web · MCP · bot · RAG)
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../conclusiones_modelos/" class="md-tabs__link">
+          
+  
+  
+  Modelos y pesos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../riesgo/formulas_deterministas/" class="md-tabs__link">
+          
+  
+  
+  Riesgo y personalización
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../arquitectura/" class="md-tabs__link">
+          
+  
+  
+  Arquitectura
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../modelos/" class="md-tabs__link">
+          
+  
+  
+  Modelos explorados
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../papers/" class="md-tabs__link">
+          
+  
+  
+  Papers y fuentes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../llm/guia-fine-tuning-qwen/" class="md-tabs__link">
+          
+  
+  
+  LLM
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../prd/" class="md-tabs__link">
+          
+  
+  
+  Plan y contexto
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Índice de carpetas
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ClimaSafe" class="md-nav__button md-logo" aria-label="ClimaSafe" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ClimaSafe
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../inicio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../inicio_rapido/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio rápido
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../componentes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Componentes (web · MCP · bot · RAG)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos y pesos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modelos y pesos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conclusiones_modelos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusiones del modelado — ClimaSafeAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../calibracion_umbrales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Calibración de umbrales de decisión por clase
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lstm_hibrida/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSTM híbrida — contexto de ola para la LSTM multi-tarea
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formulas_vs_secuencias/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fórmulas + ML vs. aprendizaje directo de secuencias — resumen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ablacion_features_27v19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ablación de features: 27 vs 19 con el mismo label
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features_frio_retardo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features de frío con más memoria temporal (retardo epidemiológico)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../label_sin_fuga/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Label sin fuga temporal: percentiles train-only
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../active_learner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aprendizaje activo — paper scout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contrafactuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explicaciones contrafactuales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alternativas_descartadas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alternativas exploradas y descartadas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../problemas_conocidos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problemas Conocidos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conformal_prediction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conformal Prediction — calibración de probabilidades
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resolucion_prediccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resolución de la predicción (DATA-007)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Riesgo y personalización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Riesgo y personalización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../riesgo/formulas_deterministas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fórmulas de riesgo climático determinista
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../riesgo/personalizacion_individual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coeficientes de personalización individual del riesgo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../riesgo/coeficientes_literatura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Coeficientes extraídos de la literatura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../riesgo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Riesgo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitectura
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Arquitectura
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/pipeline_prediccion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline de predicción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/dise%C3%B1o_modelo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diseño del modelo — ClimaSafe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/base_datos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Base de datos — SQLite + RAG semántico
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/control_acceso_mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control de acceso por identidad en el MCP (MCP-003)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/decisiones_estratificacion_demografica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisiones de estratificación demográfica
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/evaluacion_fuentes_externas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluación de fuentes externas: WeatherNext 2, Prithvi EO 2.0 y AlphaEarth Foundations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/agentes_ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agentes de IA — ClimaSafe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos explorados
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modelos explorados
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modelos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos — catálogo completo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modelos/actuales/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelos actuales en producción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modelos/actuales/xgboost/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XGBoost — modelo desplegado (calor)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modelos/actuales/randomforest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Random Forest — modelo desplegado (frío)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modelos/actuales/lstm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LSTM — modelo explorado (híbrido tabla+serie)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modelos/diffusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diffusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modelos/gnn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gnn
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modelos/nbeats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nbeats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modelos/transformers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Papers y fuentes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Papers y fuentes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Papers y fuentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/aclimatacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aclimatacion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/factores-riesgo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Factores Riesgo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/indices-biometeorologicos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indices Biometeorologicos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/ocupacional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ocupacional
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../papers/planes-accion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planes Accion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LLM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llm/guia-fine-tuning-qwen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de fine‑tuning: Qwen 2.5 7B + Unsloth → GGUF → Ollama
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llm/colab-fine-tuning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fine‑tuning de Qwen en Google Colab (GPU T4 gratuita)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llm/estado-fine-tuning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estado del fine‑tuning (LLM‑002)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llm/decisiones-paso0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paso 0 — Test de Qwen 2.5 raw + Ollama
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llm/paso1-rag-indexacion-documentos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paso 1 — RAG: indexar documentacion/
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../llm/recursos-externos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recursos externos: adaptadores, modelos de 1 bit y cuantización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan y contexto
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Plan y contexto
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Qué es un PRD, cómo se hace, y el PRD de ClimaSafeAI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proximos_pasos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Próximos pasos — hoja de ruta
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conclusion-base-conocimiento/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusión — Base de conocimiento de usuarios
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp_apps_estudio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Apps — Estudio y decisión de arquitectura (MCP-APPS-001)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arnes_comparativa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparativa de arneses: Google ADK, LangChain DeepAgents o hacerlo a mano
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Índice de carpetas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-ejecutivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen ejecutivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-cadenas-de-markov-hmm-trayectoria-de-riesgo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Cadenas de Markov / HMM — trayectoria de riesgo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-redes-bayesianas-grafo-causal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Redes Bayesianas — grafo causal
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-procesos-gaussianos-incertidumbre-nativa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Procesos Gaussianos — incertidumbre nativa
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-gnns-embeddings-de-factores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. GNNs — embeddings de factores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tft-n-beats-series-temporales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. TFT / N-BEATS — series temporales
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-rl-de-predecir-a-reducir-riesgo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. RL — de predecir a reducir riesgo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decisiones-previas-respetadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decisiones previas respetadas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-no-se-ha-evaluado-aqui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué NO se ha evaluado aquí
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="retos-tecnicos-estudio-de-viabilidad">Retos técnicos — estudio de viabilidad</h1>
+<blockquote>
+<p>Feature RESEARCH-001. Documenta la viabilidad de seis familias de modelos
+(HMM, Redes Bayesianas, Procesos Gaussianos, GNNs, TFT/N-BEATS, RL) en el
+contexto <strong>real</strong> de ClimaSafeAI, respetando las decisiones ya tomadas en
+<code>../arquitectura/diseño_modelo.md</code> §7, <code>alternativas_descartadas.md</code> y
+<code>../modelos/README.md</code> (GP, RL, causalidad). Este documento <strong>no reinventa</strong>
+decisiones cerradas: las confirma, las matiza o las revisa solo si hay
+evidencia nueva.</p>
+<p>Contexto del sistema: clasificación de riesgo 3 clases
+(<code>0=seguro, 1=precaución, 2=peligro</code>) por <code>(provincia, día)</code>, con
+XGBoost (calor) / RandomForest (frío) / LSTM híbrida / fórmula
+determinista, ensamble por criterio más restrictivo, conformal prediction
+(α=0.1) + calibración isotónica como incertidumbre, y personalización
+post-ensemble por perfil (<code>personalizacion.py</code>). Datos: MoMo (mortalidad
+diaria por provincia) + ERA5 (histórico horario) + Open-Meteo (predicción).
+Restricciones de proyecto: CPU, coste cero, código abierto.</p>
+</blockquote>
+<hr />
+<h2 id="resumen-ejecutivo">Resumen ejecutivo</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Técnica</th>
+<th>Veredicto</th>
+<th>En una frase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>HMM / Cadenas de Markov</td>
+<td><strong>Viable con condiciones</strong></td>
+<td>Suavizado temporal barato de la trayectoria de riesgo, pero los lags ya capturan la persistencia y el estado latente no se alinea con las 3 clases.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Redes Bayesianas (grafo causal)</td>
+<td><strong>No viable ahora</strong></td>
+<td>El razonamiento contrafactual que aportarían ya está implementado (<code>contrafactuales.md</code>); el grafo de factores es conocido a priori y pequeño.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Procesos Gaussianos</td>
+<td><strong>No viable ahora</strong></td>
+<td>O(n³) con ~20k filas; conformal + isotónica ya cubren la incertidumbre. Confirmar <code>../modelos/README.md</code>.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>GNN para embeddings de factores</td>
+<td><strong>No viable</strong></td>
+<td>Ya probado (GCN/GAT, ~20 nodos): no supera a los features planos. La variante espaciotemporal entre provincias choca con el techo de señal/etiqueta documentado.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>TFT / N-BEATS</td>
+<td><strong>No viable</strong></td>
+<td>Confirmar <code>diseño_modelo.md</code> §7.2 y <code>alternativas_descartadas.md</code>: el caso de uso no necesita forecast a 7 días; la LSTM híbrida cubre la dimensión temporal.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>RL (predecir → reducir riesgo)</td>
+<td><strong>No viable ahora</strong></td>
+<td>Sin bucle de feedback real no hay señal de recompensa; los contrafactuales deterministas ya reducen riesgo sin entrenar un agente.</td>
+</tr>
+</tbody>
+</table>
+<p>Decisión de ubicación: <code>documentacion/ml/</code> porque toda la documentación de
+decisiones ML del proyecto vive aquí (<code>alternativas_descartadas.md</code>,
+<code>conclusiones_modelos.md</code>, <code>lstm_hibrida.md</code>). Una carpeta nueva
+<code>documentacion/retos/</code> fragmentaría el conocimiento que este README ya
+indexa.</p>
+<hr />
+<h2 id="1-cadenas-de-markov-hmm-trayectoria-de-riesgo">1. Cadenas de Markov / HMM — trayectoria de riesgo</h2>
+<p><strong>Qué aportaría.</strong> Modelar el riesgo como un proceso temporal explícito: una
+cadena de Markov sobre los estados de riesgo (SEGURO → PRECAUCIÓN → PELIGRO)
+capturaría la probabilidad de transición entre días consecutivos — la
+estructura de <em>ola</em> (una ola de calor encadena varios días de PELIGRO, y el
+riesgo sube de forma progresiva, no aleatoria). Un HMM añadiría además una
+capa de observación: las clases observadas son una emisión ruidosa de un
+estado latente, y el filtrado (forward-backward) o Viterbi suavizaría la
+trayectoria día a día.</p>
+<p><strong>Cómo encajaría en el pipeline actual.</strong> Como capa post-hoc sobre las
+probabilidades diarias ya existentes (XGBoost/RF/LSTM): estimar la matriz de
+transición por provincia o estación y aplicar Viterbi a la secuencia de
+clases para eliminar parpadeo (días aislados de PELIGRO rodeados de SEGURO,
+que hoy se avisan sin contexto). Coste de implementación bajo: <code>hmmlearn</code> o
+una matriz de transición empírica, CPU, sin dependencias nuevas pesadas.</p>
+<p><strong>Riesgos.</strong>
+- <strong>Desalineación estado latente ↔ clases.</strong> Las 3 clases se definen por
+  percentiles de mortalidad MoMo por provincia. Un HMM aprenderá sus propios
+  estados latentes, que no tienen por qué coincidir con <code>0/1/2</code>. Habría que
+  fijar los estados a las clases observadas (cadena de Markov observada, no
+  HMM) o aceptar una semántica distinta.
+- <strong>Redundancia con los lags.</strong> El mayor salto de métrica del proyecto lo
+  dieron las features de persistencia (<code>dias_consec_sobre_umbral</code>,
+  <code>grados_dia_*_roll7/14</code>, ver <code>conclusiones_modelos.md</code> §2): el modelo ya
+  "sabe" en qué día de la ola está. Un suavizado Markoviano añadiría coherencia
+  temporal que los lags ya aportan a nivel de feature.
+- <strong>Métrica.</strong> La selección es por <code>Rec_riesgo</code> por día; suavizar la
+  trayectoria puede bajar el recall de días de riesgo aislados (que son
+  precisamente los que el sistema debe avisar).</p>
+<p><strong>Veredicto: viable con condiciones.</strong> Es la técnica más barata de las seis y
+la única con un hueco real (coherencia temporal de la salida, no de la
+entrada). Pero es <strong>experimental y de prioridad baja</strong>: exige primero validar
+que suavizar la salida no degrada <code>Rec_riesgo</code>, y compite con el hecho de que
+la persistencia ya está en las features. Si se hace, empezar por una cadena de
+Markov observada (transiciones entre clases) por estación, no por un HMM
+latente.</p>
+<hr />
+<h2 id="2-redes-bayesianas-grafo-causal">2. Redes Bayesianas — grafo causal</h2>
+<p><strong>Qué aportaría.</strong> Un modelo generativo <code>P(riesgo | meteorología, perfil)</code> con
+estructura causal explícita (temperatura → Heat Index → riesgo;
+comorbilidad → susceptibilidad; viento → Wind Chill). Permitiría razonar con
+<code>do-calculus</code> (intervenciones, no condicionamientos) y responder "¿qué pasaría
+si cambio X?" con una distribución, no con un punto.</p>
+<p><strong>Cómo encajaría.</strong> El proyecto ya usa la causalidad como <strong>marco mental</strong>
+(<code>../modelos/README.md</code>: "No hay nada que implementar... cambia cómo se
+diseñan features y se interpretan resultados"). El razonamiento contrafactual
+que sería el principal beneficio de una BN <strong>ya está implementado</strong>:
+<code>contrafactuales.md</code> / <code>explicabilidad.py</code> re-ejecuta <code>personalizar_riesgo</code>
+con cambios de perfil (aclimatado, sombra, duración) y devuelve la bajada de
+probabilidad — sin entrenar ningún grafo.</p>
+<p><strong>Riesgos.</strong>
+- <strong>Datos.</strong> MoMo es mortalidad poblacional agregada por provincia; no existe
+  joint sobre los factores individuales (fototipo, comorbilidades,
+  medicación). Una BN completa necesitaría inventar esa distribución o
+  quedarse en el subgrafo meteorológico, donde el beneficio sobre el
+  clasificador actual es marginal.
+- <strong>Estructura conocida a priori.</strong> El grafo de factores (~20 nodos) tiene
+  relaciones mayoritariamente conocidas por la literatura; aprender la
+  estructura de datos de mortalidad arriesga aristas espurias (confounding con
+  eventos de exposición poblacional, ver <code>diseño_modelo.md</code> §5).
+- <strong>Coste.</strong> <code>pgmpy</code> + ajuste de estructura + inferencia exacta/aproximada es
+  semanas de trabajo para un beneficio que el pipeline de contrafactuales ya
+  entrega.</p>
+<p><strong>Veredicto: no viable ahora.</strong> Coincide con la decisión de
+<code>alternativas_descartadas.md</code> (Bayes Jerárquico + EVT descartado por coste de
+migración probabilística) y con la de <code>../modelos/README.md</code> (causalidad como
+marco mental, no como librería). Si algún día se necesita razonamiento causal
+más profundo, el siguiente paso no es una BN completa sino formalizar los
+contrafactuales existentes con la notación de intervenciones.</p>
+<hr />
+<h2 id="3-procesos-gaussianos-incertidumbre-nativa">3. Procesos Gaussianos — incertidumbre nativa</h2>
+<p><strong>Qué aportaría.</strong> Una distribución predictiva completa <code>P(y | x)</code> con
+incertidumbre calibrada de fábrica — sin conformal ni calibración post-hoc.
+Para un sistema de aviso, la incertidumbre es tan importante como la clase.</p>
+<p><strong>Cómo encajaría.</strong> Hoy la incertidumbre ya está resuelta con <strong>conformal
+prediction (α=0.1)</strong> — prediction sets con cobertura garantizada — más
+<strong>calibración isotónica</strong> para las probabilidades de PELIGRO
+(<code>../conformal_prediction.md</code>). Un GP sustituiría ese mecanismo por
+incertidumbre analítica, pero el problema ya tiene respuesta.</p>
+<p><strong>Riesgos.</strong>
+- <strong>Escalado.</strong> El GP clásico es O(n³): inviable con el dataset real (~20k
+  filas por modelo, <code>../modelos/README.md</code> ya lo documenta). Una aproximación
+  sparse (SVGP, ~1000 puntos inductivos) sí correría en CPU, pero añade una
+  dependencia (GPyTorch/GPflow) y una curva de ajuste de hiperparámetros.
+- <strong>Regresión colapsada.</strong> El experimento de regresión del notebook 0-3 ya
+  mostró que predecir el percentil continuo de mortalidad colapsa como sistema
+  de aviso (<code>Rec_riesgo</code> 0.08 calor / 0.00 frío, <code>diseño_modelo.md</code> §6). Un GP
+  es intrínsecamente regresor: habría que adaptarlo a clasificación (GP
+  multiclase) o usarlo sobre el índice softmax, con ese antecedente en contra.
+- <strong>Redundancia.</strong> Conformal ya garantiza cobertura empíricamente; el GP daría
+  una incertidumbre "más bonita" sin una métrica de producto que la pida.</p>
+<p><strong>Veredicto: no viable ahora.</strong> Confirma <code>../modelos/README.md</code>: "El GP
+clásico escala O(n³)... Un SVGP sería viable para el índice personalizado,
+pero conformal prediction cubre la misma necesidad sin añadir dependencias".
+Re-evaluar solo si el sistema necesitara una <strong>función de incertidumbre
+suave y diferenciable</strong> (p. ej. para optimizar la hora de actividad como
+función del riesgo), que hoy no tiene.</p>
+<hr />
+<h2 id="4-gnns-embeddings-de-factores">4. GNNs — embeddings de factores</h2>
+<p>Hay que separar dos usos distintos, porque el proyecto ya tiene evidencia
+sobre uno y papers scouteados sobre el otro (<code>../modelos/gnn/</code>).</p>
+<p><strong>Uso A — embeddings del grafo de factores (el que pide el criterio).</strong>
+- <strong>Qué aportaría:</strong> aprender representaciones de los ~20 factores de riesgo
+  (comorbilidades, medicación, situación social) y sus interacciones, en vez
+  de codificarlos a mano.
+- <strong>Evidencia previa:</strong> ya se probaron <strong>GCN y GAT</strong> sobre ese grafo y "las
+  representaciones aprendidas no mejoraban la clasificación frente a los
+  features planos... el grafo es pequeño (~20 nodos) y las relaciones son
+  mayoritariamente conocidas a priori — una GNN no aporta valor sobre la
+  ingeniería manual" (<code>alternativas_descartadas.md</code>). Existen checkpoints de
+  ese estudio (<code>models/gnn_*.pt</code>).
+- <strong>Veredicto: no viable.</strong> Decisión ya cerrada y con evidencia empírica del
+  propio proyecto. El criterio se documenta <strong>confirmándola</strong>: los embeddings
+  de factores solo tendrían sentido con un grafo grande o con relaciones
+  desconocidas — ni una cosa ni la otra se dan aquí.</p>
+<p><strong>Uso B — correlación espaciotemporal entre provincias.</strong>
+- <strong>Qué aportaría:</strong> los papers de <code>../modelos/gnn/</code> (STGCN, GraphWaveNet,
+  GNNs espaciotemporales) modelan la dependencia entre series vecinas. Una GNN
+  sobre el grafo de provincias (adyacencia geográfica o climática) compartiría
+  señal entre provincias con clima similar.
+- <strong>Riesgos:</strong> el techo documentado del sistema <strong>no es de capacidad de
+  modelo</strong>: "el techo es la precisión de las clases de riesgo (~0.08–0.27)...
+  Es limitación de señal/etiqueta, no de modelo" (<code>conclusiones_modelos.md</code>
+  §6). Añadir un modelo más complejo no levanta ese techo. Además MoMo es una
+  serie independiente por provincia; la correlación espacial está sobre todo
+  en las features meteorológicas (que ya comparten los mismos modelos) y en
+  los eventos de ola a escala peninsular.
+- <strong>Veredicto: viable con condiciones (baja prioridad).</strong> Solo tiene sentido
+  después de agotar las palancas de señal que el propio proyecto señala (más
+  histórico, variables de exposición/población), y como experimento de
+  notebook, no como reemplazo del pipeline.</p>
+<hr />
+<h2 id="5-tft-n-beats-series-temporales">5. TFT / N-BEATS — series temporales</h2>
+<p><strong>Qué aportaría.</strong> TFT: forecast multi-horizonte interpretable con atención y
+variables estáticas/conocidas/futuras. N-BEATS: forecast univariante por
+descomposición residual en bloques.</p>
+<p><strong>Decisión previa (a respetar):</strong> descartados en dos sitios —
+<code>../arquitectura/diseño_modelo.md</code> §7.2 y <code>alternativas_descartadas.md</code>:
+"<strong>TFT/N-BEATS resolverían un problema que no tenemos: forecast a 5-7 días.</strong>
+El usuario necesita el riesgo <em>hoy</em> o <em>mañana</em>, con precisión e
+incertidumbre, no horizontes lejanos" y "la arquitectura seq2seq de TFT y
+N-BEATS está diseñada para horizonte múltiple con decodificación
+autorregresiva, que aquí sobra. El LSTM híbrido cumple mejor".</p>
+<p><strong>Revisión (2026-08-14):</strong> la decisión se mantiene, con tres motivos que
+siguen vigentes:
+1. <strong>Producto.</strong> El usuario consulta el riesgo actual/próximo (la app usa
+   Open-Meteo con <code>FORECAST_HORIZON_DAYS</code> de 1-2 días). No existe ningún
+   flujo que pida "riesgo del domingo" en el producto.
+2. <strong>Fit técnico.</strong> El problema es clasificación del día siguiente con
+   features tabulares + secuencia de 24 h, no generación de secuencias. La
+   LSTM híbrida (<code>lstm_hibrida.md</code>) ya combina ambas dimensiones y queda a
+   0.011 de <code>Rec_riesgo</code> del RandomForest en frío — la dimensión temporal
+   está cubierta. N-BEATS además es univariante puro, y el argumento que
+   descartó ARIMA/SARIMA (problema multivariante, <code>alternativas_descartadas.md</code>)
+   aplica igual.
+3. <strong>Coste-beneficio.</strong> Los papers scouteados (<code>../modelos/nbeats/</code>,
+   <code>../modelos/transformers/</code>) son forecast de demanda/meteorología, no
+   clasificación de riesgo sanitario. Integrar TFT exige una librería nueva
+   (PyTorch Forecasting) y un pipeline de secuencias multi-horizonte, para
+   un problema que no existe.</p>
+<p><strong>Veredicto: no viable.</strong> Confirmar la decisión de §7.2. <strong>Condición de
+re-apertura única:</strong> si el producto añade planificación multi-día ("¿qué
+riesgo habrá en mi ruta del domingo?"), re-evaluar TFT como <strong>generador de
+features de forecast</strong> para el clasificador, no como sustituto — y aun así
+primero comparar contra el forecast gratuito de Open-Meteo que ya se usa.</p>
+<hr />
+<h2 id="6-rl-de-predecir-a-reducir-riesgo">6. RL — de predecir a reducir riesgo</h2>
+<p><strong>Qué aportaría.</strong> Pasar de <em>avisar</em> a <em>intervenir</em>: un agente que recomienda
+acciones (hidratarse, buscar sombra, cambiar la hora, acortar la duración)
+optimizando una recompensa acumulada (riesgo reducido a lo largo del tiempo).</p>
+<p><strong>Cómo encajaría.</strong> Hoy la "reducción de riesgo" ya existe por vía
+determinista: <code>recomendaciones.py</code> genera recomendaciones y
+<code>contrafactuales.md</code> cuantifica cuánto baja el riesgo con cada cambio de
+comportamiento. No hay un agente aprendido, pero <strong>sí hay una política</strong>.</p>
+<p><strong>Decisión previa (a respetar):</strong> <code>alternativas_descartadas.md</code> descartó el
+RL híbrido porque "el tiempo de entrenamiento para converger a una política
+estable era demasiado alto, y el espacio de estados/acciones requería un
+simulador realista de la interacción usuario-entorno que no existía".
+<code>../modelos/README.md</code> añade el argumento decisivo: "sin bucle de feedback
+real, RL es una solución en busca de problema". El prototipo de PPO usaba un
+entorno sintético con reglas escritas a mano — la política aprendida no puede
+ser mejor que esas reglas, que son las que ya generan las recomendaciones.</p>
+<p><strong>Riesgos.</strong>
+- <strong>Sin señal de recompensa.</strong> No hay feedback de usuarios (¿siguió la
+  recomendación? ¿mejoró el resultado?). Un RL entrenado en simulador sintético
+  hereda las suposiciones del simulador y no añade información al mundo real.
+- <strong>Coste y mantenimiento.</strong> Entorno + entrenamiento + despliegue de una
+  política es el cambio más caro de los seis, para un beneficio que la
+  heurística actual ya entrega.</p>
+<p><strong>Veredicto: no viable ahora.</strong> Confirmar la decisión previa.
+<strong>Condición de re-apertura:</strong> cuando el sistema acumule histórico real de
+(recomendación → acción del usuario → resultado), el paso natural no es RL
+completo sino <strong>contextual bandits</strong> sobre un espacio pequeño de acciones
+(cambiar hora, acortar duración) con un proxy de recompensa explícito — y aun
+así, validar primero contra la política determinista actual como baseline.</p>
+<hr />
+<h2 id="decisiones-previas-respetadas">Decisiones previas respetadas</h2>
+<table>
+<thead>
+<tr>
+<th>Decisión previa</th>
+<th>Dónde</th>
+<th>Este documento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TFT/N-BEATS descartados (no se necesita forecast 7 días)</td>
+<td><code>../arquitectura/diseño_modelo.md</code> §7.2, <code>alternativas_descartadas.md</code></td>
+<td>Confirma (sección 5), con condición de re-apertura</td>
+</tr>
+<tr>
+<td>GNN sobre grafo de factores no mejora (~20 nodos, relaciones conocidas)</td>
+<td><code>alternativas_descartadas.md</code></td>
+<td>Confirma (sección 4, uso A)</td>
+</tr>
+<tr>
+<td>GP clásico O(n³) inviable; SVGP viable pero conformal ya cubre</td>
+<td><code>../modelos/README.md</code></td>
+<td>Confirma (sección 3)</td>
+</tr>
+<tr>
+<td>Bayes jerárquico + EVT descartado por coste de migración probabilística</td>
+<td><code>alternativas_descartadas.md</code></td>
+<td>Coherente (sección 2)</td>
+</tr>
+<tr>
+<td>RL sin bucle de feedback real = solución en busca de problema</td>
+<td><code>alternativas_descartadas.md</code>, <code>../modelos/README.md</code></td>
+<td>Confirma (sección 6)</td>
+</tr>
+<tr>
+<td>Causalidad como marco mental, no como librería</td>
+<td><code>../modelos/README.md</code></td>
+<td>Coherente (sección 2)</td>
+</tr>
+<tr>
+<td>Contrafactuales ya implementados (reducir riesgo)</td>
+<td><code>contrafactuales.md</code></td>
+<td>Usado como evidencia (secciones 2 y 6)</td>
+</tr>
+<tr>
+<td>Techo de señal/etiqueta, no de modelo</td>
+<td><code>conclusiones_modelos.md</code> §6</td>
+<td>Usado como criterio (secciones 4)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="que-no-se-ha-evaluado-aqui">Qué NO se ha evaluado aquí</h2>
+<ul>
+<li>La viabilidad <strong>técnica de integración</strong> (código) de cada técnica: este
+  estudio es de viabilidad de producto/modelo. Si una técnica se aprueba, el
+  siguiente paso es un experimento en notebook siguiendo el flujo de
+  <code>../modelos/README.md</code>.</li>
+<li>Priorización temporal: la única con hueco real y coste bajo (HMM) queda a
+  la cola de las palancas de señal ya identificadas en <code>conclusiones_modelos.md</code> §6.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
