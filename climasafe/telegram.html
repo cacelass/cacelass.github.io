@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
+  <script src="../i18n.js" defer></script>
   <style>
     .code-block {
       font-family: var(--mono);
@@ -41,29 +42,30 @@
     <div class="nav-inner">
       <div class="nav-brand">
         <div class="nav-dot"></div>
-        <div class="nav-id"><a href="../index.html" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ ClimaSafe · Telegram</span></div>
+        <div class="nav-id"><a href="../index.html" class="nav-back" data-i18n="back_index">← index</a> <strong>Alejandro Cancelas</strong> <span>/ ClimaSafe · Telegram</span></div>
       </div>
       <ul class="nav-links">
-        <li><a href="../index.html#about">about</a></li>
-        <li><a href="../index.html#projects">projects</a></li>
-        <li><a href="../index.html#stack">stack</a></li>
+        <li><a href="../index.html#about" data-i18n="nav_about">about</a></li>
+        <li><a href="../index.html#projects" data-i18n="nav_projects">projects</a></li>
+        <li><a href="../index.html#stack" data-i18n="nav_stack">stack</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
       </ul>
     </div>
   </nav>
 
   <section class="proj-hero">
     <div class="container">
-      <div class="hero-eyebrow">ClimaSafe · Telegram bot</div>
-      <h1>Heat and cold risk,<br /><span class="hl">right in your chat.</span></h1>
-      <p class="hero-sub">
+      <div class="hero-eyebrow" data-i18n="eyebrow_tg">ClimaSafe · Telegram bot</div>
+      <h1><span data-i18n="tg_h1_1">Heat and cold risk,</span><br /><span class="hl" data-i18n="tg_h1_2">right in your chat.</span></h1>
+      <p class="hero-sub" data-i18n="tg_sub">
         The ClimaSafe Telegram bot answers with your personal risk level, manages your profile and
         routines, and sends daily alerts before dangerous days arrive. Responses are drafted by a
         local LLM running on your machine.
       </p>
       <div class="proj-links">
-        <a class="hero-cta" href="mcp.html">MCP server</a>
+        <a class="hero-cta" href="mcp.html" data-i18n="cta_mcp_server">MCP server</a>
         <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
-        <a class="hero-cta" href="../projects/climasafe.html">← back to project</a>
+        <a class="hero-cta" href="../projects/climasafe.html" data-i18n="cta_back_project">← back to project</a>
       </div>
     </div>
   </section>
@@ -73,21 +75,21 @@
       <div class="sec-head reveal">
         <span class="sec-num">01</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">create</span>
-        <span class="sec-title">Create the bot with @BotFather</span>
+        <span class="sec-tag" data-i18n="tag_create">create</span>
+        <span class="sec-title" data-i18n="title_create">Create the bot with @BotFather</span>
       </div>
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text">Open <strong>@BotFather</strong> in Telegram and send <code>/newbot</code>.</span>
+          <span class="dskit-dec-text" data-i18n="dec_create_1" data-i18n-html>Open <strong>@BotFather</strong> in Telegram and send <code>/newbot</code>.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text">Choose a <strong>name</strong> (what users see) and a <strong>username</strong> ending in <code>bot</code>.</span>
+          <span class="dskit-dec-text" data-i18n="dec_create_2" data-i18n-html>Choose a <strong>name</strong> (what users see) and a <strong>username</strong> ending in <code>bot</code>.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text">Copy the <strong>API token</strong> that BotFather returns. It looks like <code>123456:ABC-DEF...</code>.</span>
+          <span class="dskit-dec-text" data-i18n="dec_create_3" data-i18n-html>Copy the <strong>API token</strong> that BotFather returns. It looks like <code>123456:ABC-DEF...</code>.</span>
         </div>
       </div>
     </div>
@@ -98,14 +100,14 @@
       <div class="sec-head reveal">
         <span class="sec-num">02</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">token</span>
-        <span class="sec-title">Where the token goes</span>
+        <span class="sec-tag" data-i18n="tag_token">token</span>
+        <span class="sec-title" data-i18n="title_token">Where the token goes</span>
       </div>
-      <div class="proj-field-val proj-wide">
+      <div class="proj-field-val proj-wide" data-i18n="tg_token_p1" data-i18n-html>
         The token goes in a <code>.env</code> file at the <strong>root of the ClimaSafe repository</strong>:
       </div>
       <pre class="code-block">TELEGRAM_BOT_TOKEN=123456:ABC-DEF...  # never commit this</pre>
-      <div class="proj-field-val proj-wide">
+      <div class="proj-field-val proj-wide" data-i18n="tg_token_p2" data-i18n-html>
         Start with <code>.env.example</code> as a reference: copy it to <code>.env</code> and fill in
         your token. The token is a secret: it never goes in the code, never in the repository, never
         in a commit.
@@ -118,10 +120,10 @@
       <div class="sec-head reveal">
         <span class="sec-num">03</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">run</span>
-        <span class="sec-title">Run it locally</span>
+        <span class="sec-tag" data-i18n="tag_run">run</span>
+        <span class="sec-title" data-i18n="title_run">Run it locally</span>
       </div>
-      <div class="proj-field-val proj-wide">
+      <div class="proj-field-val proj-wide" data-i18n="tg_run_p1" data-i18n-html>
         The bot is started from the repository root with the Makefile targets:
         <code>make spacebot</code> (first-time setup) and <code>make spacebot-start</code> (run the
         bot). The daily alert and prediction pipeline runs on a schedule.
@@ -133,7 +135,7 @@
         Everything else — the form, the risk prediction and the daily alerts — is deterministic and
         works regardless of the LLM.
       </div>
-      <div class="proj-field-val proj-wide">
+      <div class="proj-field-val proj-wide" data-i18n="tg_run_p2" data-i18n-html>
         Source and setup details:
         <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>.
       </div>

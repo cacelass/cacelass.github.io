@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script src="i18n.js" defer></script>
 </head>
 <body>
 
@@ -18,18 +19,19 @@
         <div class="nav-id"><strong>Alejandro Cancelas</strong> <span>/ ml-engineer</span></div>
       </div>
       <ul class="nav-links">
-        <li><a href="#about">about</a></li>
-        <li><a href="#projects">projects</a></li>
-        <li><a href="#stack">stack</a></li>
-        <li><a href="#reading">reading</a></li>
-        <li><a href="#contact">contact</a></li>
+        <li><a href="#about" data-i18n="nav_about">about</a></li>
+        <li><a href="#projects" data-i18n="nav_projects">projects</a></li>
+        <li><a href="#stack" data-i18n="nav_stack">stack</a></li>
+        <li><a href="#reading" data-i18n="nav_reading">reading</a></li>
+        <li><a href="#contact" data-i18n="nav_contact">contact</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
       </ul>
     </div>
   </nav>
 
   <section class="hero">
     <div class="container">
-      <div class="hero-eyebrow">ML Engineer · Data Systems · GenAI</div>      <h1>ML systems that<br /><span class="hl">survive production.</span></h1>
+      <div class="hero-eyebrow">ML Engineer · Data Systems · GenAI</div>      <h1><span data-i18n="hero_h1_1">ML systems that</span><br /><span class="hl" data-i18n="hero_h1_2">survive production.</span></h1>
       <p class="hero-sub">
         End-to-end ML from data to deployment: <strong>credit, fraud and AML</strong>, time series, and
         agent-based systems with harnesses, RAG and fine-tuning. Calibration, reproducible evaluation
@@ -68,7 +70,7 @@
         <span class="sec-num">$</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">about</span>
-        <span class="sec-title">Engineering identity</span>
+        <span class="sec-title" data-i18n="about_title">Engineering identity</span>
       </div>
       <div class="about-grid reveal">
         <div class="about-card">
@@ -78,7 +80,7 @@
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
             </svg>
           </div>
-          <div class="about-card-lbl">Approach</div>
+          <div class="about-card-lbl" data-i18n="about_lbl_approach">Approach</div>
           <p>I treat ML problems as <strong>systems problems first</strong>. A model that can't be reproduced or re-deployed is a liability. My workflow enforces clean separation between ingestion, feature computation, training, and evaluation, by structure rather than convention. In finance that discipline is what makes a system auditable.</p>
         </div>
         <div class="about-card">
@@ -89,7 +91,7 @@
               <line x1="12" y1="17" x2="12" y2="21" />
             </svg>
           </div>
-          <div class="about-card-lbl">Systems background</div>
+          <div class="about-card-lbl" data-i18n="about_lbl_systems">Systems background</div>
           <p>Trained and worked as a <strong>Systems Technician (ASIR)</strong>. What drew me most to the field was <strong>databases</strong>: schema design, query writing, index tuning and execution plan analysis. That background shapes how I think about every ML system: infrastructure, environment isolation, and failure modes before model architecture.</p>
         </div>
         <div class="about-card">
@@ -99,7 +101,7 @@
               <polyline points="16 7 22 7 22 13" />
             </svg>
           </div>
-          <div class="about-card-lbl">Production awareness</div>
+          <div class="about-card-lbl" data-i18n="about_lbl_production">Production awareness</div>
           <p>I design pipelines that don't break when schemas change, models that return <strong>calibrated probabilities</strong> rather than raw scores, and evaluation setups that catch leakage before it reaches production. I know the difference between a metric that looks good and a decision that holds up out-of-sample.</p>
         </div>
         <div class="about-card">
@@ -110,7 +112,7 @@
               <line x1="12" y1="22.08" x2="12" y2="12" />
             </svg>
           </div>
-          <div class="about-card-lbl">Passion</div>
+          <div class="about-card-lbl" data-i18n="about_lbl_passion">Passion</div>
           <p>I'm passionate about data <strong>inside and outside work</strong>. I love learning, taking on challenges and getting better at what I do. My professional aspiration is to build decision systems that real institutions trust, in credit, fraud and investment, while keeping every project better than the last.</p>
         </div>
       </div>
@@ -123,7 +125,7 @@
         <span class="sec-num">$</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">projects</span>
-        <span class="sec-title">Selected systems</span>
+        <span class="sec-title" data-i18n="projects_title">Selected systems</span>
       </div>
 
       <div class="featured-grid reveal">
@@ -131,21 +133,21 @@
         <div class="feat-card">
           <div class="feat-top">
             <div class="feat-name"><a href="projects/dskit.html">dskit</a></div>
-            <span class="proj-tag">scaffold · harness</span>
+            <span class="proj-tag" data-i18n="tag_harness">scaffold · harness</span>
           </div>
           <p class="feat-desc">Production-grade Data Science project scaffold with an AI harness: reproducible environments, verified backlog, and a quality gate enforced in code.</p>
-          <div class="feat-meta"><a href="projects/dskit.html">view project →</a></div>
+          <div class="feat-meta"><a href="projects/dskit.html" data-i18n="feat_meta_view">view project →</a></div>
         </div>
 
         <div class="feat-card">
           <div class="feat-top">
             <div class="feat-name"><a href="projects/climasafe.html">ClimaSafe</a></div>
-            <span class="proj-tag">early warning · ML</span>
+            <span class="proj-tag" data-i18n="tag_earlywarning">early warning · ML</span>
           </div>
           <p class="feat-desc">Early-warning system for heat and cold mortality risk across Spanish provinces: XGBoost + LSTM ensemble, conformal prediction, MLflow, Telegram bot.</p>
           <div class="feat-meta">
-            <a href="climasafe/probar-ya/">probar ya</a> ·
-            <a href="climasafe/documentacion/">documentación</a> ·
+            <a href="climasafe/probar-ya/" data-i18n="climasafe_try">probar ya</a> ·
+            <a href="climasafe/documentacion/" data-i18n="climasafe_docs">documentación</a> ·
             <a href="climasafe/mcp.html">mcp</a> ·
             <a href="climasafe/telegram.html">telegram</a> ·
             <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github</a>
@@ -155,44 +157,44 @@
         <div class="feat-card">
           <div class="feat-top">
             <div class="feat-name"><a href="projects/fraud-shield.html">fraud-shield</a></div>
-            <span class="proj-tag">fraud detection</span>
+            <span class="proj-tag" data-i18n="tag_fraud">fraud detection</span>
           </div>
           <p class="feat-desc">Fraud detection on financial transactions (PaySim): imbalance-first evaluation, precision-recall as the primary metric, threshold tuning, MLflow tracked.</p>
-          <div class="feat-meta"><a href="projects/fraud-shield.html">view project →</a></div>
+          <div class="feat-meta"><a href="projects/fraud-shield.html" data-i18n="feat_meta_view">view project →</a></div>
         </div>
 
         <div class="feat-card">
           <div class="feat-top">
             <div class="feat-name"><a href="projects/credit-risk-classifier.html">credit-risk-classifier</a></div>
-            <span class="proj-tag">banking · propensity</span>
+            <span class="proj-tag" data-i18n="tag_banking">banking · propensity</span>
           </div>
           <p class="feat-desc">Retail banking propensity model (UCI Bank Marketing) with leakage-free preprocessing and real persisted metrics: ROC-AUC 0.948, PR-AUC 0.651.</p>
-          <div class="feat-meta"><a href="projects/credit-risk-classifier.html">view project →</a></div>
+          <div class="feat-meta"><a href="projects/credit-risk-classifier.html" data-i18n="feat_meta_view">view project →</a></div>
         </div>
 
         <div class="feat-card">
           <div class="feat-top">
             <div class="feat-name"><a href="projects/stock-market-prediction.html">Stock-Market-Prediction</a></div>
-            <span class="proj-tag">time series · finance</span>
+            <span class="proj-tag" data-i18n="tag_timeseries">time series · finance</span>
           </div>
           <p class="feat-desc">Time-series classification with strict temporal validation, out-of-sample backtest with costs, and drift monitoring. Honest about where the model fails.</p>
-          <div class="feat-meta"><a href="projects/stock-market-prediction.html">view project →</a></div>
+          <div class="feat-meta"><a href="projects/stock-market-prediction.html" data-i18n="feat_meta_view">view project →</a></div>
         </div>
 
         <div class="feat-card">
           <div class="feat-top">
             <div class="feat-name"><a href="projects/meshharmes.html">MeshHarmes</a></div>
-            <span class="proj-tag">agent harness</span>
+            <span class="proj-tag" data-i18n="tag_harness2">agent harness</span>
           </div>
           <p class="feat-desc">Agent harness: 24 Python agents, a permission gate, and a verified backlog. The rules of AI-assisted work written in code, not in prompts.</p>
-          <div class="feat-meta"><a href="projects/meshharmes.html">view project →</a></div>
+          <div class="feat-meta"><a href="projects/meshharmes.html" data-i18n="feat_meta_view">view project →</a></div>
         </div>
 
       </div>
 
       <div class="more-head">
         <span class="sec-tag">more</span>
-        <span class="sec-title">Further work</span>
+        <span class="sec-title" data-i18n="more_title">Further work</span>
       </div>
       <div class="more-list reveal">
         <div class="more-item">
@@ -230,11 +232,11 @@
         <span class="sec-num">$</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">stack</span>
-        <span class="sec-title">Capability model</span>
+        <span class="sec-title" data-i18n="stack_title">Capability model</span>
       </div>
       <div class="stack-grid reveal">
         <div class="stack-card">
-          <div class="stack-card-lbl">Core engineering</div>
+          <div class="stack-card-lbl" data-i18n="stack_core">Core engineering</div>
           <div class="stack-items">
             <span class="stack-item">Python</span>
             <span class="stack-item">SQL</span>
@@ -250,7 +252,7 @@
           </div>
         </div>
         <div class="stack-card">
-          <div class="stack-card-lbl">ML / Data pipeline</div>
+          <div class="stack-card-lbl" data-i18n="stack_ml">ML / Data pipeline</div>
           <div class="stack-items">
             <span class="stack-item">Scikit-learn</span>
             <span class="stack-item">LightGBM</span>
@@ -266,7 +268,7 @@
           </div>
         </div>
         <div class="stack-card">
-          <div class="stack-card-lbl">Cloud / Infrastructure</div>
+          <div class="stack-card-lbl" data-i18n="stack_cloud">Cloud / Infrastructure</div>
           <div class="stack-items">
             <span class="stack-item">Azure</span>
             <span class="stack-item">MySQL</span>
@@ -282,7 +284,7 @@
           </div>
         </div>
         <div class="stack-card">
-          <div class="stack-card-lbl">Domain knowledge</div>
+          <div class="stack-card-lbl" data-i18n="stack_domain">Domain knowledge</div>
           <div class="stack-items">
             <span class="stack-item">Fraud detection</span>
             <span class="stack-item">Credit risk</span>
@@ -295,7 +297,7 @@
           </div>
         </div>
         <div class="stack-card">
-          <div class="stack-card-lbl">AI engineering</div>
+          <div class="stack-card-lbl" data-i18n="stack_ai">AI engineering</div>
           <div class="stack-items">
             <span class="stack-item">Generative AI</span>
             <span class="stack-item">RAG</span>
@@ -307,20 +309,20 @@
           </div>
         </div>
         <div class="stack-card full">
-          <div class="stack-card-lbl">What I can build</div>
+          <div class="stack-card-lbl" data-i18n="stack_build">What I can build</div>
           <div class="cap-grid">
-            <span class="cap-item">End-to-end supervised pipelines (classification + regression)</span>
-            <span class="cap-item">Fraud and AML detection with imbalance-first evaluation</span>
-            <span class="cap-item">Credit scoring with calibrated probabilities and decoupled thresholds</span>
-            <span class="cap-item">Reproducible project environments with versioned dependencies via uv</span>
-            <span class="cap-item">Evaluation frameworks with explicit data leakage controls</span>
-            <span class="cap-item">Time-series models with temporal validation and out-of-sample backtest</span>
-            <span class="cap-item">Containerised ML services (Docker + FastAPI) for cloud or on-premise</span>
-            <span class="cap-item">Drift monitoring for models in production</span>
-            <span class="cap-item">RAG systems with verifiable sources and guardrails</span>
-            <span class="cap-item">AI harnesses that enforce quality gates in code</span>
-            <span class="cap-item">Multi-agent systems with deterministic Python agents</span>
-            <span class="cap-item">LLM fine-tuning and LoRA adaptation</span>
+            <span class="cap-item" data-i18n="cap_pipelines">End-to-end supervised pipelines (classification + regression)</span>
+            <span class="cap-item" data-i18n="cap_fraud">Fraud and AML detection with imbalance-first evaluation</span>
+            <span class="cap-item" data-i18n="cap_credit">Credit scoring with calibrated probabilities and decoupled thresholds</span>
+            <span class="cap-item" data-i18n="cap_uv">Reproducible project environments with versioned dependencies via uv</span>
+            <span class="cap-item" data-i18n="cap_eval">Evaluation frameworks with explicit data leakage controls</span>
+            <span class="cap-item" data-i18n="cap_ts">Time-series models with temporal validation and out-of-sample backtest</span>
+            <span class="cap-item" data-i18n="cap_docker">Containerised ML services (Docker + FastAPI) for cloud or on-premise</span>
+            <span class="cap-item" data-i18n="cap_drift">Drift monitoring for models in production</span>
+            <span class="cap-item" data-i18n="cap_rag">RAG systems with verifiable sources and guardrails</span>
+            <span class="cap-item" data-i18n="cap_harness">AI harnesses that enforce quality gates in code</span>
+            <span class="cap-item" data-i18n="cap_multiagent">Multi-agent systems with deterministic Python agents</span>
+            <span class="cap-item" data-i18n="cap_lora">LLM fine-tuning and LoRA adaptation</span>
           </div>
         </div>
       </div>
@@ -333,7 +335,7 @@
         <span class="sec-num">$</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">reading</span>
-        <span class="sec-title">Books that shaped how I work</span>
+        <span class="sec-title" data-i18n="reading_title">Books that shaped how I work</span>
       </div>
       <div class="more-list reveal">
         <div class="more-item">

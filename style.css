@@ -95,6 +95,13 @@
       letter-spacing: 0.02em;
     }
     .nav-links a:hover { color: var(--text); background: var(--surface); }
+    .lang-select {
+      font-family: var(--mono); font-size: 0.72rem; color: var(--text);
+      background: var(--surface); border: 1px solid var(--border-hi);
+      border-radius: 6px; padding: 5px 6px; cursor: pointer; margin-left: 6px;
+    }
+    .lang-select:hover { border-color: var(--accent); }
+    .lang-select:focus { outline: none; border-color: var(--accent); }
 
     /* ── HERO ── */
     .hero {

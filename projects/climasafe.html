@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
+  <script src="../i18n.js" defer></script>
 </head>
 <body class="proj-page">
 
@@ -15,20 +16,21 @@
     <div class="nav-inner">
       <div class="nav-brand">
         <div class="nav-dot"></div>
-        <div class="nav-id"><a href="../index.html" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ ClimaSafe</span></div>
+        <div class="nav-id"><a href="../index.html" class="nav-back" data-i18n="back_index">← index</a> <strong>Alejandro Cancelas</strong> <span>/ ClimaSafe</span></div>
       </div>
       <ul class="nav-links">
-        <li><a href="../index.html#about">about</a></li>
-        <li><a href="../index.html#projects">projects</a></li>
-        <li><a href="../index.html#stack">stack</a></li>
+        <li><a href="../index.html#about" data-i18n="nav_about">about</a></li>
+        <li><a href="../index.html#projects" data-i18n="nav_projects">projects</a></li>
+        <li><a href="../index.html#stack" data-i18n="nav_stack">stack</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
       </ul>
     </div>
   </nav>
 
   <section class="proj-hero">
     <div class="container">
-      <div class="hero-eyebrow">ClimaSafe · early warning · ML</div>
-      <h1>Heat and cold risk warning<br /><span class="hl">before the day arrives.</span></h1>
+      <div class="hero-eyebrow" data-i18n="eyebrow_climasafe">ClimaSafe · early warning · ML</div>
+      <h1><span data-i18n="climasafe_h1_1">Heat and cold risk warning</span><br /><span class="hl" data-i18n="climasafe_h1_2">before the day arrives.</span></h1>
       <p class="hero-sub">
         A personalized early-warning system for heat and cold stress. It estimates your cardiovascular
         risk level (safe / caution / danger) for any Spanish location, day and hour, from thermal comfort
@@ -39,12 +41,12 @@
         attributable to heat (X30) and cold (X31).
       </p>
       <div class="proj-links">
-        <a class="hero-cta" href="../climasafe/probar-ya/">Probar ya</a>
-        <a class="hero-cta" href="../climasafe/documentacion/">Documentación</a>
+        <a class="hero-cta" href="../climasafe/probar-ya/" data-i18n="cta_try">Probar ya</a>
+        <a class="hero-cta" href="../climasafe/documentacion/" data-i18n="cta_docs">Documentación</a>
         <a class="hero-cta" href="../climasafe/mcp.html">MCP</a>
         <a class="hero-cta" href="../climasafe/telegram.html">Telegram</a>
         <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
-        <a class="hero-cta" href="../index.html">← back to projects</a>
+        <a class="hero-cta" href="../index.html" data-i18n="cta_back_projects">← back to projects</a>
       </div>
     </div>
   </section>
@@ -54,8 +56,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">01</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">problem</span>
-        <span class="sec-title">What it solves</span>
+        <span class="sec-tag" data-i18n="tag_problem">problem</span>
+        <span class="sec-title" data-i18n="title_solves">What it solves</span>
       </div>
       <div class="proj-field-val proj-wide">
         Temperature extremes have a direct, lagged effect on mortality. The system models the
@@ -69,15 +71,15 @@
       </div>
       <div class="dskit-grid">
         <div class="dskit-stat">
-          <div class="dskit-stat-lbl">Models</div>
+          <div class="dskit-stat-lbl" data-i18n="stat_models">Models</div>
           <div class="dskit-stat-val">XGBoost (heat) · RandomForest (cold) · LSTM province_hybrid · thermal indices</div>
         </div>
         <div class="dskit-stat">
-          <div class="dskit-stat-lbl">Data</div>
+          <div class="dskit-stat-lbl" data-i18n="stat_data">Data</div>
           <div class="dskit-stat-val">ERA5 (train) · Open-Meteo (live) · AEMET · OpenUV · MoMo mortality</div>
         </div>
         <div class="dskit-stat">
-          <div class="dskit-stat-lbl">Scope</div>
+          <div class="dskit-stat-lbl" data-i18n="stat_scope">Scope</div>
           <div class="dskit-stat-val">Personalized risk per person, province, day and hour · heat and cold</div>
         </div>
       </div>
@@ -89,8 +91,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">02</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">approach</span>
-        <span class="sec-title">Modelling</span>
+        <span class="sec-tag" data-i18n="tag_approach">approach</span>
+        <span class="sec-title" data-i18n="title_modelling">Modelling</span>
       </div>
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
@@ -130,11 +132,11 @@
       <div class="sec-head reveal">
         <span class="sec-num">03</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">results</span>
-        <span class="sec-title">Real numbers</span>
+        <span class="sec-tag" data-i18n="tag_results">results</span>
+        <span class="sec-title" data-i18n="title_results">Real numbers</span>
       </div>
       <div class="metric-block">
-        <span class="metric-lbl">Rec_riesgo (calibrated thresholds)</span>
+        <span class="metric-lbl" data-i18n="metric_lbl">Rec_riesgo (calibrated thresholds)</span>
         <span class="metric-val">XGBoost <strong>0.668</strong> (heat) · RF <strong>0.612</strong> (cold) · LSTM <strong>0.737</strong> heat / <strong>0.708</strong> cold.</span>
       </div>
       <div class="proj-field-val proj-wide">
