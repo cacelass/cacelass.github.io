@@ -357,6 +357,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#modelo-bayesiano-jerarquico-por-provincia-bayes-001-contraste" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modelo bayesiano jerárquico por provincia (BAYES-001) — contraste
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#umbrales-y-calibracion" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -554,6 +565,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#modelo-bayesiano-jerarquico-por-provincia-bayes-001-contraste" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modelo bayesiano jerárquico por provincia (BAYES-001) — contraste
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#umbrales-y-calibracion" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -654,6 +676,54 @@ predicción.</p>
   riesgo de los modelos disponibles (para calor: XGBoost + LSTM + Fórmula; para
   frío: RandomForest + LSTM + Fórmula).</li>
 </ul>
+<h2 id="modelo-bayesiano-jerarquico-por-provincia-bayes-001-contraste">Modelo bayesiano jerárquico por provincia (BAYES-001) — contraste</h2>
+<p>Como <strong>modelo de contraste</strong> (no entra en el ensemble) se implementó una
+regresión logística <strong>ordinal acumulativa</strong> de 3 clases con <strong>efectos
+aleatorios por provincia</strong> (partial pooling): cada provincia tiene su propia
+curva informada por la distribución nacional, así que las provincias con pocos
+episodios se encogen hacia la media en vez de sobreajustar. Se muestrea con
+Metropolis-Hastings propio (numpy/scipy, sin pymc) y se compara contra el
+componente tabular del ensemble reentrenado en la misma partición temporal
+(test = último 20 % de fechas, 34 470 filas):</p>
+<table>
+<thead>
+<tr>
+<th>Métrica (test temporal)</th>
+<th>Calor: XGBoost → Jerárquico</th>
+<th>Frío: RandomForest → Jerárquico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F1 macro</td>
+<td>0.4850 → <strong>0.5484</strong> (+0.063)</td>
+<td>0.4562 → <strong>0.4779</strong> (+0.022)</td>
+</tr>
+<tr>
+<td>Brier</td>
+<td>0.0571 → <strong>0.0454</strong></td>
+<td>0.0944 → <strong>0.0476</strong></td>
+</tr>
+<tr>
+<td>Accuracy</td>
+<td>0.8815 → 0.8616</td>
+<td>0.7758 → <strong>0.8998</strong></td>
+</tr>
+</tbody>
+</table>
+<p>En calor la ganancia de F1 es <strong>mayor donde menos datos hay</strong> (provincias con
+pocos episodios: +0.0919; con muchos: +0.0549). En frío el beneficio es de
+<strong>calibración</strong>, no de ordenación de clases.</p>
+<p><strong>Decisión:</strong> el jerárquico <strong>NO entra en el ensemble ni lo sustituye</strong> — no
+mejora consistentemente (en frío pierde en provincias con pocos episodios,
+−0.035) y su intervalo de credibilidad al 90 % no es un intervalo predictivo
+calibrado de la clase (cobertura 0.37 calor / 0.29 frío). Se queda como
+contraste; la vía de entrada futura (recalibrar el intervalo o añadirlo al
+ensemble como miembro con peso <code>1/conformal_set_size</code>) está documentada.</p>
+<blockquote>
+<p>Estudio completo (implementación, comparativa y limitaciones):
+<a href="https://github.com/ANFAIA/ClimaSafe/blob/main/documentacion/modelos/bayes_jerarquico.md"><code>documentacion/modelos/bayes_jerarquico.md</code></a></p>
+</blockquote>
 <h2 id="umbrales-y-calibracion">Umbrales y calibración</h2>
 <ul>
 <li><strong>Calibración isotónica post-hoc en frío</strong> (en calor reduce sensibilidad en

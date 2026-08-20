@@ -422,6 +422,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mcp-control-de-acceso-y-estandares" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP: control de acceso y estándares
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#persistencia" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -565,6 +576,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#mcp-control-de-acceso-y-estandares" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP: control de acceso y estándares
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#persistencia" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -701,6 +723,33 @@ train y test.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="mcp-control-de-acceso-y-estandares">MCP: control de acceso y estándares</h2>
+<p>El servidor MCP de predicción (<code>agents/tools/prediction_mcp_tool.py</code>) cerró el
+agujero de identidad: <strong>ninguna tool sabía quién llamaba</strong>, y cuatro de ellas
+leían o reasignaban perfiles ajenos con solo saber el alias. Ahora toda tool
+pasa por un control de acceso en un punto único (<code>_requiere_identidad</code>):</p>
+<ul>
+<li><strong>Identidad por proceso en stdio</strong> (<code>CLIMASAFE_MCP_TOKEN</code> o <code>--identidad</code>),
+  <strong>bearer en HTTP</strong> — un proceso = un llamante; el transporte se resuelve en
+  un solo sitio.</li>
+<li><strong><code>uid</code> opaco</strong> (<code>usr_…</code>) sustituye a <code>alias</code>/<code>chat_id</code> como llave de
+  acceso; la credencial (<code>mcp_token_hash</code>) nunca sale en las respuestas.</li>
+<li><strong>Minimización de campos</strong>: un perfil ajeno no devuelve ni un campo; de un
+  perfil propio nunca salen <code>farmacos</code>, <code>comorbilidades</code>, <code>situacion_social</code>,
+  grasa, fototipo ni coordenadas.</li>
+<li><strong>Solo lectura por defecto (MCP-002)</strong>: las 5 tools que escriben en la BD
+  (<code>crear_perfil_mcp</code>, <code>crear_rutina_mcp</code>, <code>borrar_rutina_mcp</code>,
+  <code>vincular_chat_id_mcp</code>, <code>configurar_hora_aviso_mcp</code>) exigen
+  <code>CLIMASAFE_MCP_WRITE_TOKEN</code> al arrancar; sin él responden error y no tocan
+  nada. El token nunca entra en la firma de una tool ni en los logs.</li>
+<li><strong>Spec 2025-06-18+ (MCP-004)</strong>: ambos servidores (predicción y factores)
+  usan streamable HTTP (el de factores migró de SSE) y declaran tool
+  annotations (<code>title</code>, <code>readOnlyHint</code>, <code>destructiveHint</code>).</li>
+</ul>
+<blockquote>
+<p>Detalle: <a href="https://github.com/ANFAIA/ClimaSafe/blob/main/documentacion/arquitectura/control_acceso_mcp.md"><code>documentacion/arquitectura/control_acceso_mcp.md</code></a>
+y <a href="https://github.com/ANFAIA/ClimaSafe/blob/main/documentacion/arquitectura/auditoria-mcp-espec.md"><code>documentacion/arquitectura/auditoria-mcp-espec.md</code></a></p>
+</blockquote>
 <h2 id="persistencia">Persistencia</h2>
 <p>SQLite (<code>data/climasafe.db</code>): perfiles, rutinas, consultas y RAG vectorial.</p>
 <h2 id="despliegue">Despliegue</h2>
