@@ -400,109 +400,33 @@
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    /* ── Reduced motion: skip all GSAP animations ── */
+    /* ── Reduced motion: skip all animations ── */
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('.reveal').forEach(function(el) {
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-      });
-      document.querySelectorAll('.hero h1 span span').forEach(function(el) {
+      document.querySelectorAll('.reveal, .hero h1, .hero-sub, .hero-term, .hero-chips, .hero-cta').forEach(function(el) {
         el.style.opacity = '1';
         el.style.transform = 'none';
       });
     } else {
 
-    /* ── Hero entrance ── */
-    (function() {
-      var heroTl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.7 } });
-      // Word-by-word reveal on h1
-      var h1 = document.querySelector('.hero h1');
-      if (h1) {
-        // Split lines (already <br>-separated spans)
-        var lines = h1.querySelectorAll('span');
-        // Wrap each line innerHTML into words
-        lines.forEach(function(line) {
-          var html = line.innerHTML;
-          line.innerHTML = '';
-          var words = html.split(/(\s+)/);
-          words.forEach(function(w) {
-            if (w.trim()) {
-              var span = document.createElement('span');
-              span.style.display = 'inline-block';
-              span.style.opacity = '0';
-              span.style.transform = 'translateY(16px)';
-              span.textContent = w;
-              line.appendChild(span);
-            } else {
-              line.appendChild(document.createTextNode(w));
-            }
-          });
-        });
-        heroTl
-          .from('.hero-eyebrow', { opacity: 0, y: 12, duration: 0.5 }, 0)
-          .to('.hero h1 span span', { opacity: 1, y: 0, stagger: 0.04, duration: 0.45 }, 0.15)
-          .from('.hero-sub', { opacity: 0, y: 14, duration: 0.6 }, 0.5)
-          .from('.hero-term', { opacity: 0, y: 12, duration: 0.5 }, 0.65)
-          .from('.hero-chips .chip', { opacity: 0, y: 10, stagger: 0.08, duration: 0.4 }, 0.7)
-          .from('.hero-cta', { opacity: 0, y: 10, stagger: 0.1, duration: 0.4 }, 0.9);
-      }
-    })();
+    /* ── Hero: fade in sencillo ── */
+    gsap.from('.hero-eyebrow', { opacity: 0, y: 8, duration: 0.5, ease: 'power2.out' });
+    gsap.from('.hero h1', { opacity: 0, y: 8, duration: 0.6, delay: 0.15, ease: 'power2.out' });
+    gsap.from('.hero-sub', { opacity: 0, y: 8, duration: 0.5, delay: 0.3, ease: 'power2.out' });
+    gsap.from('.hero-term', { opacity: 0, y: 8, duration: 0.5, delay: 0.4, ease: 'power2.out' });
+    gsap.from('.hero-chips .chip', { opacity: 0, y: 6, stagger: 0.06, duration: 0.4, delay: 0.5, ease: 'power2.out' });
+    gsap.from('.hero-cta', { opacity: 0, y: 6, stagger: 0.08, duration: 0.4, delay: 0.65, ease: 'power2.out' });
 
-    /* ── ScrollTrigger reveals (stagger) ── */
-    // Section heads
-    gsap.utils.toArray('.sec-head.reveal').forEach(function(el) {
+    /* ── ScrollTrigger: fade-in sutil ── */
+    gsap.utils.toArray('.reveal').forEach(function(el) {
       gsap.from(el, {
-        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
-        opacity: 0, y: 18, duration: 0.6, ease: 'power2.out'
-      });
-    });
-
-    // About cards
-    gsap.from('.about-card', {
-      scrollTrigger: { trigger: '.about-grid', start: 'top 85%' },
-      opacity: 0, y: 20, stagger: 0.12, duration: 0.55, ease: 'power2.out'
-    });
-
-    // Featured project cards
-    gsap.from('.feat-card', {
-      scrollTrigger: { trigger: '.featured-grid', start: 'top 85%' },
-      opacity: 0, y: 20, stagger: 0.1, duration: 0.5, ease: 'power2.out'
-    });
-
-    // More items
-    gsap.from('.more-item', {
-      scrollTrigger: { trigger: '.more-list', start: 'top 88%' },
-      opacity: 0, y: 14, stagger: 0.07, duration: 0.45, ease: 'power2.out'
-    });
-
-    // Stack cards
-    gsap.from('.stack-card', {
-      scrollTrigger: { trigger: '.stack-grid', start: 'top 85%' },
-      opacity: 0, y: 20, stagger: 0.1, duration: 0.5, ease: 'power2.out'
-    });
-
-    // Stack items (individual chips)
-    gsap.from('.stack-item', {
-      scrollTrigger: { trigger: '.stack-grid', start: 'top 80%' },
-      opacity: 0, scale: 0.9, stagger: 0.02, duration: 0.3, ease: 'back.out(1.2)'
-    });
-
-    /* ── Magnetic CTA ── */
-    document.querySelectorAll('.hero-cta').forEach(function(btn) {
-      btn.addEventListener('mousemove', function(e) {
-        var rect = btn.getBoundingClientRect();
-        var x = e.clientX - rect.left - rect.width / 2;
-        var y = e.clientY - rect.top - rect.height / 2;
-        gsap.to(btn, { x: x * 0.2, y: y * 0.2, duration: 0.3, ease: 'power2.out' });
-      });
-      btn.addEventListener('mouseleave', function() {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.5)' });
+        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' },
+        opacity: 0, y: 10, duration: 0.5, ease: 'power2.out'
       });
     });
 
     } /* end reduced-motion guard */
   </script>
-  <script src="shader.js" defer></script>
+
 
 </body>
 </html>
