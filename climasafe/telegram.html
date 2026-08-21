@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
-  <script src="../i18n.js" defer></script>
+  <script src="../i18n.js?v=202608212" defer></script>
   <style>
     .code-block {
       font-family: var(--mono);
@@ -128,12 +128,8 @@
         <code>make spacebot</code> (first-time setup) and <code>make spacebot-start</code> (run the
         bot). The daily alert and prediction pipeline runs on a schedule.
       </div>
-      <div class="note">
-        <strong>El LLM del bot es local (Ollama).</strong> The bot drafts its replies with a local
-        LLM — <strong>Ollama</strong> serving <strong>qwen3:climasafe</strong>, a fine-tuned model —
-        not with a cloud API. For the bot to work, run the repository while Ollama serves the model.
-        Everything else — the form, the risk prediction and the daily alerts — is deterministic and
-        works regardless of the LLM.
+      <div class="note" data-i18n="tg_note_llm" data-i18n-html>
+        <strong>El LLM del bot es local (Ollama).</strong> El bot redacta sus respuestas con un LLM local — <strong>Ollama</strong> sirviendo <strong>qwen3:climasafe</strong>, un modelo fine-tuneado — no con una API en la nube. Para que el bot funcione, ejecuta el repositorio mientras Ollama sirve el modelo. Lo demás — el formulario, la predicción de riesgo y las alertas diarias — es determinista y funciona sin el LLM.
       </div>
       <div class="proj-field-val proj-wide" data-i18n="tg_run_p2" data-i18n-html>
         Source and setup details:

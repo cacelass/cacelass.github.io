@@ -124,7 +124,10 @@
       tag_run: "ejecutar",
       title_run: "Ejecútalo localmente",
       tg_run_p1: "El bot se arranca desde la raíz del repositorio con los targets del Makefile: <code>make spacebot</code> (primer arranque) y <code>make spacebot-start</code> (ejecutar el bot). La alerta diaria y el pipeline de predicción corren con un programador.",
-      tg_run_p2: "Fuente y detalles de instalación:"
+      tg_run_p2: "Fuente y detalles de instalación:",
+      // Notas mixtas (mcp.html, telegram.html)
+      mcp_note_token: "<strong>Sin token, solo lectura.</strong> El servidor arranca en modo solo lectura cuando no hay token de escritura. Las operaciones de escritura — crear o borrar perfiles, gestionar rutinas, configurar alertas diarias — requieren <code>CLIMASAFE_MCP_WRITE_TOKEN</code> en el entorno. Las predicciones y gráficas de riesgo funcionan sin él.",
+      tg_note_llm: "<strong>El LLM del bot es local (Ollama).</strong> El bot redacta sus respuestas con un LLM local — <strong>Ollama</strong> sirviendo <strong>qwen3:climasafe</strong>, un modelo fine-tuneado — no con una API en la nube. Para que el bot funcione, ejecuta el repositorio mientras Ollama sirve el modelo. Lo demás — el formulario, la predicción de riesgo y las alertas diarias — es determinista y funciona sin el LLM."
     },
     en: {
       nav_about: "about",
@@ -226,7 +229,10 @@
       tag_run: "run",
       title_run: "Run it locally",
       tg_run_p1: "The bot is started from the repository root with the Makefile targets: <code>make spacebot</code> (first-time setup) and <code>make spacebot-start</code> (run the bot). The daily alert and prediction pipeline runs on a schedule.",
-      tg_run_p2: "Source and setup details:"
+      tg_run_p2: "Source and setup details:",
+      // Notas mixtas (mcp.html, telegram.html)
+      mcp_note_token: "<strong>No token, read-only.</strong> The server starts in read-only mode when no write token is set. Write operations — creating or deleting profiles, managing routines, setting daily alerts — require <code>CLIMASAFE_MCP_WRITE_TOKEN</code> to be present in the environment. Predictions and risk charts work without it.",
+      tg_note_llm: "<strong>The bot's LLM is local (Ollama).</strong> The bot drafts its replies with a local LLM — <strong>Ollama</strong> serving <strong>qwen3:climasafe</strong>, a fine-tuned model — not with a cloud API. For the bot to work, run the repository while Ollama serves the model. Everything else — the form, the risk prediction and the daily alerts — is deterministic and works regardless of the LLM."
     }
   };
 

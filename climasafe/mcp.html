@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
-  <script src="../i18n.js" defer></script>
+  <script src="../i18n.js?v=202608212" defer></script>
   <style>
     .code-block {
       font-family: var(--mono);
@@ -137,11 +137,8 @@
         <span class="sec-tag" data-i18n="tag_permissions">permissions</span>
         <span class="sec-title" data-i18n="title_permissions">Read-only by default, writes behind a token</span>
       </div>
-      <div class="note">
-        <strong>Sin token, solo lectura.</strong> The server starts in read-only mode when no write
-        token is set. Write operations — creating or deleting profiles, managing routines, setting
-        daily alerts — require <code>CLIMASAFE_MCP_WRITE_TOKEN</code> to be present in the
-        environment. Predictions and risk charts work without it.
+      <div class="note" data-i18n="mcp_note_token" data-i18n-html>
+        <strong>Sin token, solo lectura.</strong> El servidor arranca en modo solo lectura cuando no hay token de escritura. Las operaciones de escritura — crear o borrar perfiles, gestionar rutinas, configurar alertas diarias — requieren <code>CLIMASAFE_MCP_WRITE_TOKEN</code> en el entorno. Las predicciones y gráficas de riesgo funcionan sin él.
       </div>
       <div class="proj-field-val proj-wide">
         Source, tools and the full component map live in the repository:
