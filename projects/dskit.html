@@ -15,28 +15,28 @@
     <div class="nav-inner">
       <div class="nav-brand">
         <div class="nav-dot"></div>
-        <div class="nav-id"><a href="../index.html" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ dskit</span></div>
-      </div>
-      <ul class="nav-links">
-        <li><a href="../index.html#about">about</a></li>
-        <li><a href="../index.html#projects">projects</a></li>
-        <li><a href="../index.html#stack">stack</a></li>
-      </ul>
+      <div class="nav-id"><a href="../index.html" class="nav-back" data-i18n="back_index">← index</a> <strong>Alejandro Cancelas</strong> <span>/ dskit</span></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html#about" data-i18n="nav_about">about</a></li>
+      <li><a href="../index.html#projects" data-i18n="nav_projects">projects</a></li>
+      <li><a href="../index.html#stack" data-i18n="nav_stack">stack</a></li>
+    </ul>
     </div>
   </nav>
 
   <section class="proj-hero">
     <div class="container">
-      <div class="hero-eyebrow">dskit · scaffold · harness</div>
-      <h1>A production-grade ML scaffold<br /><span class="hl">with the rules in code.</span></h1>
-      <p class="hero-sub">
+      <div class="hero-eyebrow" data-i18n="dskit_eyebrow">dskit · scaffold · harness</div>
+      <h1 data-i18n-html="dskit_h1">A production-grade ML scaffold<br /><span class="hl">with the rules in code.</span></h1>
+      <p class="hero-sub" data-i18n-html="dskit_sub">
         A <a href="https://copier.readthedocs.io" target="_blank">copier</a> template that generates complete ML projects,
         from environment and layout to API, monitoring, RAG and an AI harness. It doesn't just start a project:
         it ships with the quality pipeline and the governance already wired in.
       </p>
       <div class="proj-links">
         <a class="hero-cta" href="https://github.com/cacelass/dskit" target="_blank">github.com/cacelass/dskit</a>
-        <a class="hero-cta" href="../index.html">← back to projects</a>
+        <a class="hero-cta" href="../index.html" data-i18n="cta_back_projects">← back to projects</a>
       </div>
     </div>
   </section>
@@ -46,8 +46,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">01</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">problem</span>
-        <span class="sec-title">What it solves</span>
+        <span class="sec-tag" data-i18n="dskit_tag_problem">problem</span>
+        <span class="sec-title" data-i18n="dskit_title_solves">What it solves</span>
       </div>
       <div class="proj-field-val proj-wide">
         Most ML failures are not model failures. They are <strong>reproducibility and consistency failures</strong>.
@@ -77,8 +77,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">02</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">generation</span>
-        <span class="sec-title">One command, a full project</span>
+        <span class="sec-tag" data-i18n="dskit_tag_generation">generation</span>
+        <span class="sec-title" data-i18n="dskit_title_generation">One command, a full project</span>
       </div>
       <div class="proj-field-val proj-wide">
         <code>copier copy --trust gh:cacelass/dskit mi_proyecto</code> generates a project with the exact ML
@@ -119,8 +119,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">03</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">modules</span>
-        <span class="sec-title">Optional modules, opt-in</span>
+        <span class="sec-tag" data-i18n="dskit_tag_modules">modules</span>
+        <span class="sec-title" data-i18n="dskit_title_modules">Optional modules, opt-in</span>
       </div>
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
@@ -180,8 +180,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">04</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">quality</span>
-        <span class="sec-title">Quality pipeline</span>
+        <span class="sec-tag" data-i18n="dskit_tag_quality">quality</span>
+        <span class="sec-title" data-i18n="dskit_title_quality">Quality pipeline</span>
       </div>
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
@@ -225,8 +225,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">05</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">harness</span>
-        <span class="sec-title">The AI harness</span>
+        <span class="sec-tag" data-i18n="dskit_tag_harness">harness</span>
+        <span class="sec-title" data-i18n="dskit_title_harness">The AI harness</span>
       </div>
       <p class="proj-field-val proj-wide">
         An AI model generates code much faster than a human reviews it. The harness puts the reins on:
@@ -279,8 +279,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">06</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">layout</span>
-        <span class="sec-title">Generated structure</span>
+        <span class="sec-tag" data-i18n="dskit_tag_layout">layout</span>
+        <span class="sec-title" data-i18n="dskit_title_layout">Generated structure</span>
       </div>
       <div class="proj-field-val proj-wide">
         Every project ships with a production layout: package + <code>data/{raw,interim,processed,external}</code>,
@@ -321,7 +321,7 @@
       els.forEach((el) => el.classList.add('is-visible'));
     }
   </script>
-
+  <script src="../i18n.js"></script>
 
 </body>
 </html>

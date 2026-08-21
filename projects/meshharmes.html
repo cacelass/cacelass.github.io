@@ -15,21 +15,21 @@
     <div class="nav-inner">
       <div class="nav-brand">
         <div class="nav-dot"></div>
-        <div class="nav-id"><a href="../index.html" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ MeshHarmes</span></div>
-      </div>
-      <ul class="nav-links">
-        <li><a href="../index.html#about">about</a></li>
-        <li><a href="../index.html#projects">projects</a></li>
-        <li><a href="../index.html#stack">stack</a></li>
-      </ul>
+      <div class="nav-id"><a href="../index.html" class="nav-back" data-i18n="back_index">← index</a> <strong>Alejandro Cancelas</strong> <span>/ MeshHarmes</span></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html#about" data-i18n="nav_about">about</a></li>
+      <li><a href="../index.html#projects" data-i18n="nav_projects">projects</a></li>
+      <li><a href="../index.html#stack" data-i18n="nav_stack">stack</a></li>
+    </ul>
     </div>
   </nav>
 
   <section class="proj-hero">
     <div class="container">
-      <div class="hero-eyebrow">MeshHarmes · agent harness</div>
-      <h1>The rules of agent work<br /><span class="hl">written in code.</span></h1>
-      <p class="hero-sub">
+      <div class="hero-eyebrow" data-i18n="mesh_eyebrow">MeshHarmes · agent harness</div>
+      <h1 data-i18n-html="mesh_h1">The rules of agent work<br /><span class="hl">written in code.</span></h1>
+      <p class="hero-sub" data-i18n-html="mesh_sub">
         An agent harness and project infrastructure for general Python work, where the game rules are
         written <strong>in code, not in a prompt</strong>: an entry gate that decides whether work can proceed,
         a backlog with acceptance criteria, memory outside the context window, and a permission gate for
@@ -37,7 +37,7 @@
       </p>
       <div class="proj-links">
         <a class="hero-cta" href="https://github.com/cacelass/MeshHarmes" target="_blank">github.com/cacelass/MeshHarmes</a>
-        <a class="hero-cta" href="../index.html">← back to projects</a>
+        <a class="hero-cta" href="../index.html" data-i18n="cta_back_projects">← back to projects</a>
       </div>
     </div>
   </section>
@@ -47,8 +47,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">01</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">problem</span>
-        <span class="sec-title">What it solves</span>
+        <span class="sec-tag" data-i18n="mesh_tag_problem">problem</span>
+        <span class="sec-title" data-i18n="mesh_title_solves">What it solves</span>
       </div>
       <div class="proj-field-val proj-wide">
         An AI generates code much faster than a human reviews it. MeshHarmes is the environment that puts
@@ -78,8 +78,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">02</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">decisions</span>
-        <span class="sec-title">Engineering decisions</span>
+        <span class="sec-tag" data-i18n="mesh_tag_decisions">decisions</span>
+        <span class="sec-title" data-i18n="mesh_title_decisions">Engineering decisions</span>
       </div>
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
@@ -140,7 +140,7 @@
       els.forEach((el) => el.classList.add('is-visible'));
     }
   </script>
-
+  <script src="../i18n.js"></script>
 
 </body>
 </html>

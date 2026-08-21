@@ -15,28 +15,28 @@
     <div class="nav-inner">
       <div class="nav-brand">
         <div class="nav-dot"></div>
-        <div class="nav-id"><a href="../index.html" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ credit-risk-classifier</span></div>
-      </div>
-      <ul class="nav-links">
-        <li><a href="../index.html#about">about</a></li>
-        <li><a href="../index.html#projects">projects</a></li>
-        <li><a href="../index.html#stack">stack</a></li>
-      </ul>
+      <div class="nav-id"><a href="../index.html" class="nav-back" data-i18n="back_index">← index</a> <strong>Alejandro Cancelas</strong> <span>/ credit-risk-classifier</span></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html#about" data-i18n="nav_about">about</a></li>
+      <li><a href="../index.html#projects" data-i18n="nav_projects">projects</a></li>
+      <li><a href="../index.html#stack" data-i18n="nav_stack">stack</a></li>
+    </ul>
     </div>
   </nav>
 
   <section class="proj-hero">
     <div class="container">
-      <div class="hero-eyebrow">credit-risk-classifier · banking · propensity</div>
-      <h1>Prioritise the right customers<br /><span class="hl">before the call.</span></h1>
-      <p class="hero-sub">
+      <div class="hero-eyebrow" data-i18n="credit_eyebrow">credit-risk-classifier · banking · propensity</div>
+      <h1 data-i18n-html="credit_h1">Prioritise the right customers<br /><span class="hl">before the call.</span></h1>
+      <p class="hero-sub" data-i18n-html="credit_sub">
         A retail banking propensity model on the UCI Bank Marketing dataset: predict the probability that a
         customer subscribes a term deposit during a marketing campaign, so the campaign team can prioritise
         who to call. Built with leakage-free preprocessing and persisted, reproducible metrics.
       </p>
       <div class="proj-links">
         <a class="hero-cta" href="https://github.com/cacelass/credit-risk-classifier" target="_blank">github.com/cacelass/credit-risk-classifier</a>
-        <a class="hero-cta" href="../index.html">← back to projects</a>
+        <a class="hero-cta" href="../index.html" data-i18n="cta_back_projects">← back to projects</a>
       </div>
     </div>
   </section>
@@ -46,8 +46,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">01</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">problem</span>
-        <span class="sec-title">What it solves</span>
+        <span class="sec-tag" data-i18n="credit_tag_problem">problem</span>
+        <span class="sec-title" data-i18n="credit_title_solves">What it solves</span>
       </div>
       <div class="proj-field-val proj-wide">
         Retail banks run marketing campaigns over their customer base. Calling everyone is expensive;
@@ -78,8 +78,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">02</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">decisions</span>
-        <span class="sec-title">Engineering decisions</span>
+        <span class="sec-tag" data-i18n="credit_tag_decisions">decisions</span>
+        <span class="sec-title" data-i18n="credit_title_decisions">Engineering decisions</span>
       </div>
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
@@ -111,8 +111,8 @@
       <div class="sec-head reveal">
         <span class="sec-num">03</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag">results</span>
-        <span class="sec-title">Real numbers</span>
+        <span class="sec-tag" data-i18n="credit_tag_results">results</span>
+        <span class="sec-title" data-i18n="credit_title_results">Real numbers</span>
       </div>
       <div class="metric-block">
         <span class="metric-lbl">ROC-AUC</span>
@@ -156,7 +156,7 @@
       els.forEach((el) => el.classList.add('is-visible'));
     }
   </script>
-
+  <script src="../i18n.js"></script>
 
 </body>
 </html>
