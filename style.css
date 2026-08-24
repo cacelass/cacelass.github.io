@@ -83,7 +83,7 @@
 
     /* ── HERO ── */
     .hero {
-      padding: 104px 0 88px;
+      padding: 84px 0 72px;
       position: relative;
       overflow-x: clip;
     }
@@ -147,8 +147,8 @@
     .hero-cta + .hero-cta { margin-left: 10px; }
 
     /* ── SECTION ── */
-    .section { padding: 88px 0; }
-    .section:last-child { padding-bottom: 96px; }
+    .section { padding: 64px 0; }
+    .section:last-child { padding-bottom: 72px; }
     .sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
     .sec-num { display: none; }
     .sec-divider { flex: 1; max-width: 40px; height: 1px; background: var(--border-hi); }
@@ -397,15 +397,15 @@
     .feat-name { font-family: var(--mono); font-size: 0.92rem; font-weight: 500; }
     .feat-name a { color: var(--text); transition: color 0.15s; }
     .feat-name a:hover { color: var(--accent2); }
-    .feat-desc { font-size: 0.845rem; color: var(--muted); line-height: 1.7; font-weight: 300; flex: 1; }
+    .feat-desc { font-size: 0.845rem; color: #6ba3ff; line-height: 1.7; font-weight: 300; flex: 1; }
     .feat-desc strong { color: var(--text); font-weight: 500; }
     .feat-meta { margin-top: 6px; }
     .feat-meta a {
-      font-family: var(--mono); font-size: 0.76rem; color: var(--accent2);
+      font-family: var(--mono); font-size: 0.76rem; color: #6ba3ff;
       display: inline-flex; align-items: center; gap: 6px;
       transition: color 0.15s;
     }
-    .feat-meta a:hover { color: #fff; }
+    .feat-meta a:hover { color: #8cb8ff; }
 
     .more-head { display: flex; align-items: center; gap: 12px; margin: 8px 0 18px; }
     .more-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
@@ -424,10 +424,10 @@
     .more-name { font-family: var(--mono); font-size: 0.8rem; font-weight: 500; }
     .more-name a { color: var(--text); }
     .more-name a:hover { color: var(--accent2); }
-    .more-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+    .more-desc { font-size: 0.8rem; color: #6ba3ff; line-height: 1.6; }
     .more-tag {
-      font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
-      border: 1px solid var(--border-hi); border-radius: 20px;
+      font-family: var(--mono); font-size: 0.72rem; color: #6ba3ff;
+      border: 1px solid rgba(107,163,255,0.4); border-radius: 20px;
       padding: 2px 10px; white-space: nowrap; align-self: flex-start; margin-top: 2px;
     }
 
