@@ -1,23 +1,23 @@
 :root {
-      --bg:         #080b12;
-      --bg2:        #0c1018;
-      --surface:    #0f1420;
-      --surface2:   #131926;
-      --border:     #1c2333;
-      --border-hi:  #26304a;
-      --text:       #e2e8f4;
-      --muted:      #7a8eaa;
-      --dim:        #5a6a86;
-      --accent:     #4f8ef7;
-      --accent2:    #6ba3ff;
-      --accent-lo:  rgba(79,142,247,0.08);
-      --accent-glow:rgba(79,142,247,0.15);
-      --green:      #3ecf8e;
-      --green-lo:   rgba(62,207,142,0.08);
-      --purple:     #a78bfa;
-      --purple-lo:  rgba(167,139,250,0.08);
-      --amber:      #f6a623;
-      --amber-lo:   rgba(246,166,35,0.08);
+      --bg:         #0c0c0e;
+      --bg2:        #111113;
+      --surface:    #161619;
+      --surface2:   #1b1b1f;
+      --border:     #26262b;
+      --border-hi:  #3a3a41;
+      --text:       #f4f4f5;
+      --muted:      #9a9aa3;
+      --dim:        #6b6b73;
+      --accent:     #d4d4d8;
+      --accent2:    #e4e4e7;
+      --accent-lo:  rgba(212,212,216,0.08);
+      --accent-glow:rgba(212,212,216,0.15);
+      --green:      #a3a3ab;
+      --green-lo:   rgba(163,163,171,0.08);
+      --purple:     #bdbdc6;
+      --purple-lo:  rgba(189,189,198,0.08);
+      --amber:      #c7c7cf;
+      --amber-lo:   rgba(199,199,207,0.08);
       --mono: 'JetBrains Mono', monospace;
       --sans: 'Space Grotesk', sans-serif;
       --r: 8px;
@@ -50,7 +50,7 @@
     nav {
       border-bottom: 1px solid var(--border);
       position: sticky; top: 0; z-index: 100;
-      background: rgba(8,11,18,0.96);
+      background: rgba(12,12,14,0.96);
       backdrop-filter: blur(20px);
     }
     .nav-inner {
@@ -83,8 +83,7 @@
 
     /* ── HERO ── */
     .hero {
-      padding: 100px 0 84px;
-      border-bottom: 1px solid var(--border);
+      padding: 104px 0 88px;
       position: relative;
       overflow-x: clip;
     }
@@ -92,21 +91,21 @@
       content: '';
       position: absolute; top: -80px; left: -120px;
       width: 460px; height: 460px;
-      background: radial-gradient(ellipse at center, rgba(79,142,247,0.06) 0%, transparent 65%);
+      background: radial-gradient(ellipse at center, rgba(212,212,216,0.06) 0%, transparent 65%);
       pointer-events: none;
     }
     .hero::after {
       content: '';
       position: absolute; top: 0; right: -100px;
       width: 500px; height: 500px;
-      background: radial-gradient(ellipse at center, rgba(79,142,247,0.07) 0%, transparent 70%);
+      background: radial-gradient(ellipse at center, rgba(212,212,216,0.07) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero > .container { position: relative; z-index: 1; }
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
       font-family: var(--mono); font-size: 0.8rem; color: var(--accent2);
-      background: var(--accent-lo); border: 1px solid rgba(79,142,247,0.2);
+      background: var(--accent-lo); border: 1px solid rgba(212,212,216,0.2);
       border-radius: 20px; padding: 4px 12px; margin-bottom: 24px;
     }
     .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
@@ -133,7 +132,7 @@
       transition: border-color 0.2s, color 0.2s;
     }
     .chip:hover { border-color: var(--accent); color: var(--accent2); }
-    .chip.blue  { border-color: rgba(79,142,247,0.35); color: var(--accent2); background: var(--accent-lo); }
+    .chip.blue  { border-color: rgba(212,212,216,0.35); color: var(--accent2); background: var(--accent-lo); }
     .chip.green { border-color: rgba(62,207,142,0.35); color: var(--green);   background: var(--green-lo); }
     .chip.amber { border-color: rgba(246,166,35,0.35); color: var(--amber);   background: var(--amber-lo); }
     .hero-cta {
@@ -148,12 +147,12 @@
     .hero-cta + .hero-cta { margin-left: 10px; }
 
     /* ── SECTION ── */
-    .section { padding: 84px 0; border-bottom: 1px solid var(--border); }
-    .section:last-child { border-bottom: none; }
+    .section { padding: 88px 0; }
+    .section:last-child { padding-bottom: 96px; }
     .sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
     .sec-num { display: none; }
     .sec-divider { flex: 1; max-width: 40px; height: 1px; background: var(--border-hi); }
-    .sec-tag { font-family: var(--sans); font-weight: 500; font-size: 0.74rem; color: var(--accent2); letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent-lo); border: 1px solid rgba(79,142,247,0.18); border-radius: 20px; padding: 3px 11px; }
+    .sec-tag { font-family: var(--sans); font-weight: 500; font-size: 0.74rem; color: var(--accent2); letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent-lo); border: 1px solid rgba(212,212,216,0.18); border-radius: 20px; padding: 3px 11px; }
     .sec-title { font-size: 1.3rem; font-weight: 600; color: #fff; letter-spacing: -0.02em; margin-left: 4px; overflow-wrap: break-word; }
 
     /* ── ABOUT ── */
@@ -172,7 +171,7 @@
     .about-card-icon { 
       width: 34px; height: 34px;
       display: flex; align-items: center; justify-content: center;
-      background: var(--accent-lo); border: 1px solid rgba(79,142,247,0.2);
+      background: var(--accent-lo); border: 1px solid rgba(212,212,216,0.2);
       border-radius: 8px; margin-bottom: 14px;
       color: var(--accent2);
     }
@@ -186,7 +185,7 @@
     /* ── DSKIT HERO CARD ── */
     .dskit-card {
       background: linear-gradient(135deg, var(--surface) 0%, #111b2e 100%);
-      border: 1px solid rgba(79,142,247,0.25);
+      border: 1px solid rgba(212,212,216,0.25);
       border-radius: var(--r2);
       padding: 32px;
       margin-bottom: 14px;
@@ -197,13 +196,13 @@
       content: '';
       position: absolute; top: 0; right: 0;
       width: 300px; height: 300px;
-      background: radial-gradient(ellipse at top right, rgba(79,142,247,0.1) 0%, transparent 60%);
+      background: radial-gradient(ellipse at top right, rgba(212,212,216,0.1) 0%, transparent 60%);
       pointer-events: none;
     }
     .dskit-badge {
       display: inline-flex; align-items: center; gap: 6px;
       font-family: var(--mono); font-size: 0.73rem; color: var(--accent2);
-      background: var(--accent-lo); border: 1px solid rgba(79,142,247,0.25);
+      background: var(--accent-lo); border: 1px solid rgba(212,212,216,0.25);
       border-radius: 20px; padding: 3px 10px; margin-bottom: 16px;
     }
     .dskit-badge::before { content: '★'; font-size: 0.6rem; }
@@ -231,7 +230,7 @@
     .dskit-dec-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .dskit-dec-item {
       display: flex; align-items: flex-start; gap: 10px;
-      background: var(--accent-lo); border: 1px solid rgba(79,142,247,0.12);
+      background: var(--accent-lo); border: 1px solid rgba(212,212,216,0.12);
       border-radius: var(--r); padding: 11px 14px;
     }
     .dskit-dec-arrow { color: var(--accent); font-family: var(--mono); font-size: 0.75rem; flex-shrink: 0; padding-top: 1px; }
@@ -279,7 +278,7 @@
 
     .dec-block {
       margin: 14px 24px 20px;
-      background: var(--accent-lo); border: 1px solid rgba(79,142,247,0.12);
+      background: var(--accent-lo); border: 1px solid rgba(212,212,216,0.12);
       border-radius: var(--r); padding: 14px 16px;
     }
     .dec-lbl {
@@ -359,7 +358,7 @@
     }
 
     /* ── FOOTER ── */
-    footer { border-top: 1px solid var(--border); padding: 40px 0; }
+    footer { padding: 56px 0 48px; }
     .footer-inner {
       max-width: var(--max); margin: 0 auto; padding: 0 28px;
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
