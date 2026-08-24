@@ -49,7 +49,7 @@
         <span class="sec-tag" data-i18n="stock_tag_problem">problem</span>
         <span class="sec-title" data-i18n="stock_title_solves">What it solves</span>
       </div>
-      <div class="proj-field-val proj-wide">
+      <div class="proj-field-val proj-wide" data-i18n-html="stock_val_1">
         Predict whether an asset rises more than 2% in 5 days using Random Forest over multi-ticker data
         plus sentiment features. The honest framing is explicit: most published results in this domain fail
         out-of-sample, and this project treats that as <strong>the problem to solve</strong>: not a model
@@ -57,16 +57,16 @@
       </div>
       <div class="dskit-grid">
         <div class="dskit-stat">
-          <div class="dskit-stat-lbl">Task</div>
-          <div class="dskit-stat-val">Binary classification, multi-ticker + VADER sentiment</div>
+          <div class="dskit-stat-lbl" data-i18n="stock_lbl_1">Task</div>
+          <div class="dskit-stat-val" data-i18n-html="stock_val_2">Binary classification, multi-ticker + VADER sentiment</div>
         </div>
         <div class="dskit-stat">
-          <div class="dskit-stat-lbl">Rigour</div>
-          <div class="dskit-stat-val">~160 tests · anti-leakage enforced in code · Optuna tuning</div>
+          <div class="dskit-stat-lbl" data-i18n="stock_lbl_2">Rigour</div>
+          <div class="dskit-stat-val" data-i18n-html="stock_val_3">~160 tests · anti-leakage enforced in code · Optuna tuning</div>
         </div>
         <div class="dskit-stat">
-          <div class="dskit-stat-lbl">Ops</div>
-          <div class="dskit-stat-val">FastAPI · PSI drift monitoring · conformal prediction</div>
+          <div class="dskit-stat-lbl" data-i18n="stock_lbl_3">Ops</div>
+          <div class="dskit-stat-val" data-i18n-html="stock_val_4">FastAPI · PSI drift monitoring · conformal prediction</div>
         </div>
       </div>
     </div>
@@ -83,27 +83,27 @@
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Temporal validation is non-negotiable</strong>: walk-forward splits, no random k-fold on time series.</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_1"><strong>Temporal validation is non-negotiable</strong>: walk-forward splits, no random k-fold on time series.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Scaler fitted on train only</strong>: the test set never touches the scaler.</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_2"><strong>Scaler fitted on train only</strong>: the test set never touches the scaler.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Target built with <code>shift(-5)</code></strong>: the future only labels, never leaks into features.</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_3"><strong>Target built with <code>shift(-5)</code></strong>: the future only labels, never leaks into features.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Out-of-sample backtest with costs</strong>: 0.1% commission + 0.05% slippage, threshold calibrated on validation only.</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_4"><strong>Out-of-sample backtest with costs</strong>: 0.1% commission + 0.05% slippage, threshold calibrated on validation only.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Leakage tests in CI</strong>: tests verify no feature correlates ≥0.95 with the target.</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_5"><strong>Leakage tests in CI</strong>: tests verify no feature correlates ≥0.95 with the target.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Baseline-first discipline</strong>: results that don't beat a naïve baseline are not results.</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_6"><strong>Baseline-first discipline</strong>: results that don't beat a naïve baseline are not results.</span>
         </div>
       </div>
     </div>
@@ -118,14 +118,14 @@
         <span class="sec-title" data-i18n="stock_title_results">The honest outcome</span>
       </div>
       <div class="metric-block">
-        <span class="metric-lbl">Backtest OOS</span>
-        <span class="metric-val">Portfolio <strong>77.50%</strong> vs buy &amp; hold <strong>281.70%</strong>: the strategy does not beat buy &amp; hold after costs, and the report says so explicitly.</span>
+        <span class="metric-lbl" data-i18n="stock_lbl_4">Backtest OOS</span>
+        <span class="metric-val" data-i18n-html="stock_val_5">Portfolio <strong>77.50%</strong> vs buy &amp; hold <strong>281.70%</strong>: the strategy does not beat buy &amp; hold after costs, and the report says so explicitly.</span>
       </div>
       <div class="metric-block">
-        <span class="metric-lbl">Per-ticker AUC</span>
-        <span class="metric-val">≈0.50–0.57 with train/test accuracy gaps documented, an honest and reproducible picture of a domain where most practitioners overfit silently.</span>
+        <span class="metric-lbl" data-i18n="stock_lbl_5">Per-ticker AUC</span>
+        <span class="metric-val" data-i18n-html="stock_val_6">≈0.50–0.57 with train/test accuracy gaps documented, an honest and reproducible picture of a domain where most practitioners overfit silently.</span>
       </div>
-      <div class="proj-field-val proj-wide">
+      <div class="proj-field-val proj-wide" data-i18n-html="stock_val_7">
         The value is the <strong>evaluation rigour</strong>, not the model performance: knowing when a model
         does not work is precisely what protects real capital. This is the foundation for the portfolio
         manager system in development.
@@ -159,7 +159,7 @@
       els.forEach((el) => el.classList.add('is-visible'));
     }
   </script>
-  <script src="../i18n.js?v=20260824c"></script>
+  <script src="../i18n.js?v=20260824d"></script>
 
 </body>
 </html>

@@ -50,7 +50,7 @@
         <span class="sec-tag" data-i18n="mesh_tag_problem">problem</span>
         <span class="sec-title" data-i18n="mesh_title_solves">What it solves</span>
       </div>
-      <div class="proj-field-val proj-wide">
+      <div class="proj-field-val proj-wide" data-i18n-html="mesh_val_1">
         An AI generates code much faster than a human reviews it. MeshHarmes is the environment that puts
         the reins on: a repository to start projects where an AI agent does part of the work, with a gate,
         a verifiable backlog and a permission system, <strong>agnostic of the AI provider</strong>, in pure
@@ -58,16 +58,16 @@
       </div>
       <div class="dskit-grid">
         <div class="dskit-stat">
-          <div class="dskit-stat-lbl">Agents</div>
-          <div class="dskit-stat-val">24 Python agents, one responsibility each</div>
+          <div class="dskit-stat-lbl" data-i18n="mesh_lbl_1">Agents</div>
+          <div class="dskit-stat-val" data-i18n-html="mesh_val_2">24 Python agents, one responsibility each</div>
         </div>
         <div class="dskit-stat">
-          <div class="dskit-stat-lbl">Purity</div>
-          <div class="dskit-stat-val"><code>agents/</code> is stdlib-only, working before anything is installed</div>
+          <div class="dskit-stat-lbl" data-i18n="mesh_lbl_2">Purity</div>
+          <div class="dskit-stat-val" data-i18n-html="mesh_val_3"><code>agents/</code> is stdlib-only, working before anything is installed</div>
         </div>
         <div class="dskit-stat">
-          <div class="dskit-stat-lbl">Gate</div>
-          <div class="dskit-stat-val"><code>init.sh</code> decides if the project is healthy enough to work on</div>
+          <div class="dskit-stat-lbl" data-i18n="mesh_lbl_3">Gate</div>
+          <div class="dskit-stat-val" data-i18n-html="mesh_val_4"><code>init.sh</code> decides if the project is healthy enough to work on</div>
         </div>
       </div>
     </div>
@@ -84,32 +84,32 @@
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>The gate is code, not convention</strong>: <code>harness finish</code> refuses to close a feature unless the gate passes with real command evidence.</span>
+          <span class="dskit-dec-text" data-i18n-html="mesh_text_1"><strong>The gate is code, not convention</strong>: <code>harness finish</code> refuses to close a feature unless the gate passes with real command evidence.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>One resource, one owner</strong>: only the <code>harness</code> agent writes the backlog; the <code>implementer</code> is the only one that touches product code.</span>
+          <span class="dskit-dec-text" data-i18n-html="mesh_text_2"><strong>One resource, one owner</strong>: only the <code>harness</code> agent writes the backlog; the <code>implementer</code> is the only one that touches product code.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Memory outside the context window</strong>: progress lives in files (<code>harness/progress/</code>), searchable via RAG after each close.</span>
+          <span class="dskit-dec-text" data-i18n-html="mesh_text_3"><strong>Memory outside the context window</strong>: progress lives in files (<code>harness/progress/</code>), searchable via RAG after each close.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>A permission gate for irreversible actions</strong>: destructive actions are declared in <code>agents/contracts.py</code> and refuse to run without explicit authorisation.</span>
+          <span class="dskit-dec-text" data-i18n-html="mesh_text_4"><strong>A permission gate for irreversible actions</strong>: destructive actions are declared in <code>agents/contracts.py</code> and refuse to run without explicit authorisation.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Provider-agnostic</strong>: any coding agent that can run shell commands can use it; no vendor SDK.</span>
+          <span class="dskit-dec-text" data-i18n-html="mesh_text_5"><strong>Provider-agnostic</strong>: any coding agent that can run shell commands can use it; no vendor SDK.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text"><strong>Prompt-injection aware</strong>: external data is data, never instructions; irreversible actions still ask for confirmation.</span>
+          <span class="dskit-dec-text" data-i18n-html="mesh_text_6"><strong>Prompt-injection aware</strong>: external data is data, never instructions; irreversible actions still ask for confirmation.</span>
         </div>
       </div>
       <div class="metric-block">
-        <span class="metric-lbl">Relationship</span>
-        <span class="metric-val">MeshHarmes is the standalone evolution of the harness that ships inside <a href="dskit.html">dskit</a>.</span>
+        <span class="metric-lbl" data-i18n="mesh_lbl_4">Relationship</span>
+        <span class="metric-val" data-i18n-html="mesh_val_5">MeshHarmes is the standalone evolution of the harness that ships inside <a href="dskit.html">dskit</a>.</span>
       </div>
     </div>
   </section>
@@ -140,7 +140,7 @@
       els.forEach((el) => el.classList.add('is-visible'));
     }
   </script>
-  <script src="../i18n.js?v=20260824c"></script>
+  <script src="../i18n.js?v=20260824d"></script>
 
 </body>
 </html>
