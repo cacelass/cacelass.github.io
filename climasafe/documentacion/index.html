@@ -306,10 +306,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pruebalo" class="md-nav__link">
+  <a href="#que-hace-el-sistema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pruébalo
+        Qué hace el sistema
       
     </span>
   </a>
@@ -317,10 +317,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#como-funciona-en-una-frase" class="md-nav__link">
+  <a href="#arquitectura" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cómo funciona, en una frase
+        Arquitectura
       
     </span>
   </a>
@@ -328,41 +328,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#documentacion" class="md-nav__link">
+  <a href="#componentes-y-como-se-integran" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Documentación
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Documentación">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#para-todos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Para todos
+        Componentes y cómo se integran
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#para-desarrolladores" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-tecnica-por-tema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Para desarrolladores
+        Documentación técnica por tema
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-interna-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación interna del proyecto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#licencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Licencia
+      
+    </span>
+  </a>
   
 </li>
       
@@ -563,10 +568,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pruebalo" class="md-nav__link">
+  <a href="#que-hace-el-sistema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pruébalo
+        Qué hace el sistema
       
     </span>
   </a>
@@ -574,10 +579,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#como-funciona-en-una-frase" class="md-nav__link">
+  <a href="#arquitectura" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Cómo funciona, en una frase
+        Arquitectura
       
     </span>
   </a>
@@ -585,41 +590,46 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#documentacion" class="md-nav__link">
+  <a href="#componentes-y-como-se-integran" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Documentación
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Documentación">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#para-todos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Para todos
+        Componentes y cómo se integran
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#para-desarrolladores" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-tecnica-por-tema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Para desarrolladores
+        Documentación técnica por tema
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#documentacion-interna-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentación interna del proyecto
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#licencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Licencia
+      
+    </span>
+  </a>
   
 </li>
       
@@ -645,45 +655,72 @@
 
 <h1 id="climasafe-documentacion-tecnica">ClimaSafe — Documentación técnica</h1>
 <blockquote>
-<p><strong>Para desarrolladores e ingenieros.</strong> Si no eres técnico, usa la
-<a href="guia-usuario/">guía de usuario</a>.</p>
+<p><strong>Para desarrolladores e ingenieros.</strong> Documentación de integración, arquitectura
+y modelos. Si no eres técnico, usa la <a href="guia-usuario/">guía de usuario</a>.</p>
 </blockquote>
-<p>Sistema de <strong>aviso</strong> de riesgo cardiovascular por temperatura (calor / frío),
-personalizado por persona, ubicación, día y hora.</p>
-<h2 id="pruebalo">Pruébalo</h2>
+<p>ClimaSafe es un sistema de <strong>aviso</strong> de riesgo cardiovascular por temperatura
+(calor / frío), personalizado por persona, ubicación, día y hora. Esta página
+es el punto de entrada a la documentación técnica: explica qué hace el sistema,
+cómo está construido y cómo se integra.</p>
+<h2 id="que-hace-el-sistema">Qué hace el sistema</h2>
+<p>ClimaSafe estima un nivel de riesgo — <strong>SEGURO / PRECAUCIÓN / PELIGRO</strong> — ante el
+calor y el frío, para cualquier punto de España y para el día (u hora) elegido.
+El resultado combina:</p>
 <ul>
-<li><strong><a href="https://cacelass.github.io/climasafe/probar-ya/">Demo en el navegador</a></strong> —
-  el pipeline completo ejecutándose con WebAssembly, sin servidor.</li>
-<li><strong><a href="https://cacelass.github.io/climasafe/telegram.html">Bot de Telegram</a></strong> —
-  alertas diarias y consultas de riesgo.</li>
-<li><strong><a href="https://cacelass.github.io/climasafe/mcp.html">Servidor MCP</a></strong> —
-  integración con asistentes de IA.</li>
-<li><strong><a href="https://github.com/ANFAIA/ClimaSafe">Repositorio</a></strong> — código, modelos y
-  datos.</li>
+<li>Un <strong>riesgo poblacional</strong> calculado por un ensemble de modelos de ML a partir
+  de variables meteorológicas.</li>
+<li>Un <strong>riesgo individual</strong> que ajusta ese riesgo poblacional con los factores
+  personales del usuario (edad, comorbilidades, medicación, aclimatación…).</li>
 </ul>
-<h2 id="como-funciona-en-una-frase">Cómo funciona, en una frase</h2>
-<p>Los datos meteorológicos (Open-Meteo, entrenamiento con ERA5) se convierten en
-características de sensación térmica y persistencia temporal; un ensemble de
-XGBoost (calor), RandomForest (frío) y una LSTM con embedding de provincia
-produce la probabilidad de riesgo poblacional; esa probabilidad se personaliza
-con factores de la literatura epidemiológica y se traduce a clase.</p>
-<h2 id="documentacion">Documentación</h2>
-<h3 id="para-todos">Para todos</h3>
+<h2 id="arquitectura">Arquitectura</h2>
+<p>El flujo completo es:</p>
+<pre><code>datos meteorológicos → features → modelos → ensemble conformal → personalización → canales
+</code></pre>
+<ol>
+<li><strong>Datos</strong>: Open-Meteo en tiempo real, ERA5 para entrenamiento, AEMET/OpenUV
+   y mortalidad MoMo como target.</li>
+<li><strong>Features</strong>: índices de sensación térmica (Heat Index, WBGT, Wind Chill) y
+   persistencia temporal.</li>
+<li><strong>Modelos</strong>: ensemble de XGBoost (calor), RandomForest (frío) y una LSTM con
+   embedding de provincia.</li>
+<li><strong>Ensemble conformal</strong>: se combinan ponderando por el tamaño del conjunto de
+   predicción conformal, con cobertura garantizada.</li>
+<li><strong>Personalización</strong>: factores multiplicativos de la literatura epidemiológica.</li>
+<li><strong>Canales</strong>: web, demo WebAssembly, bot de Telegram, servidor MCP y RAG.</li>
+</ol>
+<h2 id="componentes-y-como-se-integran">Componentes y cómo se integran</h2>
 <table>
 <thead>
 <tr>
-<th>Página</th>
-<th>Qué explica</th>
+<th>Canal</th>
+<th>Qué ofrece</th>
+<th>Enlace</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="guia-usuario/">Guía de usuario</a></td>
-<td>Cómo usar ClimaSafe sin ser técnico: la demo, el bot, los niveles de riesgo.</td>
+<td><strong>Demo (WASM)</strong></td>
+<td>Pipeline completo en el navegador, sin servidor</td>
+<td><a href="https://cacelass.github.io/climasafe/probar-ya/">probar-ya</a></td>
+</tr>
+<tr>
+<td><strong>Bot de Telegram</strong></td>
+<td>Alertas diarias y consultas de riesgo</td>
+<td><a href="https://cacelass.github.io/climasafe/telegram.html">telegram.html</a></td>
+</tr>
+<tr>
+<td><strong>Servidor MCP</strong></td>
+<td>Acceso al motor de riesgo desde asistentes de IA</td>
+<td><a href="https://cacelass.github.io/climasafe/mcp.html">mcp.html</a></td>
+</tr>
+<tr>
+<td><strong>Repositorio</strong></td>
+<td>Código, modelos, datos y tests</td>
+<td><a href="https://github.com/ANFAIA/ClimaSafe">ANFAIA/ClimaSafe</a></td>
 </tr>
 </tbody>
 </table>
-<h3 id="para-desarrolladores">Para desarrolladores</h3>
+<h2 id="documentacion-tecnica-por-tema">Documentación técnica por tema</h2>
 <table>
 <thead>
 <tr>
@@ -714,8 +751,12 @@ con factores de la literatura epidemiológica y se traduce a clase.</p>
 </tr>
 </tbody>
 </table>
-<p>La documentación completa del proyecto (notas internas, decisiones y actas)
-vive en el repositorio: <a href="https://github.com/ANFAIA/ClimaSafe/tree/main/documentacion"><code>documentacion/</code></a>.</p>
+<h2 id="documentacion-interna-del-proyecto">Documentación interna del proyecto</h2>
+<p>La documentación completa (notas internas, decisiones, actas) vive en el repositorio:
+<a href="https://github.com/ANFAIA/ClimaSafe/tree/main/documentacion"><code>documentacion/</code></a>.</p>
+<h2 id="licencia">Licencia</h2>
+<p>ClimaSafe está publicado bajo <strong>Apache 2.0</strong>: se puede usar, modificar y
+distribuir libremente, incluso comercialmente, conservando el aviso de licencia.</p>
 <hr />
 <p>ClimaSafe se desarrolló como parte de las <strong>ANFAIA Summer Grants 2026</strong>.</p>
 
