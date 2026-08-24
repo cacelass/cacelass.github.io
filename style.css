@@ -83,7 +83,7 @@
 
     /* ── HERO ── */
     .hero {
-      padding: 72px 0 60px;
+      padding: 48px 0 40px;
       position: relative;
       overflow-x: clip;
     }
@@ -147,8 +147,8 @@
     .hero-cta + .hero-cta { margin-left: 10px; }
 
     /* ── SECTION ── */
-    .section { padding: 48px 0; }
-    .section:last-child { padding-bottom: 56px; }
+    .section { padding: 24px 0; }
+    .section:last-child { padding-bottom: 32px; }
     .sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
     .sec-num { display: none; }
     .sec-divider { flex: 1; max-width: 40px; height: 1px; background: var(--border-hi); }
