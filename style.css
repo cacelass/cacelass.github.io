@@ -342,13 +342,13 @@
     .stack-card.full { grid-column: 1 / -1; }
     .cap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
     .cap-item {
-      font-size: 0.845rem; color: var(--muted);
+      font-size: 0.845rem; color: #3ecf8e;
       padding: 9px 12px 9px 32px; position: relative; line-height: 1.5;
-      background: rgba(255,255,255,0.02); border-radius: 6px;
+      background: rgba(62,207,142,0.05); border-radius: 6px;
     }
     .cap-item::before {
       content: '✓'; position: absolute; left: 12px;
-      color: var(--green); font-size: 0.72rem; top: 10px;
+      color: #3ecf8e; font-size: 0.72rem; top: 10px;
     }
     .cert-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
     .cert-badge {
