@@ -151,6 +151,11 @@
       privacy_notice: "Tus datos se guardan solo en tu navegador (localStorage). No salen de tu dispositivo ni se envían a ningún servidor. Puedes borrarlos en cualquier momento con el botón «Borrar mis datos».",
       btn_borrar_datos: "Borrar mis datos",
       btn_borrar_datos_aria: "Borrar los datos del perfil guardados en el navegador",
+      llm_label: "Resumen IA local",
+      llm_load: "Cargar modelo",
+      llm_loading: "Descargando modelo...",
+      llm_ready: "Modelo listo",
+      llm_fallback: "Modelo no disponible — usando pipeline ML",
       datos_borrados: "Datos borrados. El formulario se ha restablecido.",
       perfil_restaurado: "Perfil restaurado desde el navegador."
     },
@@ -284,6 +289,11 @@
       privacy_notice: "Your data is stored only in your browser (localStorage). It never leaves your device and is not sent to any server. You can delete it at any time using the «Delete my data» button.",
       btn_borrar_datos: "Delete my data",
       btn_borrar_datos_aria: "Delete the profile data stored in the browser",
+      llm_label: "AI local summary",
+      llm_load: "Load model",
+      llm_loading: "Downloading model...",
+      llm_ready: "Model ready",
+      llm_fallback: "Model unavailable — using ML pipeline",
       datos_borrados: "Data deleted. The form has been reset.",
       perfil_restaurado: "Profile restored from the browser."
     }

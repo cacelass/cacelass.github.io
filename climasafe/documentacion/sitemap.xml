@@ -2,26 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://cacelass.github.io/climasafe/documentacion/</loc>
-         <lastmod>2026-08-20</lastmod>
+         <lastmod>2026-08-23</lastmod>
     </url>
     <url>
          <loc>https://cacelass.github.io/climasafe/documentacion/arquitectura/</loc>
-         <lastmod>2026-08-20</lastmod>
+         <lastmod>2026-08-23</lastmod>
+    </url>
+    <url>
+         <loc>https://cacelass.github.io/climasafe/documentacion/guia-usuario/</loc>
+         <lastmod>2026-08-23</lastmod>
     </url>
     <url>
          <loc>https://cacelass.github.io/climasafe/documentacion/llm/</loc>
-         <lastmod>2026-08-20</lastmod>
+         <lastmod>2026-08-23</lastmod>
     </url>
     <url>
          <loc>https://cacelass.github.io/climasafe/documentacion/modelos-pesos/</loc>
-         <lastmod>2026-08-20</lastmod>
+         <lastmod>2026-08-23</lastmod>
     </url>
     <url>
          <loc>https://cacelass.github.io/climasafe/documentacion/papers/</loc>
-         <lastmod>2026-08-20</lastmod>
+         <lastmod>2026-08-23</lastmod>
     </url>
     <url>
          <loc>https://cacelass.github.io/climasafe/documentacion/riesgo-personalizacion/</loc>
-         <lastmod>2026-08-20</lastmod>
+         <lastmod>2026-08-23</lastmod>
     </url>
 </urlset>

@@ -32,7 +32,7 @@
   <section class="hero">
     <div class="container">
       <div class="hero-eyebrow" data-i18n="hero_eyebrow">ML Engineer · Data Systems · GenAI</div>      <h1><span data-i18n="hero_h1_1">ML systems that</span><br /><span class="hl" data-i18n="hero_h1_2">survive production.</span></h1>
-      <p class="hero-sub">
+      <p class="hero-sub" data-i18n-html="hero_sub">
         End-to-end ML from data to deployment: <strong>credit, fraud and AML</strong>, time series, and
         agent-based systems with harnesses, RAG and fine-tuning. Calibration, reproducible evaluation
         and leakage control as constraints, not afterthoughts. Six public systems, real numbers.
@@ -81,7 +81,7 @@
             </svg>
           </div>
           <div class="about-card-lbl" data-i18n="about_lbl_approach">Approach</div>
-          <p>I treat ML problems as <strong>systems problems first</strong>. A model that can't be reproduced or re-deployed is a liability. My workflow enforces clean separation between ingestion, feature computation, training, and evaluation, by structure rather than convention. In finance that discipline is what makes a system auditable.</p>
+          <p data-i18n-html="about_p_approach">I treat ML problems as <strong>systems problems first</strong>. A model that can't be reproduced or re-deployed is a liability. My workflow enforces clean separation between ingestion, feature computation, training, and evaluation, by structure rather than convention. In finance that discipline is what makes a system auditable.</p>
         </div>
         <div class="about-card">
           <div class="about-card-icon">
@@ -92,7 +92,7 @@
             </svg>
           </div>
           <div class="about-card-lbl" data-i18n="about_lbl_systems">Systems background</div>
-          <p>Trained and worked as a <strong>Systems Technician (ASIR)</strong>. What drew me most to the field was <strong>databases</strong>: schema design, query writing, index tuning and execution plan analysis. That background shapes how I think about every ML system: infrastructure, environment isolation, and failure modes before model architecture.</p>
+          <p data-i18n-html="about_p_systems">Trained and worked as a <strong>Systems Technician (ASIR)</strong>. What drew me most to the field was <strong>databases</strong>: schema design, query writing, index tuning and execution plan analysis. That background shapes how I think about every ML system: infrastructure, environment isolation, and failure modes before model architecture.</p>
         </div>
         <div class="about-card">
           <div class="about-card-icon">
@@ -102,7 +102,7 @@
             </svg>
           </div>
           <div class="about-card-lbl" data-i18n="about_lbl_production">Production awareness</div>
-          <p>I design pipelines that don't break when schemas change, models that return <strong>calibrated probabilities</strong> rather than raw scores, and evaluation setups that catch leakage before it reaches production. I know the difference between a metric that looks good and a decision that holds up out-of-sample.</p>
+          <p data-i18n-html="about_p_production">I design pipelines that don't break when schemas change, models that return <strong>calibrated probabilities</strong> rather than raw scores, and evaluation setups that catch leakage before it reaches production. I know the difference between a metric that looks good and a decision that holds up out-of-sample.</p>
         </div>
         <div class="about-card">
           <div class="about-card-icon">
@@ -113,7 +113,7 @@
             </svg>
           </div>
           <div class="about-card-lbl" data-i18n="about_lbl_passion">Passion</div>
-          <p>I'm passionate about data <strong>inside and outside work</strong>. I love learning, taking on challenges and getting better at what I do. My professional aspiration is to build decision systems that real institutions trust, in credit, fraud and investment, while keeping every project better than the last.</p>
+          <p data-i18n-html="about_p_passion">I'm passionate about data <strong>inside and outside work</strong>. I love learning, taking on challenges and getting better at what I do. My professional aspiration is to build decision systems that real institutions trust, in credit, fraud and investment, while keeping every project better than the last.</p>
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@
             <div class="feat-name"><a href="projects/dskit.html">dskit</a></div>
             <span class="proj-tag" data-i18n="tag_harness">scaffold · harness</span>
           </div>
-          <p class="feat-desc">Production-grade Data Science project scaffold with an AI harness: reproducible environments, verified backlog, and a quality gate enforced in code.</p>
+          <p class="feat-desc" data-i18n="feat_desc_dskit">Production-grade Data Science project scaffold with an AI harness: reproducible environments, verified backlog, and a quality gate enforced in code.</p>
           <div class="feat-meta"><a href="projects/dskit.html" data-i18n="feat_meta_view">view project →</a></div>
         </div>
 
@@ -144,10 +144,11 @@
             <div class="feat-name"><a href="projects/climasafe.html">ClimaSafe</a></div>
             <span class="proj-tag" data-i18n="tag_earlywarning">early warning · ML</span>
           </div>
-          <p class="feat-desc">Early-warning system for heat and cold mortality risk across Spanish provinces: XGBoost + LSTM ensemble, conformal prediction, MLflow, Telegram bot.</p>
+          <p class="feat-desc" data-i18n="feat_desc_climasafe">Early-warning system for heat and cold mortality risk across Spanish provinces: XGBoost + LSTM ensemble, conformal prediction, MLflow, Telegram bot.</p>
           <div class="feat-meta">
             <a href="climasafe/probar-ya/" data-i18n="climasafe_try">probar ya</a> ·
-            <a href="climasafe/documentacion/" data-i18n="climasafe_docs">documentación</a> ·
+            <a href="climasafe/documentacion/guia-usuario/" data-i18n="cta_user_guide">guía de usuario</a> ·
+            <a href="climasafe/documentacion/" data-i18n="cta_dev_docs">docs técnicas</a> ·
             <a href="climasafe/mcp.html">mcp</a> ·
             <a href="climasafe/telegram.html">telegram</a> ·
             <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github</a>
@@ -159,7 +160,7 @@
             <div class="feat-name"><a href="projects/fraud-shield.html">fraud-shield</a></div>
             <span class="proj-tag" data-i18n="tag_fraud">fraud detection</span>
           </div>
-          <p class="feat-desc">Fraud detection on financial transactions (PaySim): imbalance-first evaluation, precision-recall as the primary metric, threshold tuning, MLflow tracked.</p>
+          <p class="feat-desc" data-i18n="feat_desc_fraud">Fraud detection on financial transactions (PaySim): imbalance-first evaluation, precision-recall as the primary metric, threshold tuning, MLflow tracked.</p>
           <div class="feat-meta"><a href="projects/fraud-shield.html" data-i18n="feat_meta_view">view project →</a></div>
         </div>
 
@@ -168,7 +169,7 @@
             <div class="feat-name"><a href="projects/credit-risk-classifier.html">credit-risk-classifier</a></div>
             <span class="proj-tag" data-i18n="tag_banking">banking · propensity</span>
           </div>
-          <p class="feat-desc">Retail banking propensity model (UCI Bank Marketing) with leakage-free preprocessing and real persisted metrics: ROC-AUC 0.948, PR-AUC 0.651.</p>
+          <p class="feat-desc" data-i18n="feat_desc_credit">Retail banking propensity model (UCI Bank Marketing) with leakage-free preprocessing and real persisted metrics: ROC-AUC 0.948, PR-AUC 0.651.</p>
           <div class="feat-meta"><a href="projects/credit-risk-classifier.html" data-i18n="feat_meta_view">view project →</a></div>
         </div>
 
@@ -177,7 +178,7 @@
             <div class="feat-name"><a href="projects/stock-market-prediction.html">Stock-Market-Prediction</a></div>
             <span class="proj-tag" data-i18n="tag_timeseries">time series · finance</span>
           </div>
-          <p class="feat-desc">Time-series classification with strict temporal validation, out-of-sample backtest with costs, and drift monitoring. Honest about where the model fails.</p>
+          <p class="feat-desc" data-i18n="feat_desc_stock">Time-series classification with strict temporal validation, out-of-sample backtest with costs, and drift monitoring. Honest about where the model fails.</p>
           <div class="feat-meta"><a href="projects/stock-market-prediction.html" data-i18n="feat_meta_view">view project →</a></div>
         </div>
 
@@ -186,7 +187,7 @@
             <div class="feat-name"><a href="projects/meshharmes.html">MeshHarmes</a></div>
             <span class="proj-tag" data-i18n="tag_harness2">agent harness</span>
           </div>
-          <p class="feat-desc">Agent harness: 24 Python agents, a permission gate, and a verified backlog. The rules of AI-assisted work written in code, not in prompts.</p>
+          <p class="feat-desc" data-i18n="feat_desc_mesh">Agent harness: 24 Python agents, a permission gate, and a verified backlog. The rules of AI-assisted work written in code, not in prompts.</p>
           <div class="feat-meta"><a href="projects/meshharmes.html" data-i18n="feat_meta_view">view project →</a></div>
         </div>
 
@@ -199,27 +200,27 @@
       <div class="more-list">
         <div class="more-item">
           <div class="more-name"><a href="https://github.com/cacelass/cyberforest" target="_blank">cyberforest</a></div>
-          <div class="more-desc">Two-level intrusion detection (LightGBM + KMeans) on CIC-IDS2017 with SMOTE and MLflow tracking.</div>
-          <div class="more-tag">security</div>
+          <div class="more-desc" data-i18n="more_desc_cyberforest">Two-level intrusion detection (LightGBM + KMeans) on CIC-IDS2017 with SMOTE and MLflow tracking.</div>
+          <div class="more-tag" data-i18n="more_tag_cyberforest">security</div>
         </div>
         <div class="more-item">
           <div class="more-name"><a href="https://github.com/cacelass/retainml" target="_blank">retainml</a></div>
-          <div class="more-desc">Churn probability for customer data with a modular RF pipeline and feature engineering.</div>
-          <div class="more-tag">churn · ML</div>
+          <div class="more-desc" data-i18n="more_desc_retainml">Churn probability for customer data with a modular RF pipeline and feature engineering.</div>
+          <div class="more-tag" data-i18n="more_tag_retainml">churn · ML</div>
         </div>
         <div class="more-item">
           <div class="more-name"><a href="https://github.com/cacelass/global-exclusion-risk-ml" target="_blank">global-exclusion-risk-ml</a></div>
-          <div class="more-desc">Unsupervised clustering of 167 countries by socioeconomic indicators.</div>
-          <div class="more-tag">clustering</div>
+          <div class="more-desc" data-i18n="more_desc_global">Unsupervised clustering of 167 countries by socioeconomic indicators.</div>
+          <div class="more-tag" data-i18n="more_tag_global">clustering</div>
         </div>
         <div class="more-item">
           <div class="more-name"><a href="https://github.com/cacelass/rps-predictive-agent" target="_blank">rps-predictive-agent</a></div>
-          <div class="more-desc">Online frequency-based predictive agent for Rock-Paper-Scissors.</div>
-          <div class="more-tag">agents</div>
+          <div class="more-desc" data-i18n="more_desc_rps">Online frequency-based predictive agent for Rock-Paper-Scissors.</div>
+          <div class="more-tag" data-i18n="more_tag_rps">agents</div>
         </div>
       </div>
 
-      <div class="scope-note">
+      <div class="scope-note" data-i18n-html="scope_note">
         <strong>In development:</strong> a portfolio manager system to decide when to reinvest and when to withdraw, built on the evaluation rigour of <a href="projects/stock-market-prediction.html">Stock-Market-Prediction</a>.
       </div>
 
@@ -340,28 +341,28 @@
       <div class="more-list">
         <div class="more-item">
           <div class="more-name"><a href="https://www.amazon.es/s?k=Weapons+of+Math+Destruction+Cathy+O%27Neil" target="_blank">Weapons of Math Destruction</a></div>
-          <div class="more-desc">Cathy O'Neil. Why opaque, unregulated models amplify inequality — and why model risk is a first-class concern in finance.</div>
-          <div class="more-tag">ethics · model risk</div>
+          <div class="more-desc" data-i18n="reading_desc_wmd">Cathy O'Neil. Why opaque, unregulated models amplify inequality — and why model risk is a first-class concern in finance.</div>
+          <div class="more-tag" data-i18n="reading_tag_wmd">ethics · model risk</div>
         </div>
         <div class="more-item">
           <div class="more-name"><a href="https://www.amazon.es/s?k=Prediction+Machines+Ajay+Agrawal" target="_blank">Prediction Machines</a></div>
-          <div class="more-desc">Agrawal, Gans &amp; Goldfarb. The economics of prediction: what AI makes cheap and how it changes business decisions.</div>
-          <div class="more-tag">economics · AI</div>
+          <div class="more-desc" data-i18n="reading_desc_pm">Agrawal, Gans &amp; Goldfarb. The economics of prediction: what AI makes cheap and how it changes business decisions.</div>
+          <div class="more-tag" data-i18n="reading_tag_pm">economics · AI</div>
         </div>
         <div class="more-item">
           <div class="more-name"><a href="https://www.amazon.es/s?k=Designing+Machine+Learning+Systems+Chip+Huyen" target="_blank">Designing Machine Learning Systems</a></div>
-          <div class="more-desc">Chip Huyen. The reference on turning models into reliable systems: deployment, monitoring, drift and iteration.</div>
-          <div class="more-tag">ml engineering</div>
+          <div class="more-desc" data-i18n="reading_desc_dmls">Chip Huyen. The reference on turning models into reliable systems: deployment, monitoring, drift and iteration.</div>
+          <div class="more-tag" data-i18n="reading_tag_dmls">ml engineering</div>
         </div>
         <div class="more-item">
           <div class="more-name"><a href="https://www.amazon.es/s?k=Do+Androids+Dream+of+Electric+Sheep+Philip+K+Dick" target="_blank">Do Androids Dream of Electric Sheep?</a></div>
-          <div class="more-desc">Philip K. Dick. The classic on what it means to be intelligent, and why interfaces should feel like people.</div>
-          <div class="more-tag">fiction · AI</div>
+          <div class="more-desc" data-i18n="reading_desc_dade">Philip K. Dick. The classic on what it means to be intelligent, and why interfaces should feel like people.</div>
+          <div class="more-tag" data-i18n="reading_tag_dade">fiction · AI</div>
         </div>
         <div class="more-item">
           <div class="more-name"><a href="https://www.amazon.es/s?k=El+neandertal+desnudo+Ludovic+Slimak" target="_blank">El neandertal desnudo</a></div>
-          <div class="more-desc">Ludovic Slimak. Reconstructing behaviour from partial evidence — the same discipline as working with incomplete data.</div>
-          <div class="more-tag">curiosity</div>
+          <div class="more-desc" data-i18n="reading_desc_neandertal">Ludovic Slimak. Reconstructing behaviour from partial evidence — the same discipline as working with incomplete data.</div>
+          <div class="more-tag" data-i18n="reading_tag_neandertal">curiosity</div>
         </div>
       </div>
     </div>

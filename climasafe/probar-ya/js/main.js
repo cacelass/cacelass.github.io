@@ -11,6 +11,7 @@ import { fetchWeatherData, provinciaMasCercana, getProvinceCoords } from "./weat
 import { predictEnsemble } from "./modelos.js?v=20260814";
 import { generarRecomendaciones } from "./recomendaciones.js";
 import { nivelActividadDeDeporte } from "./personalizacion.js";
+import { loadLLM, redactar, getStatus } from "./llm.js";
 
 // i18n (WEB-014): textos dinámicos vía el diccionario de js/i18n.js. Si el
 // mecanismo no está cargado (p.ej. en tests), t() devuelve la clave tal cual.
@@ -559,6 +560,31 @@ async function predecir() {
       offline,
       aviso,
     });
+
+    // WEB-016: LLM local — redacta resumen si el modelo está cargado
+    if (getStatus() === "ready") {
+      const llmText = $("llm-text");
+      const llmStatus = $("llm-status");
+      if (llmStatus) llmStatus.textContent = t("llm_loading");
+      try {
+        const resumen = await redactar({
+          clase: res.clase_final,
+          riesgo: (Math.max(res.perfil.calor.prob_personalizada, res.perfil.frio.prob_personalizada) * 100).toFixed(1),
+          provincia: res.weather.provincia,
+          fecha: res.weather.target_date,
+          edad: res.perfil_usuario?.edad,
+        });
+        if (resumen && llmText) {
+          llmText.textContent = resumen;
+          llmText.style.display = "block";
+        }
+        if (llmStatus) llmStatus.textContent = t("llm_ready");
+      } catch (e) {
+        console.warn("LLM redaction error:", e);
+        if (llmStatus) llmStatus.textContent = t("llm_fallback");
+      }
+    }
+
     estado.className = "status oculto";
     $("resultado").scrollIntoView({ behavior: "smooth" });
   } catch (e) {
@@ -569,4 +595,21 @@ async function predecir() {
 }
 
 $("predecir").addEventListener("click", predecir);
+
+// WEB-016: LLM — botón para cargar el modelo local
+$("llm-load-btn").addEventListener("click", async () => {
+  const btn = $("llm-load-btn");
+  const status = $("llm-status");
+  btn.disabled = true;
+  btn.textContent = t("llm_loading");
+  const ok = await loadLLM();
+  if (ok) {
+    btn.textContent = t("llm_ready");
+    btn.style.opacity = "0.6";
+  } else {
+    btn.textContent = t("llm_fallback");
+    btn.style.opacity = "0.6";
+  }
+});
+
 init();

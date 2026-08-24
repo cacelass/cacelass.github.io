@@ -72,7 +72,7 @@
       font-family: var(--mono); font-size: 0.76rem; color: var(--accent2);
       letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px;
     }
-    .proj-hero h1 { font-size: 2.2rem; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+    .proj-hero h1 { font-size: 2.2rem; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; overflow-wrap: break-word; word-break: break-word; }
     .hl { background: linear-gradient(90deg, var(--accent2), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .hero-sub { color: var(--muted); margin: 18px 0 28px; max-width: 640px; font-size: 0.95rem; }
     .proj-links { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -472,6 +472,14 @@
           </div>
           <div id="override-box" class="oculto"></div>
           <div id="modo-datos" class="meta" style="margin-top:10px;"></div>
+          <div id="llm-box" style="margin-top:14px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <span class="meta" data-i18n="llm_label">Resumen IA local</span>
+              <button id="llm-load-btn" class="hero-cta" style="font-size:0.76rem;padding:6px 12px;" data-i18n="llm_load">Cargar modelo</button>
+              <span id="llm-status" class="meta"></span>
+            </div>
+            <p id="llm-text" style="margin-top:8px;font-size:0.88rem;color:var(--muted);line-height:1.65;display:none;"></p>
+          </div>
         </div>
 
         <div class="card">
@@ -510,6 +518,7 @@
       <div class="footer-id"><span class="footer-dot"></span><strong>ClimaSafe</strong><span data-i18n="footer_extra">· probar-ya · ONNX en el navegador</span></div>
       <div class="footer-links" style="display:flex;gap:16px;list-style:none;">
         <a href="../index.html">← index</a>
+        <a href="../documentacion/guia-usuario/" data-i18n="cta_user_guide">guía de usuario</a>
         <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github</a>
       </div>
     </div>
