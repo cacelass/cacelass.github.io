@@ -111,10 +111,7 @@
       max-width: 800px;
     }
     .hero h1 .hl {
-      background: linear-gradient(120deg, var(--text) 0%, var(--accent2) 90%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--text);
     }
     .hero-sub {
       font-size: 1rem; color: var(--muted); max-width: 580px;
