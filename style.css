@@ -42,7 +42,7 @@
 
     /* ── background system ── */
     body {
-      background: #0a0d14;
+      background: #000;
     }
     body > * { position: relative; z-index: 1; }
 
@@ -133,8 +133,8 @@
     }
     .chip:hover { border-color: var(--accent); color: var(--accent2); }
     .chip.blue  { border-color: rgba(212,212,216,0.35); color: var(--accent2); background: var(--accent-lo); }
-    .chip.green { border-color: rgba(62,207,142,0.35); color: var(--green);   background: var(--green-lo); }
-    .chip.amber { border-color: rgba(246,166,35,0.35); color: var(--amber);   background: var(--amber-lo); }
+    .chip.green { border-color: rgba(212,212,216,0.25); color: var(--muted); background: var(--bg2); }
+    .chip.amber { border-color: rgba(212,212,216,0.18); color: var(--dim); background: #111113; }
     .hero-cta {
       display: inline-flex; align-items: center; gap: 8px;
       font-family: var(--mono); font-size: 0.76rem;
@@ -297,7 +297,7 @@
 
     .metric-block {
       margin: 0 24px 20px;
-      background: var(--green-lo); border: 1px solid rgba(62,207,142,0.18);
+      background: var(--green-lo); border: 1px solid rgba(212,212,216,0.18);
       border-radius: var(--r); padding: 11px 16px;
       display: flex; align-items: flex-start; gap: 12px;
     }
@@ -334,7 +334,7 @@
     .stack-items { display: flex; flex-wrap: wrap; gap: 6px; }
     .stack-item {
       font-family: var(--mono); font-size: 0.76rem; color: var(--text);
-      background: var(--bg2); border: 1px solid var(--border-hi);
+      background: #151517; border: 1px solid #2a2a30;
       border-radius: 6px; padding: 4px 10px;
       transition: border-color 0.15s, color 0.15s;
     }
@@ -353,7 +353,7 @@
     .cert-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
     .cert-badge {
       font-family: var(--mono); font-size: 0.74rem;
-      border: 1px solid rgba(246,166,35,0.3); color: var(--amber);
+      border: 1px solid rgba(212,212,216,0.3); color: var(--amber);
       background: var(--amber-lo); border-radius: 20px; padding: 3px 11px;
     }
 
