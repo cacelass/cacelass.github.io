@@ -42,7 +42,7 @@
 
     /* ── background system ── */
     body {
-      background: #000;
+      background: #0f172a;
     }
     body > * { position: relative; z-index: 1; }
 
@@ -50,7 +50,7 @@
     nav {
       border-bottom: 1px solid var(--border);
       position: sticky; top: 0; z-index: 100;
-      background: rgba(12,12,14,0.96);
+      background: rgba(15,23,42,0.96);
       backdrop-filter: blur(20px);
     }
     .nav-inner {
@@ -462,7 +462,7 @@
     .hero-term {
       display: inline-flex; align-items: center; flex-wrap: wrap;
       font-family: var(--mono); font-size: 0.8rem;
-      background: #0a0a0a; border: 1px solid #26262b;
+      background: #0a0f1c; border: 1px solid #26262b;
       border-radius: var(--r); padding: 10px 16px; margin-bottom: 32px;
       max-width: 100%; overflow: hidden;
       will-change: opacity, transform;
