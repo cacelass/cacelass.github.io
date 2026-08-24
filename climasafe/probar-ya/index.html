@@ -6,20 +6,20 @@
   <title>ClimaSafe · Probar ya — riesgo térmico en el navegador</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     /* Tokens del sistema de diseño de cacelass.github.io (style.css) — la demo
        es autocontenida: no enlaza ../style.css para poder servirse sola. */
     :root {
-      --bg: #080b12; --bg2: #0c1018; --surface: #0f1420; --surface2: #131926;
-      --border: #1c2333; --border-hi: #26304a;
-      --text: #e2e8f4; --muted: #7a8eaa; --dim: #5a6a86;
-      --accent: #4f8ef7; --accent2: #6ba3ff; --accent-lo: rgba(79,142,247,0.08);
-      --green: #3ecf8e; --green-lo: rgba(62,207,142,0.08);
-      --purple: #a78bfa; --purple-lo: rgba(167,139,250,0.08);
-      --amber: #f6a623; --amber-lo: rgba(246,166,35,0.08);
-      --red: #e74c3c; --red-lo: rgba(231,76,60,0.10);
-      --mono: 'JetBrains Mono', monospace; --sans: 'Sora', sans-serif;
+      --bg: #0c0b09; --bg2: #131110; --surface: #191613; --surface2: #1f1c18;
+      --border: #2a2620; --border-hi: #3d382f;
+      --text: #f4f2ee; --muted: #9a948a; --dim: #6b665e;
+      --accent: #C9A15A; --accent2: #d9b878; --accent-lo: rgba(201,161,90,0.08);
+      --green: #93b582; --green-lo: rgba(147,181,130,0.08);
+      --purple: #C9A15A; --purple-lo: rgba(201,161,90,0.06);
+      --amber: #C9A15A; --amber-lo: rgba(201,161,90,0.06);
+      --red: #c96a5a; --red-lo: rgba(201,106,90,0.10);
+      --mono: 'JetBrains Mono', monospace; --sans: 'Space Grotesk', sans-serif;
       --r: 8px; --r2: 12px; --max: 940px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,17 +27,10 @@
     body {
       overflow-x: clip; color: var(--text); font-family: var(--sans);
       font-weight: 400; line-height: 1.65; -webkit-font-smoothing: antialiased;
-      background-color: #080b12;
-      background:
-        radial-gradient(ellipse 80% 60% at 70% -10%, rgba(79,142,247,0.09) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at -10% 80%, rgba(167,139,250,0.07) 0%, transparent 55%),
-        linear-gradient(160deg, #080c14 0%, #060910 40%, #08060f 70%, #060b12 100%);
+      background-color: #0c0b09;
+      background: #0c0b09;
     }
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: radial-gradient(circle, rgba(79,142,247,0.18) 1px, transparent 1px);
-      background-size: 36px 36px; opacity: 0.22; pointer-events: none; z-index: 0;
-    }
+    body::before { content: none; }
     body > * { position: relative; z-index: 1; }
     a { color: var(--accent2); text-decoration: none; }
     a:hover { color: #fff; }
@@ -46,7 +39,7 @@
 
     nav {
       border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
-      background: rgba(8,11,18,0.96); backdrop-filter: blur(20px);
+      background: rgba(12,11,9,0.96); backdrop-filter: blur(20px);
     }
     .nav-inner {
       max-width: var(--max); margin: 0 auto; padding: 0 28px;
@@ -73,7 +66,7 @@
       letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px;
     }
     .proj-hero h1 { font-size: 2.2rem; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; overflow-wrap: break-word; word-break: break-word; }
-    .hl { background: linear-gradient(90deg, var(--accent2), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hl { color: var(--text); }
     .hero-sub { color: var(--muted); margin: 18px 0 28px; max-width: 640px; font-size: 0.95rem; }
     .proj-links { display: flex; flex-wrap: wrap; gap: 10px; }
     .hero-cta {
