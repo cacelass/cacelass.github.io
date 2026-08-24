@@ -450,10 +450,10 @@
   function translate(lang) {
     var dict = DICT[lang] || DICT.es;
     document.documentElement.lang = lang;
-    var nodes = document.querySelectorAll("[data-i18n]");
+    var nodes = document.querySelectorAll("[data-i18n], [data-i18n-html]");
     for (var i = 0; i < nodes.length; i++) {
       var el = nodes[i];
-      var key = el.getAttribute("data-i18n");
+      var key = el.getAttribute("data-i18n-html") || el.getAttribute("data-i18n");
       if (!(key in dict)) continue;
       if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
         el.placeholder = dict[key];
