@@ -6,29 +6,30 @@
   <title>ClimaSafe · Probar ya — riesgo térmico en el navegador</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     /* Tokens del sistema de diseño de cacelass.github.io (style.css) — la demo
        es autocontenida: no enlaza ../style.css para poder servirse sola. */
     :root {
-      --bg: #0c0b09; --bg2: #131110; --surface: #191613; --surface2: #1f1c18;
-      --border: #2a2620; --border-hi: #3d382f;
-      --text: #f4f2ee; --muted: #9a948a; --dim: #6b665e;
-      --accent: #C9A15A; --accent2: #d9b878; --accent-lo: rgba(201,161,90,0.08);
-      --green: #93b582; --green-lo: rgba(147,181,130,0.08);
-      --purple: #C9A15A; --purple-lo: rgba(201,161,90,0.06);
-      --amber: #C9A15A; --amber-lo: rgba(201,161,90,0.06);
-      --red: #c96a5a; --red-lo: rgba(201,106,90,0.10);
+      --bg: #09090b; --bg2: #0f0f12; --surface: #16161a; --surface2: #1c1c22;
+      --border: #27272a; --border-hi: #3f3f46;
+      --text: #fafafa; --muted: #a1a1aa; --dim: #52525b;
+      --accent: #006eff; --accent2: #4d94ff; --accent-lo: rgba(37,99,235,0.08);
+      --green: #22c55e; --green-lo: rgba(34,197,94,0.08);
+      --purple: #4d94ff; --purple-lo: rgba(37,99,235,0.06);
+      --amber: #f59e0b; --amber-lo: rgba(245,158,11,0.06);
+      --red: #ef4444; --red-lo: rgba(239,68,68,0.10);
       --mono: 'JetBrains Mono', monospace; --sans: 'Space Grotesk', sans-serif;
+      --display: 'DM Serif Display', Georgia, serif;
       --r: 8px; --r2: 12px; --max: 940px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 15px; }
     body {
       overflow-x: clip; color: var(--text); font-family: var(--sans);
-      font-weight: 400; line-height: 1.65; -webkit-font-smoothing: antialiased;
-      background-color: #0c0b09;
-      background: #0c0b09;
+      font-weight: 300; line-height: 1.65; -webkit-font-smoothing: antialiased;
+      background-color: #09090b;
+      background: #09090b;
     }
     body::before { content: none; }
     body > * { position: relative; z-index: 1; }
@@ -39,14 +40,14 @@
 
     nav {
       border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
-      background: rgba(12,11,9,0.96); backdrop-filter: blur(20px);
+      background: rgba(9,9,11,0.92); backdrop-filter: blur(20px);
     }
     .nav-inner {
       max-width: var(--max); margin: 0 auto; padding: 0 28px;
       height: 54px; display: flex; align-items: center; justify-content: space-between;
     }
     .nav-brand { display: flex; align-items: center; gap: 10px; }
-    .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+    .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
     .nav-id { font-family: var(--mono); font-size: 0.76rem; display: flex; align-items: center; gap: 10px; }
     .nav-id a { color: var(--muted); }
     .nav-id a:hover { color: var(--accent2); }
@@ -55,36 +56,43 @@
     .lang-select {
       font-family: var(--mono); font-size: 0.72rem; color: var(--text);
       background: var(--surface2); border: 1px solid var(--border-hi);
-      border-radius: var(--r); padding: 5px 6px; cursor: pointer;
+      border-radius: 60px; padding: 5px 6px; cursor: pointer;
     }
     .lang-select:hover { border-color: var(--accent); }
     .lang-select:focus { outline: none; border-color: var(--accent); }
 
     .proj-hero { padding: 64px 0 40px; }
     .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
       font-family: var(--mono); font-size: 0.76rem; color: var(--accent2);
-      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px;
+      background: rgba(0,110,255,0.08); border: 1px solid rgba(37,99,235,0.2);
+      border-radius: 20px; padding: 4px 12px; margin-bottom: 18px;
     }
-    .proj-hero h1 { font-size: 2.2rem; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; overflow-wrap: break-word; word-break: break-word; }
-    .hl { color: var(--text); }
+    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .proj-hero h1 {
+      font-family: var(--display); font-weight: 400;
+      font-size: 2.2rem; line-height: 1.15; letter-spacing: -0.02em; color: #e2e8f0;
+      overflow-wrap: break-word; word-break: break-word; text-wrap: balance;
+    }
+    .hl { color: var(--accent2); }
     .hero-sub { color: var(--muted); margin: 18px 0 28px; max-width: 640px; font-size: 0.95rem; }
     .proj-links { display: flex; flex-wrap: wrap; gap: 10px; }
     .hero-cta {
       display: inline-flex; align-items: center; gap: 8px;
-      font-family: var(--mono); font-size: 0.76rem; cursor: pointer;
-      color: var(--text); background: var(--surface2);
-      border: 1px solid var(--border-hi); border-radius: var(--r);
-      padding: 9px 16px; transition: border-color 0.2s, background 0.2s;
+      font-family: var(--sans); font-size: 0.85rem; font-weight: 400; cursor: pointer;
+      color: var(--accent2); background: transparent;
+      border: 1.5px solid var(--accent); border-radius: 60px;
+      padding: 9px 24px; transition: border-color 0.2s, background 0.2s, color 0.2s;
     }
-    .hero-cta:hover { border-color: var(--accent); background: var(--accent-lo); color: #fff; }
+    .hero-cta:hover { border-color: var(--accent2); background: var(--accent-lo); color: #fff; }
     .hero-cta:disabled { opacity: 0.5; cursor: wait; }
 
     .section { padding: 20px 0 56px; }
     .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
-    .sec-num { font-family: var(--mono); color: var(--accent); font-size: 0.8rem; }
-    .sec-divider { flex: 1; height: 1px; background: var(--border); }
-    .sec-tag { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; }
-    .sec-title { font-size: 1.05rem; font-weight: 600; }
+    .sec-num { display: none; }
+    .sec-divider { flex: 1; max-width: 40px; height: 1px; background: var(--border-hi); }
+    .sec-tag { font-family: var(--sans); font-weight: 500; font-size: 0.72rem; color: var(--accent2); letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent-lo); border: 1px solid rgba(37,99,235,0.18); border-radius: 20px; padding: 3px 11px; }
+    .sec-title { font-family: var(--display); font-size: 1.6rem; font-weight: 400; color: #006eff; letter-spacing: -0.02em; line-height: 1.2; }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
@@ -178,7 +186,7 @@
     /* Aviso médico-legal */
     .aviso-overlay {
       display: none; position: fixed; inset: 0; z-index: 2000;
-      background: rgba(6, 9, 16, 0.78); backdrop-filter: blur(4px);
+      background: rgba(9, 9, 11, 0.78); backdrop-filter: blur(4px);
       align-items: center; justify-content: center; padding: 20px;
     }
     .aviso-overlay.abierto { display: flex; }
