@@ -49,13 +49,11 @@
       <div class="hero-eyebrow" data-i18n="eyebrow_climasafe">ClimaSafe · early warning · ML</div>
       <h1><span data-i18n="climasafe_h1_1">Heat and cold risk warning</span><br /><span data-i18n="climasafe_h1_2">before the day arrives.</span></h1>
       <p class="hero-sub" data-i18n-html="climasafe_sub">
-        A personalized early-warning system for heat and cold stress. It estimates your cardiovascular
-        risk level (safe / caution / danger) for any Spanish location, day and hour, from thermal comfort
-        indices and a <strong>conformal-weighted ensemble</strong> of XGBoost (heat), RandomForest (cold) and an
-        LSTM with province embedding, and then personalises the population risk with
-        <strong>literature-based individual factors</strong> — age, sex, body fat, comorbidities, medication,
-        acclimatisation, activity. Live forecast from Open-Meteo; target built from MoMo mortality
-        attributable to heat (X30) and cold (X31).
+        An early-warning system against heat and cold. Pick any point in Spain, a day and an hour,
+        and you'll know your <strong>cardiovascular risk level</strong>: safe, caution or danger. It combines
+        official weather data with real mortality, a calibrated model ensemble and <strong>your personal
+        factors</strong> — age, health, medication, activity — to tell you the risk you run, not the average.
+        Live forecast from Open-Meteo.
       </p>
       <div class="proj-links">
         <a class="hero-cta" href="../climasafe/probar-ya/" data-i18n="cta_try">Probar ya</a>
@@ -157,9 +155,12 @@
             <rect x="-8" y="-60" width="16" height="50" fill="#f59e0b"/>
             <rect x="-8" y="-10" width="16" height="75" fill="#22c55e"/>
             <g font-family="JetBrains Mono, monospace" font-size="12" fill="#a1a1aa">
-              <text x="34" y="-84">peligro</text><text x="34" y="-40">precaución</text><text x="34" y="30">seguro</text>
+              <text x="34" y="-75">peligro</text><text x="34" y="-35">precaución</text><text x="34" y="28">seguro</text>
             </g>
-            <g stroke="#52525b" stroke-width="1"><line x1="28" y1="-90" x2="16" y2="-90"/><line x1="28" y1="-46" x2="16" y2="-46"/><line x1="28" y1="24" x2="16" y2="24"/></g>
+            <g stroke="#52525b" stroke-width="1">
+              <line x1="28" y1="-90" x2="16" y2="-90"/><line x1="28" y1="-60" x2="16" y2="-60"/>
+              <line x1="28" y1="-10" x2="16" y2="-10"/><line x1="28" y1="65" x2="16" y2="65"/>
+            </g>
           </g>
           <!-- mapa de puntos provincias -->
           <g transform="translate(560,60)">
@@ -186,14 +187,12 @@
         </svg>
       </div>
       <div class="proj-field-val proj-wide" data-i18n-html="climasafe_p1">
-        Temperature extremes have a direct, lagged effect on mortality. The system models the
-        relationship between daily meteorological variables and mortality attributed to heat (X30)
-        and cold (X31), then produces <strong>province-day risk levels</strong>. It is an early-warning
-        system: it prioritises <strong>not missing risky days</strong> (recall) over avoiding false alarms.
-        On top of the population risk, it computes an <strong>individual risk</strong> — a 72-year-old with
-        diabetes, antipsychotics and no acclimatisation is not a 25-year-old runner — by applying
-        multiplicative factors extracted from the epidemiological literature, with a physical safety
-        override when the Heat Index or Wind Chill crosses dangerous thresholds.
+        Heat and cold don't kill only on the day of the blow: they wear the body down over days and
+        the damage shows up late. The system crosses each province's weather with <strong>real registered
+        mortality</strong> and computes every day's risk: safe, caution or danger. It's an early warning:
+        it prefers to warn you — even if sometimes wrong — over staying silent. And it doesn't stop at
+        the population average: it adjusts the risk to <strong>your age, health, medication and activity</strong>,
+        because a 72-year-old is not a 25-year-old runner.
       </div>
       <div class="dskit-grid">
         <div class="dskit-stat">
@@ -346,14 +345,18 @@
         <span class="metric-lbl" data-i18n="metric_lbl">Rec_riesgo (calibrated thresholds)</span>
         <span class="metric-val" data-i18n-html="climasafe_metric1">XGBoost <strong>0.668</strong> (heat) · RF <strong>0.612</strong> (cold) · LSTM <strong>0.737</strong> heat / <strong>0.708</strong> cold.</span>
       </div>
-      <div class="proj-field-val proj-wide" data-i18n-html="climasafe_p2">
-        Beyond the classifier, the project delivers <strong>conformal prediction</strong>, individual risk
-        personalisation, per-hour risk profiles, a <strong>weekly forecast with conformal confidence bands</strong>,
-        km² risk maps, SHAP explainability, counterfactual recommendations, a <strong>Telegram bot</strong>,
-        <strong>MCP servers</strong> for AI assistants, RAG over the documentation, and a <strong>fine-tuned Qwen3
-        LLM</strong> (LoRA) for natural-language answers — all built as part of the
-        <strong>ANFAIA Summer Grants 2026</strong> and generated from the <a href="dskit.html">dskit</a> template.
+      <div class="feat-chips">
+        <span class="stack-item" data-i18n="feat_chip_forecast">Weekly forecast with confidence bands</span>
+        <span class="stack-item" data-i18n="feat_chip_maps">km² risk maps</span>
+        <span class="stack-item" data-i18n="feat_chip_bot">Daily Telegram alerts</span>
+        <span class="stack-item" data-i18n="feat_chip_ai">AI assistants (MCP)</span>
+        <span class="stack-item" data-i18n="feat_chip_rag">RAG over the docs</span>
       </div>
+      <p class="proj-field-val proj-wide" data-i18n-html="climasafe_p2">
+        All built for the <strong>ANFAIA Summer Grants 2026</strong> and generated from the
+        <a href="dskit.html">dskit</a> template. Architecture and evaluation detail lives in the
+        <a href="../climasafe/documentacion/">technical docs</a>.
+      </p>
     </div>
   </section>
 
