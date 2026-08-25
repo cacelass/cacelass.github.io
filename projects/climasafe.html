@@ -266,58 +266,50 @@
       </div>
       <h2 class="sec-title" data-i18n="how_title">How it works</h2>
       <div class="section-art" aria-hidden="true">
-        <svg viewBox="0 0 1200 310" xmlns="http://www.w3.org/2000/svg">
-          <rect width="1200" height="310" fill="#131316"/>
-          <rect x="0.5" y="0.5" width="1199" height="309" fill="none" stroke="#27272a"/>
+        <svg viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="320" fill="#131316"/>
+          <rect x="0.5" y="0.5" width="1199" height="319" fill="none" stroke="#27272a"/>
+          <text x="40" y="26" font-family="JetBrains Mono, monospace" font-size="12" fill="#52525b">$ ./pipeline --split por-fecha --metrica recall</text>
           <g font-family="JetBrains Mono, monospace" font-size="13">
             <!-- datos -->
-            <rect x="40" y="120" width="150" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
-            <text x="115" text-anchor="middle" dominant-baseline="middle" fill="#f87171">
-              <tspan x="115" dy="-8">ERA5 · AEMET</tspan>
-              <tspan x="115" dy="16" fill="#a1a1aa">MoMo X30/X31</tspan>
-            </text>
+            <rect x="40" y="125" width="150" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="115" y="154" text-anchor="middle" fill="#f87171">ERA5 · AEMET</text>
+            <text x="115" y="174" text-anchor="middle" fill="#a1a1aa">MoMo X30/X31</text>
             <!-- features -->
-            <rect x="250" y="120" width="160" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
-            <text x="330" text-anchor="middle" dominant-baseline="middle" fill="#f87171">
-              <tspan x="330" dy="-8">features</tspan>
-              <tspan x="330" dy="16" fill="#a1a1aa">índices térmicos</tspan>
-            </text>
+            <rect x="250" y="125" width="160" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="330" y="154" text-anchor="middle" fill="#f87171">features</text>
+            <text x="330" y="174" text-anchor="middle" fill="#a1a1aa">índices térmicos</text>
             <!-- modelos -->
-            <rect x="470" y="68" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
-            <text x="560" y="94" text-anchor="middle" dominant-baseline="middle" fill="#e2e8f0">XGBoost · calor</text>
-            <rect x="470" y="130" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
-            <text x="560" y="156" text-anchor="middle" dominant-baseline="middle" fill="#e2e8f0">RandomForest · frío</text>
-            <rect x="470" y="192" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
-            <text x="560" y="218" text-anchor="middle" dominant-baseline="middle" fill="#e2e8f0">LSTM · provincia</text>
-            <rect x="470" y="254" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
-            <text x="560" y="280" text-anchor="middle" dominant-baseline="middle" fill="#e2e8f0">fórmula determinista</text>
+            <rect x="470" y="41" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="73" text-anchor="middle" fill="#e2e8f0">XGBoost · calor</text>
+            <rect x="470" y="103" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="135" text-anchor="middle" fill="#e2e8f0">RandomForest · frío</text>
+            <rect x="470" y="165" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="197" text-anchor="middle" fill="#e2e8f0">LSTM · provincia</text>
+            <rect x="470" y="227" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="259" text-anchor="middle" fill="#e2e8f0">fórmula determinista</text>
             <!-- ensemble -->
-            <rect x="710" y="120" width="170" height="70" rx="10" fill="rgba(239,68,68,0.12)" stroke="#ef4444"/>
-            <text x="795" text-anchor="middle" dominant-baseline="middle" fill="#f87171">
-              <tspan x="795" dy="-8">ensemble</tspan>
-              <tspan x="795" dy="16" fill="#a1a1aa">conformal</tspan>
-            </text>
+            <rect x="710" y="125" width="170" height="70" rx="10" fill="rgba(239,68,68,0.12)" stroke="#ef4444"/>
+            <text x="795" y="154" text-anchor="middle" fill="#f87171">ensemble</text>
+            <text x="795" y="174" text-anchor="middle" fill="#a1a1aa">conformal</text>
             <!-- salida -->
-            <rect x="940" y="120" width="220" height="70" rx="10" fill="#0b0b0e" stroke="#22c55e"/>
-            <text x="1050" text-anchor="middle" dominant-baseline="middle" fill="#22c55e">
-              <tspan x="1050" dy="-8">riesgo persona-día-hora</tspan>
-              <tspan x="1050" dy="16" fill="#a1a1aa">seguro · precaución · peligro</tspan>
-            </text>
+            <rect x="940" y="125" width="220" height="70" rx="10" fill="#0b0b0e" stroke="#22c55e"/>
+            <text x="1050" y="154" text-anchor="middle" fill="#22c55e">riesgo persona-día-hora</text>
+            <text x="1050" y="174" text-anchor="middle" fill="#a1a1aa">seguro · precaución · peligro</text>
             <!-- flechas -->
             <g stroke="#52525b" stroke-width="2" fill="none">
-              <path d="M190 155 H244"/><path d="M410 155 H464"/>
-              <path d="M650 94 H680 V135 H704"/><path d="M650 156 H704"/>
-              <path d="M650 218 H680 V175 H704"/><path d="M650 280 H680 V185 H704"/>
-              <path d="M880 155 H934"/>
+              <path d="M190 160 H244"/><path d="M410 160 H464"/>
+              <path d="M650 67 H680 V150 H704"/><path d="M650 129 H704"/>
+              <path d="M650 191 H680 V170 H704"/><path d="M650 253 H680 V180 H704"/>
+              <path d="M880 160 H934"/>
             </g>
             <g fill="#52525b">
-              <polygon points="244,155 236,151 236,159"/><polygon points="464,155 456,151 456,159"/>
-              <polygon points="704,135 696,131 696,139"/><polygon points="704,156 696,152 696,160"/>
-              <polygon points="704,175 696,171 696,179"/><polygon points="704,185 696,181 696,189"/>
-              <polygon points="934,155 926,151 926,159"/>
+              <polygon points="244,160 236,156 236,164"/><polygon points="464,160 456,156 456,164"/>
+              <polygon points="704,150 696,146 696,154"/><polygon points="704,129 696,125 696,133"/>
+              <polygon points="704,170 696,166 696,174"/><polygon points="704,180 696,176 696,184"/>
+              <polygon points="934,160 926,156 926,164"/>
             </g>
           </g>
-          <text x="40" y="90" font-family="JetBrains Mono, monospace" font-size="12" fill="#52525b">$ ./pipeline --split por-fecha --metrica recall</text>
         </svg>
       </div>
       <div class="featured-grid">
