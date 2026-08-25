@@ -164,11 +164,12 @@
     .section .dec-block li { color: var(--section-text); }
     .section .dec-lbl { color: var(--accent); }
     .section .metric-block {
-      background: rgba(34,197,94,0.06);
-      border-color: rgba(34,197,94,0.18);
+      background: #131316;
+      border-color: #27272a;
     }
-    .section .metric-lbl { color: #16a34a; }
-    .section .metric-val { color: var(--section-text); }
+    .section .metric-lbl { color: #22c55e; }
+    .section .metric-val { color: #f5f0e8; }
+    .section .metric-val strong { color: #4ade80; }
     .section .hero-cta {
       color: var(--accent);
       border-color: var(--accent);
@@ -625,6 +626,7 @@
 
     /* ── SCROLL REVEAL ── */
     .reveal { opacity: 0; transform: translateY(10px); will-change: opacity, transform; }
+    .reveal.is-visible { opacity: 1; transform: none; }
 
     /* ── MICRO-INTERACTIONS ── */
     .feat-meta a, .proj-name a, .more-name a { transition: color 0.15s, transform 0.15s; }
@@ -645,6 +647,64 @@
       .term-cursor { animation: none; opacity: 0; }
       html { scroll-behavior: auto; }
       .hero h1 span span { opacity: 1 !important; transform: none !important; }
+    }
+
+    /* ── SECCIONES INTERCALADAS EN PÁGINAS DE PROYECTO ──
+       Mismo patrón que el index: sección beige → componentes negros;
+       sección negra (.section-dark) → componentes beige. */
+
+    /* Beige: párrafos y listas con tinta oscura */
+    .section .proj-wide, .section .proj-field-val { color: #52525b; }
+    .section .proj-wide strong, .section .proj-field-val strong { color: #18181b; }
+    .section .proj-wide code { color: #0052cc; background: rgba(37,99,235,0.07); }
+    .section .dskit-dec-item { background: rgba(37,99,235,0.05); border-color: rgba(37,99,235,0.16); }
+    .section .dskit-dec-arrow { color: var(--accent); }
+    .section .dskit-dec-text { color: #3f3c36; }
+    .section .dskit-dec-text strong { color: #006eff; font-weight: 500; }
+    .section .dskit-dec-text code { color: #0052cc; background: rgba(37,99,235,0.07); }
+
+    /* Beige: stats y tarjetas negras (como about-card / stack-card del index) */
+    .section .dskit-stat { background: #131316; border-color: #27272a; }
+    .section .dskit-stat:hover { border-color: #3f3f46; }
+    .section .dskit-stat-lbl { color: #a1a1aa; }
+    .section .dskit-stat-val { color: #f5f0e8; }
+    .section .dskit-stat-val code { color: #4d94ff; background: rgba(37,99,235,0.14); }
+
+    /* Negro: tarjetas y stats beige (como feat-card del index) */
+    .section-dark .proj-wide, .section-dark .proj-field-val { color: #d4d4d8; }
+    .section-dark .proj-wide strong, .section-dark .proj-field-val strong { color: #fff; }
+    .section-dark .dskit-stat { background: #fff8f1; border-color: #e8ddd0; }
+    .section-dark .dskit-stat:hover { border-color: #d6c6b2; }
+    .section-dark .dskit-stat-lbl { color: #6b7280; }
+    .section-dark .dskit-stat-val { color: #1a1a1a; }
+    .section-dark .dskit-stat-val code { color: #0052cc; background: rgba(37,99,235,0.08); }
+    .section-dark .dskit-dec-item { background: #fff8f1; border-color: #e8ddd0; }
+    .section-dark .dskit-dec-item:hover { border-color: #d6c6b2; }
+    .section-dark .dskit-dec-arrow { color: #0052cc; }
+    .section-dark .dskit-dec-text { color: #4a4a4a; }
+    .section-dark .dskit-dec-text strong { color: #0052cc; font-weight: 500; }
+    .section-dark .dskit-dec-text code { color: #0052cc; background: rgba(37,99,235,0.07); }
+
+    /* Negro: bloques de métrica/decisiones/notas en beige */
+    .section-dark .metric-block { background: rgba(22,163,74,0.06); border-color: rgba(22,163,74,0.28); }
+    .section-dark .metric-lbl { color: #15803d; }
+    .section-dark .metric-val { color: #1a3a1f; }
+    .section-dark .metric-val strong { color: #14532d; }
+    .section-dark .metric-val a { color: #0052cc; }
+    .section-dark .metric-val a:hover { color: #003d99; }
+    .section-dark .dec-block { background: rgba(37,99,235,0.05); border-color: rgba(37,99,235,0.16); }
+    .section-dark .dec-lbl { color: var(--accent); }
+    .section-dark .dec-block li { color: #3f3c36; }
+    .section-dark .scope-note { background: rgba(37,99,235,0.05); border-color: rgba(37,99,235,0.16); color: #57534e; }
+    .section-dark .scope-note strong { color: #1a1a1a; }
+    .section-dark .note {
+      background: #fff8f1; border-color: #e8ddd0; border-left-color: var(--accent);
+      color: #57534e;
+    }
+    .section-dark .note strong { color: #1a1a1a; }
+    .section-dark .note code { color: #0052cc; background: rgba(37,99,235,0.07); }
+    .section-dark pre.code-block, .section-dark .code-block {
+      background: #fff8f1; border-color: #e8ddd0; color: #292524;
     }
 
     @media (max-width: 900px) {

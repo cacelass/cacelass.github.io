@@ -203,6 +203,33 @@
       font-size: 0.72rem; color: var(--dim); line-height: 1.5;
       border-top: 1px solid var(--border); margin-top: 18px; padding-top: 10px;
     }
+
+    /* ── Fondos intercalados como el index: beige → componentes negros,
+       negro → componentes beige ── */
+    .section-beige { background: #fff8f1; }
+    .section-beige .sec-divider { background: #d6c6b2; }
+    .section-beige .sec-tag { color: #006eff; background: rgba(0,110,255,0.06); border-color: rgba(0,110,255,0.2); }
+    .section-beige .sec-title { color: #006eff; }
+    .section-beige .status { color: #52525b; }
+    .section-beige .status.err { color: #b91c1c; }
+    .section-beige .meta { color: #78716c; }
+
+    /* Resultado sobre fondo negro: tarjetas beige */
+    #resultado .card { background: #fff8f1; border-color: #e8ddd0; }
+    #resultado .card h3 { color: #1a1a1a; }
+    #resultado .meta { color: #78716c; }
+    #resultado .riesgo-big { color: #1a1a1a; }
+    #resultado .reco li { background: transparent; color: #44403c; }
+    #resultado details { border-top-color: #e8ddd0; }
+    #resultado summary { color: #78716c; }
+    #resultado summary:hover { color: #0052cc; }
+    #resultado .tabla-modelos th, #resultado .tabla-modelos td { border-bottom-color: #e8ddd0; }
+    #resultado .tabla-modelos th { color: #78716c; }
+    #resultado .tabla-modelos td { color: #292524; }
+    #resultado .factor-item { border-bottom-color: #d6c6b2; }
+    #resultado .factor-item .f-nombre { color: #78716c; }
+    #resultado .factor-item .f-valor { color: #0052cc; }
+    #resultado .aviso-disclaimer { color: #78716c; }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -248,7 +275,7 @@
     </div>
   </section>
 
-  <section class="section" id="formulario">
+  <section class="section section-beige" id="formulario">
     <div class="container">
       <div class="sec-head">
         <span class="sec-num">01</span>
@@ -473,7 +500,7 @@
           </div>
           <div id="override-box" class="oculto"></div>
           <div id="modo-datos" class="meta" style="margin-top:10px;"></div>
-          <div id="llm-box" style="margin-top:14px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);">
+          <div id="llm-box" style="margin-top:14px;padding:12px 16px;background:rgba(37,99,235,0.04);border:1px solid rgba(37,99,235,0.18);border-radius:var(--r2);">
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
               <span class="meta" data-i18n="llm_label">Resumen IA local</span>
               <button id="llm-load-btn" class="hero-cta" style="font-size:0.76rem;padding:6px 12px;" data-i18n="llm_load">Cargar modelo</button>
@@ -547,6 +574,6 @@
   <script src="js/i18n.js?v=20260824e"></script>
   <!-- Cache-busting: GitHub Pages cachea max-age=600; el ?v= obliga a cargar
        los módulos nuevos tras cada cambio (sube el número al tocar js/). -->
-  <script type="module" src="js/main.js?v=20260821"></script>
+  <script type="module" src="js/main.js?v=20260825a"></script>
 </body>
 </html>

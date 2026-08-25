@@ -278,7 +278,7 @@ function ponerMarcador(lat, lon) {
   if (marcador) marcador.setLatLng([lat, lon]);
   else {
     marcador = L.circleMarker([lat, lon], {
-      radius: 8, fillColor: "#4f8ef7", color: "#6ba3ff", weight: 2, fillOpacity: 0.85,
+      radius: 8, fillColor: "#006eff", color: "#4d94ff", weight: 2, fillOpacity: 0.85,
     }).addTo(mapa);
   }
   mapa.setView([lat, lon], Math.max(mapa.getZoom(), 6));
