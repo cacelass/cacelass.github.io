@@ -117,6 +117,13 @@
       background: #131316;
       border-color: #27272a;
     }
+    .section .feat-card { background: #131316; border-color: #27272a; }
+    .section .feat-card:hover { border-color: #3f3f46; }
+    .section .feat-name { color: #f5f0e8; }
+    .section .feat-name a { color: #4d94ff; }
+    .section .feat-name a:hover { color: #93c5fd; }
+    .section .feat-desc { color: #a1a1aa; }
+    .section .feat-desc strong { color: #f5f0e8; }
     .section .about-card:hover { border-color: #3f3f46; }
     .section .about-card-icon {
       background: rgba(0,110,255,0.12);
@@ -715,14 +722,17 @@
       padding: 28px 30px; transition: border-color 0.2s;
     }
     .impact-card:hover { border-color: #7f1d1d; }
-    .impact-lbl { font-family: var(--mono); font-size: 0.74rem; color: #f87171; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
-    .impact-num { font-family: var(--display); font-size: clamp(3rem, 6vw, 4.5rem); color: #f87171; line-height: 1; margin-bottom: 14px; }
+    .impact-head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+    .impact-lbl { font-family: var(--mono); font-size: 1.05rem; color: #f87171; letter-spacing: 0.02em; }
+    .impact-num { font-family: var(--display); font-size: clamp(3rem, 6vw, 4.5rem); color: #f87171; line-height: 1; }
+    .impact-word { font-family: var(--sans); font-size: 1.35rem; color: #f5f0e8; }
     .impact-card p { font-size: 0.95rem; color: #a1a1aa; line-height: 1.65; }
     .impact-card p strong { color: #f5f0e8; font-weight: 500; }
     .impact-note { font-size: 0.95rem; color: #52525b; line-height: 1.7; max-width: 75ch; }
     .impact-note strong { color: #18181b; }
     .impact-note a { color: #0052cc; }
     .impact-note a:hover { color: #003d99; }
+    .how-cta { font-size: 1rem; color: #a1a1aa; margin-top: 24px; line-height: 1.7; }
 
     /* ── SECTION ART (banners ilustrados) ── */
     .section-art {
@@ -740,6 +750,27 @@
       border-radius: 8px; color: #0052cc; margin-bottom: 2px;
     }
     .feat-card .uso-icon + .feat-name { margin-bottom: 2px; }
+
+    /* ── ClimaSafe: acentos rojos (solo esta página) ── */
+    .climasafe-page .hero-eyebrow { color: #f87171; background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.3); }
+    .climasafe-page .hero-eyebrow::before { background: #ef4444; }
+    .climasafe-page .hero-cta { color: #f87171; border-color: rgba(239,68,68,0.6); }
+    .climasafe-page .hero-cta:hover { border-color: #f87171; background: rgba(239,68,68,0.08); color: #fecaca; }
+    .climasafe-page .section .sec-title { color: #dc2626; }
+    .climasafe-page .section .sec-tag { color: #dc2626; background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.25); }
+    .climasafe-page .section a { color: #dc2626; }
+    .climasafe-page .section a:hover { color: #b91c1c; }
+    .climasafe-page .section-dark .sec-tag { color: #f87171; background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.3); }
+    .climasafe-page .section-dark a { color: #f87171; }
+    .climasafe-page .section-dark a:hover { color: #fecaca; }
+    .climasafe-page .section-dark .feat-name a { color: #f87171; }
+    .climasafe-page .section-dark .feat-name a:hover { color: #fecaca; }
+    .climasafe-page .section .uso-icon { color: #f87171; background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); }
+    .climasafe-page .section-dark .uso-icon { color: #f87171; background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.3); }
+    .climasafe-page .impact-note a { color: #dc2626; }
+    .climasafe-page .impact-note a:hover { color: #b91c1c; }
+    .climasafe-page .how-cta a { color: #f87171; }
+    .climasafe-page .how-cta a:hover { color: #fecaca; }
 
     @media (max-width: 900px) {
       .more-list { grid-template-columns: 1fr; }

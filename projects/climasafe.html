@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../style.css" />
   <script src="../i18n.js?v=20260824e" defer></script>
 </head>
-<body class="proj-page">
+<body class="proj-page climasafe-page">
 
   <nav>
     <div class="nav-inner">
@@ -113,13 +113,19 @@
       </div>
       <div class="impact-grid">
         <div class="impact-card">
-          <div class="impact-lbl" data-i18n="impact_2025_lbl">Summer 2025 · MoMo · May 16 – Sep 30</div>
-          <div class="impact-num" data-i18n="impact_2025_num">3,832</div>
+          <div class="impact-head">
+            <span class="impact-num" data-i18n="impact_2025_num">3,832</span>
+            <span class="impact-word" data-i18n="impact_word">deaths</span>
+            <span class="impact-lbl" data-i18n="impact_2025_lbl">Summer 2025 · MoMo · May 16 – Sep 30</span>
+          </div>
           <p data-i18n-html="impact_2025_desc">deaths attributable to heat in Spain. <strong>57%</strong> occurred in August and <strong>84%</strong> were people over 74. The second deadliest summer on record — and the hottest since 1961 (AEMET).</p>
         </div>
         <div class="impact-card">
-          <div class="impact-lbl" data-i18n="impact_2026_lbl">Summer 2026 · MoMo · as of Aug 19</div>
-          <div class="impact-num" data-i18n="impact_2026_num">4,581</div>
+          <div class="impact-head">
+            <span class="impact-num" data-i18n="impact_2026_num">4,581</span>
+            <span class="impact-word" data-i18n="impact_word">deaths</span>
+            <span class="impact-lbl" data-i18n="impact_2026_lbl">Summer 2026 · MoMo · as of Aug 19</span>
+          </div>
           <p data-i18n-html="impact_2026_desc">deaths by August 19 alone: <strong>already exceeds all of summer 2025</strong>. July (2,025) was the second deadliest month of the series. With September ahead, 2022's record (4,789) is under threat.</p>
         </div>
       </div>
@@ -147,11 +153,11 @@
           <g transform="translate(240,120)">
             <rect x="-16" y="-95" width="32" height="150" rx="16" fill="#131316" stroke="#3f3f46"/>
             <circle cx="0" cy="80" r="30" fill="#ef4444" stroke="#7f1d1d"/>
-            <rect x="-8" y="-10" width="16" height="75" fill="#ef4444"/>
+            <rect x="-8" y="-90" width="16" height="30" fill="#ef4444"/>
             <rect x="-8" y="-60" width="16" height="50" fill="#f59e0b"/>
-            <rect x="-8" y="-90" width="16" height="30" fill="#22c55e"/>
+            <rect x="-8" y="-10" width="16" height="75" fill="#22c55e"/>
             <g font-family="JetBrains Mono, monospace" font-size="12" fill="#a1a1aa">
-              <text x="34" y="-84">seguro</text><text x="34" y="-40">precaución</text><text x="34" y="30">peligro</text>
+              <text x="34" y="-84">peligro</text><text x="34" y="-40">precaución</text><text x="34" y="30">seguro</text>
             </g>
             <g stroke="#52525b" stroke-width="1"><line x1="28" y1="-90" x2="16" y2="-90"/><line x1="28" y1="-46" x2="16" y2="-46"/><line x1="28" y1="24" x2="16" y2="24"/></g>
           </g>
@@ -171,9 +177,9 @@
           </g>
           <!-- alerta temprana -->
           <g transform="translate(960,120)">
-            <path d="M0 -70 L58 -46 L58 8 C58 44 30 66 0 78 C-30 66 -58 44 -58 8 L-58 -46 Z" fill="#131316" stroke="#006eff" stroke-width="2"/>
+            <path d="M0 -70 L58 -46 L58 8 C58 44 30 66 0 78 C-30 66 -58 44 -58 8 L-58 -46 Z" fill="#131316" stroke="#ef4444" stroke-width="2"/>
             <path d="M-20 0 L-6 16 L24 -18" fill="none" stroke="#22c55e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-            <g font-family="JetBrains Mono, monospace" font-size="12" fill="#006eff">
+            <g font-family="JetBrains Mono, monospace" font-size="12" fill="#f87171">
               <text x="-52" y="108">alerta 24-72 h</text>
             </g>
           </g>
@@ -206,94 +212,10 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="usos">
     <div class="container">
       <div class="sec-head reveal">
         <span class="sec-num">02</span>
-        <div class="sec-divider"></div>
-        <span class="sec-tag" data-i18n="tag_approach">approach</span>
-      </div>
-      <h2 class="sec-title" data-i18n="title_modelling">Modelling</h2>
-      <div class="section-art" aria-hidden="true">
-        <svg viewBox="0 0 1200 210" xmlns="http://www.w3.org/2000/svg">
-          <rect width="1200" height="210" fill="#131316"/>
-          <rect x="0.5" y="0.5" width="1199" height="209" fill="none" stroke="#27272a"/>
-          <g font-family="JetBrains Mono, monospace" font-size="13">
-            <!-- datos -->
-            <rect x="40" y="70" width="150" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
-            <text x="115" y="98" fill="#4d94ff" text-anchor="middle">ERA5 · AEMET</text>
-            <text x="115" y="120" fill="#a1a1aa" text-anchor="middle">MoMo X30/X31</text>
-            <!-- features -->
-            <rect x="250" y="70" width="160" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
-            <text x="330" y="98" fill="#4d94ff" text-anchor="middle">features</text>
-            <text x="330" y="120" fill="#a1a1aa" text-anchor="middle">índices térmicos</text>
-            <!-- modelos -->
-            <rect x="470" y="18" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
-            <text x="560" y="50" fill="#e2e8f0" text-anchor="middle">XGBoost · calor</text>
-            <rect x="470" y="80" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
-            <text x="560" y="112" fill="#e2e8f0" text-anchor="middle">RandomForest · frío</text>
-            <rect x="470" y="142" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
-            <text x="560" y="174" fill="#e2e8f0" text-anchor="middle">LSTM · provincia</text>
-            <!-- ensemble -->
-            <rect x="710" y="70" width="170" height="70" rx="10" fill="rgba(37,99,235,0.12)" stroke="#006eff"/>
-            <text x="795" y="98" fill="#4d94ff" text-anchor="middle">ensemble</text>
-            <text x="795" y="120" fill="#a1a1aa" text-anchor="middle">conformal</text>
-            <!-- salida -->
-            <rect x="940" y="70" width="220" height="70" rx="10" fill="#0b0b0e" stroke="#22c55e"/>
-            <text x="1050" y="98" fill="#22c55e" text-anchor="middle">riesgo persona-día-hora</text>
-            <text x="1050" y="120" fill="#a1a1aa" text-anchor="middle">seguro · precaución · peligro</text>
-            <!-- flechas -->
-            <g stroke="#52525b" stroke-width="2" fill="none">
-              <path d="M190 105 H244"/><path d="M410 105 H464"/>
-              <path d="M650 44 H680 V95 H704"/><path d="M650 106 H704"/><path d="M650 168 H680 V115 H704"/>
-              <path d="M880 105 H934"/>
-            </g>
-            <g fill="#52525b">
-              <polygon points="244,105 236,101 236,109"/><polygon points="464,105 456,101 456,109"/>
-              <polygon points="704,95 696,91 696,99"/><polygon points="704,106 696,102 696,110"/><polygon points="704,115 696,111 696,119"/>
-              <polygon points="934,105 926,101 926,109"/>
-            </g>
-          </g>
-          <text x="40" y="40" font-family="JetBrains Mono, monospace" font-size="12" fill="#52525b">$ ./pipeline --split por-fecha --metrica recall</text>
-        </svg>
-      </div>
-      <div class="dskit-dec-list">
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text" data-i18n-html="climasafe_dec1"><strong>Target</strong>: mortality percentiles from MoMo (X30/X31), computed <strong>per province</strong> so small provinces are not penalised.</span>
-        </div>
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text" data-i18n-html="climasafe_dec2"><strong>Features</strong>: thermal comfort indices (Heat Index, WBGT, Wind Chill) at the riskiest hour, plus the daily 24 h distribution and temporal persistence (lags, rolling means, consecutive cold-day streaks).</span>
-        </div>
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text" data-i18n-html="climasafe_dec3"><strong>Split by date, not random</strong>: avoids leaking days of the same wave between train and test.</span>
-        </div>
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text" data-i18n-html="climasafe_dec4"><strong>Selection metric</strong>: recall of the risk classes (Rec_riesgo), not accuracy.</span>
-        </div>
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text" data-i18n-html="climasafe_dec5"><strong>Tracking</strong>: MLflow with temporal cross-validation by year.</span>
-        </div>
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text" data-i18n-html="climasafe_dec6"><strong>Ensemble</strong>: conformal-weighted average — each model is weighted by the size of its conformal prediction set (the smaller the set, the more it is trusted), with isotonic calibration for the cold channel.</span>
-        </div>
-        <div class="dskit-dec-item">
-          <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text" data-i18n-html="climasafe_dec7"><strong>Personalisation</strong>: multiplicative factors from the epidemiological literature (age, sex, body fat, acclimatisation, comorbidities, medication, social situation, activity intensity, duration and hour, wind chill saturation, cumulative fatigue), capped to avoid double counting, plus physical overrides by Heat Index / Wind Chill.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-dark" id="usos">
-    <div class="container">
-      <div class="sec-head reveal">
-        <span class="sec-num">03</span>
         <div class="sec-divider"></div>
         <span class="sec-tag" data-i18n="tag_uses">uses</span>
       </div>
@@ -333,7 +255,86 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="tag_how">how it works</span>
+      </div>
+      <h2 class="sec-title" data-i18n="how_title">How it works</h2>
+      <div class="section-art" aria-hidden="true">
+        <svg viewBox="0 0 1200 210" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="210" fill="#131316"/>
+          <rect x="0.5" y="0.5" width="1199" height="209" fill="none" stroke="#27272a"/>
+          <g font-family="JetBrains Mono, monospace" font-size="13">
+            <!-- datos -->
+            <rect x="40" y="70" width="150" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="115" y="98" fill="#f87171" text-anchor="middle">ERA5 · AEMET</text>
+            <text x="115" y="120" fill="#a1a1aa" text-anchor="middle">MoMo X30/X31</text>
+            <!-- features -->
+            <rect x="250" y="70" width="160" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="330" y="98" fill="#f87171" text-anchor="middle">features</text>
+            <text x="330" y="120" fill="#a1a1aa" text-anchor="middle">índices térmicos</text>
+            <!-- modelos -->
+            <rect x="470" y="18" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="50" fill="#e2e8f0" text-anchor="middle">XGBoost · calor</text>
+            <rect x="470" y="80" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="112" fill="#e2e8f0" text-anchor="middle">RandomForest · frío</text>
+            <rect x="470" y="142" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="174" fill="#e2e8f0" text-anchor="middle">LSTM · provincia</text>
+            <!-- ensemble -->
+            <rect x="710" y="70" width="170" height="70" rx="10" fill="rgba(239,68,68,0.12)" stroke="#ef4444"/>
+            <text x="795" y="98" fill="#f87171" text-anchor="middle">ensemble</text>
+            <text x="795" y="120" fill="#a1a1aa" text-anchor="middle">conformal</text>
+            <!-- salida -->
+            <rect x="940" y="70" width="220" height="70" rx="10" fill="#0b0b0e" stroke="#22c55e"/>
+            <text x="1050" y="98" fill="#22c55e" text-anchor="middle">riesgo persona-día-hora</text>
+            <text x="1050" y="120" fill="#a1a1aa" text-anchor="middle">seguro · precaución · peligro</text>
+            <!-- flechas -->
+            <g stroke="#52525b" stroke-width="2" fill="none">
+              <path d="M190 105 H244"/><path d="M410 105 H464"/>
+              <path d="M650 44 H680 V95 H704"/><path d="M650 106 H704"/><path d="M650 168 H680 V115 H704"/>
+              <path d="M880 105 H934"/>
+            </g>
+            <g fill="#52525b">
+              <polygon points="244,105 236,101 236,109"/><polygon points="464,105 456,101 456,109"/>
+              <polygon points="704,95 696,91 696,99"/><polygon points="704,106 696,102 696,110"/><polygon points="704,115 696,111 696,119"/>
+              <polygon points="934,105 926,101 926,109"/>
+            </g>
+          </g>
+          <text x="40" y="40" font-family="JetBrains Mono, monospace" font-size="12" fill="#52525b">$ ./pipeline --split por-fecha --metrica recall</text>
+        </svg>
+      </div>
+      <div class="featured-grid">
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_data_lbl">Official data</div>
+          <p class="feat-desc" data-i18n-html="how_data">ERA5 and AEMET for weather; MoMo (Instituto de Salud Carlos III) as the target. Public, verifiable sources — nothing opaque.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_ensemble_lbl">Calibrated ensemble</div>
+          <p class="feat-desc" data-i18n-html="how_ensemble">XGBoost for heat, RandomForest for cold and an LSTM with province embedding, combined through conformal weighting.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_conformal_lbl">It knows when to doubt</div>
+          <p class="feat-desc" data-i18n-html="how_conformal">Conformal prediction provides confidence levels: the system warns with the calm of someone who knows what it doesn't know.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_personal_lbl">Personalized risk</div>
+          <p class="feat-desc" data-i18n-html="how_personal">Age, sex, comorbidities, medication, acclimatisation and activity adjust your risk, not a population average.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_rigor_lbl">No tricks</div>
+          <p class="feat-desc" data-i18n-html="how_rigor">Date-based splits, leakage control and honest published metrics. What can be checked, is checked.</p>
+        </div>
+      </div>
+      <p class="how-cta" data-i18n-html="how_cta">Want the details? Everything is in the <a href="../climasafe/documentacion/">technical docs</a>.</p>
+    </div>
+  </section>
+
+  
+
+    <section class="section">
     <div class="container">
       <div class="sec-head reveal">
         <span class="sec-num">04</span>
