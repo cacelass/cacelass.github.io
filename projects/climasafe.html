@@ -266,9 +266,9 @@
       </div>
       <h2 class="sec-title" data-i18n="how_title">How it works</h2>
       <div class="section-art" aria-hidden="true">
-        <svg viewBox="0 0 1200 250" xmlns="http://www.w3.org/2000/svg">
-          <rect width="1200" height="250" fill="#131316"/>
-          <rect x="0.5" y="0.5" width="1199" height="249" fill="none" stroke="#27272a"/>
+        <svg viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="280" fill="#131316"/>
+          <rect x="0.5" y="0.5" width="1199" height="279" fill="none" stroke="#27272a"/>
           <g font-family="JetBrains Mono, monospace" font-size="13">
             <!-- datos -->
             <rect x="40" y="70" width="150" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
@@ -285,6 +285,8 @@
             <text x="560" y="112" fill="#e2e8f0" text-anchor="middle">RandomForest · frío</text>
             <rect x="470" y="142" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
             <text x="560" y="174" fill="#e2e8f0" text-anchor="middle">LSTM · provincia</text>
+            <rect x="470" y="206" width="180" height="52" rx="10" fill="rgba(239,68,68,0.12)" stroke="#ef4444"/>
+            <text x="560" y="238" fill="#f87171" text-anchor="middle">fórmula determinista</text>
             <!-- ensemble -->
             <rect x="710" y="70" width="170" height="70" rx="10" fill="rgba(239,68,68,0.12)" stroke="#ef4444"/>
             <text x="795" y="98" fill="#f87171" text-anchor="middle">ensemble</text>
@@ -297,21 +299,14 @@
             <g stroke="#52525b" stroke-width="2" fill="none">
               <path d="M190 105 H244"/><path d="M410 105 H464"/>
               <path d="M650 44 H680 V95 H704"/><path d="M650 106 H704"/><path d="M650 168 H680 V115 H704"/>
-              <path d="M880 105 H934"/>
+              <path d="M650 232 H680 V105 H704"/><path d="M880 105 H934"/>
             </g>
             <g fill="#52525b">
               <polygon points="244,105 236,101 236,109"/><polygon points="464,105 456,101 456,109"/>
               <polygon points="704,95 696,91 696,99"/><polygon points="704,106 696,102 696,110"/><polygon points="704,115 696,111 696,119"/>
-              <polygon points="934,105 926,101 926,109"/>
+              <polygon points="704,105 696,101 696,109"/><polygon points="934,105 926,101 926,109"/>
             </g>
           </g>
-          <!-- fórmula determinista -->
-          <rect x="40" y="206" width="1120" height="36" rx="8" fill="#141416" stroke="#ef4444" stroke-width="1"/>
-          <text x="60" y="230" font-family="JetBrains Mono, monospace" font-size="15" fill="#f87171">
-            <tspan>riesgo = Σ wᵢ·pᵢ</tspan>
-            <tspan dx="34" fill="#a1a1aa" font-size="13">con wᵢ ∝ 1/|Cᵢ|</tspan>
-            <tspan dx="24" fill="#52525b" font-size="12">(menor conjunto conformal, más peso)</tspan>
-          </text>
           <text x="40" y="40" font-family="JetBrains Mono, monospace" font-size="12" fill="#52525b">$ ./pipeline --split por-fecha --metrica recall</text>
         </svg>
       </div>
