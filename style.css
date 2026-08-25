@@ -755,6 +755,13 @@
     /* ── ClimaSafe: acentos rojos (solo esta página) ── */
     .climasafe-page .hero-eyebrow { color: #f87171; background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.3); }
     .climasafe-page .hero-sub { font-size: 1.12rem; }
+    .climasafe-page .proj-wide { max-width: none; }
+    .climasafe-page .formula {
+      font-family: var(--mono); font-size: 0.95rem; color: #b91c1c;
+      background: #f0e7da; border: 1px solid #d9cdbf;
+      border-radius: 6px; padding: 10px 12px; margin-top: 12px;
+      overflow-x: auto; white-space: nowrap;
+    }
     .climasafe-page .hero-eyebrow::before { background: #ef4444; }
     .climasafe-page .hero-cta { color: #f87171; border-color: rgba(239,68,68,0.6); }
     .climasafe-page .hero-cta:hover { border-color: #f87171; background: rgba(239,68,68,0.08); color: #fecaca; }
