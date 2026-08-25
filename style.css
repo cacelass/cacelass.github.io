@@ -89,6 +89,7 @@
       border-color: #e8ddd0;
     }
     .section-dark .feat-card:hover { border-color: #d6c6b2; }
+    .section-dark .feat-name { color: #1a1a1a; }
     .section-dark .feat-name a { color: #0052cc; }
     .section-dark .feat-name a:hover { color: #003d99; }
     .section-dark .feat-desc { color: #4a4a4a; }
@@ -707,6 +708,39 @@
       background: #fff8f1; border-color: #e8ddd0; color: #292524;
     }
 
+    /* ── IMPACT CARDS (climasafe) ── */
+    .impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .impact-card {
+      background: #131316; border: 1px solid #27272a; border-radius: var(--r2);
+      padding: 28px 30px; transition: border-color 0.2s;
+    }
+    .impact-card:hover { border-color: #7f1d1d; }
+    .impact-lbl { font-family: var(--mono); font-size: 0.74rem; color: #f87171; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+    .impact-num { font-family: var(--display); font-size: clamp(3rem, 6vw, 4.5rem); color: #f87171; line-height: 1; margin-bottom: 14px; }
+    .impact-card p { font-size: 0.95rem; color: #a1a1aa; line-height: 1.65; }
+    .impact-card p strong { color: #f5f0e8; font-weight: 500; }
+    .impact-note { font-size: 0.95rem; color: #52525b; line-height: 1.7; max-width: 75ch; }
+    .impact-note strong { color: #18181b; }
+    .impact-note a { color: #0052cc; }
+    .impact-note a:hover { color: #003d99; }
+
+    /* ── SECTION ART (banners ilustrados) ── */
+    .section-art {
+      border: 1px solid var(--border);
+      border-radius: var(--r2);
+      overflow: hidden;
+      margin-bottom: 28px;
+      line-height: 0;
+    }
+    .section-art svg { width: 100%; height: auto; display: block; }
+    .uso-icon {
+      width: 34px; height: 34px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,110,255,0.1); border: 1px solid rgba(37,99,235,0.3);
+      border-radius: 8px; color: #0052cc; margin-bottom: 2px;
+    }
+    .feat-card .uso-icon + .feat-name { margin-bottom: 2px; }
+
     @media (max-width: 900px) {
       .more-list { grid-template-columns: 1fr; }
     }
@@ -719,6 +753,7 @@
       .dskit-grid { grid-template-columns: 1fr; }
       .dskit-dec-list { grid-template-columns: 1fr; }
       .featured-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr; }
       .more-item { gap: 6px; }
 
       /* Navegacion accesible: la marca y los enlaces envuelven en dos filas */

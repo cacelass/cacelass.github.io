@@ -47,7 +47,7 @@
   <section class="proj-hero">
     <div class="container">
       <div class="hero-eyebrow" data-i18n="eyebrow_climasafe">ClimaSafe · early warning · ML</div>
-      <h1><span data-i18n="climasafe_h1_1">Heat and cold risk warning</span><br /><span class="hl" data-i18n="climasafe_h1_2">before the day arrives.</span></h1>
+      <h1><span data-i18n="climasafe_h1_1">Heat and cold risk warning</span><br /><span data-i18n="climasafe_h1_2">before the day arrives.</span></h1>
       <p class="hero-sub" data-i18n-html="climasafe_sub">
         A personalized early-warning system for heat and cold stress. It estimates your cardiovascular
         risk level (safe / caution / danger) for any Spanish location, day and hour, from thermal comfort
@@ -69,7 +69,65 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="impacto">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">00</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="tag_impact">impact</span>
+      </div>
+      <h2 class="sec-title" data-i18n="impact_title">The human cost</h2>
+      <div class="section-art" aria-hidden="true">
+        <svg viewBox="0 0 1200 240" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="skyI" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#450a0a"/><stop offset="0.65" stop-color="#1c0a08"/><stop offset="1" stop-color="#0a0a0c"/>
+            </linearGradient>
+            <radialGradient id="sunI" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0" stop-color="#fecaca"/><stop offset="0.4" stop-color="#ef4444"/><stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="1200" height="240" fill="url(#skyI)"/>
+          <circle cx="560" cy="140" r="180" fill="url(#sunI)" opacity="0.5"/>
+          <circle cx="560" cy="140" r="58" fill="#dc2626"/>
+          <g stroke="#f87171" stroke-width="1.5" opacity="0.4">
+            <line x1="560" y1="58" x2="560" y2="22"/><line x1="452" y1="78" x2="428" y2="48"/><line x1="668" y1="78" x2="692" y2="48"/>
+            <line x1="405" y1="140" x2="368" y2="130"/><line x1="715" y1="140" x2="752" y2="130"/>
+          </g>
+          <g fill="#0b0b0e" stroke="#3f3f46" stroke-width="1">
+            <rect x="30" y="150" width="70" height="90"/><rect x="120" y="120" width="55" height="120"/><rect x="195" y="165" width="80" height="75"/>
+            <rect x="295" y="135" width="60" height="105"/><rect x="375" y="175" width="90" height="65"/><rect x="485" y="152" width="65" height="88"/>
+            <rect x="570" y="180" width="80" height="60"/><rect x="670" y="145" width="60" height="95"/><rect x="750" y="170" width="85" height="70"/>
+            <rect x="855" y="132" width="55" height="108"/><rect x="930" y="162" width="75" height="78"/><rect x="1025" y="142" width="60" height="98"/>
+            <rect x="1105" y="170" width="70" height="70"/>
+          </g>
+          <g fill="#ef4444" opacity="0.9">
+            <rect x="948" y="208" width="13" height="32"/><rect x="967" y="196" width="13" height="44"/><rect x="986" y="180" width="13" height="60"/>
+            <rect x="1005" y="158" width="13" height="82"/><rect x="1024" y="136" width="13" height="104"/><rect x="1043" y="112" width="13" height="128"/>
+            <rect x="1062" y="92" width="13" height="148"/><rect x="1081" y="76" width="13" height="164"/>
+          </g>
+          <text x="1102" y="66" font-family="JetBrains Mono, monospace" font-size="14" fill="#f87171">+4.581</text>
+          <text x="52" y="58" font-family="JetBrains Mono, monospace" font-size="14" fill="#fca5a5" opacity="0.85">44,8 °C</text>
+          <text x="52" y="80" font-family="JetBrains Mono, monospace" font-size="11" fill="#f87171" opacity="0.7">ola de calor</text>
+        </svg>
+      </div>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-lbl" data-i18n="impact_2025_lbl">Summer 2025 · MoMo · May 16 – Sep 30</div>
+          <div class="impact-num" data-i18n="impact_2025_num">3,832</div>
+          <p data-i18n-html="impact_2025_desc">deaths attributable to heat in Spain. <strong>57%</strong> occurred in August and <strong>84%</strong> were people over 74. The second deadliest summer on record — and the hottest since 1961 (AEMET).</p>
+        </div>
+        <div class="impact-card">
+          <div class="impact-lbl" data-i18n="impact_2026_lbl">Summer 2026 · MoMo · as of Aug 19</div>
+          <div class="impact-num" data-i18n="impact_2026_num">4,581</div>
+          <p data-i18n-html="impact_2026_desc">deaths by August 19 alone: <strong>already exceeds all of summer 2025</strong>. July (2,025) was the second deadliest month of the series. With September ahead, 2022's record (4,789) is under threat.</p>
+        </div>
+      </div>
+      <p class="impact-note" data-i18n-html="impact_note">Since 2015, high temperatures have claimed <strong>more than 27,500 lives</strong> in Spain. Not headlines: excess mortality estimated over civil registries by the <a href="https://momo.isciii.es/panel_momo/" target="_blank">MoMo system</a> (Instituto de Salud Carlos III). Heat doesn't warn twice.</p>
+    </div>
+  </section>
+
+  <section class="section section-dark">
     <div class="container">
       <div class="sec-head reveal">
         <span class="sec-num">01</span>
@@ -77,6 +135,50 @@
         <span class="sec-tag" data-i18n="tag_problem">problem</span>
       </div>
       <h2 class="sec-title" data-i18n="title_solves">What it solves</h2>
+      <div class="section-art" aria-hidden="true">
+        <svg viewBox="0 0 1200 240" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="skyS" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#0c1220"/><stop offset="1" stop-color="#09090b"/>
+            </linearGradient>
+          </defs>
+          <rect width="1200" height="240" fill="url(#skyS)"/>
+          <!-- termómetro -->
+          <g transform="translate(240,120)">
+            <rect x="-16" y="-95" width="32" height="150" rx="16" fill="#131316" stroke="#3f3f46"/>
+            <circle cx="0" cy="80" r="30" fill="#ef4444" stroke="#7f1d1d"/>
+            <rect x="-8" y="-10" width="16" height="75" fill="#ef4444"/>
+            <rect x="-8" y="-60" width="16" height="50" fill="#f59e0b"/>
+            <rect x="-8" y="-90" width="16" height="30" fill="#22c55e"/>
+            <g font-family="JetBrains Mono, monospace" font-size="12" fill="#a1a1aa">
+              <text x="34" y="-84">seguro</text><text x="34" y="-40">precaución</text><text x="34" y="30">peligro</text>
+            </g>
+            <g stroke="#52525b" stroke-width="1"><line x1="28" y1="-90" x2="16" y2="-90"/><line x1="28" y1="-46" x2="16" y2="-46"/><line x1="28" y1="24" x2="16" y2="24"/></g>
+          </g>
+          <!-- mapa de puntos provincias -->
+          <g transform="translate(560,60)">
+            <g fill="#27272a">
+              <circle cx="0" cy="0" r="5"/><circle cx="34" cy="-18" r="5"/><circle cx="66" cy="6" r="5"/><circle cx="30" cy="30" r="5"/>
+              <circle cx="98" cy="-14" r="5"/><circle cx="130" cy="14" r="5"/><circle cx="100" cy="44" r="5"/><circle cx="164" cy="-8" r="5"/>
+              <circle cx="196" cy="20" r="5"/><circle cx="160" cy="52" r="5"/><circle cx="230" cy="0" r="5"/><circle cx="228" cy="44" r="5"/>
+            </g>
+            <circle cx="66" cy="6" r="7" fill="none" stroke="#f87171" stroke-width="2"/>
+            <circle cx="130" cy="14" r="7" fill="none" stroke="#f59e0b" stroke-width="2"/>
+            <circle cx="196" cy="20" r="7" fill="none" stroke="#22c55e" stroke-width="2"/>
+            <g font-family="JetBrains Mono, monospace" font-size="12">
+              <text x="52" y="-16" fill="#f87171">peligro</text><text x="118" y="-6" fill="#f59e0b">riesgo</text><text x="186" y="48" fill="#22c55e">seguro</text>
+            </g>
+          </g>
+          <!-- alerta temprana -->
+          <g transform="translate(960,120)">
+            <path d="M0 -70 L58 -46 L58 8 C58 44 30 66 0 78 C-30 66 -58 44 -58 8 L-58 -46 Z" fill="#131316" stroke="#006eff" stroke-width="2"/>
+            <path d="M-20 0 L-6 16 L24 -18" fill="none" stroke="#22c55e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <g font-family="JetBrains Mono, monospace" font-size="12" fill="#006eff">
+              <text x="-52" y="108">alerta 24-72 h</text>
+            </g>
+          </g>
+        </svg>
+      </div>
       <div class="proj-field-val proj-wide" data-i18n-html="climasafe_p1">
         Temperature extremes have a direct, lagged effect on mortality. The system models the
         relationship between daily meteorological variables and mortality attributed to heat (X30)
@@ -104,7 +206,7 @@
     </div>
   </section>
 
-  <section class="section section-dark">
+  <section class="section">
     <div class="container">
       <div class="sec-head reveal">
         <span class="sec-num">02</span>
@@ -112,6 +214,49 @@
         <span class="sec-tag" data-i18n="tag_approach">approach</span>
       </div>
       <h2 class="sec-title" data-i18n="title_modelling">Modelling</h2>
+      <div class="section-art" aria-hidden="true">
+        <svg viewBox="0 0 1200 210" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="210" fill="#131316"/>
+          <rect x="0.5" y="0.5" width="1199" height="209" fill="none" stroke="#27272a"/>
+          <g font-family="JetBrains Mono, monospace" font-size="13">
+            <!-- datos -->
+            <rect x="40" y="70" width="150" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="115" y="98" fill="#4d94ff" text-anchor="middle">ERA5 · AEMET</text>
+            <text x="115" y="120" fill="#a1a1aa" text-anchor="middle">MoMo X30/X31</text>
+            <!-- features -->
+            <rect x="250" y="70" width="160" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="330" y="98" fill="#4d94ff" text-anchor="middle">features</text>
+            <text x="330" y="120" fill="#a1a1aa" text-anchor="middle">índices térmicos</text>
+            <!-- modelos -->
+            <rect x="470" y="18" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="50" fill="#e2e8f0" text-anchor="middle">XGBoost · calor</text>
+            <rect x="470" y="80" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="112" fill="#e2e8f0" text-anchor="middle">RandomForest · frío</text>
+            <rect x="470" y="142" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="174" fill="#e2e8f0" text-anchor="middle">LSTM · provincia</text>
+            <!-- ensemble -->
+            <rect x="710" y="70" width="170" height="70" rx="10" fill="rgba(37,99,235,0.12)" stroke="#006eff"/>
+            <text x="795" y="98" fill="#4d94ff" text-anchor="middle">ensemble</text>
+            <text x="795" y="120" fill="#a1a1aa" text-anchor="middle">conformal</text>
+            <!-- salida -->
+            <rect x="940" y="70" width="220" height="70" rx="10" fill="#0b0b0e" stroke="#22c55e"/>
+            <text x="1050" y="98" fill="#22c55e" text-anchor="middle">riesgo persona-día-hora</text>
+            <text x="1050" y="120" fill="#a1a1aa" text-anchor="middle">seguro · precaución · peligro</text>
+            <!-- flechas -->
+            <g stroke="#52525b" stroke-width="2" fill="none">
+              <path d="M190 105 H244"/><path d="M410 105 H464"/>
+              <path d="M650 44 H680 V95 H704"/><path d="M650 106 H704"/><path d="M650 168 H680 V115 H704"/>
+              <path d="M880 105 H934"/>
+            </g>
+            <g fill="#52525b">
+              <polygon points="244,105 236,101 236,109"/><polygon points="464,105 456,101 456,109"/>
+              <polygon points="704,95 696,91 696,99"/><polygon points="704,106 696,102 696,110"/><polygon points="704,115 696,111 696,119"/>
+              <polygon points="934,105 926,101 926,109"/>
+            </g>
+          </g>
+          <text x="40" y="40" font-family="JetBrains Mono, monospace" font-size="12" fill="#52525b">$ ./pipeline --split por-fecha --metrica recall</text>
+        </svg>
+      </div>
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
@@ -145,10 +290,53 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section-dark" id="usos">
     <div class="container">
       <div class="sec-head reveal">
         <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="tag_uses">uses</span>
+      </div>
+      <h2 class="sec-title" data-i18n="usos_title">One system, many scenarios</h2>
+      <div class="featured-grid">
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></div>
+          <div class="feat-name" data-i18n="uso_empresa_lbl">Companies (OSH)</div>
+          <p class="feat-desc" data-i18n-html="uso_empresa">Plan shifts and outdoor work with province-and-hour risk before every shift starts.</p>
+        </div>
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="12" cy="15" r="2.5"/></svg></div>
+          <div class="feat-name" data-i18n="uso_eventos_lbl">Events</div>
+          <p class="feat-desc" data-i18n-html="uso_eventos">Sports, festivals, open-air weddings: decide schedules, shade and medical staffing in advance.</p>
+        </div>
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="12" rx="2"/><line x1="12" y1="10" x2="12" y2="16"/><line x1="9" y1="13" x2="15" y2="13"/><circle cx="7" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></div>
+          <div class="feat-name" data-i18n="uso_emergencias_lbl">Emergency services</div>
+          <p class="feat-desc" data-i18n-html="uso_emergencias">Anticipate care demand and position resources before the peak, not during it.</p>
+        </div>
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+          <div class="feat-name" data-i18n="uso_individual_lbl">Personal use</div>
+          <p class="feat-desc" data-i18n-html="uso_individual">Your personalized cardiovascular risk anywhere in Spain, on the day and hour you choose.</p>
+        </div>
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-5.5 6-5.5s6 2 6 5.5"/><circle cx="17" cy="9" r="3"/><path d="M15.5 14.5c3 0 6.5 2 6.5 5.5"/></svg></div>
+          <div class="feat-name" data-i18n="uso_colectivos_lbl">Vulnerable groups</div>
+          <p class="feat-desc" data-i18n-html="uso_colectivos">Care homes, day centres and families with elderly: early warnings when a day's risk matters.</p>
+        </div>
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="21" x2="21" y2="21"/><path d="M4 21V9m5 12V9m6 12V9m5 12V9"/><path d="M2 9l10-6 10 6H2z"/></svg></div>
+          <div class="feat-name" data-i18n="uso_municipios_lbl">Municipalities</div>
+          <p class="feat-desc" data-i18n-html="uso_municipios">Trigger local heat plans with province-level risk levels, not generic alerts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">04</span>
         <div class="sec-divider"></div>
         <span class="sec-tag" data-i18n="tag_results">results</span>
       </div>
