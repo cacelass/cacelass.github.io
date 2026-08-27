@@ -599,7 +599,7 @@
       text-wrap: balance;
     }
     .proj-hero h1 .hl {
-      color: var(--accent2);
+      color: inherit;
     }
     .climasafe-page .proj-hero h1 .hl {
       color: inherit;
