@@ -782,6 +782,39 @@
     .climasafe-page .how-cta a:hover { color: #fecaca; }
     .climasafe-page .section .stack-item { color: #dc2626; background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.25); }
 
+    /* ClimaSafe: los textos largos ocupan el ancho del contenedor */
+    .climasafe-page .proj-hero .hero-sub,
+    .climasafe-page .proj-wide,
+    .climasafe-page .impact-note { max-width: 100%; }
+
+    /* ClimaSafe: grupos de botones desplegables (details/summary) */
+    .cta-group { position: relative; display: inline-flex; }
+    .cta-group summary { list-style: none; cursor: pointer; }
+    .cta-group summary::-webkit-details-marker { display: none; }
+    .cta-group summary::after { content: '▾'; margin-left: 6px; opacity: 0.7; font-size: 0.75em; }
+    .cta-group[open] summary { background: rgba(239,68,68,0.08); color: #fecaca; border-color: #f87171; }
+    .cta-menu {
+      position: absolute; top: calc(100% + 8px); left: 0; z-index: 50;
+      min-width: 230px; display: flex; flex-direction: column;
+      background: var(--surface); border: 1px solid var(--border-hi);
+      border-radius: var(--r2); padding: 6px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+    }
+    .cta-menu a {
+      font-size: 0.85rem; color: var(--muted);
+      padding: 9px 14px; border-radius: var(--r); transition: color 0.15s, background 0.15s;
+    }
+    .cta-menu a:hover { background: var(--accent-lo); color: #fff; }
+
+    /* El hero debe quedar por encima de las secciones siguientes mientras
+       haya un desplegable abierto (si no, la seccion crema lo pisa). */
+    .proj-hero { position: relative; }
+    .proj-hero:has(details.cta-group[open]) { z-index: 500; }
+
+    @media (max-width: 640px) {
+      .cta-menu { position: static; width: 100%; margin-top: 8px; box-shadow: none; }
+    }
+
     @media (max-width: 900px) {
       .more-list { grid-template-columns: 1fr; }
     }

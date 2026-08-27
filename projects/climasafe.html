@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
-  <script src="../i18n.js?v=20260824e" defer></script>
+  <script src="../i18n.js?v=20260826a" defer></script>
 </head>
 <body class="proj-page climasafe-page">
 
@@ -57,10 +57,21 @@
       </p>
       <div class="proj-links">
         <a class="hero-cta" href="../climasafe/probar-ya/" data-i18n="cta_try">Probar ya</a>
-        <a class="hero-cta" href="../climasafe/documentacion/guia-usuario/" data-i18n="cta_user_guide">Guía de usuario</a>
-        <a class="hero-cta" href="../climasafe/documentacion/" data-i18n="cta_dev_docs">Docs técnicas</a>
-        <a class="hero-cta" href="../climasafe/mcp.html">MCP</a>
-        <a class="hero-cta" href="../climasafe/telegram.html">Telegram</a>
+        <details class="cta-group">
+          <summary class="hero-cta" data-i18n="nav_docs_group">Documentación</summary>
+          <div class="cta-menu">
+            <a href="../climasafe/documentacion/guia-usuario/" data-i18n="cta_user_guide">Guía de usuario</a>
+            <a href="../climasafe/documentacion/" data-i18n="cta_dev_docs">Docs técnicas</a>
+          </div>
+        </details>
+        <details class="cta-group">
+          <summary class="hero-cta" data-i18n="nav_inst_group">Instalación</summary>
+          <div class="cta-menu">
+            <a href="https://github.com/ANFAIA/ClimaSafe#instalar" target="_blank" rel="noopener" data-i18n="inst_pip">Con pip o Docker</a>
+            <a href="../climasafe/telegram.html" data-i18n="inst_telegram">Bot de Telegram</a>
+            <a href="../climasafe/mcp.html">MCP</a>
+          </div>
+        </details>
         <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
         <a class="hero-cta" href="../index.html" data-i18n="cta_back_projects">← back to projects</a>
       </div>
@@ -402,6 +413,12 @@
     } else {
       els.forEach((el) => el.classList.add('is-visible'));
     }
+
+    document.addEventListener('click', (e) => {
+      document.querySelectorAll('details.cta-group[open]').forEach((d) => {
+        if (!d.contains(e.target)) d.removeAttribute('open');
+      });
+    });
   </script>
 
 </body>
