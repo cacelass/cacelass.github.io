@@ -605,14 +605,22 @@
       color: inherit;
     }
     /* Cream sections: dark method-cards get light text */
+    .section .method-card,
+    .section .method-card * {
+      color: #f5f0e8;
+    }
     .section .method-card {
       background: #131316;
       border-color: #27272a;
     }
     .section .method-card:hover { border-color: #3f3f46; }
-    .section .method-card h3 { color: #f5f0e8; }
+    .section .method-card h3 { color: #fff; font-weight: 600; }
     .section .method-card p { color: #a1a1aa; }
     .section .method-card p strong { color: #f5f0e8; }
+    .section .method-card a { color: var(--accent2); }
+    .section .method-card a:hover { color: #fff; }
+    .section .method-card code { color: var(--accent2); background: var(--accent-lo); }
+    .section .method-card pre.code-block { background: #0a0a0c; border-color: #27272a; color: #e4e4e7; }
     .proj-hero .hero-sub { font-size: 0.95rem; color: var(--muted); max-width: 620px; line-height: 1.75; margin-bottom: 28px; font-weight: 300; }
     .proj-hero .hero-sub a { color: var(--accent2); }
     .proj-links { display: flex; flex-wrap: wrap; gap: 10px; }
