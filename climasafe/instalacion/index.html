@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClimaSafe · Instalación — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../i18n.js?v=20260826a" defer></script>
+  <style>
+    .code-block {
+      font-family: var(--mono); font-size: 0.8rem; line-height: 1.6;
+      color: var(--text); background: var(--surface);
+      border: 1px solid var(--border-hi); border-radius: var(--r);
+      padding: 14px 16px; overflow-x: auto; margin: 12px 0 24px;
+    }
+    .note {
+      background: var(--surface); border: 1px solid var(--border-hi);
+      border-left: 3px solid var(--accent2); border-radius: var(--r);
+      padding: 12px 16px; font-size: 0.835rem; color: var(--muted);
+      line-height: 1.7; margin-bottom: 24px;
+    }
+    .note strong { color: var(--text); font-weight: 500; }
+    .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 24px 0; }
+    @media (max-width: 700px) { .method-grid { grid-template-columns: 1fr; } }
+    .method-card {
+      background: var(--surface); border: 1px solid var(--border-hi);
+      border-radius: var(--r2); padding: 24px;
+    }
+    .method-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .method-card .tag {
+      display: inline-block; font-family: var(--mono); font-size: 0.68rem;
+      color: var(--accent2); background: var(--accent-lo);
+      border: 1px solid rgba(37,99,235,0.2); border-radius: 20px;
+      padding: 2px 8px; margin-bottom: 12px;
+    }
+    .method-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+    .method-card .code-block { margin-top: 0; }
+    .req-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 0.85rem; }
+    .req-table th, .req-table td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+    .req-table th { color: var(--muted); font-weight: 500; font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .req-table td { color: var(--text); }
+    .req-table td:first-child { font-family: var(--mono); color: var(--accent2); }
+  </style>
+</head>
+<body class="proj-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../index.html" class="nav-back" data-i18n="back_index">← index</a> <strong>Alejandro Cancelas</strong> <span>/ ClimaSafe · Instalación</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../index.html#about" data-i18n="nav_about">about</a></li>
+        <li><a href="../index.html#projects" data-i18n="nav_projects">projects</a></li>
+        <li><a href="../index.html#stack" data-i18n="nav_stack">stack</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow" data-i18n="eyebrow_inst">ClimaSafe · instalación</div>
+      <h1><span data-i18n="inst_h1_1">Get ClimaSafe</span><br /><span class="hl" data-i18n="inst_h1_2">running in minutes.</span></h1>
+      <p class="hero-sub" data-i18n="inst_sub">
+        Two ways to run the full prediction pipeline (ML models, API, Telegram bot, MCP server):
+        a single <strong>Docker command</strong> or <strong>pip</strong> on any machine with Python ≥ 3.12.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="../probar-ya/" data-i18n="cta_try">Probar ya</a>
+        <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
+        <a class="hero-cta" href="../documentacion/" data-i18n="cta_dev_docs">Docs técnicas</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="sec01_tag">requisitos</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_req_title">What you need</h2>
+      <table class="req-table">
+        <thead>
+          <tr>
+            <th data-i18n="th_component">Component</th>
+            <th data-i18n="th_version">Version</th>
+            <th data-i18n="th_notes">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Python</td><td>≥ 3.12</td><td data-i18n="req_python_note">Required for pip install</td></tr>
+          <tr><td>Docker</td><td>≥ 24</td><td data-i18n="req_docker_note">Optional — for the one-command route</td></tr>
+          <tr><td>uv</td><td>latest</td><td data-i18n="req_uv_note">Recommended for development</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="sec02_tag">docker</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_docker_title">Option A — Docker (one command)</h2>
+      <div class="method-grid">
+        <div class="method-card">
+          <span class="tag" data-i18n="tag_easiest">easiest</span>
+          <h3 data-i18n="docker_run_title">Run the image</h3>
+          <p data-i18n="docker_run_desc">Once the image is published, a single command starts the web server with pre-trained models:</p>
+          <div class="code-block">docker run -d --name climasafe \
+  -p 8080:8080 \
+  ghcr.io/cacelass/climasafeai:latest</div>
+          <p data-i18n="docker_run_after">Then open <strong>http://localhost:8080</strong>. No training, no configuration needed.</p>
+        </div>
+        <div class="method-card">
+          <span class="tag">compose</span>
+          <h3 data-i18n="docker_compose_title">With Docker Compose</h3>
+          <p data-i18n="docker_compose_desc">Clone the repo and use compose for a more controlled setup:</p>
+          <div class="code-block">git clone https://github.com/ANFAIA/ClimaSafe.git
+cd ClimaSafe
+docker compose up -d          # web server only</div>
+          <p data-i18n="docker_compose_note">Data persists in named volumes between restarts. Start fresh with <code>docker compose down -v</code>.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong data-i18n="docker_bot_title">Telegram bot (optional):</strong>
+        <span data-i18n="docker_bot_desc"> The bot runs in a separate profile and needs a token from @BotFather:</span>
+      </div>
+      <div class="code-block">cp .env.example .env           # add your TELEGRAM_BOT_TOKEN
+docker compose --profile bot up -d</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="sec03_tag">pip</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_pip_title">Option B — pip (Python ≥ 3.12)</h2>
+      <div class="method-card" style="max-width:640px;">
+        <span class="tag">flexible</span>
+        <h3 data-i18n="pip_install_title">Install from GitHub</h3>
+        <div class="code-block"># create and activate a virtual environment
+python3 -m venv .venv && source .venv/bin/activate
+pip install --upgrade pip
+
+# install with the extras you need
+pip install "climasafeai[api,supervisado,redes_neuronales,mlflow_tracking]" \
+    git+https://github.com/ANFAIA/ClimaSafe.git</div>
+        <p data-i18n="pip_extras_note">Available extras: <code>api</code> (FastAPI/uvicorn), <code>supervisado</code> (XGBoost/LightGBM/SHAP), <code>redes_neuronales</code> (PyTorch/LSTM), <code>mlflow_tracking</code>, <code>voice</code> (STT/TTS), <code>rag</code> (embeddings), <code>onnx</code>.</p>
+      </div>
+
+      <div class="note" style="margin-top:24px;">
+        <strong data-i18n="pip_entry_title">Installed CLI tools:</strong>
+      </div>
+      <table class="req-table">
+        <thead>
+          <tr>
+            <th data-i18n="th_command">Command</th>
+            <th data-i18n="th_what">What it does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>climasafeai-bot</td><td data-i18n="cmd_bot">Starts the Telegram bot (needs TELEGRAM_BOT_TOKEN)</td></tr>
+          <tr><td>climasafeai-mcp</td><td data-i18n="cmd_mcp">MCP prediction server (Claude Desktop / Cursor)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">04</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="sec04_tag">desarrollo</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_dev_title">For developers</h2>
+      <div class="method-card" style="max-width:640px;">
+        <span class="tag">source</span>
+        <h3 data-i18n="dev_setup_title">Clone &amp; set up</h3>
+        <div class="code-block">git clone https://github.com/ANFAIA/ClimaSafe.git
+cd ClimaSafe
+./init.sh                       # full environment check
+# or: uv sync --extra dev --extra supervisado
+source .venv/bin/activate</div>
+        <p data-i18n="dev_commands_note">Once set up, use the Makefile:</p>
+        <div class="code-block">make run          # full pipeline (data → train → predict → reports/)
+make serve        # FastAPI at localhost:8000 (interactive docs at /docs)
+make test         # full pytest suite
+make lint         # ruff check
+make mlflow       # MLflow UI at localhost:5000</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">05</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="sec05_tag">links</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_links_title">Useful links</h2>
+      <div class="method-grid">
+        <div class="method-card">
+          <h3 data-i18n="link_quickstart">Quick start</h3>
+          <p data-i18n="link_quickstart_desc">From zero to a risk prediction in minutes.</p>
+          <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe/blob/main/documentacion/inicio_rapido.md" target="_blank" data-i18n="link_quickstart_cta">Read the guide →</a>
+        </div>
+        <div class="method-card">
+          <h3 data-i18n="link_packaging">Packaging details</h3>
+          <p data-i18n="link_packaging_desc">Full packaging documentation (Dockerfile, wheel, extras, entry points).</p>
+          <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe/blob/main/documentacion/despliegue/packaging.md" target="_blank" data-i18n="link_packaging_cta">Read packaging.md →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-id"><span class="footer-dot"></span><strong>ClimaSafe</strong><span data-i18n="footer_extra_inst">· instalación</span></div>
+      <div class="footer-links" style="display:flex;gap:16px;list-style:none;">
+        <a href="../index.html">← index</a>
+        <a href="../probar-ya/" data-i18n="cta_try">probar ya</a>
+        <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>
