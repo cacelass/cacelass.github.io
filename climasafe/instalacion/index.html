@@ -270,19 +270,18 @@ Report the final output of `make run`.</pre>
       </p>
       <div class="method-grid">
         <div class="method-card">
+          <span class="tag">web client</span>
+          <h3 data-i18n="mcp_web_title">Cliente web</h3>
+          <p data-i18n="mcp_web_desc">Abre el cliente web y conéctalo a tu servidor local. Sin instalar nada en el navegador.</p>
+          <a class="hero-cta" href="../mcp-web/">Abrir cliente web →</a>
+        </div>
+        <div class="method-card">
           <span class="tag">http (default)</span>
-          <h3 data-i18n="mcp_http_title">Start the server</h3>
+          <h3 data-i18n="mcp_http_title">Arrancar el servidor</h3>
           <pre class="code-block">pip install "climasafeai[mcp]" \
     git+https://github.com/ANFAIA/ClimaSafe.git
 climasafeai-mcp              # Streamable HTTP on :8101</pre>
-          <p data-i18n="mcp_http_note">Point your MCP client to <code>http://localhost:8101/mcp</code>. Works with <strong>Claude Desktop</strong>, <strong>Cursor</strong>, <strong>Windsurf</strong> and any HTTP-compatible MCP client.</p>
-        </div>
-        <div class="method-card">
-          <span class="tag">stdio</span>
-          <h3 data-i18n="mcp_stdio_title">Stdio mode</h3>
-          <p data-i18n="mcp_stdio_desc">For clients that only support stdio (legacy):</p>
-          <pre class="code-block">climasafeai-mcp --stdio     # stdin/stdout JSON-RPC</pre>
-          <p data-i18n="mcp_stdio_note">Configure in <code>.mcp.json</code> with <code>"command"</code> and <code>"args"</code> instead of <code>"url"</code>.</p>
+          <p data-i18n="mcp_http_note">El cliente web se conecta a <code>http://localhost:8101/mcp</code>. También funciona con <strong>Claude Desktop</strong>, <strong>Cursor</strong> y <strong>Windsurf</strong>.</p>
         </div>
       </div>
     </div>
