@@ -98,12 +98,12 @@
         <div class="sec-divider"></div>
         <span class="sec-tag" data-i18n="sec02_tag">docker</span>
       </div>
-      <h2 class="sec-title" data-i18n="inst_docker_title">Option A — Docker (one command)</h2>
+      <h2 class="sec-title" data-i18n="inst_docker_title">Docker</h2>
       <div class="method-grid">
         <div class="method-card">
           <span class="tag" data-i18n="tag_easiest">easiest</span>
           <h3 data-i18n="docker_run_title">Run the image</h3>
-          <p data-i18n="docker_run_desc">Once the image is published, a single command starts the web server with pre-trained models:</p>
+          <p data-i18n="docker_run_desc">A single command starts the web server with pre-trained models:</p>
           <pre class="code-block">docker run -d --name climasafe \
   -p 8080:8080 \
   ghcr.io/cacelass/climasafeai:latest</pre>
@@ -120,12 +120,45 @@ docker compose up -d          # web server only</pre>
         </div>
       </div>
 
-      <div class="method-card" style="margin-top:18px;">
-        <span class="tag">optional</span>
-        <h3 data-i18n="docker_bot_title">Telegram bot</h3>
-        <p data-i18n="docker_bot_desc">The bot runs in a separate profile and needs a token from @BotFather:</p>
-        <pre class="code-block">cp .env.example .env           # add your TELEGRAM_BOT_TOKEN
+      <div class="method-grid" style="margin-top:18px;">
+        <div class="method-card">
+          <span class="tag">compose + github</span>
+          <h3 data-i18n="docker_compose_gh_title">Build from GitHub</h3>
+          <p data-i18n="docker_compose_gh_desc">No need to clone — this compose file builds directly from the repo:</p>
+          <pre class="code-block">curl -O https://raw.githubusercontent.com/ANFAIA/ClimaSafe/main/compose.gh.yml
+docker compose -f compose.gh.yml up -d</pre>
+          <pre class="code-block">services:
+  climasafe:
+    build:
+      context: https://github.com/ANFAIA/ClimaSafe.git#main
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - climasafe-data:/app/data
+      - climasafe-models:/app/models
+    env_file: .env
+
+  bot:
+    profiles: ["bot"]
+    build:
+      context: https://github.com/ANFAIA/ClimaSafe.git#main
+      dockerfile: Dockerfile
+    command: climasafeai-bot
+    env_file: .env
+    depends_on: [climasafe]
+
+volumes:
+  climasafe-data:
+  climasafe-models:</pre>
+        </div>
+        <div class="method-card">
+          <span class="tag">optional</span>
+          <h3 data-i18n="docker_bot_title">Telegram bot</h3>
+          <p data-i18n="docker_bot_desc">The bot runs in a separate profile and needs a token from @BotFather:</p>
+          <pre class="code-block">cp .env.example .env           # add your TELEGRAM_BOT_TOKEN
 docker compose --profile bot up -d</pre>
+        </div>
       </div>
     </div>
   </section>
@@ -222,57 +255,11 @@ Report the final output of `make run`.</pre>
     </div>
   </section>
 
-  <!-- 06 — Docker Compose from source -->
-  <section id="06" class="section section-dark">
+  <!-- 05 — MCP via web (GitHub Pages) -->
+  <section id="06" class="section">
     <div class="container">
       <div class="sec-head">
         <span class="sec-num">06</span>
-        <div class="sec-divider"></div>
-        <span class="sec-tag">compose + github</span>
-      </div>
-      <h2 class="sec-title" data-i18n="inst_compose_gh_title">Docker Compose — build from GitHub</h2>
-      <p class="proj-wide" data-i18n="inst_compose_gh_desc">
-        If you prefer to build from source instead of pulling a pre-built image, use this <code>compose.gh.yml</code>. It clones the repo, builds the image and runs the pipeline — all in one command.
-      </p>
-      <div class="method-card" style="max-width:720px;">
-        <span class="tag">compose.gh.yml</span>
-        <h3>docker-compose.gh.yml</h3>
-        <pre class="code-block">services:
-  climasafe:
-    build:
-      context: https://github.com/ANFAIA/ClimaSafe.git#main
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    volumes:
-      - climasafe-data:/app/data
-      - climasafe-models:/app/models
-    env_file: .env          # optional: TELEGRAM_BOT_TOKEN, API keys
-
-  bot:
-    profiles: ["bot"]
-    build:
-      context: https://github.com/ANFAIA/ClimaSafe.git#main
-      dockerfile: Dockerfile
-    command: climasafeai-bot
-    env_file: .env
-    depends_on: [climasafe]
-
-volumes:
-  climasafe-data:
-  climasafe-models:</pre>
-        <pre class="code-block">curl -O https://raw.githubusercontent.com/ANFAIA/ClimaSafe/main/compose.gh.yml
-docker compose -f compose.gh.yml up -d
-# add the bot:  docker compose -f compose.gh.yml --profile bot up -d</pre>
-      </div>
-    </div>
-  </section>
-
-  <!-- 07 — MCP via web (GitHub Pages) -->
-  <section id="07" class="section">
-    <div class="container">
-      <div class="sec-head">
-        <span class="sec-num">07</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">mcp</span>
       </div>
