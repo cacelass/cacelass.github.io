@@ -255,41 +255,26 @@ Report the final output of `make run`.</pre>
     </div>
   </section>
 
-  <!-- 05 — MCP via web (GitHub Pages) -->
-  <section id="06" class="section">
+  <!-- 05 — MCP -->
+  <section id="05" class="section">
     <div class="container">
       <div class="sec-head">
-        <span class="sec-num">06</span>
+        <span class="sec-num">05</span>
         <div class="sec-divider"></div>
         <span class="sec-tag">mcp</span>
       </div>
-      <h2 class="sec-title" data-i18n="inst_mcp_web_title">MCP via web — zero install</h2>
+      <h2 class="sec-title" data-i18n="inst_mcp_web_title">MCP server</h2>
       <p class="proj-wide" data-i18n="inst_mcp_web_desc">
-        The <strong>ClimaSafe MCP server</strong> also runs as a web endpoint hosted on GitHub Pages.
-        Point your MCP client at the URL and start making predictions — no local installation needed.
+        The <strong>ClimaSafe MCP server</strong> exposes prediction, profiles, routines and risk charts as MCP tools.
+        Install it locally and connect it to your AI client.
       </p>
-      <div class="method-grid">
-        <div class="method-card">
-          <span class="tag">endpoint</span>
-          <h3 data-i18n="mcp_web_url_title">Web endpoint</h3>
-          <p data-i18n="mcp_web_url_desc">Add this to your MCP client configuration:</p>
-          <pre class="code-block">{
-  "mcpServers": {
-    "climasafe": {
-      "url": "https://cacelass.github.io/climasafe/mcp/"
-    }
-  }
-}</pre>
-        </div>
-        <div class="method-card">
-          <span class="tag">local</span>
-          <h3 data-i18n="mcp_local_title">Local MCP server</h3>
-          <p data-i18n="mcp_local_desc">Or install locally for full offline access:</p>
-          <pre class="code-block">pip install "climasafeai[mcp]" \
+      <div class="method-card" style="max-width:720px;">
+        <span class="tag">install + run</span>
+        <h3 data-i18n="mcp_local_title">Install and start</h3>
+        <pre class="code-block">pip install "climasafeai[mcp]" \
     git+https://github.com/ANFAIA/ClimaSafe.git
 climasafeai-mcp            # stdio server for Claude Desktop</pre>
-          <p data-i18n="mcp_local_note">Works with <strong>Claude Desktop</strong>, <strong>Cursor</strong>, <strong>Windsurf</strong> and any MCP-compatible client.</p>
-        </div>
+        <p data-i18n="mcp_local_note">Works with <strong>Claude Desktop</strong>, <strong>Cursor</strong>, <strong>Windsurf</strong> and any MCP-compatible client via stdio.</p>
       </div>
     </div>
   </section>
