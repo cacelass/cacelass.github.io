@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi homelab: la infraestructura donde aprendo — Blog · Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <style>
+    .post-content { max-width: 720px; margin: 0 auto; }
+    .post-content h2 {
+      font-family: var(--display); font-weight: 400;
+      font-size: clamp(1.5rem, 3.5vw, 2rem); color: #006eff;
+      margin: 48px 0 16px; letter-spacing: -0.02em; line-height: 1.15;
+    }
+    .post-content h3 {
+      font-family: var(--sans); font-weight: 600; font-size: 1.15rem;
+      color: #1a1a1a; margin: 32px 0 12px;
+    }
+    .post-content p { font-size: 1.08rem; color: #3f3c36; line-height: 1.8; margin: 0 0 20px; }
+    .post-content p strong { color: #006eff; font-weight: 500; }
+    .post-content a { color: #0052cc; text-decoration: underline; text-underline-offset: 2px; }
+    .post-content a:hover { color: #003d99; }
+    .post-content ul, .post-content ol { margin: 0 0 20px 22px; color: #3f3c36; line-height: 1.8; font-size: 1.05rem; }
+    .post-content li { margin-bottom: 6px; }
+    .post-content blockquote {
+      border-left: 3px solid var(--accent); background: rgba(37,99,235,0.05);
+      padding: 12px 18px; margin: 0 0 20px; border-radius: 0 8px 8px 0;
+      color: #4a4a4a; font-style: italic;
+    }
+    .post-content pre.code-block { margin: 0 0 20px; }
+    .post-content img { max-width: 100%; border-radius: var(--r); border: 1px solid #e8ddd0; margin: 8px 0 20px; }
+    .post-content hr { border: none; border-top: 1px solid #e8ddd0; margin: 40px 0; }
+  </style>
+  <script src="../../i18n.js?v=20260826f" defer></script>
+</head>
+<body class="blog-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><strong>Alejandro Cancelas</strong> <span>/ blog</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../index.html">home</a></li>
+        <li><a href="../">blog</a></li>
+        <li><a href="../../projects/dskit.html">projects</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <a class="nav-back" href="../">← volver al blog</a>
+      <h1>Mi homelab: la infraestructura donde aprendo</h1>
+      <p class="hero-sub">Antes de entrenar un modelo está el servidor, la red y los backups. Mi homelab es donde eso deja de ser teoría. <span class="proj-tag" style="margin-left:8px">infra</span></p>
+      <div class="hero-term" role="presentation">
+        <span class="term-prompt">cacelass@gh</span><span class="term-sep">:</span><span class="term-path">~/blog</span><span class="term-dollar">$</span>
+        <span class="term-cmd">cat homelab.md</span>
+        <span class="term-cursor"></span>
+      </div>
+      <p style="font-family:var(--mono); font-size:0.8rem; color:var(--muted)">6 min de lectura</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="post-content">
+
+        <p>Tengo un homelab. No es un lujo ni un capricho: es el sitio donde la parte de "sistemas" de mi trabajo deja de ser abstracta. Vengo de <strong>ASIR</strong> (Técnico de Sistemas), y el homelab es donde esa formación sigue viva — servidores, redes, contenedores, backups, monitorización — lejos de los entornos limpios de los tutoriales.</p>
+
+        <p>Lo cuento aquí porque conecta con el hilo de este blog: <strong>infraestructura antes que arquitectura de modelo</strong>. Un modelo no corre en el vacío; corre sobre algo, y si eso se cae, el modelo no importa.</p>
+
+        <h2>Qué hay montado</h2>
+        <p>El stack es sencillo pero cubre lo que de verdad importa: acceso seguro, mis datos bajo mi control, y saber cuándo algo falla.</p>
+
+        <h3>Acceso y puerta de entrada</h3>
+        <ul>
+          <li><strong>Tailscale</strong>: una VPN mesh que me da acceso a la red del homelab desde cualquier sitio <strong>sin abrir puertos</strong> al mundo. Es la diferencia entre "expuesto en internet" y "accesible solo para mí".</li>
+          <li><strong>Heimdall</strong>: el dashboard de inicio. Un único punto donde ver y entrar a todo lo demás. Poca cosa, pero quita fricción.</li>
+        </ul>
+
+        <h3>Datos propios</h3>
+        <ul>
+          <li><strong>Immich</strong>: backup de fotos y vídeos, mi alternativa autohospedada a Google Photos. Mis recuerdos no los tiene un tercero.</li>
+          <li><strong>Nextcloud</strong>: la nube de archivos, con calendario y contactos. Sustituye a Drive sin ceder la propiedad de los datos.</li>
+          <li><strong>Kavita</strong>: biblioteca de cómics, manga y libros. Catálogo y lectura desde cualquier dispositivo.</li>
+        </ul>
+
+        <h3>Salud del sistema</h3>
+        <ul>
+          <li><strong>Uptime Kuma</strong>: monitorización. Me avisa cuando un servicio cae antes de que me entere por casualidad. Saber el estado es la mitad de arreglarlo.</li>
+          <li><strong>Watchtower</strong>: actualiza los contenedores automáticamente. Mantener parches al día sin tocarlos uno a uno.</li>
+        </ul>
+
+        <h2>Por qué importa para ML</h2>
+        <p>No es casualidad que el mismo vocabulario del homelab sea el del ML en producción. <strong>Contenedores aislados</strong> (Docker), <strong>monitorización de drift</strong> (Uptime Kuma es el primo pobre de vigilar un modelo), <strong>backups</strong> antes de tocar nada, y acceso por <strong>red privada</strong> en vez de exponer servicios. El homelab es un laboratorio barato donde practico esas disciplinas sin el riesgo de un entorno real.</p>
+
+        <blockquote>Quien no sabe meter sus propios servicios en un contenedor y monitorizarlos, difícilmente sabe meter un modelo en producción. El homelab es donde se aprende lo primero.</blockquote>
+
+        <h2>Posesión de los datos</h2>
+        <p>Hay una razón ética y práctica detrás de autohospedar: <strong>tus datos son tuyos</strong>. En un mundo donde el modelo es la menor parte y lo que rodea al modelo lo es todo, dónde viven tus datos y quién puede leerlos es una decisión de ingeniería, no de marketing. Immich y Nextcloud son mi forma de no ceder esa decisión.</p>
+
+        <p>Y sí, el homelab también es donde pruebo correr <strong>modelos localmente</strong> (un LLM en Ollama, inferencia de un modelo de riesgo) antes de mandarlos a la nube. La misma lógica: control y aislamiento primero.</p>
+
+        <hr />
+
+        <p>Si te interesa el ángulo de sistemas, <a href="2026-08-27-arneses-ia.html">por qué los arneses de IA importan</a> aplica el mismo principio al código: lo que rodea al trabajo decide más que el trabajo en sí.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass" target="_blank">github.com/cacelass</a></li>
+        <li><a href="https://www.linkedin.com/in/cacelas/" target="_blank">linkedin.com/in/cacelas</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>

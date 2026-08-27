@@ -4,6 +4,18 @@
    2. Añade un objeto aquí, el más reciente primero.            */
 const POSTS = [
   {
+    slug: "2026-08-27-bolsa-lucrativo",
+    title: "ML y la bolsa: no vendo la promesa de hacerte rico",
+    tag: "finanzas",
+    excerpt: "La ansia humana de tener más se cruza con el ML. Si fuera tan fácil, todos seríamos ricos. Y eso ya te dice dónde está el problema."
+  },
+  {
+    slug: "2026-08-27-homelab",
+    title: "Mi homelab: la infraestructura donde aprendo",
+    tag: "infra",
+    excerpt: "Antes de entrenar un modelo está el servidor, la red y los backups. Mi homelab es donde la parte de sistemas deja de ser teoría."
+  },
+  {
     slug: "2026-08-27-tickets-memoria",
     title: "Tickets que optimizan la memoria",
     tag: "agentes",
