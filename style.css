@@ -601,6 +601,9 @@
     .proj-hero h1 .hl {
       color: var(--accent2);
     }
+    .climasafe-page .proj-hero h1 .hl {
+      color: inherit;
+    }
     .proj-hero .hero-sub { font-size: 0.95rem; color: var(--muted); max-width: 620px; line-height: 1.75; margin-bottom: 28px; font-weight: 300; }
     .proj-hero .hero-sub a { color: var(--accent2); }
     .proj-links { display: flex; flex-wrap: wrap; gap: 10px; }
