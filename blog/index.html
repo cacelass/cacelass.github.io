@@ -105,9 +105,21 @@
               <stop offset="40%"  stop-color="#ffb86b" stop-opacity="0.5" />
               <stop offset="100%" stop-color="#ffb86b" stop-opacity="0" />
             </radialGradient>
-            <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#b07a43" />
-              <stop offset="1" stop-color="#8a5a2b" />
+            <linearGradient id="woodTop" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#caa05c" />
+              <stop offset="1" stop-color="#9c6b35" />
+            </linearGradient>
+            <linearGradient id="woodSide" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#8a5a2b" />
+              <stop offset="1" stop-color="#5e3c1c" />
+            </linearGradient>
+            <linearGradient id="bookBlue" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#4f7ea0" />
+              <stop offset="1" stop-color="#2c5876" />
+            </linearGradient>
+            <linearGradient id="bookTerra" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#c8632f" />
+              <stop offset="1" stop-color="#8f3f1c" />
             </linearGradient>
             <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stop-color="#ffd9a0" stop-opacity="0.9" />
@@ -132,11 +144,14 @@
           <!-- cono de luz de la pantalla a la mesa -->
           <polygon class="lamp-cone" points="100,150 140,150 182,250 58,250" fill="url(#cone)" />
 
-          <!-- mesita de madera -->
-          <rect x="28" y="250" width="184" height="20" rx="4" fill="url(#wood)" stroke="#6e451f" stroke-width="1.5" />
-          <rect x="52" y="270" width="12" height="62" fill="url(#wood)" stroke="#6e451f" stroke-width="1" />
-          <rect x="176" y="270" width="12" height="62" fill="url(#wood)" stroke="#6e451f" stroke-width="1" />
-          <line x1="28" y1="256" x2="212" y2="256" stroke="#c89456" stroke-width="1" opacity="0.6" />
+          <!-- mesita de madera 3D -->
+          <polygon points="34,244 206,244 212,256 28,256" fill="url(#woodTop)" />
+          <rect x="28" y="256" width="184" height="12" fill="url(#woodSide)" />
+          <polygon points="34,244 206,244 206,248 34,248" fill="#e0b878" opacity="0.45" />
+          <rect x="44" y="268" width="14" height="56" fill="url(#woodSide)" />
+          <polygon points="58,268 64,268 64,324 58,324" fill="#4f3216" />
+          <rect x="182" y="268" width="14" height="56" fill="url(#woodSide)" />
+          <polygon points="196,268 202,268 202,324 196,324" fill="#4f3216" />
 
           <!-- charco de luz sobre la mesa -->
           <ellipse class="lamp-pool" cx="120" cy="250" rx="72" ry="11" fill="#ffd9a0" opacity="0.4" />
@@ -159,12 +174,15 @@
           <path d="M109 92 Q104 120 109 148" fill="none" stroke="#ff9a8c" stroke-width="8" opacity="0.22" stroke-linecap="round" />
           <ellipse cx="120" cy="120" rx="12" ry="16" fill="#ffd9a0" opacity="0.45" />
 
-          <!-- libros (izquierda) -->
-          <rect x="40" y="237" width="56" height="13" rx="2" fill="#355e7a" />
-          <rect x="44" y="239" width="48" height="9" fill="#efe6d4" />
-          <rect x="46" y="223" width="46" height="13" rx="2" fill="#b5562f" />
-          <rect x="50" y="225" width="38" height="9" fill="#efe6d4" />
-          <line x1="55" y1="228" x2="85" y2="228" stroke="#8a3f1f" stroke-width="1" opacity="0.6" />
+          <!-- libros 3D (izquierda) -->
+          <polygon points="40,237 96,237 96,251 40,251" fill="url(#bookBlue)" />
+          <polygon points="96,237 101,240 101,254 96,251" fill="#244a63" />
+          <rect x="44" y="247" width="50" height="4" fill="#efe6d4" />
+          <line x1="44" y1="249" x2="94" y2="249" stroke="#cfc3a8" stroke-width="0.6" />
+          <polygon points="46,223 92,223 92,237 46,237" fill="url(#bookTerra)" />
+          <polygon points="92,223 97,226 97,240 92,237" fill="#7e3a1e" />
+          <rect x="50" y="233" width="42" height="4" fill="#efe6d4" />
+          <line x1="50" y1="235" x2="92" y2="235" stroke="#cfc3a8" stroke-width="0.6" />
 
           <!-- taza de té (derecha) -->
           <path class="lamp-steam" d="M174 224 q-5 -7 0 -14 q5 -7 0 -14" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.3" />
