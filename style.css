@@ -609,6 +609,11 @@
     .section .method-card * {
       color: #f5f0e8;
     }
+    .section .req-table,
+    .section .req-table th,
+    .section .req-table td {
+      color: #1a1a1a;
+    }
     .section .method-card {
       background: #131316;
       border-color: #27272a;

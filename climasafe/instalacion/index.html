@@ -265,23 +265,17 @@ Report the final output of `make run`.</pre>
       </div>
       <h2 class="sec-title" data-i18n="inst_mcp_web_title">MCP server</h2>
       <p class="proj-wide" data-i18n="inst_mcp_web_desc">
-        The <strong>ClimaSafe MCP server</strong> exposes prediction, profiles, routines and risk charts as MCP tools.
-        It runs over <strong>HTTP by default</strong> (Streamable HTTP per MCP spec 2025-06-18+) — no extra config needed.
+        El <strong>servidor MCP de ClimaSafe</strong> expone predicción, perfiles, rutinas y gráficas de riesgo como herramientas MCP.
+        Funciona sobre <strong>HTTP por defecto</strong> (Streamable HTTP, spec MCP 2025-06-18+) — sin configuración extra.
       </p>
       <div class="method-grid">
-        <div class="method-card">
-          <span class="tag">web client</span>
-          <h3 data-i18n="mcp_web_title">Cliente web</h3>
-          <p data-i18n="mcp_web_desc">Abre el cliente web y conéctalo a tu servidor local. Sin instalar nada en el navegador.</p>
-          <a class="hero-cta" href="../mcp-web/">Abrir cliente web →</a>
-        </div>
         <div class="method-card">
           <span class="tag">http (default)</span>
           <h3 data-i18n="mcp_http_title">Arrancar el servidor</h3>
           <pre class="code-block">pip install "climasafeai[mcp]" \
     git+https://github.com/ANFAIA/ClimaSafe.git
 climasafeai-mcp              # Streamable HTTP on :8101</pre>
-          <p data-i18n="mcp_http_note">El cliente web se conecta a <code>http://localhost:8101/mcp</code>. También funciona con <strong>Claude Desktop</strong>, <strong>Cursor</strong> y <strong>Windsurf</strong>.</p>
+          <p data-i18n="mcp_http_note">Funciona con <strong>Claude Desktop</strong>, <strong>Cursor</strong> y <strong>Windsurf</strong>.</p>
         </div>
       </div>
     </div>
