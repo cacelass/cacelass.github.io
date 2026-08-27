@@ -11,7 +11,8 @@ import { fetchWeatherData, provinciaMasCercana, getProvinceCoords } from "./weat
 import { predictEnsemble } from "./modelos.js?v=20260814";
 import { generarRecomendaciones } from "./recomendaciones.js";
 import { nivelActividadDeDeporte } from "./personalizacion.js";
-import { loadLLM, redactar, getStatus } from "./llm.js";
+// WEB-016: redacción local del parte con un LLM (transformers.js, opt-in).
+import { initParteIA } from "./llm.js?v=20260826";
 
 // i18n (WEB-014): textos dinámicos vía el diccionario de js/i18n.js. Si el
 // mecanismo no está cargado (p.ej. en tests), t() devuelve la clave tal cual.
@@ -131,6 +132,8 @@ let artefactos = null;
 let modelos = null;
 let catalogoRec = null;
 let escenarios = null;
+// WEB-016: última salida de predictEnsemble; el LLM local la usa como contexto.
+let ultimaSalida = null;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Carga inicial
@@ -278,7 +281,7 @@ function ponerMarcador(lat, lon) {
   if (marcador) marcador.setLatLng([lat, lon]);
   else {
     marcador = L.circleMarker([lat, lon], {
-      radius: 8, fillColor: "#006eff", color: "#4d94ff", weight: 2, fillOpacity: 0.85,
+      radius: 8, fillColor: "#4f8ef7", color: "#6ba3ff", weight: 2, fillOpacity: 0.85,
     }).addTo(mapa);
   }
   mapa.setView([lat, lon], Math.max(mapa.getZoom(), 6));
@@ -462,7 +465,8 @@ function renderPerfil(res) {
   for (const p of perfil) {
     const h = Math.round(p.hora);
     const div = document.createElement("div");
-    div.className = "barra" + (h >= inicio && h < fin ? " ventana" : "");
+    const hiClase = p.HI >= 39 ? 2 : p.HI >= 27 ? 1 : 0;
+    div.className = "barra rango-" + hiClase + (h >= inicio && h < fin ? " ventana" : "");
     div.style.height = `${Math.max(4, (p.HI / hiMax) * 100)}%`;
     div.title = `${h}:00 · HI ${p.HI.toFixed(1)} °C${p.temp != null ? ` · ${p.temp.toFixed(1)} °C` : ""}`;
     barras.appendChild(div);
@@ -473,8 +477,9 @@ function renderPerfil(res) {
     eje.appendChild(s);
   }
   $("perfil-leyenda").textContent =
-    `Barras: Heat Index por hora del día (máx. ${hiMax.toFixed(1)} °C). ` +
-    `Amarillo: ventana de actividad (${inicio}:00–${fin}:00).`;
+    `Barras: Heat Index por hora (máx. ${hiMax.toFixed(1)} °C). ` +
+    `Verde: seguro · Ámbar: precaución · Rojo: peligro. ` +
+    `Contorno blanco: ventana de actividad (${inicio}:00–${fin}:00).`;
 }
 
 function renderRecomendaciones(res) {
@@ -560,31 +565,8 @@ async function predecir() {
       offline,
       aviso,
     });
-
-    // WEB-016: LLM local — redacta resumen si el modelo está cargado
-    if (getStatus() === "ready") {
-      const llmText = $("llm-text");
-      const llmStatus = $("llm-status");
-      if (llmStatus) llmStatus.textContent = t("llm_loading");
-      try {
-        const resumen = await redactar({
-          clase: res.clase_final,
-          riesgo: (Math.max(res.perfil.calor.prob_personalizada, res.perfil.frio.prob_personalizada) * 100).toFixed(1),
-          provincia: res.weather.provincia,
-          fecha: res.weather.target_date,
-          edad: res.perfil_usuario?.edad,
-        });
-        if (resumen && llmText) {
-          llmText.textContent = resumen;
-          llmText.style.display = "block";
-        }
-        if (llmStatus) llmStatus.textContent = t("llm_ready");
-      } catch (e) {
-        console.warn("LLM redaction error:", e);
-        if (llmStatus) llmStatus.textContent = t("llm_fallback");
-      }
-    }
-
+    // WEB-016: disponible como contexto para la redacción local con el LLM.
+    ultimaSalida = res;
     estado.className = "status oculto";
     $("resultado").scrollIntoView({ behavior: "smooth" });
   } catch (e) {
@@ -595,21 +577,7 @@ async function predecir() {
 }
 
 $("predecir").addEventListener("click", predecir);
-
-// WEB-016: LLM — botón para cargar el modelo local
-$("llm-load-btn").addEventListener("click", async () => {
-  const btn = $("llm-load-btn");
-  const status = $("llm-status");
-  btn.disabled = true;
-  btn.textContent = t("llm_loading");
-  const ok = await loadLLM();
-  if (ok) {
-    btn.textContent = t("llm_ready");
-    btn.style.opacity = "0.6";
-  } else {
-    btn.textContent = t("llm_fallback");
-    btn.style.opacity = "0.6";
-  }
-});
-
+// WEB-016: tarjeta «Redactar el parte con IA local». Nada se descarga hasta
+// que el usuario pulsa; si algo falla, el parte de plantilla sigue intacto.
+initParteIA(() => ultimaSalida);
 init();
