@@ -66,6 +66,47 @@ cp -r web/probar-ya ~/Documentos/migithub/cacelass.github.io/climasafe/probar-ya
 
 El enlace «← index» apunta a `../index.html` (raíz del sitio).
 
+## Qué se queda en el servidor y por qué
+
+La demo es estática: la predicción corre entera en el navegador. Lo que **no**
+se porta (y por qué) está desarrollado en
+`documentacion/wasm/estudio_wasm.md` (WEB-002):
+
+- **Datos meteorológicos**: se obtienen de Open-Meteo (CORS) con fallback
+  offline a `scenarios.json`. La base de datos meteorológica del servidor no
+  se expone.
+- **Perfiles en SQLite**: son datos personales de salud; la demo no persiste
+  nada (solo localStorage para el aviso médico). El guardado de perfiles sigue
+  siendo del servidor.
+- **Base de factores mantenida**: la demo usa un snapshot estático
+  (`models/factores_riesgo.json`); la fuente de verdad y su actualización
+  viven en el servidor.
+- **Modelos joblib/.pt y entrenamiento**: solo llega al navegador el artefacto
+  ONNX ya validado; el reentrenamiento es del servidor/CI.
+- **UV index (OpenUV)**: requiere API key → `uv_index=null` en la demo.
+
+## Sin llamadas al backend (criterio WEB-002)
+
+La demo no llama a ningún endpoint propio: solo `fetch` a Open-Meteo y a
+ficheros locales. Verificación en vivo: abrir DevTools → pestaña **Red**,
+pulsar «Predecir» y comprobar que solo aparecen peticiones a ficheros
+estáticos locales y a `api.open-meteo.com`. Automatizable con
+`tests/test_demo_sin_backend.py`.
+
+## LLM local opcional (WEB-016)
+
+La tarjeta «Redactar el parte con IA local» carga transformers.js v4 desde
+jsDelivr y descarga **en runtime** IBM Granite 4.0 1B
+(`onnx-community/granite-4.0-1b-ONNX-web`, Apache 2.0) solo si el usuario la
+activa: ≈1,25 GB por WebGPU (q4f16) o ≈1,8 GB por WASM (q4). El navegador
+cachea los pesos (Cache API); la redacción ejecuta 100 % local usando como
+contexto los resultados ya calculados por el pipeline ONNX, que nunca se
+sustituyen. Cualquier fallo (sin red, descarga, WebGPU/WASM) deja el parte de
+plantilla intacto. Detalles, justificación del modelo y verificación manual:
+`documentacion/wasm/llm_navegador.md`. Las unidades puras JS se prueban en
+`test/llm_unit.mjs` (vía `tests/test_demo_llm_units.py`, incluido en
+`make test`).
+
 ## Test de paridad (node)
 
 ```bash
