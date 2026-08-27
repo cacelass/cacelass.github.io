@@ -32,7 +32,7 @@
       <p class="hero-sub" data-i18n-html="stock_sub">
         Directional price movement prediction in a non-stationary, low signal-to-noise domain, where the
         stated goal is not profitability but <strong>facing overfitting and data leakage rigorously</strong>.
-        Temporal validation, out-of-sample backtest with costs, conformal prediction and drift monitoring.
+        Walk-forward validation, out-of-sample backtest with costs, hybrid per-ticker routing and real news sentiment.
       </p>
       <div class="proj-links">
         <a class="hero-cta" href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">github.com/cacelass/Stock-Market-Prediction</a>
@@ -58,15 +58,15 @@
       <div class="dskit-grid">
         <div class="dskit-stat">
           <div class="dskit-stat-lbl" data-i18n="stock_lbl_1">Task</div>
-          <div class="dskit-stat-val" data-i18n-html="stock_val_2">Binary classification, multi-ticker + VADER sentiment</div>
+          <div class="dskit-stat-val" data-i18n-html="stock_val_2">Binary classification, 7 tickers · RF + VADER sentiment + NewsAPI.ai real news</div>
         </div>
         <div class="dskit-stat">
           <div class="dskit-stat-lbl" data-i18n="stock_lbl_2">Rigour</div>
-          <div class="dskit-stat-val" data-i18n-html="stock_val_3">~160 tests · anti-leakage enforced in code · Optuna tuning</div>
+          <div class="dskit-stat-val" data-i18n-html="stock_val_3">175 tests · mypy strict · walk-forward 3-fold · Optuna tuning · anti-leakage in code</div>
         </div>
         <div class="dskit-stat">
           <div class="dskit-stat-lbl" data-i18n="stock_lbl_3">Ops</div>
-          <div class="dskit-stat-val" data-i18n-html="stock_val_4">FastAPI · PSI drift monitoring · conformal prediction</div>
+          <div class="dskit-stat-val" data-i18n-html="stock_val_4">FastAPI · PSI drift monitoring · hybrid per-ticker routing · ONNX-ready</div>
         </div>
       </div>
     </div>
@@ -83,7 +83,7 @@
       <div class="dskit-dec-list">
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text" data-i18n-html="stock_text_1"><strong>Temporal validation is non-negotiable</strong>: walk-forward splits, no random k-fold on time series.</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_1"><strong>Walk-forward is the only honest evaluation</strong>: 3-fold expanding window. The single 80/20 split inflated accuracy from 54.1% to 57.7% — discovered and corrected.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
@@ -95,15 +95,19 @@
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text" data-i18n-html="stock_text_4"><strong>Out-of-sample backtest with costs</strong>: 0.1% commission + 0.05% slippage, threshold calibrated on validation only.</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_4"><strong>RandomForest over HistGradientBoosting</strong>: RF wins AUC in 7/7 tickers (+0.028 avg). Calibrated probabilities rejected by predefined criterion.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text" data-i18n-html="stock_text_5"><strong>Leakage tests in CI</strong>: tests verify no feature correlates ≥0.95 with the target.</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_5"><strong>Hybrid routing: pool as fallback</strong>: NVDA routes to a global model (pool AUC 0.539 vs individual 0.501). Others stay individual — TSLA is too idiosyncratic for pooling.</span>
         </div>
         <div class="dskit-dec-item">
           <span class="dskit-dec-arrow">→</span>
-          <span class="dskit-dec-text" data-i18n-html="stock_text_6"><strong>Baseline-first discipline</strong>: results that don't beat a naïve baseline are not results.</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_6"><strong>Real sentiment via NewsAPI.ai</strong>: 4,303 articles fetched, VADER-scored and aggregated daily. GDELT blocked from this network; free plan archives ~60 days.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_7"><strong>Leakage tests in CI</strong>: tests verify no feature correlates ≥0.95 with the target.</span>
         </div>
       </div>
     </div>
@@ -118,17 +122,18 @@
       </div>
       <h2 class="sec-title" data-i18n="stock_title_results">The honest outcome</h2>
       <div class="metric-block">
-        <span class="metric-lbl" data-i18n="stock_lbl_4">Backtest OOS</span>
-        <span class="metric-val" data-i18n-html="stock_val_5">Portfolio <strong>77.50%</strong> vs buy &amp; hold <strong>281.70%</strong>: the strategy does not beat buy &amp; hold after costs, and the report says so explicitly.</span>
+        <span class="metric-lbl" data-i18n="stock_lbl_4">Walk-forward per ticker</span>
+        <span class="metric-val" data-i18n-html="stock_val_5">GOOGL <strong>64.5% / 0.626 AUC</strong> · MSFT 55.8% / 0.580 · AMZN 58.2% / 0.575 · AAPL 56.4% / 0.559 · META 53.4% / 0.564 · TSLA 55.0% / 0.530 · NVDA routed to global pool (0.539 AUC).</span>
       </div>
       <div class="metric-block">
-        <span class="metric-lbl" data-i18n="stock_lbl_5">Per-ticker AUC</span>
-        <span class="metric-val" data-i18n-html="stock_val_6">≈0.50–0.57 with train/test accuracy gaps documented, an honest and reproducible picture of a domain where most practitioners overfit silently.</span>
+        <span class="metric-lbl" data-i18n="stock_lbl_5">Model comparison</span>
+        <span class="metric-val" data-i18n-html="stock_val_6">RandomForest wins AUC in <strong>7/7 tickers</strong> over HistGradientBoosting (+0.028 avg). Accuracy improved from 54.1% → 57.7% after tuning Optuna with walk-forward as the objective.</span>
       </div>
       <div class="proj-field-val proj-wide" data-i18n-html="stock_val_7">
         The value is the <strong>evaluation rigour</strong>, not the model performance: knowing when a model
-        does not work is precisely what protects real capital. This is the foundation for the portfolio
-        manager system in development.
+        does not work is precisely what protects real capital. The single-split evaluation inflated
+        results by +3.6pp — only walk-forward revealed the true picture. This is the foundation
+        for the portfolio manager system in development.
       </div>
     </div>
   </section>
@@ -159,7 +164,7 @@
       els.forEach((el) => el.classList.add('is-visible'));
     }
   </script>
-  <script src="../i18n.js?v=20260824e"></script>
+  <script src="../i18n.js?v=20260826f"></script>
 
 </body>
 </html>
