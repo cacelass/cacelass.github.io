@@ -266,15 +266,24 @@ Report the final output of `make run`.</pre>
       <h2 class="sec-title" data-i18n="inst_mcp_web_title">MCP server</h2>
       <p class="proj-wide" data-i18n="inst_mcp_web_desc">
         The <strong>ClimaSafe MCP server</strong> exposes prediction, profiles, routines and risk charts as MCP tools.
-        Install it locally and connect it to your AI client.
+        It runs over <strong>HTTP by default</strong> (Streamable HTTP per MCP spec 2025-06-18+) — no extra config needed.
       </p>
-      <div class="method-card" style="max-width:720px;">
-        <span class="tag">install + run</span>
-        <h3 data-i18n="mcp_local_title">Install and start</h3>
-        <pre class="code-block">pip install "climasafeai[mcp]" \
+      <div class="method-grid">
+        <div class="method-card">
+          <span class="tag">http (default)</span>
+          <h3 data-i18n="mcp_http_title">Start the server</h3>
+          <pre class="code-block">pip install "climasafeai[mcp]" \
     git+https://github.com/ANFAIA/ClimaSafe.git
-climasafeai-mcp            # stdio server for Claude Desktop</pre>
-        <p data-i18n="mcp_local_note">Works with <strong>Claude Desktop</strong>, <strong>Cursor</strong>, <strong>Windsurf</strong> and any MCP-compatible client via stdio.</p>
+climasafeai-mcp              # Streamable HTTP on :8101</pre>
+          <p data-i18n="mcp_http_note">Point your MCP client to <code>http://localhost:8101/mcp</code>. Works with <strong>Claude Desktop</strong>, <strong>Cursor</strong>, <strong>Windsurf</strong> and any HTTP-compatible MCP client.</p>
+        </div>
+        <div class="method-card">
+          <span class="tag">stdio</span>
+          <h3 data-i18n="mcp_stdio_title">Stdio mode</h3>
+          <p data-i18n="mcp_stdio_desc">For clients that only support stdio (legacy):</p>
+          <pre class="code-block">climasafeai-mcp --stdio     # stdin/stdout JSON-RPC</pre>
+          <p data-i18n="mcp_stdio_note">Configure in <code>.mcp.json</code> with <code>"command"</code> and <code>"args"</code> instead of <code>"url"</code>.</p>
+        </div>
       </div>
     </div>
   </section>
