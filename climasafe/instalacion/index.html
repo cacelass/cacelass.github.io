@@ -193,25 +193,164 @@ make mlflow       # MLflow UI at localhost:5000</pre>
     </div>
   </section>
 
+  <!-- 05 — Agent prompt -->
   <section class="section">
     <div class="container">
       <div class="sec-head">
         <span class="sec-num">05</span>
         <div class="sec-divider"></div>
-        <span class="sec-tag" data-i18n="sec05_tag">links</span>
+        <span class="sec-tag" data-i18n="sec05_tag">agente</span>
       </div>
-      <h2 class="sec-title" data-i18n="inst_links_title">Useful links</h2>
+      <h2 class="sec-title" data-i18n="inst_agent_title">Install with your AI agent</h2>
+      <p class="proj-wide" data-i18n="inst_agent_desc">
+        Copy this prompt into Claude Code, Cursor, Gemini CLI or any coding agent with shell access.
+        The agent will clone, set up and launch ClimaSafe automatically.
+      </p>
+      <div class="method-card" style="max-width:720px;">
+        <span class="tag">copy &amp; paste</span>
+        <h3 data-i18n="agent_prompt_title">Installation prompt</h3>
+        <pre class="code-block" id="agent-prompt">Clone https://github.com/ANFAIA/ClimaSafe.git into ~/ClimaSafe,
+cd into it, run ./init.sh to verify the environment,
+then execute `make run` to run the full pipeline
+(data → train → predict → reports/).
+If ./init.sh fails, fix the issue and retry.
+Report the final output of `make run`.</pre>
+        <button class="hero-cta" onclick="navigator.clipboard.writeText(document.getElementById('agent-prompt').textContent).then(()=>{this.textContent='Copied ✓';setTimeout(()=>this.textContent='Copy prompt',1800)})" data-i18n="btn_copy">Copy prompt</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 — Docker Compose from source -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">06</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">compose + github</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_compose_gh_title">Docker Compose — build from GitHub</h2>
+      <p class="proj-wide" data-i18n="inst_compose_gh_desc">
+        If you prefer to build from source instead of pulling a pre-built image, use this <code>compose.gh.yml</code>. It clones the repo, builds the image and runs the pipeline — all in one command.
+      </p>
+      <div class="method-card" style="max-width:720px;">
+        <span class="tag">compose.gh.yml</span>
+        <h3>docker-compose.gh.yml</h3>
+        <pre class="code-block">services:
+  climasafe:
+    build:
+      context: https://github.com/ANFAIA/ClimaSafe.git#main
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - climasafe-data:/app/data
+      - climasafe-models:/app/models
+    env_file: .env          # optional: TELEGRAM_BOT_TOKEN, API keys
+
+  bot:
+    profiles: ["bot"]
+    build:
+      context: https://github.com/ANFAIA/ClimaSafe.git#main
+      dockerfile: Dockerfile
+    command: climasafeai-bot
+    env_file: .env
+    depends_on: [climasafe]
+
+volumes:
+  climasafe-data:
+  climasafe-models:</pre>
+        <pre class="code-block">curl -O https://raw.githubusercontent.com/ANFAIA/ClimaSafe/main/compose.gh.yml
+docker compose -f compose.gh.yml up -d
+# add the bot:  docker compose -f compose.gh.yml --profile bot up -d</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 — MCP via web (GitHub Pages) -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">07</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">mcp</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_mcp_web_title">MCP via web — zero install</h2>
+      <p class="proj-wide" data-i18n="inst_mcp_web_desc">
+        The <strong>ClimaSafe MCP server</strong> also runs as a web endpoint hosted on GitHub Pages.
+        Point your MCP client at the URL and start making predictions — no local installation needed.
+      </p>
       <div class="method-grid">
         <div class="method-card">
-          <h3 data-i18n="link_quickstart">Quick start</h3>
-          <p data-i18n="link_quickstart_desc">From zero to a risk prediction in minutes.</p>
-          <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe/blob/main/documentacion/inicio_rapido.md" target="_blank" data-i18n="link_quickstart_cta">Read the guide →</a>
+          <span class="tag">endpoint</span>
+          <h3 data-i18n="mcp_web_url_title">Web endpoint</h3>
+          <p data-i18n="mcp_web_url_desc">Add this to your MCP client configuration:</p>
+          <pre class="code-block">{
+  "mcpServers": {
+    "climasafe": {
+      "url": "https://cacelass.github.io/climasafe/mcp/"
+    }
+  }
+}</pre>
         </div>
         <div class="method-card">
-          <h3 data-i18n="link_packaging">Packaging details</h3>
-          <p data-i18n="link_packaging_desc">Full packaging documentation (Dockerfile, wheel, extras, entry points).</p>
-          <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe/blob/main/documentacion/despliegue/packaging.md" target="_blank" data-i18n="link_packaging_cta">Read packaging.md →</a>
+          <span class="tag">local</span>
+          <h3 data-i18n="mcp_local_title">Local MCP server</h3>
+          <p data-i18n="mcp_local_desc">Or install locally for full offline access:</p>
+          <pre class="code-block">pip install "climasafeai[mcp]" \
+    git+https://github.com/ANFAIA/ClimaSafe.git
+climasafeai-mcp            # stdio server for Claude Desktop</pre>
+          <p data-i18n="mcp_local_note">Works with <strong>Claude Desktop</strong>, <strong>Cursor</strong>, <strong>Windsurf</strong> and any MCP-compatible client.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 — Quick links: ANFAIA, CESGA, projects -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">08</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="sec08_tag">ecosistema</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_ecosystem_title">The ecosystem behind ClimaSafe</h2>
+      <p class="proj-wide" data-i18n="inst_ecosystem_desc">
+        ClimaSafe is part of a larger effort in applied AI for climate resilience.
+        Learn more about the organizations and projects that make it possible.
+      </p>
+      <div class="method-grid" style="grid-template-columns:1fr 1fr 1fr;">
+        <a href="https://anfaia.org" target="_blank" class="method-card" style="text-decoration:none;">
+          <span class="tag">organización</span>
+          <h3>ANFAIA</h3>
+          <p data-i18n="ecosystem_anfaia_desc">Applied AI for climate resilience. Research, tools and real-world deployments.</p>
+        </a>
+        <a href="https://www.cesga.es" target="_blank" class="method-card" style="text-decoration:none;">
+          <span class="tag">infraestructura</span>
+          <h3>CESGA</h3>
+          <p data-i18n="ecosystem_cesga_desc">Supercomputing center of Galicia. HPC resources for model training and inference.</p>
+        </a>
+        <a href="https://github.com/ANFAIA" target="_blank" class="method-card" style="text-decoration:none;">
+          <span class="tag">github</span>
+          <h3>ANFAIA · GitHub</h3>
+          <p data-i18n="ecosystem_github_desc">All open-source projects: data pipelines, models, bots, and agent frameworks.</p>
+        </a>
+      </div>
+      <div class="method-grid" style="margin-top:16px; grid-template-columns:1fr 1fr 1fr;">
+        <a href="../telegram.html" class="method-card" style="text-decoration:none;">
+          <span class="tag">producto</span>
+          <h3>Telegram bot</h3>
+          <p data-i18n="ecosystem_tg_desc">Personal heat risk alerts, profile management and historical charts — right in your chat.</p>
+        </a>
+        <a href="../mcp.html" class="method-card" style="text-decoration:none;">
+          <span class="tag">producto</span>
+          <h3>MCP server</h3>
+          <p data-i18n="ecosystem_mcp_desc">Connect ClimaSafe to Claude, Cursor or any MCP client for AI-powered risk queries.</p>
+        </a>
+        <a href="../probar-ya/" class="method-card" style="text-decoration:none;">
+          <span class="tag">producto</span>
+          <h3 data-i18n="ecosystem_demo_title">Web demo</h3>
+          <p data-i18n="ecosystem_demo_desc">Try the prediction engine in your browser — ONNX models + optional local LLM.</p>
+        </a>
       </div>
     </div>
   </section>
