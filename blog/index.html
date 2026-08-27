@@ -113,6 +113,20 @@
               <stop offset="0" stop-color="#ffd9a0" stop-opacity="0.9" />
               <stop offset="1" stop-color="#ffd9a0" stop-opacity="0" />
             </linearGradient>
+            <linearGradient id="redShade" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0"   stop-color="#ff7a6b" />
+              <stop offset="0.5" stop-color="#e23b2e" />
+              <stop offset="1"   stop-color="#7e160f" />
+            </linearGradient>
+            <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0"   stop-color="#6b6b73" />
+              <stop offset="0.5" stop-color="#3f3f46" />
+              <stop offset="1"   stop-color="#232327" />
+            </linearGradient>
+            <radialGradient id="joint" cx="35%" cy="35%" r="65%">
+              <stop offset="0" stop-color="#6b6b73" />
+              <stop offset="1" stop-color="#232327" />
+            </radialGradient>
           </defs>
 
           <!-- cono de luz de la pantalla a la mesa -->
@@ -130,12 +144,21 @@
           <!-- halo cálido detrás de la bombilla -->
           <circle class="lamp-glow" cx="120" cy="126" r="64" fill="url(#warmGlow)" />
 
-          <!-- lámpara de escritorio -->
-          <rect x="104" y="238" width="32" height="12" rx="3" fill="#3f3f46" />
-          <rect x="116" y="120" width="8" height="120" rx="3" fill="#52525b" />
-          <circle cx="120" cy="120" r="7" fill="#3f3f46" />
-          <polygon points="92,96 148,96 136,132 104,132" fill="#2a2a2e" stroke="#52525b" stroke-width="1.5" />
-          <circle class="lamp-bulb" cx="120" cy="126" r="7" fill="#fff3e0" />
+          <!-- lámpara de escritorio 3D -->
+          <ellipse cx="120" cy="248" rx="18" ry="5" fill="url(#metal)" />
+          <rect x="102" y="237" width="36" height="12" fill="url(#metal)" />
+          <ellipse cx="120" cy="237" rx="18" ry="5" fill="#52525b" />
+          <rect x="116" y="120" width="8" height="120" fill="url(#metal)" />
+          <ellipse cx="120" cy="120" rx="8" ry="8" fill="url(#joint)" />
+
+          <!-- pantalla roja (cónica, con volumen) -->
+          <path d="M97 96 Q120 88 143 96 L135 133 Q120 141 105 133 Z" fill="url(#redShade)" />
+          <ellipse cx="120" cy="96" rx="23" ry="6" fill="#7e160f" />
+          <ellipse cx="120" cy="133" rx="30" ry="8" fill="#6e160f" />
+          <ellipse cx="120" cy="133" rx="24" ry="6" fill="#3a0d08" />
+          <path d="M101 100 Q108 97 116 99 L112 130 Q107 132 103 130 Z" fill="#ffffff" opacity="0.14" />
+
+          <circle class="lamp-bulb" cx="120" cy="129" r="8" fill="#fff3e0" />
 
           <!-- libros (izquierda) -->
           <rect x="40" y="237" width="56" height="13" rx="2" fill="#355e7a" />
