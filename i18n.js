@@ -29,6 +29,7 @@
       nav_projects: "proyectos",
       nav_stack: "stack",
       nav_reading: "lectura",
+      nav_blog: "blog",
       nav_contact: "contacto",
       back_index: "← inicio",
       // Home
@@ -477,6 +478,7 @@
       nav_projects: "projects",
       nav_stack: "stack",
       nav_reading: "reading",
+      nav_blog: "blog",
       nav_contact: "contact",
       back_index: "← index",
       // Home

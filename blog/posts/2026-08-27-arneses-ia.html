@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Por qué los arneses de IA importan — Blog · Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <style>
+    .post-content { max-width: 720px; margin: 0 auto; }
+    .post-content h2 {
+      font-family: var(--display); font-weight: 400;
+      font-size: clamp(1.5rem, 3.5vw, 2rem); color: #006eff;
+      margin: 48px 0 16px; letter-spacing: -0.02em; line-height: 1.15;
+    }
+    .post-content h3 {
+      font-family: var(--sans); font-weight: 600; font-size: 1.15rem;
+      color: #1a1a1a; margin: 32px 0 12px;
+    }
+    .post-content p { font-size: 1.08rem; color: #3f3c36; line-height: 1.8; margin: 0 0 20px; }
+    .post-content p strong { color: #006eff; font-weight: 500; }
+    .post-content a { color: #0052cc; text-decoration: underline; text-underline-offset: 2px; }
+    .post-content a:hover { color: #003d99; }
+    .post-content ul, .post-content ol { margin: 0 0 20px 22px; color: #3f3c36; line-height: 1.8; font-size: 1.05rem; }
+    .post-content li { margin-bottom: 6px; }
+    .post-content blockquote {
+      border-left: 3px solid var(--accent); background: rgba(37,99,235,0.05);
+      padding: 12px 18px; margin: 0 0 20px; border-radius: 0 8px 8px 0;
+      color: #4a4a4a; font-style: italic;
+    }
+    .post-content pre.code-block { margin: 0 0 20px; }
+    .post-content img { max-width: 100%; border-radius: var(--r); border: 1px solid #e8ddd0; margin: 8px 0 20px; }
+    .post-content hr { border: none; border-top: 1px solid #e8ddd0; margin: 40px 0; }
+  </style>
+  <script src="../../i18n.js?v=20260826f" defer></script>
+</head>
+<body class="blog-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><strong>Alejandro Cancelas</strong> <span>/ blog</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../index.html">home</a></li>
+        <li><a href="../">blog</a></li>
+        <li><a href="../../projects/dskit.html">projects</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <a class="nav-back" href="../">← volver al blog</a>
+      <h1>Por qué los arneses de IA importan</h1>
+      <p class="hero-sub">Una IA genera código más rápido de lo que un humano lo revisa. El arnés son las riendas — y están en código, no en un prompt. <span class="proj-tag" style="margin-left:8px">agentes</span></p>
+      <div class="hero-term" role="presentation">
+        <span class="term-prompt">cacelass@gh</span><span class="term-sep">:</span><span class="term-path">~/blog</span><span class="term-dollar">$</span>
+        <span class="term-cmd">cat why-harness.md</span>
+        <span class="term-cursor"></span>
+      </div>
+      <p style="font-family:var(--mono); font-size:0.8rem; color:var(--muted)">2026-08-27 · 5 min de lectura</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="post-content">
+
+        <p>Empecé a usar agentes de IA para escribir código y, como casi todo el mundo, confié en los prompts. "Sé cuidadoso", "no rompas nada", "asegúrate de que los tests pasen". Funcionaba… hasta que no. El agente hacía lo que quería y el prompt era una sugerencia que podía ignorar en cuanto la tarea se complicaba. La lección me costó varias sesiones perdidas: <strong>las reglas del juego no pueden vivir en un prompt</strong>.</p>
+
+        <h2>Qué es un arnés</h2>
+        <p>Un arnés es el conjunto de reglas que gobiernan cómo un agente de IA trabaja sobre un proyecto, escritas <strong>en código, no en lenguaje natural</strong>. No es una instrucción; es una estructura que el agente no puede sortear simplemente hablando. Si la regla dice que una feature no se marca como hecha salvo que la puerta pase, la puerta es un script de Python: no hay forma de esquivarla con palabras.</p>
+
+        <p>En la práctica, el arnés que uso (y que está detrás de <a href="../../projects/dskit.html">dskit</a> y <a href="../../projects/meshharmes.html">MeshHarmes</a>) tiene cuatro piezas:</p>
+
+        <ul>
+          <li><strong>Una puerta de calidad</strong> que se niega a cerrar trabajo sin evidencia real de comando (tests verdes, lint, typecheck).</li>
+          <li><strong>Un backlog verificable</strong>, con criterios de aceptación que una máquina puede comprobar.</li>
+          <li><strong>Una puerta de permisos</strong> para acciones irreversibles: lo destructivo se declara y se niega a ejecutar sin autorización explícita.</li>
+          <li><strong>Memoria fuera de la ventana de contexto</strong>: el progreso vive en ficheros, no en el recuerdo volátil de la conversación.</li>
+        </ul>
+
+        <h2>Por qué importa</h2>
+        <p>La razón única es de velocidad. Un modelo moderno produce decenas de ficheros en minutos. Ningún humano revisa eso a la misma velocidad. Sin un arnés, el cuello de botella no es la generación: es la <strong>verificación</strong>, y esa verificación se evade en cuanto hay prisa o el agente "decide" que algo es suficientemente bueno.</p>
+
+        <blockquote>El riesgo no es que la IA falle. Es que la IA diga que terminó cuando no ha terminado, y que no haya nada que lo impida.</blockquote>
+
+        <p>Un arnés cambia quién tiene la última palabra. No la tiene el agente, ni el humano cansado al final del día: la tiene el <strong>código que define la puerta</strong>. Eso es lo que lo hace robusto — no depende de la voluntad de nadie en el momento.</p>
+
+        <h2>Dónde marca la diferencia</h2>
+
+        <h3>Reproducibilidad</h3>
+        <p>El entorno, la estructura y la batería de calidad se aplican igual cada vez. Dos personas — o dos agentes — que arrancan el mismo proyecto con el mismo arnés terminan en el mismo lugar. Eso es lo que separa un experimento de un sistema.</p>
+
+        <h3>Auditoría</h3>
+        <p>Porque las reglas son código, quedan versionadas en el repo. Se puede responder "¿por qué se permitió esto?" leyendo el contrato, no interrogando a un prompt. En finanzas, donde trabajo, eso es justo lo que un auditor espera.</p>
+
+        <h3>Consistencia multi-agente</h3>
+        <p>Con varios agentes (uno que razona, otro que implementa, otro que revisa), el arnés es el árbitro común. "Un recurso, un dueño": solo el agente correcto escribe cada cosa. Sin eso, varios agentes se pisan y el resultado es ruido.</p>
+
+        <h3>Resistencia a la inyección de prompts</h3>
+        <p>Los datos externos son datos, nunca instrucciones. Una entrada maliciosa en un fichero o una respuesta de API no puede reescribir las reglas del arnés, porque las reglas no están en el contexto del modelo: están en el sistema que lo rodea.</p>
+
+        <h2>El modelo es la menor parte</h2>
+        <p>Se habla tanto del modelo que da la sensación de que ahí está toda la diferencia. No es así. El modelo es quien escribe; el arnés es quien decide cuándo ese escrito cuenta. Y la segunda decisión pesa más que la primera.</p>
+
+        <p>Un modelo mediocre envuelto en un buen arnés —con puerta de calidad, backlog verificable y memoria persistente— puede dar resultados muy superiores a un modelo de última generación suelto, sin red. Por qué: el arnés fuerza la verificación, mantiene el contexto entre sesiones y evita los atajos. El modelo bueno pero suelto, en cambio, "termina" cosas que no terminó y nadie lo detiene.</p>
+
+        <blockquote>Lo que rodea al modelo —entorno, reglas, memoria, verificación— importa más que el modelo en sí. Un arnés bueno hace que el modelo mediocre parezca bueno; un arnés malo hace que el modelo bueno parezca mediocre.</blockquote>
+
+        <h2>Cambiar de modelo no te ata</h2>
+        <p>Otra consecuencia de tenerlo todo en código: cambiar de modelo es barato. La información del proyecto —el backlog, los contratos de qué puede hacer cada agente, el progreso, los criterios de aceptación— vive en ficheros versionados, no dentro de la cabeza del modelo. Así que si mañana sale un modelo mejor, lo conectas y el trabajo sigue igual, porque las reglas no dependen de quién las ejecuta.</p>
+
+        <p>El arnés es <strong>agnóstico del proveedor</strong> por diseño: cualquier agente de codificación que lea el punto de entrada y sepa ejecutar comandos de shell lo usa. No rewrites nada, no pierdes el historial, no reinicias el proyecto. La capacidad del modelo mejora; la memoria del sistema, no se toca.</p>
+
+        <h2>El coste de no tenerlo</h2>
+        <p>Sin arnés, cada proyecto con IA es una ruleta: a veces sale bien, a veces el agente borra algo, a veces "termina" una feature que nunca corrió los tests. El coste no se ve en el momento — se ve tres semanas después, cuando algo que "funcionaba" se rompe y nadie sabe por qué.</p>
+
+        <p>Por eso lo trato como infraestructura, no como una técnica de prompting. El arnés no hace que la IA sea más inteligente; hace que <strong>su trabajo sea verificable</strong>. Y en sistemas de ML —donde ya de por sí confiamos demasiado en métricas que se ven bien—, la verificabilidad es justo lo que falta.</p>
+
+        <hr />
+
+        <p>Si quieres ver el arnés en acción, <a href="../../projects/meshharmes.html">MeshHarmes</a> es la versión independiente y <a href="../../projects/dskit.html">dskit</a> lo incluye dentro de la plantilla de proyecto. Ambos son código abierto.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass" target="_blank">github.com/cacelass</a></li>
+        <li><a href="https://www.linkedin.com/in/cacelas/" target="_blank">linkedin.com/in/cacelas</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>

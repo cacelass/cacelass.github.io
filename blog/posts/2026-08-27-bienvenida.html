@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bienvenida al blog — Blog · Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <style>
+    .post-content { max-width: 720px; margin: 0 auto; }
+    .post-content h2 {
+      font-family: var(--display); font-weight: 400;
+      font-size: clamp(1.5rem, 3.5vw, 2rem); color: #006eff;
+      margin: 48px 0 16px; letter-spacing: -0.02em; line-height: 1.15;
+    }
+    .post-content h3 {
+      font-family: var(--sans); font-weight: 600; font-size: 1.15rem;
+      color: #1a1a1a; margin: 32px 0 12px;
+    }
+    .post-content p { font-size: 1.08rem; color: #3f3c36; line-height: 1.8; margin: 0 0 20px; }
+    .post-content p strong { color: #006eff; font-weight: 500; }
+    .post-content a { color: #0052cc; text-decoration: underline; text-underline-offset: 2px; }
+    .post-content a:hover { color: #003d99; }
+    .post-content ul, .post-content ol { margin: 0 0 20px 22px; color: #3f3c36; line-height: 1.8; font-size: 1.05rem; }
+    .post-content li { margin-bottom: 6px; }
+    .post-content blockquote {
+      border-left: 3px solid var(--accent); background: rgba(37,99,235,0.05);
+      padding: 12px 18px; margin: 0 0 20px; border-radius: 0 8px 8px 0;
+      color: #4a4a4a; font-style: italic;
+    }
+    .post-content pre.code-block { margin: 0 0 20px; }
+    .post-content img { max-width: 100%; border-radius: var(--r); border: 1px solid #e8ddd0; margin: 8px 0 20px; }
+    .post-content hr { border: none; border-top: 1px solid #e8ddd0; margin: 40px 0; }
+  </style>
+  <script src="../../i18n.js?v=20260826f" defer></script>
+</head>
+<body class="blog-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><strong>Alejandro Cancelas</strong> <span>/ blog</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../index.html">home</a></li>
+        <li><a href="../">blog</a></li>
+        <li><a href="../../projects/dskit.html">projects</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <a class="nav-back" href="../">← volver al blog</a>
+      <h1>Bienvenida al blog</h1>
+      <p class="hero-sub">Por qué abro este espacio y qué tipo de cosas voy a ir soltando por aquí. <span class="proj-tag" style="margin-left:8px">meta</span></p>
+      <div class="hero-term" role="presentation">
+        <span class="term-prompt">cacelass@gh</span><span class="term-sep">:</span><span class="term-path">~/blog</span><span class="term-dollar">$</span>
+        <span class="term-cmd">date</span>
+        <span class="term-cursor"></span>
+      </div>
+      <p style="font-family:var(--mono); font-size:0.8rem; color:var(--muted)">2026-08-27 · 2 min de lectura</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="post-content">
+
+        <p>Por fin abro un sitio donde ir soltando las cosas que construyo y aprendo, fuera del formato rígido de los proyectos. Aquí va a haber de todo: decisiones de diseño, errores que cometo, notas sobre ML en producción y cualquier cosa que me parezca útil guardar.</p>
+
+        <h2>Qué esperar</h2>
+        <p>Nada de marketing. Si algo funcó, lo digo; si algo fue un desastre, también. El objetivo es tener <strong>memoria escrita</strong> de cómo pienso los sistemas de ML, no solo el resultado final pulido.</p>
+
+        <ul>
+          <li>Notas técnicas sobre fraude, riesgo de crédito y series temporales.</li>
+          <li>Decisiones de ingeniería: por qué una arquitectura y no otra.</li>
+          <li>Experimentos con RAG, agentes y fine-tuning.</li>
+        </ul>
+
+        <h2>Cómo funciona esto</h2>
+        <p>Cada entrada es una página HTML que reutiliza el estilo del resto del sitio. El índice se genera solo a partir de un array en <code>blog-index.js</code>, así que añadir una entrada es escribir el archivo y sumar una línea. Sin build, sin dependencias.</p>
+
+        <blockquote>Un modelo que no puedo volver a desplegar es un pasivo, no un logro. Lo mismo con lo que escribo: si no lo puedo recuperar y entender en seis meses, no sirve.</blockquote>
+
+        <p>Si hay algo que te interese que desarrolle más, ya sabes dónde encontrarme.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass" target="_blank">github.com/cacelass</a></li>
+        <li><a href="https://www.linkedin.com/in/cacelas/" target="_blank">linkedin.com/in/cacelas</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
