@@ -61,11 +61,12 @@
         <a class="hero-cta" href="../probar-ya/" data-i18n="cta_try">Probar ya</a>
         <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
         <a class="hero-cta" href="../documentacion/" data-i18n="cta_dev_docs">Docs técnicas</a>
+        <a class="hero-cta" href="../" data-i18n="cta_back_project">← volver al proyecto</a>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section id="01" class="section">
     <div class="container">
       <div class="sec-head">
         <span class="sec-num">01</span>
@@ -90,7 +91,7 @@
     </div>
   </section>
 
-  <section class="section section-dark">
+  <section id="02" class="section section-dark">
     <div class="container">
       <div class="sec-head">
         <span class="sec-num">02</span>
@@ -119,16 +120,17 @@ docker compose up -d          # web server only</pre>
         </div>
       </div>
 
-      <div class="note">
-        <strong data-i18n="docker_bot_title">Telegram bot (optional):</strong>
-        <span data-i18n="docker_bot_desc"> The bot runs in a separate profile and needs a token from @BotFather:</span>
-      </div>
-      <pre class="code-block">cp .env.example .env           # add your TELEGRAM_BOT_TOKEN
+      <div class="method-card" style="margin-top:18px;">
+        <span class="tag">optional</span>
+        <h3 data-i18n="docker_bot_title">Telegram bot</h3>
+        <p data-i18n="docker_bot_desc">The bot runs in a separate profile and needs a token from @BotFather:</p>
+        <pre class="code-block">cp .env.example .env           # add your TELEGRAM_BOT_TOKEN
 docker compose --profile bot up -d</pre>
+      </div>
     </div>
   </section>
 
-  <section class="section">
+  <section id="03" class="section">
     <div class="container">
       <div class="sec-head">
         <span class="sec-num">03</span>
@@ -136,7 +138,7 @@ docker compose --profile bot up -d</pre>
         <span class="sec-tag" data-i18n="sec03_tag">pip</span>
       </div>
       <h2 class="sec-title" data-i18n="inst_pip_title">Option B — pip (Python ≥ 3.12)</h2>
-      <div class="method-card" style="max-width:640px;">
+      <div class="method-card">
         <span class="tag">flexible</span>
         <h3 data-i18n="pip_install_title">Install from GitHub</h3>
         <pre class="code-block"># create and activate a virtual environment
@@ -167,7 +169,7 @@ pip install "climasafeai[api,supervisado,redes_neuronales,mlflow_tracking]" \
     </div>
   </section>
 
-  <section class="section section-dark">
+  <section id="04" class="section section-dark">
     <div class="container">
       <div class="sec-head">
         <span class="sec-num">04</span>
@@ -175,7 +177,7 @@ pip install "climasafeai[api,supervisado,redes_neuronales,mlflow_tracking]" \
         <span class="sec-tag" data-i18n="sec04_tag">desarrollo</span>
       </div>
       <h2 class="sec-title" data-i18n="inst_dev_title">For developers</h2>
-      <div class="method-card" style="max-width:640px;">
+      <div class="method-card">
         <span class="tag">source</span>
         <h3 data-i18n="dev_setup_title">Clone &amp; set up</h3>
         <pre class="code-block">git clone https://github.com/ANFAIA/ClimaSafe.git
@@ -194,7 +196,7 @@ make mlflow       # MLflow UI at localhost:5000</pre>
   </section>
 
   <!-- 05 — Agent prompt -->
-  <section class="section">
+  <section id="05" class="section">
     <div class="container">
       <div class="sec-head">
         <span class="sec-num">05</span>
@@ -221,7 +223,7 @@ Report the final output of `make run`.</pre>
   </section>
 
   <!-- 06 — Docker Compose from source -->
-  <section class="section section-dark">
+  <section id="06" class="section section-dark">
     <div class="container">
       <div class="sec-head">
         <span class="sec-num">06</span>
@@ -267,7 +269,7 @@ docker compose -f compose.gh.yml up -d
   </section>
 
   <!-- 07 — MCP via web (GitHub Pages) -->
-  <section class="section">
+  <section id="07" class="section">
     <div class="container">
       <div class="sec-head">
         <span class="sec-num">07</span>
@@ -306,7 +308,7 @@ climasafeai-mcp            # stdio server for Claude Desktop</pre>
   </section>
 
   <!-- 08 — Quick links: ANFAIA, CESGA, projects -->
-  <section class="section section-dark">
+  <section id="08" class="section section-dark">
     <div class="container">
       <div class="sec-head">
         <span class="sec-num">08</span>
