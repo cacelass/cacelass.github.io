@@ -30,6 +30,10 @@
       transform-box: fill-box; transform-origin: center;
       animation: lampPool 5.5s ease-in-out infinite;
     }
+    .lamp-steam {
+      transform-box: fill-box; transform-origin: center;
+      animation: lampSteam 4s ease-in-out infinite;
+    }
     @keyframes lampBreathe {
       0%, 100% { opacity: 0.4;  transform: scale(0.9); }
       50%      { opacity: 0.95; transform: scale(1.12); }
@@ -46,11 +50,16 @@
       0%, 100% { opacity: 0.25; }
       50%      { opacity: 0.6; }
     }
+    @keyframes lampSteam {
+      0%, 100% { opacity: 0.15; transform: translateY(2px); }
+      50%      { opacity: 0.5;  transform: translateY(-2px); }
+    }
     @media (prefers-reduced-motion: reduce) {
-      .lamp-glow, .lamp-bulb, .lamp-cone, .lamp-pool { animation: none; }
+      .lamp-glow, .lamp-bulb, .lamp-cone, .lamp-pool, .lamp-steam { animation: none; }
       .lamp-glow { opacity: 0.85; }
       .lamp-cone { opacity: 0.6; }
       .lamp-pool { opacity: 0.45; }
+      .lamp-steam { opacity: 0.3; }
     }
     @media (max-width: 820px) {
       .hero-blog { flex-direction: column; }
@@ -127,6 +136,22 @@
           <circle cx="120" cy="120" r="7" fill="#3f3f46" />
           <polygon points="92,96 148,96 136,132 104,132" fill="#2a2a2e" stroke="#52525b" stroke-width="1.5" />
           <circle class="lamp-bulb" cx="120" cy="126" r="7" fill="#fff3e0" />
+
+          <!-- libros (izquierda) -->
+          <rect x="40" y="237" width="56" height="13" rx="2" fill="#355e7a" />
+          <rect x="44" y="239" width="48" height="9" fill="#efe6d4" />
+          <rect x="46" y="223" width="46" height="13" rx="2" fill="#b5562f" />
+          <rect x="50" y="225" width="38" height="9" fill="#efe6d4" />
+          <line x1="55" y1="228" x2="85" y2="228" stroke="#8a3f1f" stroke-width="1" opacity="0.6" />
+
+          <!-- taza de té (derecha) -->
+          <path class="lamp-steam" d="M174 224 q-5 -7 0 -14 q5 -7 0 -14" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+          <path class="lamp-steam" d="M188 224 q5 -7 0 -14 q-5 -7 0 -14" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+          <ellipse cx="180" cy="250" rx="24" ry="5" fill="#d9d2c4" stroke="#b3a892" stroke-width="1" />
+          <path d="M164 231 L196 231 L193 249 Q180 253 167 249 Z" fill="#ece6da" stroke="#c9c0ad" stroke-width="1" />
+          <ellipse cx="180" cy="231" rx="16" ry="4" fill="#f3eee4" />
+          <ellipse cx="180" cy="231" rx="12" ry="3" fill="#6f4e2e" />
+          <path d="M196 236 q12 2 8 12 q-3 6 -9 3" fill="none" stroke="#c9c0ad" stroke-width="3" />
         </svg>
       </div>
     </div>
