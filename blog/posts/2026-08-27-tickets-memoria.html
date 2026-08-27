@@ -57,13 +57,13 @@
     <div class="container">
       <a class="nav-back" href="../">← volver al blog</a>
       <h1>Tickets que optimizan la memoria</h1>
-      <p class="hero-sub">La ventana de contexto es pequeña y volátil. Mis tickets son la memoria que no se olvida entre sesiones. <span class="proj-tag" style="margin-left:8px">agentes</span></p>
+      <p class="hero-sub">La ventana de contexto se degrada mucho antes de llenarse. Mis tickets son la memoria que no se olvida entre sesiones. <span class="proj-tag" style="margin-left:8px">agentes</span></p>
       <div class="hero-term" role="presentation">
         <span class="term-prompt">cacelass@gh</span><span class="term-sep">:</span><span class="term-path">~/blog</span><span class="term-dollar">$</span>
         <span class="term-cmd">cat tickets-memory.md</span>
         <span class="term-cursor"></span>
       </div>
-      <p style="font-family:var(--mono); font-size:0.8rem; color:var(--muted)">2026-08-27 · 4 min de lectura</p>
+      <p style="font-family:var(--mono); font-size:0.8rem; color:var(--muted)">5 min de lectura</p>
     </div>
   </section>
 
@@ -73,33 +73,47 @@
 
         <p>Trabajar con agentes de IA tiene un problema incómodo: su memoria es la conversación, y la conversación es <strong>corta y volátil</strong>. A los pocos miles de tokens, el agente empieza a olvidar por dónde iba. Si cierras la sesión, olvida del todo. Confiar en el contexto para mantener el estado de un proyecto es como confiar en la RAM sin disco duro.</p>
 
-        <p>La solución que uso no es técnica de prompting: son <strong>tickets</strong>. Cada tarea es un ticket escrito en un fichero, con criterios de aceptación que una máquina puede verificar. Esos tickets son la memoria persistente del proyecto.</p>
+        <p>En mi caso la solución no es técnica de prompting: cada tarea es un <strong>ticket</strong> escrito en un fichero, con criterios de aceptación que una máquina puede verificar. Esos tickets son la memoria persistente del proyecto. Esto es justo lo que hace el arnés de <a href="../../projects/dskit.html">dskit</a>: el backlog vive en <code>harness/featureslist.json</code> y la memoria fuera de la ventana de contexto, en <code>harness/progress/</code>.</p>
 
         <h2>Por qué el contexto no basta</h2>
-        <p>La ventana de contexto es cara y finita. Meter el estado entero del proyecto ahí cada vez es inviable, y además se degrada: el modelo atiende menos a lo que está lejos del final. El resultado es el mismo de siempre — el agente "termina" cosas porque ya no recuerda bien qué faltaba.</p>
+        <p>La regla que aplico es la del propio arnés: <strong>la ventana de contexto se degrada mucho antes de llenarse</strong>. Por eso el estado del trabajo vive en ficheros, no en la conversación. Meter el estado entero del proyecto en el contexto cada vez es inviable, y además se degrada: el modelo atiende menos a lo que está lejos del final. El resultado es el de siempre — el agente "termina" cosas porque ya no recuerda bien qué faltaba.</p>
 
         <p>Un ticket, en cambio, es <strong>memoria externa</strong>: vive en el disco, versionado en el repo, y el agente lo lee cuando lo necesita en vez de cargarlo todo de golpe. La ventana de contexto deja de ser la base de datos y pasa a ser solo la mesa de trabajo.</p>
 
         <h2>Qué lleva un ticket bueno</h2>
-        <p>No es una nota vaga. En mi caso cada ticket tiene, como mínimo:</p>
+        <p>En dskit cada entrada del backlog es, en la práctica, un ticket con un formato fijo: un <code>id</code> (<code>SCOPE-001</code>, <code>DATA-001</code>…), un <code>title</code>, criterios de aceptación, dependencias (<code>deps</code>) y un <code>status</code> que avanza de <code>pending</code> → <code>in_progress</code> → <code>done</code>. Lo mínimo que tiene que cumplir:</p>
 
         <ul>
           <li><strong>Un objetivo</strong> claro y acotado: una sola cosa, no diez.</li>
-          <li><strong>Criterios de aceptación verificables</strong>: "los tests X pasan", no "funciona bien".</li>
-          <li><strong>Un dueño</strong>: qué agente puede tocarlo (regla de "un recurso, un dueño").</li>
+          <li><strong>Criterios de aceptación verificables</strong>: los tests pasan y el criterio se comprueba uno a uno, no "funciona bien".</li>
+          <li><strong>Un dueño</strong>: regla de "un recurso, un dueño" — solo el agente Python <code>harness</code> escribe el backlog y el progreso; nadie los edita a mano.</li>
           <li><strong>Evidencia de cierre</strong>: la puerta no lo marca hecho sin salida real de comando.</li>
         </ul>
 
-        <p>La clave está en lo verificable. Un ticket "arreglar el bug de login" se puede ignorar; un ticket con "los tests de auth pasan en verde y el lint no da errores" se cierra solo cuando es cierto, porque la puerta lo comprueba.</p>
+        <p>La clave está en lo verificable. Un ticket "arreglar el bug de login" se puede ignorar; un ticket con "./init.sh en verde + criterios cumplidos" se cierra solo cuando es cierto, porque la puerta lo comprueba en código. Y no es una petición: <code>harness finish</code> ejecuta la puerta antes de tocar el backlog y devuelve <code>success=false</code> si está en rojo — no hay forma de rodearlo pidiéndoselo al modelo.</p>
+
+        <h2>El teléfono descompuesto entre agentes</h2>
+        <p>El punto donde más se pierde memoria no es la sesión: son los <strong>subagentes</strong>. Cuando el líder lanza un subagente, ese subagente arranca con el contexto vacío. Si el resultado de su trabajo solo vive en su ventana de contexto, se pierde en cuanto termina. El arnés lo resuelve con una regla simple: <strong>todo subagente escribe su resultado en un fichero de <code>progress/</code> antes de devolver el control</strong>.</p>
+
+        <p>El siguiente agente lee <code>harness/progress/</code>, no el repositorio entero — menos tokens, menos degradación. Y al lanzar un subagente no se le hereda contexto: se le da el id de la feature, sus criterios y las rutas que necesita, nada más. Las tres memorias del proyecto no se pisan:</p>
+
+        <ul>
+          <li><code>harness/progress/</code> — la feature en curso y el histórico (dueño: <code>harness</code>).</li>
+          <li><code>agents/workspace/memory/</code> — trayectorias de ejecución de agentes.</li>
+          <li><code>docs/vault/</code> — conocimiento estable del proyecto y sus datos.</li>
+        </ul>
 
         <h2>Cómo lo uso en mi caso personal</h2>
-        <p>En mis propios repos el backlog vive en un fichero (el <code>featureslist.json</code> del arnés) y el progreso en una carpeta <code>progress/</code> de escritura solo-añadir. El flujo es el mismo siempre:</p>
+        <p>En mis repos el backlog es <code>featureslist.json</code> y la memoria, <code>progress/</code>: <code>current.md</code> (la feature en curso), <code>history.md</code> (append-only, lo cerrado y con qué evidencia) y <code>&lt;agente&gt;-&lt;id&gt;.md</code> (el resultado de cada subagente). El flujo es siempre el mismo, y lo manda el protocolo del arnés:</p>
 
         <ol>
-          <li>Abro o creo un ticket con su criterio de aceptación.</li>
-          <li>El agente trabaja y, al creer que terminó, la puerta corre los checks.</li>
-          <li>Si pasan, el ticket se cierra y se anota el resultado; si no, vuelve a abierto.</li>
-          <li>El progreso se escribe en <code>progress/</code>, append-only, nunca se sobreescribe.</li>
+          <li><code>./init.sh</code> — ¿el entorno está sano? Si no, para.</li>
+          <li>Leo <code>progress/current.md</code> — ¿hay trabajo a medias? Si sí, lo retomo.</li>
+          <li>Cojo la primera feature pendiente con sus dependencias en <code>done</code>.</li>
+          <li>Marco <code>in_progress</code> y relleno <code>current.md</code>.</li>
+          <li>Delego: <code>explorer</code> → <code>implementer</code> → <code>reviewer</code>.</li>
+          <li>Verifico: <code>./init.sh</code> en verde + criterios uno a uno.</li>
+          <li><code>done</code>: resumen en <code>history.md</code>, y <code>commit_feature</code>.</li>
         </ol>
 
         <p>Lo que cambia mi día a día es la <strong>continuidad</strong>. Puedo dejar un proyecto a medias el lunes, abrirlo el jueves y retomarlo sin explicarle nada al agente: el estado está en los tickets y en el log de progreso, no en mi cabeza ni en una conversación muerta. Es como tener un compañero que nunca olvida dónde quedó.</p>
@@ -111,10 +125,12 @@
 
         <ul>
           <li><strong>No se pierde entre sesiones</strong>: está en ficheros, no en la ventana.</li>
-          <li><strong>Se puede recuperar y auditar</strong>: lees el ticket y sabes qué se decidió y por qué.</li>
+          <li><strong>Se puede recuperar y auditar</strong>: lees el ticket y sabes qué se decidió y con qué evidencia.</li>
           <li><strong>No depende del modelo</strong>: cambias de LLM y los tickets siguen ahí, intactos.</li>
           <li><strong>Fuerza la verdad</strong>: un ticket no se cierra por convicción, sino por evidencia.</li>
         </ul>
+
+        <p>Y hay una vuelta de tuerca: <code>progress/</code> y <code>featureslist.json</code> entran en el índice de RAG, así que tras cerrar una feature basta con <code>make index-rag</code> para <strong>preguntarle al histórico en lenguaje natural</strong> — "¿por qué elegimos este modelo?", "¿qué se decidió sobre las features?". El reindexado es incremental y sustituye lo que cambió, así que el histórico no acumula versiones viejas.</p>
 
         <p>Al final, los tickets no son gestión de tareas: son la forma en que el proyecto recuerda quién es. Sin ellos, cada sesión empieza desde cero y el agente vuelve a inventar el estado. Con ellos, el estado existe independientemente de quién —o qué modelo— esté trabajando hoy.</p>
 

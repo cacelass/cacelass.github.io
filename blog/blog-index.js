@@ -6,21 +6,18 @@ const POSTS = [
   {
     slug: "2026-08-27-tickets-memoria",
     title: "Tickets que optimizan la memoria",
-    date: "2026-08-27",
     tag: "agentes",
-    excerpt: "La ventana de contexto es pequeña y volátil. Mis tickets son la memoria que no se olvida entre sesiones."
+    excerpt: "La ventana de contexto se degrada mucho antes de llenarse. Mis tickets son la memoria que no se olvida entre sesiones."
   },
   {
     slug: "2026-08-27-arneses-ia",
     title: "Por qué los arneses de IA importan",
-    date: "2026-08-27",
     tag: "agentes",
     excerpt: "Una IA genera código más rápido de lo que un humano lo revisa. El arnés son las riendas — y están en código, no en un prompt."
   },
   {
     slug: "2026-08-27-bienvenida",
     title: "Bienvenida al blog",
-    date: "2026-08-27",
     tag: "meta",
     excerpt: "Por qué abro este espacio y qué tipo de cosas voy a ir soltando por aquí."
   }
@@ -30,11 +27,6 @@ const POSTS = [
   var list = document.getElementById("post-list");
   if (!list) return;
 
-  function fmt(iso) {
-    var d = new Date(iso + "T00:00:00");
-    return d.toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" });
-  }
-
   var html = POSTS.map(function (p) {
     return (
       '<a class="feat-card" href="posts/' + p.slug + '.html">' +
@@ -43,7 +35,7 @@ const POSTS = [
           '<span class="proj-tag">' + p.tag + '</span>' +
         '</div>' +
         '<p class="feat-desc">' + p.excerpt + '</p>' +
-        '<div class="feat-meta"><span>' + fmt(p.date) + ' →</span></div>' +
+        '<div class="feat-meta"><span>leer →</span></div>' +
       '</a>'
     );
   }).join("");
