@@ -10,19 +10,6 @@
   <link rel="stylesheet" href="../../style.css" />
   <script src="../../i18n.js?v=20260826a" defer></script>
   <style>
-    .code-block {
-      font-family: var(--mono); font-size: 0.8rem; line-height: 1.6;
-      color: var(--text); background: var(--surface);
-      border: 1px solid var(--border-hi); border-radius: var(--r);
-      padding: 14px 16px; overflow-x: auto; margin: 12px 0 24px;
-    }
-    .note {
-      background: var(--surface); border: 1px solid var(--border-hi);
-      border-left: 3px solid var(--accent2); border-radius: var(--r);
-      padding: 12px 16px; font-size: 0.835rem; color: var(--muted);
-      line-height: 1.7; margin-bottom: 24px;
-    }
-    .note strong { color: var(--text); font-weight: 500; }
     .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 24px 0; }
     @media (max-width: 700px) { .method-grid { grid-template-columns: 1fr; } }
     .method-card {
@@ -45,7 +32,7 @@
     .req-table td:first-child { font-family: var(--mono); color: var(--accent2); }
   </style>
 </head>
-<body class="proj-page">
+<body class="proj-page climasafe-page">
 
   <nav>
     <div class="nav-inner">
@@ -116,18 +103,18 @@
           <span class="tag" data-i18n="tag_easiest">easiest</span>
           <h3 data-i18n="docker_run_title">Run the image</h3>
           <p data-i18n="docker_run_desc">Once the image is published, a single command starts the web server with pre-trained models:</p>
-          <div class="code-block">docker run -d --name climasafe \
+          <pre class="code-block">docker run -d --name climasafe \
   -p 8080:8080 \
-  ghcr.io/cacelass/climasafeai:latest</div>
+  ghcr.io/cacelass/climasafeai:latest</pre>
           <p data-i18n="docker_run_after">Then open <strong>http://localhost:8080</strong>. No training, no configuration needed.</p>
         </div>
         <div class="method-card">
           <span class="tag">compose</span>
           <h3 data-i18n="docker_compose_title">With Docker Compose</h3>
           <p data-i18n="docker_compose_desc">Clone the repo and use compose for a more controlled setup:</p>
-          <div class="code-block">git clone https://github.com/ANFAIA/ClimaSafe.git
+          <pre class="code-block">git clone https://github.com/ANFAIA/ClimaSafe.git
 cd ClimaSafe
-docker compose up -d          # web server only</div>
+docker compose up -d          # web server only</pre>
           <p data-i18n="docker_compose_note">Data persists in named volumes between restarts. Start fresh with <code>docker compose down -v</code>.</p>
         </div>
       </div>
@@ -136,8 +123,8 @@ docker compose up -d          # web server only</div>
         <strong data-i18n="docker_bot_title">Telegram bot (optional):</strong>
         <span data-i18n="docker_bot_desc"> The bot runs in a separate profile and needs a token from @BotFather:</span>
       </div>
-      <div class="code-block">cp .env.example .env           # add your TELEGRAM_BOT_TOKEN
-docker compose --profile bot up -d</div>
+      <pre class="code-block">cp .env.example .env           # add your TELEGRAM_BOT_TOKEN
+docker compose --profile bot up -d</pre>
     </div>
   </section>
 
@@ -152,13 +139,13 @@ docker compose --profile bot up -d</div>
       <div class="method-card" style="max-width:640px;">
         <span class="tag">flexible</span>
         <h3 data-i18n="pip_install_title">Install from GitHub</h3>
-        <div class="code-block"># create and activate a virtual environment
+        <pre class="code-block"># create and activate a virtual environment
 python3 -m venv .venv && source .venv/bin/activate
 pip install --upgrade pip
 
 # install with the extras you need
 pip install "climasafeai[api,supervisado,redes_neuronales,mlflow_tracking]" \
-    git+https://github.com/ANFAIA/ClimaSafe.git</div>
+    git+https://github.com/ANFAIA/ClimaSafe.git</pre>
         <p data-i18n="pip_extras_note">Available extras: <code>api</code> (FastAPI/uvicorn), <code>supervisado</code> (XGBoost/LightGBM/SHAP), <code>redes_neuronales</code> (PyTorch/LSTM), <code>mlflow_tracking</code>, <code>voice</code> (STT/TTS), <code>rag</code> (embeddings), <code>onnx</code>.</p>
       </div>
 
@@ -191,17 +178,17 @@ pip install "climasafeai[api,supervisado,redes_neuronales,mlflow_tracking]" \
       <div class="method-card" style="max-width:640px;">
         <span class="tag">source</span>
         <h3 data-i18n="dev_setup_title">Clone &amp; set up</h3>
-        <div class="code-block">git clone https://github.com/ANFAIA/ClimaSafe.git
+        <pre class="code-block">git clone https://github.com/ANFAIA/ClimaSafe.git
 cd ClimaSafe
 ./init.sh                       # full environment check
 # or: uv sync --extra dev --extra supervisado
-source .venv/bin/activate</div>
+source .venv/bin/activate</pre>
         <p data-i18n="dev_commands_note">Once set up, use the Makefile:</p>
-        <div class="code-block">make run          # full pipeline (data → train → predict → reports/)
+        <pre class="code-block">make run          # full pipeline (data → train → predict → reports/)
 make serve        # FastAPI at localhost:8000 (interactive docs at /docs)
 make test         # full pytest suite
 make lint         # ruff check
-make mlflow       # MLflow UI at localhost:5000</div>
+make mlflow       # MLflow UI at localhost:5000</pre>
       </div>
     </div>
   </section>
