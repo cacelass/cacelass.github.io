@@ -31,6 +31,7 @@
       nav_reading: "lectura",
       nav_blog: "blog",
       nav_contact: "contacto",
+      nav_agentic: "smart health IA",
       back_index: "← inicio",
       // Home
       hero_h1_1: "Sistemas de ML que",
@@ -74,7 +75,7 @@
       impact_2025_num: "3.832",
       impact_2025_desc: "muertes atribuibles al calor en España. El <strong>57 %</strong> se produjeron en agosto y el <strong>84 %</strong>, personas de más de 74 años. Segundo verano más mortal de la serie — y el más cálido desde 1961 (AEMET).",
       impact_2026_lbl: "Verano 2026 · MoMo · a 19 de agosto",
-      impact_2026_num: "4.581",
+      impact_2026_num: "5.232",
       impact_2026_desc: "muertes solo hasta el 19 de agosto: <strong>ya supera todo el verano de 2025</strong>. Julio (2.025) fue el segundo mes más letal de la serie. Con septiembre por delante, el récord de 2022 (4.789) está en juego.",
       impact_note: "Desde 2015, las altas temperaturas se han cobrado <strong>más de 27.500 vidas</strong> en España. No son titulares: son excesos de mortalidad estimados sobre registros civiles por el <a href=\"https://momo.isciii.es/panel_momo/\" target=\"_blank\">sistema MoMo</a> (Instituto de Salud Carlos III). El calor no avisa dos veces.",
       impact_word: "muertes",
@@ -282,6 +283,7 @@
       cta_back_inst: "← volver a instalación",
       // instalacion/index.html — hero + sections 01-04
       eyebrow_inst: "ClimaSafe · instalación",
+      footer_extra_inst: "· instalación",
       inst_h1_1: "ClimaSafe en",
       inst_h1_2: "minutos.",
       inst_sub: "Dos formas de ejecutar la pipeline completa (modelos ML, API, bot de Telegram, servidor MCP): un <strong>comando Docker</strong> o <strong>pip</strong> en cualquier máquina con Python ≥ 3.12.",
@@ -480,6 +482,7 @@
       nav_reading: "reading",
       nav_blog: "blog",
       nav_contact: "contact",
+      nav_agentic: "smart health IA",
       back_index: "← index",
       // Home
       hero_h1_1: "ML systems that",
@@ -523,7 +526,7 @@
       impact_2025_num: "3,832",
       impact_2025_desc: "deaths attributable to heat in Spain. <strong>57%</strong> occurred in August and <strong>84%</strong> were people over 74. The second deadliest summer on record — and the hottest since 1961 (AEMET).",
       impact_2026_lbl: "Summer 2026 · MoMo · as of Aug 19",
-      impact_2026_num: "4,581",
+      impact_2026_num: "5.232",
       impact_2026_desc: "deaths by August 19 alone: <strong>already exceeds all of summer 2025</strong>. July (2,025) was the second deadliest month of the series. With September ahead, 2022's record (4,789) is under threat.",
       impact_note: "Since 2015, high temperatures have claimed <strong>more than 27,500 lives</strong> in Spain. Not headlines: excess mortality estimated over civil registries by the <a href=\"https://momo.isciii.es/panel_momo/\" target=\"_blank\">MoMo system</a> (Instituto de Salud Carlos III). Heat doesn't warn twice.",
       impact_word: "deaths",
@@ -731,6 +734,7 @@
       cta_back_inst: "← back to installation",
       // instalacion/index.html — hero + sections 01-04
       eyebrow_inst: "ClimaSafe · installation",
+      footer_extra_inst: "· installation",
       inst_h1_1: "Get ClimaSafe",
       inst_h1_2: "running in minutes.",
       inst_sub: "Two ways to run the full prediction pipeline (ML models, API, Telegram bot, MCP server): a single <strong>Docker command</strong> or <strong>pip</strong> on any machine with Python ≥ 3.12.",
