@@ -5,8 +5,7 @@
 # El contenido curado vive en docs_site/ (solo las 6 páginas del sitio); el
 # resto de documentacion/ (notas internas, decisiones, actas) NO se publica.
 # Estética: la MISMA que el resto de cacelass.github.io (fondo oscuro, fuentes
-# Space Grotesk + JetBrains Mono con titulares DM Serif Display vía extra.css,
-# acento azul). El footer "Made with Material for MkDocs"
+# Sora + JetBrains Mono, acento azul). El footer "Made with Material for MkDocs"
 # se elimina en overrides/main.html y se sustituye por el footer del sitio.
 
 site_name: ClimaSafe
@@ -30,7 +29,7 @@ theme:
       primary: custom
       accent: custom
   font:
-    text: Space Grotesk
+    text: Sora
     code: JetBrains Mono
   icon:
     logo: material/thermometer
@@ -44,6 +43,7 @@ extra_css:
 
 nav:
   - Inicio: index.md
+  - Guía de usuario: guia-usuario.md
   - Modelos y pesos: modelos-pesos.md
   - Riesgo y personalización: riesgo-personalizacion.md
   - Arquitectura: arquitectura.md

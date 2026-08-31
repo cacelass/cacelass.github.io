@@ -1,132 +1,129 @@
 /* extra.css — Estética de la documentación = la del resto de cacelass.github.io.
-   Fondo oscuro #09090b, fuentes Space Grotesk + JetBrains Mono con titulares
-   DM Serif Display (como los sec-title del index), acento azul #006eff,
-   bordes #27272a. Sustituye los tokens de color de Material por los del sitio. */
+   Fondo oscuro, fuentes Sora + JetBrains Mono, acento azul, bordes #1c2333.
+   Sustituye los tokens de color de Material por los del sitio. */
 
 :root {
-  --md-default-bg-color: #09090b;
-  --md-default-fg-color: #fafafa;
-  --md-default-fg-color--light: #a1a1aa;
-  --md-default-fg-color--lighter: #71717a;
-  --md-primary-fg-color: #121216;
-  --md-primary-fg-color--light: #16161a;
-  --md-primary-fg-color--dark: #09090b;
-  --md-accent-fg-color: #3380ff;
-  --md-typeset-a-color: #4d94ff;
-  --md-code-bg-color: #101014;
-  --md-code-fg-color: #fafafa;
-  --md-typeset-table-color: #27272a;
-  --md-footer-bg-color: #09090b;
-  --md-footer-fg-color: #a1a1aa;
+  --md-default-bg-color: #080b12;
+  --md-default-fg-color: #e2e8f4;
+  --md-default-fg-color--light: #7a8eaa;
+  --md-default-fg-color--lighter: #5a6a86;
+  --md-primary-fg-color: #0f1420;
+  --md-primary-fg-color--light: #131926;
+  --md-primary-fg-color--dark: #060910;
+  --md-accent-fg-color: #4f8ef7;
+  --md-typeset-a-color: #6ba3ff;
+  --md-code-bg-color: #0c1018;
+  --md-code-fg-color: #e2e8f4;
+  --md-typeset-table-color: #1c2333;
+  --md-footer-bg-color: #060910;
+  --md-footer-fg-color: #7a8eaa;
 }
 
 body {
-  background: #09090b;
+  background: #080b12;
   background:
-    radial-gradient(ellipse 80% 60% at 70% -10%, rgba(37, 99, 235, 0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at -10% 80%, rgba(37, 99, 235, 0.05) 0%, transparent 55%);
-  font-family: "Space Grotesk", sans-serif;
+    radial-gradient(ellipse 80% 60% at 70% -10%, rgba(79, 142, 247, 0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at -10% 80%, rgba(167, 139, 250, 0.07) 0%, transparent 55%),
+    linear-gradient(160deg, #080c14 0%, #060910 40%, #08060f 70%, #060b12 100%);
+  font-family: "Sora", sans-serif;
 }
 
 /* Header pegajoso con el look del sitio */
 .md-header {
-  background: rgba(9, 9, 11, 0.92);
+  background: rgba(8, 11, 18, 0.96);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid #27272a;
-  color: #fafafa;
+  border-bottom: 1px solid #1c2333;
+  color: #e2e8f4;
 }
 .md-header__button.md-logo {
-  color: #3380ff;
+  color: #4f8ef7;
 }
 .md-header__title {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.8rem;
 }
 
-/* Tipografía — titulares serif como el index (DM Serif Display) */
+/* Tipografía */
 .md-typeset h1,
-.md-typeset h2 {
-  font-family: "DM Serif Display", Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: #f5f0e8;
-}
+.md-typeset h2,
 .md-typeset h3 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: "Sora", sans-serif;
   font-weight: 600;
-  color: #fafafa;
+  color: #e2e8f4;
 }
 .md-typeset h1 {
-  font-size: 1.9rem;
+  color: #e2e8f4;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 .md-typeset {
-  color: #d4d4d8;
+  color: #e2e8f4;
   font-size: 0.9rem;
 }
 .md-typeset code {
   font-family: "JetBrains Mono", monospace;
-  background: rgba(37, 99, 235, 0.08);
-  color: #4d94ff;
+  background: rgba(79, 142, 247, 0.08);
+  color: #6ba3ff;
 }
 /* Accesibilidad (WEB-013): el tema resuelve --md-typeset-a-color contra
-   --md-primary-fg-color en el esquema slate, dejando los <code>
-   dentro de enlaces casi invisibles. Fuerza el azul del sitio:
-   cumple WCAG 2.1 AA (4.5:1). */
+   --md-primary-fg-color (#0f1420) en el esquema slate, dejando los <code>
+   dentro de enlaces casi invisibles (contraste 1.1:1). Fuerza el azul del
+   sitio: 6.6:1 sobre el fondo del code, cumple WCAG 2.1 AA (4.5:1). */
 .md-typeset a code {
-  color: #4d94ff;
+  color: #6ba3ff;
 }
 .md-typeset pre > code {
-  background: #101014;
-  color: #fafafa;
-  border: 1px solid #27272a;
+  background: #0c1018;
+  color: #e2e8f4;
+  border: 1px solid #1c2333;
 }
 
 /* Navegación */
 .md-nav__link {
-  color: #a1a1aa;
+  color: #7a8eaa;
 }
 .md-nav__link:hover,
 .md-nav__link--active {
-  color: #4d94ff;
+  color: #6ba3ff;
 }
 .md-nav__title {
-  color: #fafafa;
+  color: #e2e8f4;
 }
 
 /* Búsqueda */
 .md-search__input {
-  background: #131316;
-  color: #fafafa;
+  background: #0f1420;
+  color: #e2e8f4;
 }
 .md-search__input::placeholder {
-  color: #71717a;
+  color: #5a6a86;
 }
 
 /* Tablas */
 .md-typeset table:not([class]) {
-  background: #131316;
-  border: 1px solid #27272a;
+  background: #0f1420;
+  border: 1px solid #1c2333;
   font-size: 0.82rem;
 }
 .md-typeset table:not([class]) th {
-  background: #1c1c22;
-  color: #fafafa;
+  background: #131926;
+  color: #e2e8f4;
 }
 .md-typeset table:not([class]) td {
-  border-top: 1px solid #27272a;
+  border-top: 1px solid #1c2333;
 }
 
 /* Bloques */
 .md-typeset blockquote,
 .md-typeset .admonition,
 .md-typeset details {
-  background: #131316;
-  border-color: #27272a;
+  background: #0f1420;
+  border-color: #1c2333;
 }
 
 /* Enlaces */
 .md-content a {
-  color: #4d94ff;
+  color: #6ba3ff;
   text-decoration: none;
 }
 .md-content a:hover {
@@ -135,9 +132,9 @@ body {
 
 /* Footer del sitio (sustituye "Made with Material for MkDocs") */
 .cs-footer {
-  border-top: 1px solid #27272a;
-  background: #09090b;
-  color: #a1a1aa;
+  border-top: 1px solid #1c2333;
+  background: #060910;
+  color: #7a8a9a;
 }
 .cs-footer-inner {
   max-width: 900px;
@@ -151,24 +148,25 @@ body {
   flex-wrap: wrap;
 }
 .cs-footer-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #006eff;
+  background: #4f8ef7;
+  box-shadow: 0 0 12px #4f8ef7;
 }
 .cs-footer-inner strong {
-  color: #fafafa;
+  color: #e2e8f4;
   font-weight: 500;
 }
 .cs-footer-sep {
-  color: #71717a;
+  color: #5a6a86;
 }
 .cs-footer-inner a {
-  color: #a1a1aa;
+  color: #7a8eaa;
   text-decoration: none;
 }
 .cs-footer-inner a:hover {
-  color: #4d94ff;
+  color: #6ba3ff;
 }
 .md-footer-meta {
   display: none;
