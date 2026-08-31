@@ -1,816 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClimaSafe — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <script src="../../i18n.js?v=20260826a" defer></script>
+</head>
+<body class="proj-page climasafe-page">
 
-<!doctype html>
-<html lang="es" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-      
-      
-        <link rel="canonical" href="https://cacelass.github.io/projects/climasafe/">
-      
-      
-      
-        <link rel="next" href="guia-usuario/">
-      
-      
-        
-      
-      
-      <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
-    
-    
-      
-        <title>ClimaSafe</title>
-      
-    
-    
-      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
-      
-        
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
-      
-      
-
-
-    
-    
-      
-    
-    
-      
-        
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sora:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Sora";--md-code-font:"JetBrains Mono"}</style>
-      
-    
-    
-      <link rel="stylesheet" href="assets/extra.css">
-    
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-  </head>
-  
-  
-    
-    
-      
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
-  
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
-        
-        <a href="#climasafe-documentacion-tecnica" class="md-skip">
-          Saltar a contenido
-        </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
-
-  
-
-<header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Cabecera">
-    <a href="." title="ClimaSafe" class="md-header__button md-logo" aria-label="ClimaSafe" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13V5a3 3 0 0 0-6 0v8a5 5 0 1 0 6 0m-3-9a1 1 0 0 1 1 1v3h-2V5a1 1 0 0 1 1-1"/></svg>
-
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            ClimaSafe
-          </span>
-        </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              Inicio
-            
-          </span>
-        </div>
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../../index.html" class="nav-back" data-i18n="back_index">← index</a> <strong>Alejandro Cancelas</strong> <span>/ ClimaSafe</span></div>
       </div>
+      <ul class="nav-links">
+        <li><a href="../../index.html#about" data-i18n="nav_about">about</a></li>
+        <li><a href="../../index.html#projects" data-i18n="nav_projects">projects</a></li>
+        <li><a href="../../index.html#stack" data-i18n="nav_stack">stack</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
     </div>
-    
-      
-        <form class="md-header__option" data-md-component="palette">
-  
-    
-    
-    
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
-    
-  
-</form>
-      
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
-    
-    
-      
-      
-        <label class="md-header__button md-icon" for="__search">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        </label>
-        <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Buscar">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
-          
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-        </button>
-      </nav>
-      
-        <div class="md-search__suggest" data-md-component="search-suggest"></div>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Inicializando búsqueda
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-      
-    
-    
-      <div class="md-header__source">
-        <a href="https://github.com/ANFAIA/ClimaSafe" title="Ir al repositorio" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
-  </div>
-  <div class="md-source__repository">
-    ClimaSafe
-  </div>
-</a>
-      </div>
-    
   </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
-            
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
 
-
-
-<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href="." title="ClimaSafe" class="md-nav__button md-logo" aria-label="ClimaSafe" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13V5a3 3 0 0 0-6 0v8a5 5 0 1 0 6 0m-3-9a1 1 0 0 1 1 1v3h-2V5a1 1 0 0 1 1-1"/></svg>
-
-    </a>
-    ClimaSafe
-  </label>
-  
-    <div class="md-nav__source">
-      <a href="https://github.com/ANFAIA/ClimaSafe" title="Ir al repositorio" class="md-source" data-md-component="source">
-  <div class="md-source__icon md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
-  </div>
-  <div class="md-source__repository">
-    ClimaSafe
-  </div>
-</a>
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow" data-i18n="eyebrow_climasafe">ClimaSafe · early warning · ML</div>
+      <h1><span data-i18n="climasafe_h1_1">Heat and cold risk warning</span><br /><span data-i18n="climasafe_h1_2">before the day arrives.</span></h1>
+      <p class="hero-sub" data-i18n-html="climasafe_sub">
+        An early-warning system against heat and cold. Pick any point in Spain, a day and an hour,
+        and you'll know your <strong>cardiovascular risk level</strong>: safe, caution or danger. It combines
+        official weather data with real mortality, a calibrated model ensemble and <strong>your personal
+        factors</strong> — age, health, medication, activity — to tell you the risk you run, not the average.
+        Live forecast from Open-Meteo.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="../../climasafe/probar-ya/" data-i18n="cta_try">Probar ya</a>
+        <details class="cta-group">
+          <summary class="hero-cta" data-i18n="nav_docs_group">Documentación</summary>
+          <div class="cta-menu">
+            <a href="../../climasafe/documentacion/guia-usuario/" data-i18n="cta_user_guide">Guía de usuario</a>
+            <a href="../../climasafe/documentacion/" data-i18n="cta_dev_docs">Docs técnicas</a>
+          </div>
+        </details>
+        <details class="cta-group">
+          <summary class="hero-cta" data-i18n="nav_inst_group">Instalación</summary>
+          <div class="cta-menu">
+            <a href="../../climasafe/instalacion/#02">Docker</a>
+            <a href="../../climasafe/instalacion/#03" data-i18n="inst_pip">pip</a>
+            <a href="../../climasafe/instalacion/#05">Prompt agéntico</a>
+            <a href="../../climasafe/instalacion/#04">For developers</a>
+            <a href="../../climasafe/telegram.html" data-i18n="inst_telegram">Bot de Telegram</a>
+            <a href="../../climasafe/mcp.html">MCP</a>
+          </div>
+        </details>
+        <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
+        <a class="hero-cta" href="../../index.html" data-i18n="cta_back_projects">← back to projects</a>
+      </div>
     </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Inicio
-  
+  </section>
 
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Inicio
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Tabla de contenidos
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#que-hace-el-sistema" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Qué hace el sistema
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#arquitectura" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Arquitectura
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#componentes-y-como-se-integran" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Componentes y cómo se integran
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#documentacion-tecnica-por-tema" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Documentación técnica por tema
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#documentacion-interna-del-proyecto" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Documentación interna del proyecto
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#licencia" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Licencia
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="guia-usuario/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Guía de usuario
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="modelos-pesos/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Modelos y pesos
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="riesgo-personalizacion/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Riesgo y personalización
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="arquitectura/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Arquitectura
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="papers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Papers y fuentes
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="llm/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    LLM
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-  </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Tabla de contenidos
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#que-hace-el-sistema" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Qué hace el sistema
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#arquitectura" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Arquitectura
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#componentes-y-como-se-integran" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Componentes y cómo se integran
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#documentacion-tecnica-por-tema" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Documentación técnica por tema
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#documentacion-interna-del-proyecto" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Documentación interna del proyecto
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#licencia" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Licencia
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-  
-  
-
-
-<h1 id="climasafe-documentacion-tecnica">ClimaSafe — Documentación técnica</h1>
-<blockquote>
-<p><strong>Para desarrolladores e ingenieros.</strong> Documentación de integración, arquitectura
-y modelos. Si no eres técnico, usa la <a href="guia-usuario/">guía de usuario</a>.</p>
-</blockquote>
-<p>ClimaSafe es un sistema de <strong>aviso</strong> de riesgo cardiovascular por temperatura
-(calor / frío), personalizado por persona, ubicación, día y hora. Esta página
-es el punto de entrada a la documentación técnica: explica qué hace el sistema,
-cómo está construido y cómo se integra.</p>
-<h2 id="que-hace-el-sistema">Qué hace el sistema</h2>
-<p>ClimaSafe estima un nivel de riesgo — <strong>SEGURO / PRECAUCIÓN / PELIGRO</strong> — ante el
-calor y el frío, para cualquier punto de España y para el día (u hora) elegido.
-El resultado combina:</p>
-<ul>
-<li>Un <strong>riesgo poblacional</strong> calculado por un ensemble de modelos de ML a partir
-  de variables meteorológicas.</li>
-<li>Un <strong>riesgo individual</strong> que ajusta ese riesgo poblacional con los factores
-  personales del usuario (edad, comorbilidades, medicación, aclimatación…).</li>
-</ul>
-<h2 id="arquitectura">Arquitectura</h2>
-<p>El flujo completo es:</p>
-<pre><code>datos meteorológicos → features → modelos → ensemble conformal → personalización → canales
-</code></pre>
-<ol>
-<li><strong>Datos</strong>: Open-Meteo en tiempo real, ERA5 para entrenamiento, AEMET/OpenUV
-   y mortalidad MoMo como target.</li>
-<li><strong>Features</strong>: índices de sensación térmica (Heat Index, WBGT, Wind Chill) y
-   persistencia temporal.</li>
-<li><strong>Modelos</strong>: ensemble de XGBoost (calor), RandomForest (frío) y una LSTM con
-   embedding de provincia.</li>
-<li><strong>Ensemble conformal</strong>: se combinan ponderando por el tamaño del conjunto de
-   predicción conformal, con cobertura garantizada.</li>
-<li><strong>Personalización</strong>: factores multiplicativos de la literatura epidemiológica.</li>
-<li><strong>Canales</strong>: web, demo WebAssembly, bot de Telegram, servidor MCP y RAG.</li>
-</ol>
-<h2 id="componentes-y-como-se-integran">Componentes y cómo se integran</h2>
-<table>
-<thead>
-<tr>
-<th>Canal</th>
-<th>Qué ofrece</th>
-<th>Enlace</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Demo (WASM)</strong></td>
-<td>Pipeline completo en el navegador, sin servidor</td>
-<td><a href="https://cacelass.github.io/climasafe/probar-ya/">probar-ya</a></td>
-</tr>
-<tr>
-<td><strong>Bot de Telegram</strong></td>
-<td>Alertas diarias y consultas de riesgo</td>
-<td><a href="https://cacelass.github.io/climasafe/telegram.html">telegram.html</a></td>
-</tr>
-<tr>
-<td><strong>Servidor MCP</strong></td>
-<td>Acceso al motor de riesgo desde asistentes de IA</td>
-<td><a href="https://cacelass.github.io/climasafe/mcp.html">mcp.html</a></td>
-</tr>
-<tr>
-<td><strong>Repositorio</strong></td>
-<td>Código, modelos, datos y tests</td>
-<td><a href="https://github.com/ANFAIA/ClimaSafe">ANFAIA/ClimaSafe</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="documentacion-tecnica-por-tema">Documentación técnica por tema</h2>
-<table>
-<thead>
-<tr>
-<th>Página</th>
-<th>Qué explica</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="modelos-pesos/">Modelos y pesos</a></td>
-<td>Los 4 modelos + la fórmula, cómo se combinan (ensemble conformal), métricas, umbrales, el modelo bayesiano de contraste y los factores individuales con su peso.</td>
-</tr>
-<tr>
-<td><a href="riesgo-personalizacion/">Riesgo y personalización</a></td>
-<td>Índices de sensación térmica y la tabla completa de factores individuales con su peso y su fuente.</td>
-</tr>
-<tr>
-<td><a href="arquitectura/">Arquitectura</a></td>
-<td>El flujo completo: datos → features → modelos → ensemble → personalización → canales (web, demo, bot, MCP, RAG).</td>
-</tr>
-<tr>
-<td><a href="papers/">Papers</a></td>
-<td>La base científica: guías y estudios que sustentan índices, factores y umbrales.</td>
-</tr>
-<tr>
-<td><a href="llm/">LLM</a></td>
-<td>El papel del LLM (redacción, no predicción), modelos soportados, fine-tuning, RAG y hosting remoto gratuito.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="documentacion-interna-del-proyecto">Documentación interna del proyecto</h2>
-<p>La documentación completa (notas internas, decisiones, actas) vive en el repositorio:
-<a href="https://github.com/ANFAIA/ClimaSafe/tree/main/documentacion"><code>documentacion/</code></a>.</p>
-<h2 id="licencia">Licencia</h2>
-<p>ClimaSafe está publicado bajo <strong>Apache 2.0</strong>: se puede usar, modificar y
-distribuir libremente, incluso comercialmente, conservando el aviso de licencia.</p>
-<hr />
-<p>ClimaSafe se desarrolló como parte de las <strong>ANFAIA Summer Grants 2026</strong>.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-                
-              </article>
-            </div>
-          
-          
-<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+  <section class="section" id="impacto">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">00</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="tag_impact">impact</span>
+      </div>
+      <h2 class="sec-title" data-i18n="impact_title">The human cost</h2>
+      <div class="section-art" aria-hidden="true">
+        <svg viewBox="0 0 1200 240" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="skyI" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#450a0a"/><stop offset="0.65" stop-color="#1c0a08"/><stop offset="1" stop-color="#0a0a0c"/>
+            </linearGradient>
+            <radialGradient id="sunI" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0" stop-color="#fecaca"/><stop offset="0.4" stop-color="#ef4444"/><stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="1200" height="240" fill="url(#skyI)"/>
+          <circle cx="560" cy="140" r="180" fill="url(#sunI)" opacity="0.5"/>
+          <circle cx="560" cy="140" r="58" fill="#dc2626"/>
+          <g stroke="#f87171" stroke-width="1.5" opacity="0.4">
+            <line x1="560" y1="58" x2="560" y2="22"/><line x1="452" y1="78" x2="428" y2="48"/><line x1="668" y1="78" x2="692" y2="48"/>
+            <line x1="405" y1="140" x2="368" y2="130"/><line x1="715" y1="140" x2="752" y2="130"/>
+          </g>
+          <g fill="#0b0b0e" stroke="#3f3f46" stroke-width="1">
+            <rect x="30" y="150" width="70" height="90"/><rect x="120" y="120" width="55" height="120"/><rect x="195" y="165" width="80" height="75"/>
+            <rect x="295" y="135" width="60" height="105"/><rect x="375" y="175" width="90" height="65"/><rect x="485" y="152" width="65" height="88"/>
+            <rect x="570" y="180" width="80" height="60"/><rect x="670" y="145" width="60" height="95"/><rect x="750" y="170" width="85" height="70"/>
+            <rect x="855" y="132" width="55" height="108"/><rect x="930" y="162" width="75" height="78"/><rect x="1025" y="142" width="60" height="98"/>
+            <rect x="1105" y="170" width="70" height="70"/>
+          </g>
+          <g fill="#ef4444" opacity="0.9">
+            <rect x="948" y="208" width="13" height="32"/><rect x="967" y="196" width="13" height="44"/><rect x="986" y="180" width="13" height="60"/>
+            <rect x="1005" y="158" width="13" height="82"/><rect x="1024" y="136" width="13" height="104"/><rect x="1043" y="112" width="13" height="128"/>
+            <rect x="1062" y="92" width="13" height="148"/><rect x="1081" y="76" width="13" height="164"/>
+          </g>
+          <text x="1102" y="66" font-family="JetBrains Mono, monospace" font-size="14" fill="#f87171">+4.581</text>
+          <text x="52" y="58" font-family="JetBrains Mono, monospace" font-size="14" fill="#fca5a5" opacity="0.85">44,8 °C</text>
+          <text x="52" y="80" font-family="JetBrains Mono, monospace" font-size="11" fill="#f87171" opacity="0.7">ola de calor</text>
+        </svg>
+      </div>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-head">
+            <span class="impact-num" data-i18n="impact_2025_num">3,832</span>
+            <span class="impact-word" data-i18n="impact_word">deaths</span>
+            <span class="impact-lbl" data-i18n="impact_2025_lbl">Summer 2025 · MoMo · May 16 – Sep 30</span>
+          </div>
+          <p data-i18n-html="impact_2025_desc">deaths attributable to heat in Spain. <strong>57%</strong> occurred in August and <strong>84%</strong> were people over 74. The second deadliest summer on record — and the hottest since 1961 (AEMET).</p>
         </div>
-        
-          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
-  Volver al principio
-</button>
-        
-      </main>
-      
-<footer class="cs-footer">
-  <div class="cs-footer-inner">
-    <span class="cs-footer-dot"></span>
-    <strong>ClimaSafe</strong>
-    <span class="cs-footer-sep">—</span>
-    <a href="https://cacelass.github.io/" target="_blank" rel="noopener">cacelass.github.io</a>
-    <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank" rel="noopener">github.com/ANFAIA/ClimaSafe</a>
-  </div>
-</footer>
+        <div class="impact-card">
+          <div class="impact-head">
+            <span class="impact-num" data-i18n="impact_2026_num">4,581</span>
+            <span class="impact-word" data-i18n="impact_word">deaths</span>
+            <span class="impact-lbl" data-i18n="impact_2026_lbl">Summer 2026 · MoMo · as of Aug 19</span>
+          </div>
+          <p data-i18n-html="impact_2026_desc">deaths by August 19 alone: <strong>already exceeds all of summer 2025</strong>. July (2,025) was the second deadliest month of the series. With September ahead, 2022's record (4,789) is under threat.</p>
+        </div>
+      </div>
+      <p class="impact-note" data-i18n-html="impact_note">Since 2015, high temperatures have claimed <strong>more than 27,500 lives</strong> in Spain. Not headlines: excess mortality estimated over civil registries by the <a href="https://momo.isciii.es/panel_momo/" target="_blank">MoMo system</a> (Instituto de Salud Carlos III).<br />Heat doesn't warn twice — and with climate change, every summer will be hotter and deadlier than the last.</p>
+    </div>
+  </section>
 
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">01</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="tag_problem">problem</span>
+      </div>
+      <h2 class="sec-title" data-i18n="title_solves">What it solves</h2>
+      <div class="section-art" aria-hidden="true">
+        <svg viewBox="0 0 1200 240" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="skyS" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#0c1220"/><stop offset="1" stop-color="#09090b"/>
+            </linearGradient>
+          </defs>
+          <rect width="1200" height="240" fill="url(#skyS)"/>
+          <!-- termómetro -->
+          <g transform="translate(240,120)">
+            <rect x="-16" y="-95" width="32" height="150" rx="16" fill="#131316" stroke="#3f3f46"/>
+            <circle cx="0" cy="80" r="30" fill="#22c55e" stroke="#14532d"/>
+            <rect x="-8" y="-90" width="16" height="30" fill="#ef4444"/>
+            <rect x="-8" y="-60" width="16" height="50" fill="#f59e0b"/>
+            <rect x="-8" y="-10" width="16" height="75" fill="#22c55e"/>
+            <g font-family="JetBrains Mono, monospace" font-size="12" fill="#a1a1aa">
+              <text x="34" y="-75">peligro</text><text x="34" y="-35">precaución</text><text x="34" y="28">seguro</text>
+            </g>
+            <g stroke="#52525b" stroke-width="1">
+              <line x1="28" y1="-90" x2="16" y2="-90"/><line x1="28" y1="-60" x2="16" y2="-60"/>
+              <line x1="28" y1="-10" x2="16" y2="-10"/><line x1="28" y1="65" x2="16" y2="65"/>
+            </g>
+          </g>
+          <!-- mapa de puntos provincias -->
+          <g transform="translate(560,60)">
+            <g fill="#27272a">
+              <circle cx="0" cy="0" r="5"/><circle cx="34" cy="-18" r="5"/><circle cx="66" cy="6" r="5"/><circle cx="30" cy="30" r="5"/>
+              <circle cx="98" cy="-14" r="5"/><circle cx="130" cy="14" r="5"/><circle cx="100" cy="44" r="5"/><circle cx="164" cy="-8" r="5"/>
+              <circle cx="196" cy="20" r="5"/><circle cx="160" cy="52" r="5"/><circle cx="230" cy="0" r="5"/><circle cx="228" cy="44" r="5"/>
+            </g>
+            <circle cx="66" cy="6" r="7" fill="none" stroke="#f87171" stroke-width="2"/>
+            <circle cx="130" cy="14" r="7" fill="none" stroke="#f59e0b" stroke-width="2"/>
+            <circle cx="196" cy="20" r="7" fill="none" stroke="#22c55e" stroke-width="2"/>
+            <g font-family="JetBrains Mono, monospace" font-size="12">
+              <text x="52" y="-16" fill="#f87171">peligro</text><text x="118" y="-6" fill="#f59e0b">riesgo</text><text x="186" y="48" fill="#22c55e">seguro</text>
+            </g>
+          </g>
+          <!-- alerta temprana -->
+          <g transform="translate(960,120)">
+            <path d="M0 -70 L58 -46 L58 8 C58 44 30 66 0 78 C-30 66 -58 44 -58 8 L-58 -46 Z" fill="#131316" stroke="#ef4444" stroke-width="2"/>
+            <path d="M-20 0 L-6 16 L24 -18" fill="none" stroke="#22c55e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <g font-family="JetBrains Mono, monospace" font-size="12" fill="#f87171">
+              <text x="-52" y="108">alerta 24-72 h</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="proj-field-val proj-wide" data-i18n-html="climasafe_p1">
+        Heat and cold don't kill only on the day of the blow:<br />
+        they wear the body down over days, and the damage shows up late.<br /><br />
+        The system crosses each province's weather with <strong>real registered mortality</strong>
+        and computes every day's risk: safe, caution or danger.<br />
+        It's an early warning: it prefers to warn you — even if sometimes wrong — over staying silent.<br /><br />
+        It doesn't stop at the population average: it adjusts the risk to <strong>your age, health,
+        medication and activity</strong>, because a 72-year-old is not a 25-year-old runner.<br /><br />
+        And climate change isn't slowing down: every summer is hotter than the last and, with it,
+        risky days and their human cost keep rising.
+      </div>
+      <div class="dskit-grid">
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="stat_models">Models</div>
+          <div class="dskit-stat-val" data-i18n="climasafe_stat_models">XGBoost (heat) · RandomForest (cold) · LSTM province_hybrid · thermal indices</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="stat_data">Data</div>
+          <div class="dskit-stat-val" data-i18n="climasafe_stat_data">ERA5 (train) · Open-Meteo (live) · AEMET · OpenUV · MoMo mortality</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="stat_scope">Scope</div>
+          <div class="dskit-stat-val" data-i18n="climasafe_stat_scope">Personalized risk per person, province, day and hour · heat and cold</div>
+        </div>
+      </div>
     </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
+  </section>
+
+  <section class="section" id="usos">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">02</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="tag_uses">uses</span>
+      </div>
+      <h2 class="sec-title" data-i18n="usos_title">One system, many scenarios</h2>
+      <div class="featured-grid">
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg></div>
+          <div class="feat-name" data-i18n="uso_empresa_lbl">Companies (OSH)</div>
+          <p class="feat-desc" data-i18n-html="uso_empresa">Plan shifts and outdoor work with province-and-hour risk before every shift starts.</p>
+        </div>
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="12" cy="15" r="2.5"/></svg></div>
+          <div class="feat-name" data-i18n="uso_eventos_lbl">Events</div>
+          <p class="feat-desc" data-i18n-html="uso_eventos">Sports, festivals, open-air weddings: decide schedules, shade and medical staffing in advance.</p>
+        </div>
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="12" rx="2"/><line x1="12" y1="10" x2="12" y2="16"/><line x1="9" y1="13" x2="15" y2="13"/><circle cx="7" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></div>
+          <div class="feat-name" data-i18n="uso_emergencias_lbl">Emergency services</div>
+          <p class="feat-desc" data-i18n-html="uso_emergencias">Anticipate care demand and position resources before the peak, not during it.</p>
+        </div>
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+          <div class="feat-name" data-i18n="uso_individual_lbl">Personal use</div>
+          <p class="feat-desc" data-i18n-html="uso_individual">Your personalized cardiovascular risk anywhere in Spain, on the day and hour you choose.</p>
+        </div>
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-5.5 6-5.5s6 2 6 5.5"/><circle cx="17" cy="9" r="3"/><path d="M15.5 14.5c3 0 6.5 2 6.5 5.5"/></svg></div>
+          <div class="feat-name" data-i18n="uso_colectivos_lbl">Vulnerable groups</div>
+          <p class="feat-desc" data-i18n-html="uso_colectivos">Care homes, day centres and families with elderly: early warnings when a day's risk matters.</p>
+        </div>
+        <div class="feat-card">
+          <div class="uso-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="21" x2="21" y2="21"/><path d="M4 21V9m5 12V9m6 12V9m5 12V9"/><path d="M2 9l10-6 10 6H2z"/></svg></div>
+          <div class="feat-name" data-i18n="uso_municipios_lbl">Municipalities</div>
+          <p class="feat-desc" data-i18n-html="uso_municipios">Trigger local heat plans with province-level risk levels, not generic alerts.</p>
+        </div>
+      </div>
     </div>
-    
-    
-    
-      
-      
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
-    
-    
-      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
-      
-    
-  </body>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="tag_how">how it works</span>
+      </div>
+      <h2 class="sec-title" data-i18n="how_title">How it works</h2>
+      <div class="section-art" aria-hidden="true">
+        <svg viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="320" fill="#131316"/>
+          <rect x="0.5" y="0.5" width="1199" height="319" fill="none" stroke="#27272a"/>
+          <text x="40" y="26" font-family="JetBrains Mono, monospace" font-size="12" fill="#52525b">$ ./pipeline --split por-fecha --metrica recall</text>
+          <g font-family="JetBrains Mono, monospace" font-size="13">
+            <!-- datos -->
+            <rect x="40" y="125" width="150" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="115" y="154" text-anchor="middle" fill="#f87171">ERA5 · AEMET</text>
+            <text x="115" y="174" text-anchor="middle" fill="#a1a1aa">MoMo X30/X31</text>
+            <!-- features -->
+            <rect x="250" y="125" width="160" height="70" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="330" y="154" text-anchor="middle" fill="#f87171">features</text>
+            <text x="330" y="174" text-anchor="middle" fill="#a1a1aa">índices térmicos</text>
+            <!-- modelos -->
+            <rect x="470" y="41" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="73" text-anchor="middle" fill="#e2e8f0">XGBoost · calor</text>
+            <rect x="470" y="103" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="135" text-anchor="middle" fill="#e2e8f0">RandomForest · frío</text>
+            <rect x="470" y="165" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="197" text-anchor="middle" fill="#e2e8f0">LSTM · provincia</text>
+            <rect x="470" y="227" width="180" height="52" rx="10" fill="#0b0b0e" stroke="#3f3f46"/>
+            <text x="560" y="259" text-anchor="middle" fill="#e2e8f0">fórmula determinista</text>
+            <!-- ensemble -->
+            <rect x="710" y="125" width="170" height="70" rx="10" fill="rgba(239,68,68,0.12)" stroke="#ef4444"/>
+            <text x="795" y="154" text-anchor="middle" fill="#f87171">ensemble</text>
+            <text x="795" y="174" text-anchor="middle" fill="#a1a1aa">conformal</text>
+            <!-- salida -->
+            <rect x="940" y="125" width="220" height="70" rx="10" fill="#0b0b0e" stroke="#22c55e"/>
+            <text x="1050" y="154" text-anchor="middle" fill="#22c55e">riesgo persona-día-hora</text>
+            <text x="1050" y="174" text-anchor="middle" fill="#a1a1aa">seguro · precaución · peligro</text>
+            <!-- flechas -->
+            <g stroke="#52525b" stroke-width="2" fill="none">
+              <path d="M190 160 H244"/><path d="M410 160 H464"/>
+              <path d="M650 67 H688"/><path d="M650 129 H688"/><path d="M650 191 H688"/><path d="M650 253 H688"/>
+              <path d="M688 67 V253"/>
+              <path d="M688 160 H706"/>
+              <path d="M880 160 H934"/>
+            </g>
+            <g fill="#52525b">
+              <polygon points="244,160 236,156 236,164"/><polygon points="464,160 456,156 456,164"/>
+              <polygon points="706,160 698,156 698,164"/>
+              <polygon points="934,160 926,156 926,164"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="featured-grid">
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_data_lbl">Official data</div>
+          <p class="feat-desc" data-i18n-html="how_data">ERA5 and AEMET for weather; MoMo (Instituto de Salud Carlos III) as the target. Public, verifiable sources — nothing opaque.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_live_lbl">Live data</div>
+          <p class="feat-desc" data-i18n-html="how_live">Real-time forecast from Open-Meteo: the risk is computed with today's and the coming hours' weather, not yesterday's. Refreshable every hour.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_ensemble_lbl">Calibrated ensemble</div>
+          <p class="feat-desc" data-i18n-html="how_ensemble">XGBoost for heat, RandomForest for cold, an LSTM with province embedding and a <strong>deterministic formula</strong>. All the models are explainable and the final decision is an ensemble of the four:</p>
+          <div class="formula" aria-label="Ensemble formula">riesgo = Σ wᵢ·pᵢ &nbsp;·&nbsp; wᵢ ∝ 1/|Cᵢ|</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_conformal_lbl">It knows when to doubt</div>
+          <p class="feat-desc" data-i18n-html="how_conformal">Conformal prediction provides confidence levels: the system warns with the calm of someone who knows what it doesn't know.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_personal_lbl">Personalized risk</div>
+          <p class="feat-desc" data-i18n-html="how_personal">Age, sex, comorbidities, medication, acclimatisation and activity adjust your risk, not a population average.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_papers_lbl">Literature-based factors</div>
+          <p class="feat-desc" data-i18n-html="how_papers">The multipliers that adjust your risk (age, comorbidities, medication, acclimatisation...) come from <strong>published, peer-reviewed epidemiology papers</strong>, with their ranges and limits documented — not from opinion.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-name" data-i18n="how_rigor_lbl">No tricks</div>
+          <p class="feat-desc" data-i18n-html="how_rigor">Date-based splits, leakage control and honest published metrics. What can be checked, is checked.</p>
+        </div>
+      </div>
+      <p class="how-cta" data-i18n-html="how_cta">Want the details? Everything is in the <a href="../../climasafe/documentacion/">technical docs</a>.</p>
+    </div>
+  </section>
+
+  
+
+    <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">04</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="tag_results">results</span>
+      </div>
+      <h2 class="sec-title" data-i18n="title_results">Real numbers</h2>
+      <div class="metric-block">
+        <span class="metric-lbl" data-i18n="metric_lbl">Rec_riesgo (calibrated thresholds)</span>
+        <span class="metric-val" data-i18n-html="climasafe_metric1">XGBoost <strong>0.668</strong> (heat) · RF <strong>0.612</strong> (cold) · LSTM <strong>0.737</strong> heat / <strong>0.708</strong> cold.</span>
+      </div>
+      <div class="feat-chips">
+        <span class="stack-item" data-i18n="feat_chip_forecast">Weekly forecast with confidence bands</span>
+        <span class="stack-item" data-i18n="feat_chip_maps">km² risk maps</span>
+        <span class="stack-item" data-i18n="feat_chip_bot">Daily Telegram alerts</span>
+        <span class="stack-item" data-i18n="feat_chip_ai">AI assistants (MCP)</span>
+        <span class="stack-item" data-i18n="feat_chip_rag">RAG over the docs</span>
+      </div>
+      <p class="proj-field-val proj-wide" data-i18n-html="climasafe_p2">
+        All built for the <strong>ANFAIA Summer Grants 2026</strong>, with support from
+        <a href="https://www.cesga.es/" target="_blank">CESGA</a>, and generated from the
+        <a href="dskit.html">dskit</a> template. Architecture and evaluation detail lives in the
+        <a href="../../climasafe/documentacion/">technical docs</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Sponsors — al final -->
+  <div style="background:var(--surface);border-top:1px solid var(--border);padding:32px 0;">
+    <div class="container" style="display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;">
+      <span class="meta" data-i18n="sponsors_title" style="white-space:nowrap;">Proyectos patrocinados por</span>
+      <a href="https://anfaia.org/" target="_blank" style="display:inline-flex;text-decoration:none;opacity:0.9;transition:opacity 0.2s;">
+        <img src="https://anfaia.org/favicon.ico" alt="ANFAIA" style="height:34px;border-radius:6px;" />
+      </a>
+      <a href="https://www.cesga.es/" target="_blank" style="display:inline-flex;text-decoration:none;opacity:0.9;transition:opacity 0.2s;">
+        <img src="https://www.cesga.es/favicon.ico" alt="CESGA" style="height:34px;border-radius:6px;" />
+      </a>
+      <span style="color:var(--dim);font-size:0.8rem;">·</span>
+      <a href="https://github.com/ANFAIA/SkillNet" target="_blank" style="color:var(--muted);font-size:0.8rem;text-decoration:none;transition:color 0.2s;">SkillNet</a>
+      <a href="https://malariasentinel.com" target="_blank" style="color:var(--muted);font-size:0.8rem;text-decoration:none;transition:color 0.2s;">MalariaSentinel</a>
+      <a href="https://github.com/ANFAIA/Agentic-Smart-Health" target="_blank" style="color:var(--muted);font-size:0.8rem;text-decoration:none;transition:color 0.2s;">Agentic-Smart-Health</a>
+    </div>
+  </div>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span data-i18n="footer_role">— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+
+    document.addEventListener('click', (e) => {
+      document.querySelectorAll('details.cta-group[open]').forEach((d) => {
+        if (!d.contains(e.target)) d.removeAttribute('open');
+      });
+    });
+  </script>
+
+</body>
 </html>
