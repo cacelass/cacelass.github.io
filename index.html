@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alejandro Cancelas — ML Engineer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <meta name="description" content="ML Engineer specializing in credit risk, fraud detection, AML, time series, and agent-based systems. End-to-end ML from data to deployment." />
+  <meta name="theme-color" content="#111416" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="home.css?v=20260907d" />
   <script src="i18n.js?v=20260826f" defer></script>
 </head>
-<body>
+<body class="homepage">
+  <canvas class="site-signal-field" id="hero-signal-field" aria-hidden="true"></canvas>
 
-  <nav>
+  <nav aria-label="Navegación principal">
     <div class="nav-inner">
       <div class="nav-brand">
         <div class="nav-dot"></div>
@@ -25,19 +26,21 @@
         <li><a href="#reading" data-i18n="nav_reading">reading</a></li>
         <li><a href="blog/" data-i18n="nav_blog">blog</a></li>
         <li><a href="#contact" data-i18n="nav_contact">contact</a></li>
-        <li><a href="https://agentic-smart-health.lgarbayo.com/" target="_blank" data-i18n="nav_agentic">agentic smart health</a></li>
         <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
       </ul>
     </div>
   </nav>
 
-  <section class="hero">
+  <section class="hero" data-od-id="cover">
     <div class="container">
-      <div class="hero-eyebrow" data-i18n="hero_eyebrow">ML Engineer · Data Systems · GenAI</div>      <h1><span data-i18n="hero_h1_1">ML systems that</span><br /><span class="hl" data-i18n="hero_h1_2">survive production.</span></h1>
+      <div class="hero-layout">
+        <div class="hero-copy">
+      <div class="hero-eyebrow" data-i18n="hero_eyebrow">ML Engineer · Datos · Sistemas de decisión</div>
+      <h1><span data-i18n="hero_h1_1">Sistemas de ML para</span><br /><span class="hl" data-i18n="hero_h1_2">decisiones reales.</span></h1>
       <p class="hero-sub" data-i18n-html="hero_sub">
-        End-to-end ML from data to deployment: <strong>credit, fraud and AML</strong>, time series, and
-        agent-based systems with harnesses, RAG and fine-tuning. Calibration, reproducible evaluation
-        and leakage control as constraints, not afterthoughts. Six public systems, real numbers.
+        Construyo sistemas de ML de extremo a extremo para <strong>crédito, fraude, AML</strong> y series
+        temporales. El trabajo combina evaluación reproducible, control de fuga de datos y despliegues
+        que un equipo puede entender, mantener y auditar.
       </p>
       <div class="hero-logos">
         <!-- Python -->
@@ -61,22 +64,50 @@
         <span class="chip">RAG · AI Harness · Fine-tuning · LoRA · MCP · AI Agents</span>
         <span class="chip">ASIR background</span>
       </div>
-      <a class="hero-cta" href="https://github.com/cacelass" target="_blank">
+      <div class="hero-actions">
+        <a class="hero-cta" href="https://github.com/cacelass" target="_blank" rel="noopener noreferrer">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
         </svg>
         github.com/cacelass
       </a>
-      <a class="hero-cta" href="https://www.linkedin.com/in/cacelas/" target="_blank">
+        <a class="hero-cta hero-cta-secondary" href="https://www.linkedin.com/in/cacelas/" target="_blank" rel="noopener noreferrer">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
         </svg>
         linkedin.com/in/cacelas
-      </a>
+        </a>
+      </div>
+        </div>
+        <aside class="hero-panel" aria-label="Principios de trabajo" data-i18n-aria="hero_panel_label">
+          <div class="hero-panel-kicker" data-i18n="hero_panel_kicker">Principios de trabajo</div>
+          <div class="hero-panel-item">
+            <span class="hero-panel-index">01</span>
+            <div>
+              <strong data-i18n="hero_panel_one_title">Decisiones trazables</strong>
+              <p data-i18n="hero_panel_one_copy">Metricas, umbrales y validacion documentados.</p>
+            </div>
+          </div>
+          <div class="hero-panel-item">
+            <span class="hero-panel-index">02</span>
+            <div>
+              <strong data-i18n="hero_panel_two_title">Evaluacion primero</strong>
+              <p data-i18n="hero_panel_two_copy">Tiempo, fuga de datos y desbalance bajo control.</p>
+            </div>
+          </div>
+          <div class="hero-panel-item">
+            <span class="hero-panel-index">03</span>
+            <div>
+              <strong data-i18n="hero_panel_three_title">Entrega mantenible</strong>
+              <p data-i18n="hero_panel_three_copy">Codigo, entornos y despliegue reproducibles.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="about">
+  <section class="section" id="about" data-od-id="about">
     <div class="container">
       <div class="sec-head reveal">
         <span class="sec-num">$</span>
@@ -131,7 +162,7 @@
     </div>
   </section>
 
-  <section class="section section-dark" id="projects">
+  <section class="section section-dark" id="projects" data-od-id="projects">
     <div class="container">
       <div class="sec-head reveal">
         <span class="sec-num">$</span>
@@ -163,7 +194,7 @@
             <a href="climasafe/documentacion/" data-i18n="cta_dev_docs">docs técnicas</a> ·
             <a href="climasafe/mcp.html">mcp</a> ·
             <a href="climasafe/telegram.html">telegram</a> ·
-            <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github</a>
+            <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank" rel="noopener noreferrer">github</a>
           </div>
         </div>
 
@@ -208,7 +239,7 @@
     </div>
   </section>
 
-  <section class="section" id="stack">
+  <section class="section" id="stack" data-od-id="stack">
     <div class="container">
       <div class="sec-head reveal">
         <span class="sec-num">$</span>
@@ -311,7 +342,7 @@
     </div>
   </section>
 
-  <section class="section section-dark" id="reading">
+  <section class="section section-dark" id="reading" data-od-id="reading">
     <div class="container">
       <div class="sec-head reveal">
         <span class="sec-num">$</span>
@@ -321,27 +352,27 @@
       <h2 class="sec-title" data-i18n="reading_title">Libros que marcaron mi forma de trabajar</h2>
       <div class="more-list">
         <div class="more-item">
-          <div class="more-name"><a href="https://www.amazon.es/s?k=Weapons+of+Math+Destruction+Cathy+O%27Neil" target="_blank">Weapons of Math Destruction</a></div>
+          <div class="more-name"><a href="https://www.amazon.es/s?k=Weapons+of+Math+Destruction+Cathy+O%27Neil" target="_blank" rel="noopener noreferrer">Weapons of Math Destruction</a></div>
           <div class="more-desc" data-i18n="reading_desc_wmd">Cathy O'Neil. Why opaque, unregulated models amplify inequality — and why model risk is a first-class concern in finance.</div>
           <div class="more-tag" data-i18n="reading_tag_wmd">ethics · model risk</div>
         </div>
         <div class="more-item">
-          <div class="more-name"><a href="https://www.amazon.es/s?k=Prediction+Machines+Ajay+Agrawal" target="_blank">Prediction Machines</a></div>
+          <div class="more-name"><a href="https://www.amazon.es/s?k=Prediction+Machines+Ajay+Agrawal" target="_blank" rel="noopener noreferrer">Prediction Machines</a></div>
           <div class="more-desc" data-i18n="reading_desc_pm">Agrawal, Gans &amp; Goldfarb. The economics of prediction: what AI makes cheap and how it changes business decisions.</div>
           <div class="more-tag" data-i18n="reading_tag_pm">economics · AI</div>
         </div>
         <div class="more-item">
-          <div class="more-name"><a href="https://www.amazon.es/s?k=Designing+Machine+Learning+Systems+Chip+Huyen" target="_blank">Designing Machine Learning Systems</a></div>
+          <div class="more-name"><a href="https://www.amazon.es/s?k=Designing+Machine+Learning+Systems+Chip+Huyen" target="_blank" rel="noopener noreferrer">Designing Machine Learning Systems</a></div>
           <div class="more-desc" data-i18n="reading_desc_dmls">Chip Huyen. The reference on turning models into reliable systems: deployment, monitoring, drift and iteration.</div>
           <div class="more-tag" data-i18n="reading_tag_dmls">ml engineering</div>
         </div>
         <div class="more-item">
-          <div class="more-name"><a href="https://www.amazon.es/s?k=Do+Androids+Dream+of+Electric+Sheep+Philip+K+Dick" target="_blank">Do Androids Dream of Electric Sheep?</a></div>
+          <div class="more-name"><a href="https://www.amazon.es/s?k=Do+Androids+Dream+of+Electric+Sheep+Philip+K+Dick" target="_blank" rel="noopener noreferrer">Do Androids Dream of Electric Sheep?</a></div>
           <div class="more-desc" data-i18n="reading_desc_dade">Philip K. Dick. The classic on what it means to be intelligent, and why interfaces should feel like people.</div>
           <div class="more-tag" data-i18n="reading_tag_dade">fiction · AI</div>
         </div>
         <div class="more-item">
-          <div class="more-name"><a href="https://www.amazon.es/s?k=El+neandertal+desnudo+Ludovic+Slimak" target="_blank">El neandertal desnudo</a></div>
+          <div class="more-name"><a href="https://www.amazon.es/s?k=El+neandertal+desnudo+Ludovic+Slimak" target="_blank" rel="noopener noreferrer">El neandertal desnudo</a></div>
           <div class="more-desc" data-i18n="reading_desc_neandertal">Ludovic Slimak. Reconstructing behaviour from partial evidence — the same discipline as working with incomplete data.</div>
           <div class="more-tag" data-i18n="reading_tag_neandertal">curiosity</div>
         </div>
@@ -358,7 +389,7 @@
       </div>
       <ul class="footer-links">
         <li>
-          <a href="https://github.com/cacelass" target="_blank">
+          <a href="https://github.com/cacelass" target="_blank" rel="noopener noreferrer">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
             </svg>
@@ -374,7 +405,7 @@
            </a>
          </li>
          <li>
-           <a href="https://www.linkedin.com/in/cacelas/" target="_blank">
+           <a href="https://www.linkedin.com/in/cacelas/" target="_blank" rel="noopener noreferrer">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
             </svg>
@@ -384,6 +415,85 @@
       </ul>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var canvas = document.getElementById('hero-signal-field');
+      if (!canvas || !canvas.getContext) return;
+
+      var context = canvas.getContext('2d');
+      var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var width = 0;
+      var height = 0;
+      var pixelRatio = 1;
+      var frameId = 0;
+
+      function resize() {
+        pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+        width = Math.max(1, Math.floor(window.innerWidth));
+        height = Math.max(1, Math.floor(window.innerHeight));
+        canvas.width = Math.floor(width * pixelRatio);
+        canvas.height = Math.floor(height * pixelRatio);
+        context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      }
+
+      function signalY(stream, x, time) {
+        var baseline = height * (0.18 + stream * 0.13);
+        var waveA = Math.sin(x * 0.008 + time * (0.00032 + stream * 0.000018));
+        var waveB = Math.sin(x * 0.019 - time * 0.00019 + stream * 1.6);
+        return baseline + waveA * (13 + stream * 2) + waveB * 5;
+      }
+
+      function draw(time) {
+        context.clearRect(0, 0, width, height);
+        context.lineWidth = 1;
+
+        for (var stream = 0; stream < 6; stream++) {
+          context.beginPath();
+          for (var x = 0; x <= width; x += 12) {
+            var y = signalY(stream, x, time);
+            if (x === 0) context.moveTo(x, y);
+            else context.lineTo(x, y);
+          }
+          context.strokeStyle = stream === 2
+            ? 'rgba(33, 133, 95, 0.52)'
+            : 'rgba(33, 133, 95, 0.24)';
+          context.stroke();
+
+          var markerX = ((time * (0.045 + stream * 0.004) + stream * 173) % (width + 80)) - 40;
+          var markerY = signalY(stream, markerX, time);
+          context.fillStyle = stream === 2
+            ? 'rgba(20, 97, 68, 0.95)'
+            : 'rgba(33, 133, 95, 0.72)';
+          context.fillRect(markerX - 1.5, markerY - 1.5, 3, 3);
+        }
+
+        for (var tick = 0; tick < width; tick += 96) {
+          context.fillStyle = 'rgba(23, 36, 39, 0.12)';
+          context.fillRect(tick, 0, 1, height);
+        }
+      }
+
+      function animate(time) {
+        draw(time);
+        if (!reducedMotion) frameId = window.requestAnimationFrame(animate);
+      }
+
+      function onVisibilityChange() {
+        if (document.hidden) {
+          window.cancelAnimationFrame(frameId);
+        } else if (!reducedMotion) {
+          frameId = window.requestAnimationFrame(animate);
+        }
+      }
+
+      resize();
+      draw(0);
+      window.addEventListener('resize', resize, { passive: true });
+      document.addEventListener('visibilitychange', onVisibilityChange);
+      if (!reducedMotion) frameId = window.requestAnimationFrame(animate);
+    })();
+  </script>
 
   <script src="js/gsap.min.js"></script>
   <script src="js/ScrollTrigger.min.js"></script>

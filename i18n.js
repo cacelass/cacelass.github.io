@@ -34,10 +34,18 @@
       nav_agentic: "smart health IA",
       back_index: "← inicio",
       // Home
-      hero_h1_1: "Sistemas de ML que",
-      hero_h1_2: "sobreviven a producción.",
-      hero_eyebrow: "ML Engineer · Sistemas de Datos · GenAI",
-      hero_sub: "ML de extremo a extremo, de los datos al despliegue: <strong>crédito, fraude y AML</strong>, series temporales y sistemas basados en agentes con arneses, RAG y fine-tuning. Calibración, evaluación reproducible y control de fuga de datos como restricciones, no como añadidos. Seis sistemas públicos, números reales.",
+      hero_h1_1: "Sistemas de ML para",
+      hero_h1_2: "decisiones reales.",
+      hero_eyebrow: "ML Engineer · Datos · Sistemas de decisión",
+      hero_sub: "Construyo sistemas de ML de extremo a extremo para <strong>crédito, fraude, AML</strong> y series temporales. El trabajo combina evaluación reproducible, control de fuga de datos y despliegues que un equipo puede entender, mantener y auditar.",
+      hero_panel_label: "Principios de trabajo",
+      hero_panel_kicker: "Principios de trabajo",
+      hero_panel_one_title: "Decisiones trazables",
+      hero_panel_one_copy: "Métricas, umbrales y validación documentados.",
+      hero_panel_two_title: "Evaluación primero",
+      hero_panel_two_copy: "Tiempo, fuga de datos y desbalance bajo control.",
+      hero_panel_three_title: "Entrega mantenible",
+      hero_panel_three_copy: "Código, entornos y despliegue reproducibles.",
       about_title: "Sobre mí",
       tag_about: "sobre mí",
       tag_projects: "proyectos",
@@ -485,10 +493,18 @@
       nav_agentic: "smart health IA",
       back_index: "← index",
       // Home
-      hero_h1_1: "ML systems that",
-      hero_h1_2: "survive production.",
-      hero_eyebrow: "ML Engineer · Data Systems · GenAI",
-      hero_sub: "End-to-end ML from data to deployment: <strong>credit, fraud and AML</strong>, time series, and agent-based systems with harnesses, RAG and fine-tuning. Calibration, reproducible evaluation and leakage control as constraints, not afterthoughts. Six public systems, real numbers.",
+      hero_h1_1: "ML systems for",
+      hero_h1_2: "real decisions.",
+      hero_eyebrow: "ML Engineer · Data · Decision systems",
+      hero_sub: "I build end-to-end ML systems for <strong>credit, fraud, AML</strong> and time series. The work combines reproducible evaluation, leakage control and deployments that teams can understand, maintain and audit.",
+      hero_panel_label: "Working principles",
+      hero_panel_kicker: "Working principles",
+      hero_panel_one_title: "Traceable decisions",
+      hero_panel_one_copy: "Metrics, thresholds and validation are documented.",
+      hero_panel_two_title: "Evaluation first",
+      hero_panel_two_copy: "Time, leakage and class imbalance stay under control.",
+      hero_panel_three_title: "Maintainable delivery",
+      hero_panel_three_copy: "Code, environments and deployments stay reproducible.",
       about_title: "About me",
       tag_about: "about",
       tag_projects: "projects",
@@ -960,6 +976,11 @@
       } else {
         el.textContent = dict[key];
       }
+    }
+    var ariaNodes = document.querySelectorAll("[data-i18n-aria]");
+    for (var j = 0; j < ariaNodes.length; j++) {
+      var ariaKey = ariaNodes[j].getAttribute("data-i18n-aria");
+      if (ariaKey in dict) ariaNodes[j].setAttribute("aria-label", dict[ariaKey]);
     }
     var sel = document.getElementById("lang-select");
     if (sel) sel.value = lang;
