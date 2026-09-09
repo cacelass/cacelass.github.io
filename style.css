@@ -10,7 +10,7 @@
   /* ─── Foreground ─── */
   --text:       #f0efed;
   --muted:      #9a9897;
-  --dim:        #6e6d6c;
+  --dim:        #8a8988;
 
   /* ─── Accent (warm blue) ─── */
   --accent:     #3b82f6;
@@ -246,9 +246,9 @@ nav {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r2); padding: 24px;
-  transition: border-color var(--dur);
+  transition: border-color var(--dur), transform var(--dur), box-shadow var(--dur);
 }
-.about-card:hover { border-color: var(--border-hi); }
+.about-card:hover { border-color: var(--border-hi); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
 .about-card-icon {
   width: 32px; height: 32px;
   display: flex; align-items: center; justify-content: center;
@@ -273,9 +273,9 @@ nav {
   padding: 24px;
   display: flex; flex-direction: column;
   gap: 8px;
-  transition: border-color var(--dur);
+  transition: border-color var(--dur), transform var(--dur), box-shadow var(--dur);
 }
-.feat-card:hover { border-color: var(--border-hi); }
+.feat-card:hover { border-color: var(--border-hi); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
 .feat-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
 .feat-name { font-family: var(--mono); font-size: 0.88rem; font-weight: 500; overflow-wrap: break-word; word-break: break-word; }
 .feat-name a { color: var(--accent2); transition: color var(--dur); }
@@ -300,9 +300,9 @@ nav {
 .stack-card {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--r2); padding: 22px 24px;
-  transition: border-color var(--dur);
+  transition: border-color var(--dur), transform var(--dur), box-shadow var(--dur);
 }
-.stack-card:hover { border-color: var(--border-hi); }
+.stack-card:hover { border-color: var(--border-hi); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
 .stack-card-lbl {
   font-family: var(--sans); font-weight: 600; font-size: 0.82rem;
   color: var(--accent2); letter-spacing: 0.04em; text-transform: uppercase;
@@ -340,9 +340,9 @@ nav {
   display: flex; flex-direction: column; gap: 5px;
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--r); padding: 14px 16px;
-  transition: border-color var(--dur);
+  transition: border-color var(--dur), transform var(--dur), box-shadow var(--dur);
 }
-.more-item:hover { border-color: var(--border-hi); }
+.more-item:hover { border-color: var(--border-hi); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
 .more-name { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; overflow-wrap: break-word; word-break: break-word; }
 .more-name a { color: var(--accent2); }
 .more-name a:hover { color: #fff; }
@@ -427,9 +427,9 @@ footer { padding: 0; height: 52px; background: var(--bg); border-top: 1px solid 
 .proj-card {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--r2); overflow: hidden;
-  transition: border-color var(--dur), background var(--dur);
+  transition: border-color var(--dur), background var(--dur), transform var(--dur), box-shadow var(--dur);
 }
-.proj-card:hover { border-color: var(--border-hi); background: var(--surface2); }
+.proj-card:hover { border-color: var(--border-hi); background: var(--surface2); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
 .proj-top { padding: 18px 22px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .proj-name { font-family: var(--mono); font-size: 0.88rem; font-weight: 500; overflow-wrap: break-word; word-break: break-word; }
 .proj-name a { color: var(--text); transition: color var(--dur); }

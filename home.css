@@ -40,7 +40,7 @@
 
 .homepage .nav-id {
   color: var(--muted);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.72rem;
 }
 
@@ -70,7 +70,7 @@
   border-radius: 0;
   background: var(--surface);
   color: var(--text);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.68rem;
   padding: 5px 7px;
 }
@@ -132,7 +132,7 @@
   border-radius: 0;
   background: transparent;
   color: var(--green);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.69rem;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -195,7 +195,7 @@
   border-radius: 0;
   background: transparent;
   color: var(--muted);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.67rem;
   line-height: 1.45;
 }
@@ -225,12 +225,17 @@
   font-size: 0.78rem;
   font-weight: 650;
   padding: 9px 14px;
+  transition: background var(--dur), border-color var(--dur), color var(--dur), transform var(--dur);
 }
 
 .homepage .hero-cta:hover {
   background: var(--hp-green-dark);
   border-color: var(--hp-green-dark);
   color: #ffffff;
+  transform: translateY(-1px);
+}
+.homepage .hero-cta:active {
+  transform: translateY(0);
 }
 
 .homepage .hero-cta-secondary {
@@ -258,7 +263,7 @@
 
 .homepage .hero-panel-kicker {
   color: var(--green);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.07em;
@@ -276,7 +281,7 @@
 
 .homepage .hero-panel-index {
   color: var(--green);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.66rem;
 }
 
@@ -376,7 +381,7 @@
 .homepage .about-card-lbl,
 .homepage .stack-card-lbl {
   color: var(--green);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -420,7 +425,7 @@
 }
 
 .homepage .feat-name {
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.82rem;
   font-weight: 600;
 }
@@ -441,7 +446,7 @@
   border: 1px solid var(--border);
   border-radius: 0;
   color: var(--dim);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.62rem;
   line-height: 1.35;
   padding: 3px 6px;
@@ -465,7 +470,7 @@
 
 .homepage .feat-meta a {
   color: var(--green);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.68rem;
   font-weight: 600;
   text-decoration: none;
@@ -489,7 +494,7 @@
   border-radius: 0;
   background: var(--surface);
   color: var(--muted);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.68rem;
   padding: 4px 7px;
 }
@@ -566,7 +571,7 @@
 
 .homepage .footer-id {
   color: var(--muted);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.68rem;
 }
 
@@ -582,7 +587,7 @@
   border: 1px solid var(--border);
   border-radius: 0;
   color: var(--muted);
-  font-family: "SFMono-Regular", Consolas, monospace;
+  font-family: var(--mono);
   font-size: 0.67rem;
 }
 
