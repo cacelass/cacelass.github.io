@@ -607,6 +607,75 @@ footer { padding: 0; height: 52px; background: var(--bg); border-top: 1px solid 
 .dskit-dec-arrow { color: var(--accent); font-family: var(--mono); font-size: 0.73rem; flex-shrink: 0; padding-top: 1px; }
 .dskit-dec-text { font-size: 0.8rem; color: var(--text); line-height: 1.55; }
 
+/* ── ClimaSafe detail-page polish ── */
+.climasafe-page .sec-head.reveal { transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+
+.climasafe-page .proj-hero {
+  background:
+    radial-gradient(ellipse 640px 380px at 80% -10%, rgba(239,68,68,0.16) 0%, transparent 62%),
+    radial-gradient(ellipse 520px 320px at -6% 108%, rgba(251,191,36,0.08) 0%, transparent 60%),
+    var(--bg);
+}
+
+.climasafe-page .section-dark { background: #161311; }
+
+.climasafe-page .impact-card {
+  transition: border-color var(--dur), transform var(--dur), box-shadow var(--dur);
+}
+.climasafe-page .impact-card:hover {
+  border-color: #ef4444;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(127,29,29,0.28);
+}
+
+.climasafe-page .dskit-stat {
+  transition: border-color var(--dur), transform var(--dur);
+}
+.climasafe-page .dskit-stat:hover { border-color: var(--border-hi); transform: translateY(-1px); }
+
+.climasafe-page .metric-block {
+  margin: 0 0 26px;
+  background: #1a1412;
+  border-color: rgba(239,68,68,0.28);
+  padding: 14px 18px;
+}
+.climasafe-page .metric-lbl { color: #f87171; }
+
+/* Sponsor strip */
+.climasafe-page .sponsor-strip {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 26px 0;
+}
+.climasafe-page .sponsor-inner {
+  max-width: var(--max); margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 64px);
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; flex-wrap: wrap;
+}
+.climasafe-page .sponsor-lbl {
+  font-family: var(--mono); font-size: 0.72rem; color: var(--dim);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.climasafe-page .sponsor-logo {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: 0.78rem; color: var(--text);
+  padding: 7px 13px; border: 1px solid var(--border);
+  border-radius: var(--r); background: var(--bg2);
+  text-decoration: none;
+  transition: border-color var(--dur), color var(--dur), transform var(--dur);
+}
+.climasafe-page .sponsor-logo:hover { border-color: #ef4444; color: #fecaca; transform: translateY(-1px); }
+.climasafe-page .sponsor-logo img { height: 20px; border-radius: 4px; }
+.climasafe-page .sponsor-sep { color: var(--border); font-size: 0.8rem; }
+.climasafe-page .sponsor-link {
+  font-size: 0.82rem; color: var(--muted); text-decoration: none;
+  padding: 4px 8px; border-radius: var(--r);
+  transition: color var(--dur);
+}
+.climasafe-page .sponsor-link:hover { color: var(--text); }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .more-list { grid-template-columns: 1fr; }
