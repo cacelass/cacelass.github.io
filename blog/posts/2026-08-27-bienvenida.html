@@ -3,37 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#121110" />
   <title>Bienvenida al blog — Blog · Alejandro Cancelas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../style.css" />
-  <style>
-    .post-content { max-width: 720px; margin: 0 auto; }
-    .post-content h2 {
-      font-family: var(--display); font-weight: 400;
-      font-size: clamp(1.5rem, 3.5vw, 2rem); color: var(--accent2);
-      margin: 48px 0 16px; letter-spacing: -0.02em; line-height: 1.15;
-    }
-    .post-content h3 {
-      font-family: var(--sans); font-weight: 600; font-size: 1.15rem;
-      color: var(--text); margin: 32px 0 12px;
-    }
-    .post-content p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin: 0 0 20px; }
-    .post-content p strong { color: var(--text); font-weight: 500; }
-    .post-content a { color: var(--accent2); text-decoration: underline; text-underline-offset: 2px; }
-    .post-content a:hover { color: #fff; }
-    .post-content ul, .post-content ol { margin: 0 0 20px 22px; color: var(--muted); line-height: 1.8; font-size: 1.02rem; }
-    .post-content li { margin-bottom: 6px; }
-    .post-content blockquote {
-      border-left: 3px solid var(--accent); background: rgba(59,130,246,0.05);
-      padding: 12px 18px; margin: 0 0 20px; border-radius: 0 8px 8px 0;
-      color: var(--muted); font-style: italic;
-    }
-    .post-content pre.code-block { margin: 0 0 20px; }
-    .post-content img { max-width: 100%; border-radius: var(--r); border: 1px solid var(--border); margin: 8px 0 20px; }
-    .post-content hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
-  </style>
+  <link rel="stylesheet" href="../../blog/blog.css" />
   <script src="../../i18n.js?v=20260826f" defer></script>
 </head>
 <body class="blog-page">
@@ -71,7 +47,7 @@
     <div class="container">
       <div class="post-content">
 
-        <p>Por fin abro un sitio donde ir soltando las cosas que construyo y aprendo, fuera del formato rígido de los proyectos. Aquí va a haber de todo: decisiones de diseño, errores que cometo, notas sobre ML en producción y cualquier cosa que me parezca útil guardar.</p>
+        <p class="reveal">Por fin abro un sitio donde ir soltando las cosas que construyo y aprendo, fuera del formato rígido de los proyectos. Aquí va a haber de todo: decisiones de diseño, errores que cometo, notas sobre ML en producción y cualquier cosa que me parezca útil guardar.</p>
 
         <h2>Qué esperar</h2>
         <p>Nada de marketing. Si algo funcó, lo digo; si algo fue un desastre, también. El objetivo es tener <strong>memoria escrita</strong> de cómo pienso los sistemas de ML, no solo el resultado final pulido.</p>
@@ -107,5 +83,18 @@
     </div>
   </footer>
 
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
 </body>
 </html>
