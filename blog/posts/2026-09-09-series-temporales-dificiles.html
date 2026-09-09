@@ -50,12 +50,14 @@
         <p class="reveal">Hay un tipo de error en ML que no da error en la consola: el modelo se entrena, las métricas son buenas, todo parece correcto. Y luego, en producción, el modelo se comporta como una moneda al aire. Casi siempre, con datos temporales, la causa es la misma: <strong>la información del futuro se coló en el entrenamiento</strong>. Se llama fuga temporal (temporal leakage) y no la detecta ningún framework porque no es un bug de código, es un bug de diseño.</p>
 
         <h2>Por qué el tiempo importa más que los datos</h2>
-        <p>En un problema tabular normal, un split aleatorio funciona porque asumimos que cada fila es independiente. En series temporales ese supuesto es falso por construcción: cada observación depende de la anterior. La autocorrelación hace que filas cercanas en el tiempo sean casi el mismo ejemplo. Si mezclas el pasado con el futuro en el mismo split, el modelo <strong>aprende a memorizar el bloque temporal</strong>, no la relación causa-efecto que quieres que aprenda.</p>
+        <p>En muchos problemas tabulares asumimos que las observaciones son aproximadamente independientes, y por eso un split aleatorio funciona bien. Pero ese supuesto no siempre es cierto: con múltiples filas por usuario, medidas repetidas, dependencia espacial o transacciones de la misma entidad, un random split también puede colar información del futuro. En series temporales el problema es estructural: cada observación depende de la anterior, y la autocorrelación hace que filas cercanas en el tiempo sean casi el mismo ejemplo. Si mezclas el pasado con el futuro en el mismo split, el modelo <strong>aprende a memorizar el bloque temporal</strong>, no la relación causa-efecto que quieres que aprenda.</p>
 
         <p>Lo que hace a las series tan traicioneras es que la fuga no necesita ser obvia. Nadie pone deliberadamente la etiqueta del futuro en las features — la fuga se cuela por puertas laterales. Estas son las tres que más he visto:</p>
 
-        <h3>1. El scaler y los encoders entrenados con todo</h3>
-        <p>Fittar el <code>StandardScaler</code> o un <code>LabelEncoder</code> sobre el dataset completo antes de dividir es la forma más común y la más invisible. El scaler aprende la media y la varianza de <strong>todo el periodo</strong>, incluyendo el test. En producción no vas a tener los datos futuros para fittar el scaler: solo tienes la media del pasado. Ese desajuste entre el split y la realidad se convierte en degradación silenciosa.</p>
+        <h3>1. Transformaciones y preprocesamiento ajustados con todo el dataset</h3>
+        <p>La regla general es: <strong>cualquier paso de preprocesamiento que se ajusta sobre el conjunto completo usa información del periodo de test</strong>. El caso más claro es el <code>StandardScaler</code>, que aprende la media y la varianza de <strong>todo el periodo</strong>, incluyendo el futuro: en producción no vas a tener los datos futuros para fittar el scaler, solo la media del pasado. Ese desajuste entre el split y la realidad se convierte en degradación silenciosa.</p>
+
+        <p>Con el <code>LabelEncoder</code> el efecto es más sutil: que conozca categorías que aparecerán en el futuro no siempre filtra información útil sobre la distribución. La lección se aplica mejor en general — a la <strong>imputación</strong>, al <strong>target encoding</strong>, a la <strong>selección de variables</strong> o a cualquier feature engineering que se calcule una sola vez sobre el dataset completo. Todo lo que se ajusta antes del split está mirando hacia delante. La regla limpia es única: todo ajuste se fitta solo con los datos de entrenamiento de cada fold.</p>
 
         <h3>2. Features construidas mirando hacia adelante</h3>
         <p>Un rolling statistic mal hecho, un <code>shift</code> con signo equivocado, una variable que internamente ya ha visto el target. El caso clásico: una feature de "media de la última semana" implementada con ventana centrada en vez de desfasada. En el paper se ve perfecta; en producción es quebrar el tiempo.</p>
@@ -70,8 +72,8 @@
 
         <p>Esos tres puntos y medio son exactamente la diferencia entre un proyecto que "funciona" y un proyecto que un gestor de cartera va a mirar con recelo. Y lo peor: la curva de aprendizaje con el split estático parecía estable. Sin un procedimiento de evaluación honesto, no hay señal de que algo está mal.</p>
 
-        <h2>Walk-forward: la única evaluación honesta</h2>
-        <p>La regla es simple: <strong>el modelo solo puede ver el pasado para decidir, y el test siempre es un bloque futuro completo</strong>. Con <code>TimeSeriesSplit</code> o con folds de ventana expansiva, cada fold entrena con todo lo anterior y evalúa en el siguiente bloque. Nada del test filtra al train.</p>
+        <h2>Walk-forward: una de las formas más fiables de evaluar</h2>
+        <p>No es la única vía válida — según el problema también sirven rolling o expanding windows, backtesting con embargo/purging o un holdout temporal final —, pero comparte con todas una regla que no se negocia: <strong>el modelo solo puede ver el pasado para decidir, y el test siempre es un bloque futuro completo</strong>. Con <code>TimeSeriesSplit</code> o con folds de ventana expansiva, cada fold entrena con todo lo anterior y evalúa en el siguiente bloque. Nada del test filtra al train.</p>
 
         <pre class="code-block">from sklearn.model_selection import TimeSeriesSplit
 
@@ -82,7 +84,7 @@ for train_idx, test_idx in tscv.split(X):
     model.fit(X[train_idx], y[train_idx])
     y_pred = model.predict(scaler.transform(X[test_idx]))</pre>
 
-        <p>El scaler se fitta solo con el índice de train de cada fold. El target se construye con un desfase que lo deja fuera de las features (en mi caso, <code>shift(-5)</code> para una predicción a 5 días: el futuro solo etiqueta, nunca forma parte de las variables). Estas dos reglas —scaler dentro del fold y fecha de etiqueta posterior a todas las features— cubren las dos fugas más comunes.</p>
+        <p>El scaler se fitta solo con el índice de train de cada fold. El target se desplaza cinco días hacia delante, mientras que las features se construyen exclusivamente con información disponible hasta la fecha de predicción (en mi caso, <code>shift(-5)</code> para una predicción a 5 días: el futuro solo etiqueta, nunca forma parte de las variables). Estas dos reglas —scaler dentro del fold y características que nunca miran más allá de su fecha— cubren las dos fugas más comunes.</p>
 
         <h2>Detectar la fuga en CI</h2>
         <p>Una vez que sabes dónde se esconde la fuga, la enfrascas en un test que falle si reaparece. Lo que hice fue un test que recorre las features y verifica que ninguna correlacione por encima de un umbral con el target desfasado de forma ilegal, y otro que comprueba que las transformaciones no se fitten sobre índices de test. Es aburrido, pero es el tipo de aburrimiento que ahorra semanas.</p>
