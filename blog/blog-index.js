@@ -4,6 +4,30 @@
    2. Añade un objeto aquí, el más reciente primero.            */
 const POSTS = [
   {
+    slug: "2026-09-09-series-temporales-dificiles",
+    title: "Las series temporales son difíciles de verdad",
+    tag: "series temporales",
+    excerpt: "La fuga temporal es un error silencioso: las métricas se ven geniales y el modelo falla en el mundo real. Esto es quebrar el tiempo, no hacer ML."
+  },
+  {
+    slug: "2026-09-09-drift-produccion",
+    title: "Drift en producción: cuando el modelo envejece y nadie se da cuenta",
+    tag: "mlops",
+    excerpt: "El modelo no falla un día de golpe; se degrada en silencio. La mayoría de alertas de drift que he visto eran falsas alarmas — o llegaban demasiado tarde."
+  },
+  {
+    slug: "2026-09-09-aml-positivo-raro",
+    title: "AML cuando el positivo es 1 de cada 100.000",
+    tag: "aml",
+    excerpt: "Cuando el positivo es tan raro, las métricas habituales y las curvas dejan de servir. Hay que repensar qué significa 'encontrar'."
+  },
+  {
+    slug: "2026-09-09-conformal-prediction",
+    title: "Conformal prediction: la alternativa honesta a los intervalos que nunca se cumplen",
+    tag: "ml",
+    excerpt: "'Tenemos un 90% de confianza' es la frase más mentirosa del ML. La predicción conformal cambia el contrato: cobertura real, verificable, sin asumir normalidad."
+  },
+  {
     slug: "2026-08-27-bolsa-lucrativo",
     title: "ML y la bolsa: no vendo la promesa de hacerte rico",
     tag: "finanzas",

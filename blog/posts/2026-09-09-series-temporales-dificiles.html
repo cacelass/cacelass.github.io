@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#121110" />
+  <title>Las series temporales son difíciles de verdad — Blog · Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="../../blog/blog.css" />
+  <script src="../../i18n.js?v=20260826f" defer></script>
+</head>
+<body class="blog-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><strong>Alejandro Cancelas</strong> <span>/ blog</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../index.html">home</a></li>
+        <li><a href="../">blog</a></li>
+        <li><a href="../../projects/dskit.html">projects</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <a class="nav-back" href="../">← volver al blog</a>
+      <h1>Las series temporales son difíciles de verdad</h1>
+      <p class="hero-sub">La fuga temporal es un error silencioso: las métricas se ven geniales y el modelo falla en el mundo real. Esto es quebrar el tiempo, no hacer ML. <span class="proj-tag" style="margin-left:8px">series temporales</span></p>
+      <div class="hero-term" role="presentation">
+        <span class="term-prompt">cacelass@gh</span><span class="term-sep">:</span><span class="term-path">~/blog</span><span class="term-dollar">$</span>
+        <span class="term-cmd">cat temporal-leakage.md</span>
+        <span class="term-cursor"></span>
+      </div>
+      <p style="font-family:var(--mono); font-size:0.8rem; color:var(--muted)">6 min de lectura</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="post-content">
+
+        <p class="reveal">Hay un tipo de error en ML que no da error en la consola: el modelo se entrena, las métricas son buenas, todo parece correcto. Y luego, en producción, el modelo se comporta como una moneda al aire. Casi siempre, con datos temporales, la causa es la misma: <strong>la información del futuro se coló en el entrenamiento</strong>. Se llama fuga temporal (temporal leakage) y no la detecta ningún framework porque no es un bug de código, es un bug de diseño.</p>
+
+        <h2>Por qué el tiempo importa más que los datos</h2>
+        <p>En un problema tabular normal, un split aleatorio funciona porque asumimos que cada fila es independiente. En series temporales ese supuesto es falso por construcción: cada observación depende de la anterior. La autocorrelación hace que filas cercanas en el tiempo sean casi el mismo ejemplo. Si mezclas el pasado con el futuro en el mismo split, el modelo <strong>aprende a memorizar el bloque temporal</strong>, no la relación causa-efecto que quieres que aprenda.</p>
+
+        <p>Lo que hace a las series tan traicioneras es que la fuga no necesita ser obvia. Nadie pone deliberadamente la etiqueta del futuro en las features — la fuga se cuela por puertas laterales. Estas son las tres que más he visto:</p>
+
+        <h3>1. El scaler y los encoders entrenados con todo</h3>
+        <p>Fittar el <code>StandardScaler</code> o un <code>LabelEncoder</code> sobre el dataset completo antes de dividir es la forma más común y la más invisible. El scaler aprende la media y la varianza de <strong>todo el periodo</strong>, incluyendo el test. En producción no vas a tener los datos futuros para fittar el scaler: solo tienes la media del pasado. Ese desajuste entre el split y la realidad se convierte en degradación silenciosa.</p>
+
+        <h3>2. Features construidas mirando hacia adelante</h3>
+        <p>Un rolling statistic mal hecho, un <code>shift</code> con signo equivocado, una variable que internamente ya ha visto el target. El caso clásico: una feature de "media de la última semana" implementada con ventana centrada en vez de desfasada. En el paper se ve perfecta; en producción es quebrar el tiempo.</p>
+
+        <h3>3. El split estático 80/20</h3>
+        <p>En un problema temporal, hacer <code>train_test_split(random_state=42)</code> sin más es casi una garantía de optimismo. Por la autocorrelación, el 20% de test está repleto de observaciones casi idénticas a las del train (son días contiguos). Las métricas salen infladas y no representan nada de lo que pasará en el futuro real, que es otro bloque temporal completamente distinto.</p>
+
+        <h2>El ejemplo que me lo enseñó en números</h2>
+        <p>En <a href="../../projects/stock-market-prediction.html">Stock-Market-Prediction</a> lo comprobé con datos reales. El primer experimento usaba un split estático 80/20. Resultado: <strong>57.7% de accuracy</strong>. Cuando repliqué la evaluación con walk-forward — tres folds de ventana expansiva, entrenando solo con el pasado y evaluando en bloques futuros que el modelo nunca vio — la cifra cayó a <strong>54.1%</strong>. Tres puntos y medio de optimismo.</p>
+
+        <blockquote>La métrica no estaba mal calculada. El problema era que el pasado y el futuro compartían demasiada información. El modelo no mejoró al cambiar la evaluación: se reveló lo que ya era.</blockquote>
+
+        <p>Esos tres puntos y medio son exactamente la diferencia entre un proyecto que "funciona" y un proyecto que un gestor de cartera va a mirar con recelo. Y lo peor: la curva de aprendizaje con el split estático parecía estable. Sin un procedimiento de evaluación honesto, no hay señal de que algo está mal.</p>
+
+        <h2>Walk-forward: la única evaluación honesta</h2>
+        <p>La regla es simple: <strong>el modelo solo puede ver el pasado para decidir, y el test siempre es un bloque futuro completo</strong>. Con <code>TimeSeriesSplit</code> o con folds de ventana expansiva, cada fold entrena con todo lo anterior y evalúa en el siguiente bloque. Nada del test filtra al train.</p>
+
+        <pre class="code-block">from sklearn.model_selection import TimeSeriesSplit
+
+tscv = TimeSeriesSplit(n_splits=3)
+# cada fold: entrena con el pasado, evalúa en el bloque futuro
+for train_idx, test_idx in tscv.split(X):
+    scaler.fit(X[train_idx])
+    model.fit(X[train_idx], y[train_idx])
+    y_pred = model.predict(scaler.transform(X[test_idx]))</pre>
+
+        <p>El scaler se fitta solo con el índice de train de cada fold. El target se construye con un desfase que lo deja fuera de las features (en mi caso, <code>shift(-5)</code> para una predicción a 5 días: el futuro solo etiqueta, nunca forma parte de las variables). Estas dos reglas —scaler dentro del fold y fecha de etiqueta posterior a todas las features— cubren las dos fugas más comunes.</p>
+
+        <h2>Detectar la fuga en CI</h2>
+        <p>Una vez que sabes dónde se esconde la fuga, la enfrascas en un test que falle si reaparece. Lo que hice fue un test que recorre las features y verifica que ninguna correlacione por encima de un umbral con el target desfasado de forma ilegal, y otro que comprueba que las transformaciones no se fitten sobre índices de test. Es aburrido, pero es el tipo de aburrimiento que ahorra semanas.</p>
+
+        <p>Porque la fuga temporal no se nota en el momento. Se nota tres meses después, cuando el modelo que "subió con métricas buenísimas" se degrada por debajo de la línea base y nadie quiere tocar nada por miedo a romperlo.</p>
+
+        <h2>La lección</h2>
+        <p>Las series temporales no son difíciles porque los modelos sean complejos. Son difíciles porque <strong>el tiempo introduce un nuevo tipo de error que no existe en los datos tabulares</strong>: uno que no puedes ver mirando una matriz de confusión. La evaluación no es un trámite final; es la parte que decide si lo que construiste sirve para algo fuera de la pantalla.</p>
+
+        <hr />
+
+        <p>Si te ha resonado, el proyecto que lo demuestra con números es <a href="../../projects/stock-market-prediction.html">Stock-Market-Prediction</a>: quinientos setenta y siete, cincuenta y cuatro uno, y la diferencia entre ambos es el tamaño de la mentira que te cuenta un split sin tiempo.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass" target="_blank">github.com/cacelass</a></li>
+        <li><a href="https://www.linkedin.com/in/cacelas/" target="_blank">linkedin.com/in/cacelas</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>

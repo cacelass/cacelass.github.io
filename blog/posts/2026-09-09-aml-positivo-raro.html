@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#121110" />
+  <title>AML cuando el positivo es 1 de cada 100.000 — Blog · Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="../../blog/blog.css" />
+  <script src="../../i18n.js?v=20260826f" defer></script>
+</head>
+<body class="blog-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><strong>Alejandro Cancelas</strong> <span>/ blog</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../index.html">home</a></li>
+        <li><a href="../">blog</a></li>
+        <li><a href="../../projects/dskit.html">projects</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <a class="nav-back" href="../">← volver al blog</a>
+      <h1>AML cuando el positivo es 1 de cada 100.000</h1>
+      <p class="hero-sub">Los modelos de fraude clásicos tienen un problema. En AML no: tienen uno extremo. Cuando el positivo es tan raro, las métricas habituales y las curvas dejan de servir — y hay que repensar qué significa "encontrar". <span class="proj-tag" style="margin-left:8px">aml</span></p>
+      <div class="hero-term" role="presentation">
+        <span class="term-prompt">cacelass@gh</span><span class="term-sep">:</span><span class="term-path">~/blog</span><span class="term-dollar">$</span>
+        <span class="term-cmd">cat rare-positive-aml.md</span>
+        <span class="term-cursor"></span>
+      </div>
+      <p style="font-family:var(--mono); font-size:0.8rem; color:var(--muted)">6 min de lectura</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="post-content">
+
+        <p class="reveal">Hay un salto cualitativo entre un dataset "desbalanceado" de fraude — 90% no-fraude, 10% fraude — y el mundo real del AML. En AML y financiación del terrorismo, la tasa de positivos en el universo de operaciones que examinas puede ser de <strong>1 caso real por cada 100.000 operaciones</strong>, a veces menos. A esa escala, las herramientas que aprendiste para fraude dejan de funcionar, y no porque estén mal: porque los números ya no significan lo mismo.</p>
+
+        <h2>Por qué accuracy deja de ser una métrica</h2>
+        <p>Un modelo que diga "no hay nada" sobre todas las operaciones acierta el <strong>99.999%</strong> de las veces. Es un modelo perfecto en accuracy y completamente inútil. Cuando el positivo es raro, la precisión global no mide nada útil: todo el peso lo arrastra la clase mayoritaria.</p>
+
+        <p>Lo primero que se aprende es a mirar <strong>precision y recall sobre la clase positiva</strong>. Pero incluso eso se queda corto. Con 1 en 100.000, la curva PR — una de las herramientas favoritas en fraude — se vuelve un peine de señales: cualquier pequeña variación en un puñado de casos positivos la deforma por completo. La curva deja de ser estable y pasa a ser un retrato de la suerte de la muestra.</p>
+
+        <h2>El problema con las curvas cuando los positivos se cuentan con los dedos</h2>
+        <p>Toma un test con 500.000 operaciones. Con una tasa del 0.001%, hay unos 5 positivos reales. Ahora dibuja una curva PR sobre eso: cada punto de la curva es casi una anécdota individual sobre cada uno de esos 5 casos. Mover un umbral cambia si "cazaste" a uno u otro, y la métrica salta de forma espasmódica. La curva no te está diciendo nada sobre el modelo; te está contando la biografía de 5 transacciones concretas.</p>
+
+        <p>Por eso, en AML, la evaluación tiene que cambiar de contrato:</p>
+
+        <ul>
+          <li><strong>Tablas de cobertura por decil</strong>: en vez de una curva, reporta "en el 10% con mayor score se concentra el X% de los positivos". Se lee bien, es estable y no depende de un umbral exacto.</li>
+          <li><strong>Coste por caso detectado</strong>: en vez de "precisión 0.3", reporta "por cada 1.000 operaciones investigadas, encontramos 3 reales". Esa es la frase que un responsable de cumplimiento puede defender ante un auditor.</li>
+          <li><strong>Lift</strong>: cuántas veces más probabilidad tiene un caso marcado frente a uno al azar. En escalas así, un lift de 20x sigue siendo un modelo que merece la pena.</li>
+        </ul>
+
+        <h2>El coste no es el error: es la investigación</h2>
+        <p>La pieza que casi siempre falta en la conversación es el coste. En finanzas, cada alerta que genera el modelo se investiga a mano por un analista de cumplimiento, y esa investigación cuesta dinero y tiempo. Un modelo con precision del 2% genera 50 investigaciones vacías por cada verdadera. La métrica correcta no es solo "cuántos cazaste", sino <strong>cuántos cazaste por coste de investigación</strong>.</p>
+
+        <p>Esto cambia el umbral de decisión de una forma que a los datos no les gusta: no lo elige una curva, lo elige un presupuesto. "Podemos investigar 3.000 alertas al mes" es una restricción de negocio, y el modelo se diseña para maximizar detección dentro de ella. El umbral deja de ser una variable técnica y se convierte en un parámetro de negocio explícito, documentado y auditable.</p>
+
+        <h2>La pirámide de detección</h2>
+        <p>En la práctica, un sistema AML no es "un modelo". Es una cascada donde cada capa reduce el universo hasta la decisión final. Mi forma de pensar en ello:</p>
+
+        <ul>
+          <li><strong>Filtrado</strong>: reglas estáticas + modelos que reducen millones de operaciones a miles de alertas.</li>
+          <li><strong>Clasificación</strong>: el modelo de riesgo puntúa y ordena las alertas (no las descarta por sí solo).</li>
+          <li><strong>Investigación</strong>: el analista revisa la alerta con contexto trazable — entidades, cuentas relacionadas, patrones de asociación.</li>
+          <li><strong>Decisión</strong>: la alerta se cierra o genera el reporte regulatorio (STR/SAR).</li>
+        </ul>
+
+        <p>El modelo vive en la capa de clasificación, y su contrato es simple: <strong>no dejar que una operación real se pierda en el ruido, sin ahogar al analista en falsos positivos</strong>. Todo el contexto que el analista ve tiene que poder trazarse hasta el modelo y las reglas que lo generaron — si no, se vuelve una caja negra que nadie puede defender.</p>
+
+        <h2>Cuando no hay labels: el camino del aprendizaje semisupervisado</h2>
+        <p>El otro gran problema de AML es que las etiquetas vienen de investigaciones manuales, que son lentas y caras. Antes de tener 5.000 casos confirmados, tienes 3 años de historial sin etiquetar. Ahí es donde la detección de anomalías —aislamiento, autoencoders, cociente de anomalía— tiene sentido como primer pase: encuentra <em>lo raro</em>, y lo raro se entrega a las reglas y al analista. No como "estas son lavadoras", sino como "esto no se parece a nada de lo que vimos".</p>
+
+        <p>El truco sucio del que hay que desconfiar es asumir que lo que el analista marcó como sospechoso es un buen set de entrenamiento. La investigación humana está sesgada por sus propios filtros previos: si el humano solo revisó lo que las reglas le señalaron, su "no-problemático" también es una población filtrada. Entrenar con eso embebe el sesgo del sistema anterior.</p>
+
+        <h2>El componente ético que no puedes esquivar</h2>
+        <p>Un modelo que genera alertas de AML está decidiendo qué clientes van a ser investigados —y en la práctica, molestados—. Un falso positivo no es un número: es un cliente que recibe un formulario, una llamada o una congelación preventiva. Cuando el umbral lo pones tú, estás eligiendo qué proporción de clientes honestos van a pagar el coste de la vigilancia. Merece la pena no tratarlo como un hiperparámetro más, y documentarlo como lo que es: una decisión con impacto en personas.</p>
+
+        <blockquote>En AML la métrica más importante no se calcula. Es la pregunta de si el sistema caza lo correcto sin generar un martirio de falsos positivos a los que peor lo merecen.</blockquote>
+
+        <h2>La lección</h2>
+        <p>Cuando el positivo es 1 en 100.000, todo el toolkit "imbalance-first" que sirve para fraude necesita una revisión. Cambia el contrato de evaluación (tablas de cobertura, coste por caso), cambia la métrica de decisión (presupuesto de investigación), y cambia lo que significa entrenar (labels escasas y sesgadas). El modelo no es el problema. El problema es medir el progreso sin autoconvencerte.</p>
+
+        <hr />
+
+        <p>La experiencia de enfrentarse a estas escalas es larga y está hecha de decisiones incómodas. Si te interesa cómo la traslado a proyectos concretos, <a href="../../projects/credit-risk-classifier.html">credit-risk-classifier</a> muestra el enfoque imbalance-first en una escala más amable, y en el blog exploraré el aprendizaje semisupervisado aplicado a anomalías en otra entrada.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass" target="_blank">github.com/cacelass</a></li>
+        <li><a href="https://www.linkedin.com/in/cacelas/" target="_blank">linkedin.com/in/cacelas</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#121110" />
+  <title>Conformal prediction: la alternativa honesta a los intervalos que nunca se cumplen — Blog · Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="../../blog/blog.css" />
+  <script src="../../i18n.js?v=20260826f" defer></script>
+</head>
+<body class="blog-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><strong>Alejandro Cancelas</strong> <span>/ blog</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../index.html">home</a></li>
+        <li><a href="../">blog</a></li>
+        <li><a href="../../projects/dskit.html">projects</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <a class="nav-back" href="../">← volver al blog</a>
+      <h1>Conformal prediction: la alternativa honesta a los intervalos que nunca se cumplen</h1>
+      <p class="hero-sub">"Tenemos un 90% de confianza" es la frase más mentirosa del ML. La predicción conformal cambia el contrato: promete cobertura real, verificable, sin asumir normalidad ni cajas negras. <span class="proj-tag" style="margin-left:8px">ml</span></p>
+      <div class="hero-term" role="presentation">
+        <span class="term-prompt">cacelass@gh</span><span class="term-sep">:</span><span class="term-path">~/blog</span><span class="term-dollar">$</span>
+        <span class="term-cmd">cat conformal.md</span>
+        <span class="term-cursor"></span>
+      </div>
+      <p style="font-family:var(--mono); font-size:0.8rem; color:var(--muted)">6 min de lectura</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="post-content">
+
+        <p class="reveal">Casi todos los intervalos de confianza que veo en producción están mal. No porque el cálculo falle, sino porque <strong>el supuesto que los sostiene no se cumple</strong>. Los intervalos clásicos asumen normalidad o se basan en la varianza que el propio modelo predice — y esa varianza está calibrada contra la función de pérdida del entrenamiento, no contra la realidad. La predicción conformal existe para arreglar exactamente eso: darte una garantía que se cumple de verdad, y que además se puede comprobar.</p>
+
+        <h2>El problema con los intervalos clásicos</h2>
+        <p>Toma una red neuronal de regresión. Le dices que prediga un valor y una varianza, dibujas un intervalo y lo llamas "90% de confianza". ¿Qué significa realmente ese 90%? Significa que, <em>si el modelo estuviera perfectamente calibrado</em>, el 90% de las veces el valor real caería dentro. Lo sutil es el "si": esa calibración depende de que la distribución de errores se ajuste al supuesto del modelo, y en datos reales rara vez lo hace.</p>
+
+        <p>El resultado es el mismo de siempre: intervalos que en el papel cubren el 90% y en producción cubren el 60%. Y no hay manera de darse cuenta mirando el intervalo, porque la garantía era condicional a unos supuestos que nunca se comprobaron.</p>
+
+        <h2>La idea: medir el error, no asumirlo</h2>
+        <p>La predicción conformal cambia el enfoque por completo. En vez de asumir una distribución de errores, <strong>mide los errores de verdad en un conjunto de calibración</strong> y usa esas medidas para construir el intervalo. La garantía deja de ser una hipótesis y se convierte en un voto contado en los propios datos que tienes.</p>
+
+        <p>La versión más simple, split conformal, se hace en tres pasos:</p>
+
+        <pre class="code-block"># 1. Entrena con una parte (sin normalidad, sin nada raro)
+model.fit(X_train, y_train)
+
+# 2. Calibra: en un conjunto aparte, predice y guarda el error
+y_hat_cal = model.predict(X_cal)
+scores = np.abs(y_cal - y_hat_cal)          # no conformidad
+
+# 3. Toma el cuantil del error que cubra lo que prometes
+q = np.quantile(scores, 0.9)                # nivel 90%
+intervalo = [y_hat_test - q, y_hat_test + q]</pre>
+
+        <p>Ese cuantil del error en calibración es tu intervalo. Cumplir la cobertura del 90% no es un supuesto: es una <strong>propiedad matemáticamente garantizada</strong> (modulo que la calibración represente a la población de test). Finito, con garantía de muestra finita. Eso es lo que ninguna herramienta clásica te da.</p>
+
+        <h2>Por qué es "distribution-free"</h2>
+        <p>En ningún momento asumimos que los errores sean normales, que la varianza sea homogénea o que el modelo tenga ninguna forma concreta. El único supuesto es de <strong>intercambiabilidad</strong> entre los datos de calibración y los de test: que el error que vas a encontrarte en producción se parezca al error que mediste en calibración. Es un supuesto honesto y que se puede discutir — y esa discusión es exactamente lo que el negocio debería oír, en vez de "confía en la normalidad".</p>
+
+        <p>Funciona con cualquier modelo: regresión, clasificación y — esto es lo que más me interesa — <strong>conjuntos de predicción para clasificación</strong>. En vez de un intervalo de valores, obtienes un conjunto de clases posibles con una cobertura garantizada. Para un sistema de riesgo de mortalidad, el "conjunto" es más útil que el punto exacto.</p>
+
+        <h2>Lo que cambia el contrato con el negocio</h2>
+        <p>El punto que más vende la predicción conformal a alguien que tiene que tomar decisiones no es la matemática: es que <strong>la promesa es verificable</strong>. Puedes decir "este sistema genera intervalos que cubren el valor real en el 90% de los casos" y al cabo de un tiempo comprobar que es cierto contando, sobre casos reales, cuántas veces el valor cayó dentro. Eso no lo puedes hacer con un intervalo clásico que dependía de supuestos invisibles.</p>
+
+        <blockquote>Un intervalo conformal no es más preciso que un intervalo clásico. Es más honesto: promete solo lo que puede cumplir, y por tanto puedes auditarlo.</blockquote>
+
+        <p>La consecuencia práctica es una cobertura <strong>marginal</strong>, no condicional por punto. El intervalo promete el 90% en promedio sobre todos los casos, no que cada caso concreto tenga un 90% de probabilidad de estar dentro. Es una distinción sutil que el negocio necesita entender: hay regiones del espacio donde el intervalo será conservador (ancho) y otras donde será estrecho, porque el error real varía.</p>
+
+        <h2>Calibración de probabilidades y conformal no son lo mismo</h2>
+        <p>Vale la pena separarlos. La calibración clásica (isotónica, Platt, temperature scaling) te garantiza que un score de 0.9 signifique "90% de los casos con este score son positivos". La predicción conformal te garantiza otra cosa: que un <em>conjunto</em> de posibles resultados contenga el real con cierta cobertura. Una trabaja sobre las probabilidades; la otra, sobre los conjuntos de resultados.</p>
+
+        <p>Son complementarias. En <a href="../../projects/climasafe/">ClimaSafe</a> las uso a las dos: el ensamble está calibrado para que el riesgo numérico signifique lo que dice, y la predicción conformal produce los niveles (no, alerta, riesgo) con cobertura garantizada sobre la mortalidad real. La primera es la precisión; la segunda, la promesa.</p>
+
+        <h2>Las limitaciones que hay que decir en voz alta</h2>
+        <p>La cobertura es marginal, no por individuo. Si tu calibración se hizo con datos que no representan la producción — un shift de población, una estación distinta, un canal nuevo—, la garantía se degrada. "Distribution-free" no significa "libre de cambios de distribución": los conjuntos de calibración y test tienen que ser intercambiables, y si no lo son, la garantía viaja con un asterisco.</p>
+
+        <p>Tampoco arregla modelos malos. Un modelo con error grande produce intervalos conformales anchos — es la triste verdad saliendo a la luz. La predicción conformal no mejora el modelo; mejora la <strong>honestidad de lo que le reportas al mundo</strong>.</p>
+
+        <h2>Por qué merece la pena</h2>
+        <p>En sistemas de decisión donde el intervalo importa —riesgo, clima, dosificación, seguridad—, la predicción conformal convierte la incertidumbre en algo que se puede contractar. Se le puede decir al negocio: "cubrirás el 90% de los casos, y si no, te devolvemos los intervalos". Ese nivel de compromiso es raro en ML, y es justo el tipo de garantía que un sistema de producción de verdad necesita.</p>
+
+        <hr />
+
+        <p>Si te interesa verlo aplicado, <a href="../../projects/climasafe/">ClimaSafe</a> lo usa en producción con datos de mortalidad reales, y <a href="../../projects/dskit.html">dskit</a> incluye módulos de conformal prediction y calibración listos para conectar en cualquier proyecto generado.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass" target="_blank">github.com/cacelass</a></li>
+        <li><a href="https://www.linkedin.com/in/cacelas/" target="_blank">linkedin.com/in/cacelas</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>

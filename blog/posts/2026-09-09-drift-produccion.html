@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#121110" />
+  <title>Drift en producción: cuando el modelo envejece y nadie se da cuenta — Blog · Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="../../blog/blog.css" />
+  <script src="../../i18n.js?v=20260826f" defer></script>
+</head>
+<body class="blog-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><strong>Alejandro Cancelas</strong> <span>/ blog</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../index.html">home</a></li>
+        <li><a href="../">blog</a></li>
+        <li><a href="../../projects/dskit.html">projects</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <a class="nav-back" href="../">← volver al blog</a>
+      <h1>Drift en producción: cuando el modelo envejece y nadie se da cuenta</h1>
+      <p class="hero-sub">El modelo no falla un día de golpe; se degrada en silencio durante semanas. La mayoría de alertas de drift que he visto eran falsas alarmas — o llegaban demasiado tarde. <span class="proj-tag" style="margin-left:8px">mlops</span></p>
+      <div class="hero-term" role="presentation">
+        <span class="term-prompt">cacelass@gh</span><span class="term-sep">:</span><span class="term-path">~/blog</span><span class="term-dollar">$</span>
+        <span class="term-cmd">cat drift-in-prod.md</span>
+        <span class="term-cursor"></span>
+      </div>
+      <p style="font-family:var(--mono); font-size:0.8rem; color:var(--muted)">6 min de lectura</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="post-content">
+
+        <p class="reveal">Todos los modelos en producción se degradan. La pregunta no es si, sino <strong>cuándo te das cuenta</strong>. En los sistemas que he montado en finanzas, la diferencia entre un equipo que gestiona bien un modelo y uno que lo pierde casi nunca está en el modelo: está en lo que hacen cuando las métricas empiezan a moverse. Y la mayoría de veces, lo primero que "salta" es algo que no significa lo que parece.</p>
+
+        <h2>Dos tipos de mundo que se confunden constantemente</h2>
+        <p>Cuando hablamos de drift mezclamos dos fenómenos distintos, y confundirlos lleva a acciones equivocadas:</p>
+
+        <ul>
+          <li><strong>Drift de covariables</strong>: <code>P(X)</code> cambia. La distribución de las variables de entrada dejó de parecerse a la del entrenamiento. Los clientes ya no son los mismos, el mercado cambió, los datos entran con formato distinto.</li>
+          <li><strong>Drift de concepto</strong>: <code>P(y|X)</code> cambia. La relación entre las variables y el target ya no es la que el modelo aprendió. Esto es lo que de verdad rompe la utilidad del modelo — pero es justo lo más difícil de detectar.</li>
+        </ul>
+
+        <p>El drift de covariables no siempre es un problema. Un banco puede cambiar su base de clientes (nueva campaña de captación) sin que <code>P(y|X)</code> cambie un ápice: el modelo sigue funcionando igual, aunque la distribución de las entradas sea otra. Reentrenar para "arreglar" eso es gastar recursost reparando nada.</p>
+
+        <h2>PSI y KS: las herramientas clásicas y su trampa</h2>
+        <p>La forma más común de vigilar un modelo es comparar la distribución de su score en producción contra la del entrenamiento. La métrica estrella es el <strong>PSI</strong> (Population Stability Index): mides la distancia de las distribuciones de dos momentos, y si pasa de un umbral, "hay drift".</p>
+
+        <p>El problema: el PSI sobre el score tiene una trampa que nadie enseña en los cursos. Si el modelo ya se usa para tomar decisiones, <strong>el score en producción está truncado por la propia decisión</strong>. Solo ves los scores de los clientes que pasaron el filtro del modelo, no la población completa. Mides la distribución de un subconjunto sesgado y llamas drift a ese sesgo.</p>
+
+        <p>Lo mismo pasa con el KS cuando se aplica sobre los scores de producción: calcula la distancia entre las distribuciones del score en dos ventanas. Si el modelo ya está en uso, estás comparando distribuciones de scores que nunca fueron completas.</p>
+
+        <blockquote>No vigiles la proyección del modelo sobre los datos. Vigila las covariables directamente. El score ya está deformado por la decisión que tomaste con él.</blockquote>
+
+        <h2>La estacionalidad no es drift</h2>
+        <p>Hay un tercer enemigo que genera falsas alarmas: la estacionalidad. En tarjetas, Navidad dispara el gasto; en crédito, el cierre del mes concentra solicitudes; en clima, el verano cambia todas las variables. Si tu monitor de drift compara la semana actual contra el mes de entrenamiento (que es un periodo distinto del año), el PSI salta todos los años en las mismas fechas — y el equipo acaba ignorando las alertas por "familiaridad". Es el <strong>sesgo de la ventana de referencia</strong>.</p>
+
+        <p>La cura no es quitar el monitor: es comparar contra la ventana correcta. El mes de referencia debería ser el mismo mes del año anterior o una combinación de ambos, no el mes de entrenamiento. Si la alerta desaparece al comparar contra la estacionalidad esperada, no había drift: había un reloj.</p>
+
+        <h2>El drift de concepto llega tarde, y eso es la parte dura</h2>
+        <p>El drift de concepto solo se puede medir con etiquetas, y en finanzas las etiquetas llegan tarde: una mora se confirma a los 30–90 días, un fraude a veces a los 60. Cuando por fin ves que <code>P(y|X)</code> cambió, el modelo lleva un trimestre degradado. Por eso el monitor de drift de concepto es un <strong>retrovisor</strong>, no un sensor.</p>
+
+        <p>Lo que de verdad protege es la combinación: covariables en tiempo casi real (te avisan cuando el mundo cambia), más una evaluación de concepto a cámara lenta con las etiquetas que van llegando (te confirman si ese cambio del mundo rompió la relación). La primera te da velocidad; la segunda, verdad. Emplear ambas evita tanto reentrenar por una falsa alarma como llegar tarde a una real.</p>
+
+        <h2>Qué hacer cuando el drift es real</h2>
+        <p>Cuando la alerta es verdadera, la siguiente pregunta es cuál de los dos tipos cambió:</p>
+
+        <ul>
+          <li>Si cambian las <strong>covariables</strong> y el modelo sigue calibrado sobre etiquetas nuevas: a veces basta <strong>recalibrar</strong> (ajustar el umbral o el mapa a probabilidad), no reentrenar. Más barato, más rápido, menos riesgo de regresión.</li>
+          <li>Si cambia la <strong>relación</strong> (las etiquetas nuevas ya no cuadran con las viejas): hay que reentrenar, y el reentrenamiento se hace con la misma disciplina de evaluación que el original — walk-forward, sin fuga, con umbral re-decidido.</li>
+        </ul>
+
+        <p>La regla práctica que aprendí: <strong>nunca toques el modelo con una métrica de drift sola</strong>. El monitor solo señala dónde mirar; la decisión se toma con evidencia de etiquetas, o no se toma.</p>
+
+        <h2>El monitor como infraestructura, no como accesorio</h2>
+        <p>El monitor de drift no es un dashboard bonito que se mira los viernes. Es una pieza del ciclo de vida del modelo, y como tal debería estar versionada, probada y conectada a alertas que alguien tenga que atender. En <a href="../../projects/stock-market-prediction.html">Stock-Market-Prediction</a> usé PSI sobre las covariables directas, no sobre el score, precisamente para no medir la sombra del modelo. En <a href="../../projects/dskit.html">dskit</a> el monitor viene dentro de la plantilla, porque si no viene en la estructura, el proyecto se queda con "entrenar y rezar".</p>
+
+        <p>Un modelo sin monitor es un pasivo que nadie ve madurar. No es que falle y lo descubras: es que falla y lo descubres <strong>después de hubiera sido barato arreglarlo</strong>.</p>
+
+        <hr />
+
+        <p>La próxima vez que una alerta de drift "salte", pregúntate tres cosas: ¿estoy midiendo covariables o la sombra del modelo? ¿Estoy comparando contra la temporada correcta? ¿Tengo etiquetas que confirmen que la relación cambió? Si las tres respuestas son las correctas, entonces sí — es hora de hacer algo.</p>
+
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass" target="_blank">github.com/cacelass</a></li>
+        <li><a href="https://www.linkedin.com/in/cacelas/" target="_blank">linkedin.com/in/cacelas</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>
