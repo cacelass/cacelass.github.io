@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClimaSafe MCP — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../i18n.js?v=20260824e" defer></script>
+  <style>
+    /* code-block and note: handled by ../../style.css */
+  </style>
+</head>
+<body class="proj-page climasafe-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../index.html" class="nav-back" data-i18n="back_index">← index</a> <strong>Alejandro Cancelas</strong> <span>/ ClimaSafe · MCP</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../index.html#about" data-i18n="nav_about">about</a></li>
+        <li><a href="../index.html#projects" data-i18n="nav_projects">projects</a></li>
+        <li><a href="../index.html#stack" data-i18n="nav_stack">stack</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow" data-i18n="eyebrow_mcp">ClimaSafe · MCP server</div>
+      <h1><span data-i18n="mcp_h1_1">ClimaSafe as a</span><br /><span class="hl" data-i18n="mcp_h1_2">Model Context Protocol server.</span></h1>
+      <p class="hero-sub" data-i18n="mcp_sub">
+        The ClimaSafe risk engine — prediction, personal profiles, routines and risk charts —
+        exposed as an MCP server so any AI assistant can ask about heat and cold risk
+        directly from its own interface.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="telegram.html" data-i18n="cta_telegram_bot">Telegram bot</a>
+        <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
+        <a class="hero-cta" href="../projects/climasafe/" data-i18n="cta_back_project">← back to project</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">01</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="tag_what">what it is</span>
+      </div>
+      <h2 class="sec-title" data-i18n="title_mcp_what">An MCP for heat and cold risk</h2>
+      <div class="proj-field-val proj-wide">
+        The ClimaSafe MCP server exposes the same prediction engine as the web and the Telegram
+        bot, through the <strong>Model Context Protocol</strong>. An assistant configured with it
+        can fetch personal cardiovascular risk predictions, manage user profiles and routines, and
+        render the hourly risk chart, all without leaving the chat.
+      </div>
+      <div class="dskit-grid">
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="stat_tools">Tools</div>
+          <div class="dskit-stat-val" data-i18n="tools_val">risk prediction · risk chart · profiles · routines</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="stat_access">Access</div>
+          <div class="dskit-stat-val" data-i18n="access_val">read-only by default · writes need a token</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="stat_transport">Transport</div>
+          <div class="dskit-stat-val" data-i18n="transport_val">stdio (local) · SSE (remote)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">02</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="tag_connect">connect</span>
+      </div>
+      <h2 class="sec-title" data-i18n="title_connect">Add it to Claude Desktop, opencode or Cline</h2>
+      <div class="proj-field-val proj-wide">
+        Add the server to your <code>opencode.json</code>, <code>.mcp.json</code> or equivalent MCP
+        configuration. It runs with <code>uv</code>, so the project environment is resolved
+        automatically:
+      </div>
+      <pre class="code-block">{
+  "mcpServers": {
+    "climasafe": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "agents.tools.prediction_mcp_tool", "--stdio"]
+    }
+  }
+}</pre>
+      <div class="proj-field-val proj-wide">
+        Run it from the root of the ClimaSafe repository. On Claude Desktop, paste the same block
+        into <code>claude_desktop_config.json</code> under <code>mcpServers</code>.
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="tag_permissions">permissions</span>
+      </div>
+      <h2 class="sec-title" data-i18n="title_permissions">Read-only by default, writes behind a token</h2>
+      <div class="note" data-i18n="mcp_note_token" data-i18n-html>
+        <strong>Sin token, solo lectura.</strong> El servidor arranca en modo solo lectura cuando no hay token de escritura. Las operaciones de escritura — crear o borrar perfiles, gestionar rutinas, configurar alertas diarias — requieren <code>CLIMASAFE_MCP_WRITE_TOKEN</code> en el entorno. Las predicciones y gráficas de riesgo funcionan sin él.
+      </div>
+      <div class="proj-field-val proj-wide">
+        Source, tools and the full component map live in the repository:
+        <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
+        — see <a href="https://github.com/ANFAIA/ClimaSafe/blob/main/documentacion/componentes.md" target="_blank">documentacion/componentes.md</a>
+        for how the MCP server fits into the system.
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span data-i18n="footer_role">— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
+
+</body>
+</html>

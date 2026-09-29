@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClimaSafe · Instalación — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <script src="../../i18n.js?v=20260826a" defer></script>
+  <style>
+    .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 24px 0; }
+    @media (max-width: 700px) { .method-grid { grid-template-columns: 1fr; } }
+    .method-card {
+      background: var(--surface); border: 1px solid var(--border-hi);
+      border-radius: var(--r2); padding: 24px;
+    }
+    .method-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .method-card .tag {
+      display: inline-block; font-family: var(--mono); font-size: 0.68rem;
+      color: var(--accent2); background: var(--accent-lo);
+      border: 1px solid rgba(37,99,235,0.2); border-radius: 20px;
+      padding: 2px 8px; margin-bottom: 12px;
+    }
+    .method-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+    .method-card .code-block { margin-top: 0; }
+    .req-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 0.85rem; }
+    .req-table th, .req-table td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+    .req-table th { color: var(--muted); font-weight: 500; font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .req-table td { color: var(--text); }
+    .req-table td:first-child { font-family: var(--mono); color: var(--accent2); }
+  </style>
+</head>
+<body class="proj-page climasafe-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../../index.html" class="nav-back" data-i18n="back_index">← index</a> <strong>Alejandro Cancelas</strong> <span>/ ClimaSafe · Instalación</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../index.html#about" data-i18n="nav_about">about</a></li>
+        <li><a href="../../index.html#projects" data-i18n="nav_projects">projects</a></li>
+        <li><a href="../../index.html#stack" data-i18n="nav_stack">stack</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow" data-i18n="eyebrow_inst">ClimaSafe · instalación</div>
+      <h1><span data-i18n="inst_h1_1">ClimaSafe en</span><br /><span class="hl" data-i18n="inst_h1_2">minutos.</span></h1>
+      <p class="hero-sub" data-i18n="inst_sub">
+        Dos formas de ejecutar la pipeline completa (modelos ML, API, bot de Telegram, servidor MCP): un <strong>comando Docker</strong> o <strong>pip</strong> en cualquier máquina con Python ≥ 3.12.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="../probar-ya/" data-i18n="cta_try">Probar ya</a>
+        <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
+        <a class="hero-cta" href="../documentacion/" data-i18n="cta_dev_docs">Docs técnicas</a>
+        <a class="hero-cta" href="../../projects/climasafe/" data-i18n="cta_back_project">← volver al proyecto</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="01" class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="sec01_tag">requisitos</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_req_title">Lo que necesitas</h2>
+      <table class="req-table">
+        <thead>
+          <tr>
+            <th data-i18n="th_component">Componente</th>
+            <th data-i18n="th_version">Versión</th>
+            <th data-i18n="th_notes">Notas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Python</td><td>≥ 3.12</td><td data-i18n="req_python_note">Necesario para pip install</td></tr>
+          <tr><td>Docker</td><td>≥ 24</td><td data-i18n="req_docker_note">Opcional — para la ruta de un comando</td></tr>
+          <tr><td>uv</td><td>latest</td><td data-i18n="req_uv_note">Recomendado para desarrollo</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="02" class="section section-dark">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="sec02_tag">docker</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_docker_title">Docker</h2>
+      <div class="method-grid">
+        <div class="method-card">
+          <span class="tag" data-i18n="tag_easiest">más fácil</span>
+          <h3 data-i18n="docker_run_title">Ejecutar la imagen</h3>
+          <p data-i18n="docker_run_desc">Un solo comando arranca el servidor web con modelos pre-entrenados:</p>
+          <pre class="code-block">docker run -d --name climasafe \
+  -p 8080:8080 \
+  ghcr.io/cacelass/climasafeai:latest</pre>
+          <p data-i18n="docker_run_after">Después abre <strong>http://localhost:8080</strong>. Sin entrenamiento, sin configuración.</p>
+        </div>
+        <div class="method-card">
+          <span class="tag">compose</span>
+          <h3 data-i18n="docker_compose_title">Con Docker Compose</h3>
+          <p data-i18n="docker_compose_desc">Clona el repo y usa compose para un setup más controlado:</p>
+          <pre class="code-block">git clone https://github.com/ANFAIA/ClimaSafe.git
+cd ClimaSafe
+docker compose up -d          # web server only</pre>
+          <p data-i18n="docker_compose_note">Los datos persisten en volúmenes nombrados. Empieza de cero con <code>docker compose down -v</code>.</p>
+        </div>
+      </div>
+
+      <div class="method-card" style="margin-top:18px;">
+        <span class="tag">opcional</span>
+        <h3 data-i18n="docker_bot_title">Bot de Telegram</h3>
+        <p data-i18n="docker_bot_desc">El bot corre en un perfil separado y necesita un token de @BotFather:</p>
+        <pre class="code-block">cp .env.example .env           # add your TELEGRAM_BOT_TOKEN
+docker compose --profile bot up -d</pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="03" class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="sec03_tag">pip</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_pip_title">Opción B — pip (Python ≥ 3.12)</h2>
+      <div class="method-card">
+        <span class="tag">flexible</span>
+        <h3 data-i18n="pip_install_title">Instalar desde GitHub</h3>
+        <pre class="code-block"># create and activate a virtual environment
+python3 -m venv .venv && source .venv/bin/activate
+pip install --upgrade pip
+
+# install with the extras you need
+pip install "climasafeai[api,supervisado,redes_neuronales,mlflow_tracking]" \
+    git+https://github.com/ANFAIA/ClimaSafe.git</pre>
+        <p data-i18n="pip_extras_note">Extras disponibles: <code>api</code> (FastAPI/uvicorn), <code>supervisado</code> (XGBoost/LightGBM/SHAP), <code>redes_neuronales</code> (PyTorch/LSTM), <code>mlflow_tracking</code>, <code>voice</code> (STT/TTS), <code>rag</code> (embeddings), <code>onnx</code>.</p>
+      </div>
+
+      <div class="note" style="margin-top:24px;">
+        <strong data-i18n="pip_entry_title">Comandos CLI instalados:</strong>
+      </div>
+      <table class="req-table">
+        <thead>
+          <tr>
+            <th data-i18n="th_command">Comando</th>
+            <th data-i18n="th_what">Qué hace</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>climasafeai-bot</td><td data-i18n="cmd_bot">Arranca el bot de Telegram (necesita TELEGRAM_BOT_TOKEN)</td></tr>
+          <tr><td>climasafeai-mcp</td><td data-i18n="cmd_mcp">Servidor MCP de predicción (Claude Desktop / Cursor)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="04" class="section section-dark">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">04</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="sec04_tag">desarrollo</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_dev_title">Para desarrolladores</h2>
+      <div class="method-card">
+        <span class="tag">source</span>
+        <h3 data-i18n="dev_setup_title">Clonar y configurar</h3>
+        <pre class="code-block">git clone https://github.com/ANFAIA/ClimaSafe.git
+cd ClimaSafe
+./init.sh                       # full environment check
+# or: uv sync --extra dev --extra supervisado
+source .venv/bin/activate</pre>
+        <p data-i18n="dev_commands_note">Una vez configurado, usa el Makefile:</p>
+        <pre class="code-block">make run          # full pipeline (data → train → predict → reports/)
+make serve        # FastAPI at localhost:8000 (interactive docs at /docs)
+make test         # full pytest suite
+make lint         # ruff check
+make mlflow       # MLflow UI at localhost:5000</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 — Agent prompt -->
+  <section id="05" class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">05</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="sec05_tag">agente</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_agent_title">Instala con tu agente de IA</h2>
+      <p class="proj-wide" data-i18n="inst_agent_desc">
+        Copia este prompt en Claude Code, Cursor, Gemini CLI o cualquier agente de codificación con acceso a la terminal. El agente clonará, configurará y arrancará ClimaSafe automáticamente.
+      </p>
+      <div class="method-card" style="max-width:720px;">
+        <span class="tag">copy &amp; paste</span>
+        <h3 data-i18n="agent_prompt_title">Prompt de instalación</h3>
+        <pre class="code-block" id="agent-prompt">Clone https://github.com/ANFAIA/ClimaSafe.git into ~/ClimaSafe,
+cd into it, run ./init.sh to verify the environment,
+then execute `make run` to run the full pipeline
+(data → train → predict → reports/).
+If ./init.sh fails, fix the issue and retry.
+Report the final output of `make run`.</pre>
+        <button class="hero-cta" onclick="navigator.clipboard.writeText(document.getElementById('agent-prompt').textContent).then(()=>{this.textContent='Copiado ✓';setTimeout(()=>this.textContent='Copiar prompt',1800)})" data-i18n="btn_copy">Copiar prompt</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 — Docker Compose desde GitHub -->
+  <section id="06" class="section section-dark">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">06</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">compose · github</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_compose_gh_title">Docker Compose — construir desde GitHub</h2>
+      <p class="proj-wide" data-i18n="inst_compose_gh_desc">Si prefieres compilar desde el fuente en vez de descargar una imagen pre-hecha, usa este <code>compose.gh.yml</code>. Clona el repo, construye la imagen y ejecuta la pipeline — todo con un solo comando.</p>
+      <div class="method-card" style="max-width:720px;">
+        <span class="tag">compose.gh.yml</span>
+        <pre class="code-block">curl -O https://raw.githubusercontent.com/ANFAIA/ClimaSafe/main/compose.gh.yml
+docker compose -f compose.gh.yml up -d</pre>
+        <pre class="code-block">services:
+  climasafe:
+    build:
+      context: https://github.com/ANFAIA/ClimaSafe.git#main
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - climasafe-data:/app/data
+      - climasafe-models:/app/models
+    env_file: .env
+
+  bot:
+    profiles: ["bot"]
+    build:
+      context: https://github.com/ANFAIA/ClimaSafe.git#main
+      dockerfile: Dockerfile
+    command: climasafeai-bot
+    env_file: .env
+    depends_on: [climasafe]
+
+volumes:
+  climasafe-data:
+  climasafe-models:</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 — MCP (local HTTP + web/GitHub Pages) -->
+  <section id="07" class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">07</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">mcp</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_mcp_web_title">Servidor MCP</h2>
+      <p class="proj-wide" data-i18n="inst_mcp_web_desc">
+        El <strong>servidor MCP de ClimaSafe</strong> expone predicción, perfiles, rutinas y gráficas de riesgo como herramientas MCP. Funciona sobre <strong>HTTP por defecto</strong> (Streamable HTTP según la spec MCP 2025-06-18+) — sin configuración extra.
+      </p>
+      <div class="method-grid">
+        <div class="method-card">
+          <span class="tag">http (default)</span>
+          <h3 data-i18n="mcp_http_title">Arrancar el servidor</h3>
+          <pre class="code-block">pip install "climasafeai[mcp]" \
+    git+https://github.com/ANFAIA/ClimaSafe.git
+climasafeai-mcp              # Streamable HTTP on :8101</pre>
+          <p data-i18n="mcp_http_note">Funciona con <strong>Claude Desktop</strong>, <strong>Cursor</strong> y <strong>Windsurf</strong>.</p>
+        </div>
+        <div class="method-card">
+          <span class="tag">web · github pages</span>
+          <h3 data-i18n="mcp_web_title">Cliente web</h3>
+          <p data-i18n="mcp_web_desc">Abre el cliente web y conéctalo a tu servidor local. Sin instalar nada en el navegador.</p>
+          <pre class="code-block">https://cacelass.github.io/climasafe/mcp-web/</pre>
+          <p>El cliente web (alojado en GitHub Pages) se conecta a tu servidor MCP local en <code>http://localhost:8101/mcp</code>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 — Ecosistema -->
+  <section id="08" class="section section-dark">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-num">08</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">ecosistema</span>
+      </div>
+      <h2 class="sec-title" data-i18n="inst_ecosystem_title">El ecosistema detrás de ClimaSafe</h2>
+      <p class="proj-wide" data-i18n="inst_ecosystem_desc">ClimaSafe es parte de un esfuerzo mayor en IA aplicada para la resiliencia climática. Conoce las organizaciones y proyectos que lo hacen posible.</p>
+      <div class="method-grid">
+        <div class="method-card">
+          <span class="tag">anfaia</span>
+          <h3>ANFAIA</h3>
+          <p data-i18n="ecosystem_anfaia_desc">IA aplicada para la resiliencia climática. Investigación, herramientas y despliegues reales.</p>
+          <a class="hero-cta" href="https://anfaia.org/" target="_blank">anfaia.org</a>
+        </div>
+        <div class="method-card">
+          <span class="tag">cesga</span>
+          <h3>CESGA</h3>
+          <p data-i18n="ecosystem_cesga_desc">Centro de supercomputación de Galicia. Recursos HPC para entrenamiento e inferencia de modelos.</p>
+          <a class="hero-cta" href="https://www.cesga.es/" target="_blank">cesga.es</a>
+        </div>
+        <div class="method-card">
+          <span class="tag">github</span>
+          <h3>GitHub</h3>
+          <p data-i18n="ecosystem_github_desc">Todos los proyectos open-source: pipelines de datos, modelos, bots y marcos de agentes.</p>
+          <a class="hero-cta" href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github.com/ANFAIA/ClimaSafe</a>
+        </div>
+        <div class="method-card">
+          <span class="tag">telegram</span>
+          <h3>Telegram</h3>
+          <p data-i18n="ecosystem_tg_desc">Alertas de riesgo por calor personalizadas, gestión de perfil e históricos — directamente en tu chat.</p>
+          <a class="hero-cta" href="../telegram.html">bot de Telegram</a>
+        </div>
+        <div class="method-card">
+          <span class="tag">mcp</span>
+          <h3>MCP</h3>
+          <p data-i18n="ecosystem_mcp_desc">Conecta ClimaSafe a Claude, Cursor o cualquier cliente MCP para consultas de riesgo con IA.</p>
+          <a class="hero-cta" href="../mcp.html">servidor MCP</a>
+        </div>
+        <div class="method-card">
+          <span class="tag">demo</span>
+          <h3 data-i18n="ecosystem_demo_title">Demo web</h3>
+          <p data-i18n="ecosystem_demo_desc">Prueba el motor de predicción en tu navegador — modelos ONNX + LLM local opcional.</p>
+          <a class="hero-cta" href="../probar-ya/">probar ya</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-id"><span class="footer-dot"></span><strong>ClimaSafe</strong><span data-i18n="footer_extra_inst">· instalación</span></div>
+      <div class="footer-links" style="display:flex;gap:16px;list-style:none;">
+        <a href="../../index.html">← index</a>
+        <a href="../probar-ya/" data-i18n="cta_try">probar ya</a>
+        <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>

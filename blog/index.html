@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#121110" />
+  <title>Blog — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../i18n.js?v=20260826f" defer></script>
+  <style>
+    .hero-blog { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
+    .hero-blog-text { flex: 1 1 420px; min-width: 280px; }
+    .blog-lamp { flex: 0 0 auto; width: 240px; max-width: 60vw; }
+    .blog-lamp svg { width: 100%; height: auto; display: block; }
+    .lamp-glow {
+      transform-box: fill-box; transform-origin: center;
+      animation: lampBreathe 5.5s ease-in-out infinite;
+    }
+    .lamp-bulb {
+      transform-box: fill-box; transform-origin: center;
+      animation: lampBulb 5.5s ease-in-out infinite;
+    }
+    .lamp-cone {
+      transform-box: fill-box; transform-origin: top center;
+      animation: lampCone 5.5s ease-in-out infinite;
+    }
+    .lamp-pool {
+      transform-box: fill-box; transform-origin: center;
+      animation: lampPool 5.5s ease-in-out infinite;
+    }
+    .lamp-steam {
+      transform-box: fill-box; transform-origin: center;
+      animation: lampSteam 4s ease-in-out infinite;
+    }
+    @keyframes lampBreathe {
+      0%, 100% { opacity: 0.4;  transform: scale(0.9); }
+      50%      { opacity: 0.95; transform: scale(1.12); }
+    }
+    @keyframes lampBulb {
+      0%, 100% { fill: #fff3e0; }
+      50%      { fill: #ffe6b8; }
+    }
+    @keyframes lampCone {
+      0%, 100% { opacity: 0.35; }
+      50%      { opacity: 0.8; }
+    }
+    @keyframes lampPool {
+      0%, 100% { opacity: 0.25; }
+      50%      { opacity: 0.6; }
+    }
+    @keyframes lampSteam {
+      0%, 100% { opacity: 0.15; transform: translateY(2px); }
+      50%      { opacity: 0.5;  transform: translateY(-2px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .lamp-glow, .lamp-bulb, .lamp-cone, .lamp-pool, .lamp-steam { animation: none; }
+      .lamp-glow { opacity: 0.85; }
+      .lamp-cone { opacity: 0.6; }
+      .lamp-pool { opacity: 0.45; }
+      .lamp-steam { opacity: 0.3; }
+    }
+    @media (max-width: 820px) {
+      .hero-blog { flex-direction: column; }
+      .blog-lamp { width: 200px; align-self: center; }
+    }
+  </style>
+</head>
+<body class="blog-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><strong>Alejandro Cancelas</strong> <span>/ blog</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../index.html">home</a></li>
+        <li><a href=".">blog</a></li>
+        <li><a href="../projects/dskit.html">projects</a></li>
+        <li><select id="lang-select" class="lang-select" aria-label="Idioma / Language"><option value="es">ES</option><option value="en">EN</option></select></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container hero-blog">
+      <div class="hero-blog-text">
+      <div class="hero-eyebrow">writing</div>
+      <h1>Notas desde el<br /><span class="hl">sistema.</span></h1>
+      <p class="hero-sub">Cosas que voy aprendiendo, construyendo y rompiendo en ML y sistemas. Sin filtro de marketing.</p>
+      <div class="hero-term" role="presentation">
+        <span class="term-prompt">cacelass@gh</span><span class="term-sep">:</span><span class="term-path">~/blog</span><span class="term-dollar">$</span>
+        <span class="term-cmd">cat posts/*.md | sort -r</span>
+        <span class="term-cursor"></span>
+      </div>
+      </div>
+
+      <div class="blog-lamp" aria-hidden="true">
+        <svg viewBox="0 0 240 340" role="img" aria-label="Lámpara de escritorio sobre mesa de madera con luz cálida">
+          <defs>
+            <radialGradient id="warmGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#ffd9a0" stop-opacity="0.95" />
+              <stop offset="40%"  stop-color="#ffb86b" stop-opacity="0.5" />
+              <stop offset="100%" stop-color="#ffb86b" stop-opacity="0" />
+            </radialGradient>
+            <linearGradient id="woodTop" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#caa05c" />
+              <stop offset="1" stop-color="#9c6b35" />
+            </linearGradient>
+            <linearGradient id="woodSide" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#8a5a2b" />
+              <stop offset="1" stop-color="#5e3c1c" />
+            </linearGradient>
+            <linearGradient id="bookBlue" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#4f7ea0" />
+              <stop offset="1" stop-color="#2c5876" />
+            </linearGradient>
+            <linearGradient id="bookTerra" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#c8632f" />
+              <stop offset="1" stop-color="#8f3f1c" />
+            </linearGradient>
+            <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffd9a0" stop-opacity="0.9" />
+              <stop offset="1" stop-color="#ffd9a0" stop-opacity="0" />
+            </linearGradient>
+            <radialGradient id="redShade" cx="38%" cy="33%" r="72%">
+              <stop offset="0"   stop-color="#ff8a7c" />
+              <stop offset="0.5" stop-color="#e23b2e" />
+              <stop offset="1"   stop-color="#7e160f" />
+            </radialGradient>
+            <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0"   stop-color="#6b6b73" />
+              <stop offset="0.5" stop-color="#3f3f46" />
+              <stop offset="1"   stop-color="#232327" />
+            </linearGradient>
+            <radialGradient id="joint" cx="35%" cy="35%" r="65%">
+              <stop offset="0" stop-color="#6b6b73" />
+              <stop offset="1" stop-color="#232327" />
+            </radialGradient>
+          </defs>
+
+          <!-- cono de luz de la pantalla a la mesa -->
+          <polygon class="lamp-cone" points="100,150 140,150 182,250 58,250" fill="url(#cone)" />
+
+          <!-- mesita de madera 3D -->
+          <polygon points="34,244 206,244 212,256 28,256" fill="url(#woodTop)" />
+          <rect x="28" y="256" width="184" height="12" fill="url(#woodSide)" />
+          <polygon points="34,244 206,244 206,248 34,248" fill="#e0b878" opacity="0.45" />
+          <rect x="44" y="268" width="14" height="56" fill="url(#woodSide)" />
+          <polygon points="58,268 64,268 64,324 58,324" fill="#4f3216" />
+          <rect x="182" y="268" width="14" height="56" fill="url(#woodSide)" />
+          <polygon points="196,268 202,268 202,324 196,324" fill="#4f3216" />
+
+          <!-- charco de luz sobre la mesa -->
+          <ellipse class="lamp-pool" cx="120" cy="250" rx="72" ry="11" fill="#ffd9a0" opacity="0.4" />
+
+          <!-- halo cálido detrás de la lámpara -->
+          <circle class="lamp-glow" cx="120" cy="120" r="64" fill="url(#warmGlow)" />
+
+          <!-- lámpara de escritorio 3D -->
+          <ellipse cx="120" cy="248" rx="18" ry="5" fill="url(#metal)" />
+          <rect x="102" y="237" width="36" height="12" fill="url(#metal)" />
+          <ellipse cx="120" cy="237" rx="18" ry="5" fill="#52525b" />
+          <rect x="116" y="150" width="8" height="87" fill="url(#metal)" />
+          <ellipse cx="120" cy="150" rx="8" ry="8" fill="url(#joint)" />
+
+          <!-- lámpara de papel estilo japonés (washi) roja -->
+          <path d="M120 88 C150 88 153 104 153 120 C153 136 150 152 120 152 C90 152 87 136 87 120 C87 104 90 88 120 88 Z" fill="url(#redShade)" />
+          <path d="M92 102 Q120 110 148 102" fill="none" stroke="#8e1f17" stroke-width="1.5" opacity="0.55" />
+          <path d="M89 120 Q120 128 151 120" fill="none" stroke="#8e1f17" stroke-width="1.5" opacity="0.55" />
+          <path d="M92 138 Q120 146 148 138" fill="none" stroke="#8e1f17" stroke-width="1.5" opacity="0.55" />
+          <path d="M109 92 Q104 120 109 148" fill="none" stroke="#ff9a8c" stroke-width="8" opacity="0.22" stroke-linecap="round" />
+          <ellipse cx="120" cy="120" rx="12" ry="16" fill="#ffd9a0" opacity="0.45" />
+
+          <!-- libros 3D (izquierda) -->
+          <polygon points="40,237 96,237 96,251 40,251" fill="url(#bookBlue)" />
+          <polygon points="96,237 101,240 101,254 96,251" fill="#244a63" />
+          <rect x="44" y="247" width="50" height="4" fill="#efe6d4" />
+          <line x1="44" y1="249" x2="94" y2="249" stroke="#cfc3a8" stroke-width="0.6" />
+          <polygon points="46,223 92,223 92,237 46,237" fill="url(#bookTerra)" />
+          <polygon points="92,223 97,226 97,240 92,237" fill="#7e3a1e" />
+          <rect x="50" y="233" width="42" height="4" fill="#efe6d4" />
+          <line x1="50" y1="235" x2="92" y2="235" stroke="#cfc3a8" stroke-width="0.6" />
+
+          <!-- taza de té (derecha) -->
+          <path class="lamp-steam" d="M174 224 q-5 -7 0 -14 q5 -7 0 -14" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+          <path class="lamp-steam" d="M188 224 q5 -7 0 -14 q-5 -7 0 -14" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+          <ellipse cx="180" cy="250" rx="24" ry="5" fill="#d9d2c4" stroke="#b3a892" stroke-width="1" />
+          <path d="M164 231 L196 231 L193 249 Q180 253 167 249 Z" fill="#ece6da" stroke="#c9c0ad" stroke-width="1" />
+          <ellipse cx="180" cy="231" rx="16" ry="4" fill="#f3eee4" />
+          <ellipse cx="180" cy="231" rx="12" ry="3" fill="#6f4e2e" />
+          <path d="M196 236 q12 2 8 12 q-3 6 -9 3" fill="none" stroke="#c9c0ad" stroke-width="3" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="posts">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">$</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag">posts</span>
+      </div>
+      <h2 class="sec-title">Últimas entradas</h2>
+
+      <div class="featured-grid" id="post-list">
+        <!-- Generado por blog-index.js a partir del array POSTS -->
+      </div>
+
+      <noscript>
+        <p style="color:var(--muted)">Activa JavaScript para ver la lista de entradas, o revisa directamente la carpeta <code>blog/posts/</code>.</p>
+      </noscript>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass" target="_blank">github.com/cacelass</a></li>
+        <li><a href="https://www.linkedin.com/in/cacelas/" target="_blank">linkedin.com/in/cacelas</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="blog-index.js"></script>
+  <script>
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-visible'));
+    }
+  </script>
+</body>
+</html>

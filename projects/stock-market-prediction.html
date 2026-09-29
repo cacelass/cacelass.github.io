@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#121110" />
+  <title>Stock-Market-Prediction — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body class="proj-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+      <div class="nav-id"><a href="../index.html" class="nav-back" data-i18n="back_index">← index</a> <strong>Alejandro Cancelas</strong> <span>/ Stock-Market-Prediction</span></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html#about" data-i18n="nav_about">about</a></li>
+      <li><a href="../index.html#projects" data-i18n="nav_projects">projects</a></li>
+      <li><a href="../index.html#stack" data-i18n="nav_stack">stack</a></li>
+    </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow" data-i18n="stock_eyebrow">Stock-Market-Prediction · time series · finance</div>
+      <h1 data-i18n-html="stock_h1">Financial time series<br /><span class="hl">evaluated honestly.</span></h1>
+      <p class="hero-sub" data-i18n-html="stock_sub">
+        Directional price movement prediction in a non-stationary, low signal-to-noise domain, where the
+        stated goal is not profitability but <strong>facing overfitting and data leakage rigorously</strong>.
+        Walk-forward validation, out-of-sample backtest with costs, hybrid per-ticker routing and real news sentiment.
+      </p>
+      <p class="hero-sub" data-i18n-html="stock_conclusion" style="font-style:italic;opacity:0.85;margin-top:12px;max-width:none;">
+        «Existen numerosas formas de arruinarte. De entre ellas, crear un algoritmo de machine learning
+        que trate de predecir el valor de las acciones en bolsa para luego invertir tu dinero,
+        es una de las más rápidas y efectivas.»<br /><br />
+        Exploración técnica de Machine Learning aplicado a series temporales financieras.
+        El objetivo no fue buscar rentabilidad, sino enfrentarse a un problema real con alta
+        incertidumbre y aprender de los errores — especialmente del overfitting y del data leakage.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">github.com/cacelass/Stock-Market-Prediction</a>
+        <a class="hero-cta" href="../index.html" data-i18n="cta_back_projects">← back to projects</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">01</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="stock_tag_problem">problem</span>
+      </div>
+      <h2 class="sec-title" data-i18n="stock_title_solves">What it solves</h2>
+      <div class="proj-field-val proj-wide" data-i18n-html="stock_val_1">
+        Predict whether an asset rises more than 2% in 5 days using Random Forest over multi-ticker data
+        plus sentiment features. The honest framing is explicit: most published results in this domain fail
+        out-of-sample, and this project treats that as <strong>the problem to solve</strong>: not a model
+        to squeeze.
+      </div>
+      <div class="dskit-grid">
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="stock_lbl_1">Task</div>
+          <div class="dskit-stat-val" data-i18n-html="stock_val_2">Binary classification, 7 tickers · RF + VADER sentiment + NewsAPI.ai real news</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="stock_lbl_2">Rigour</div>
+          <div class="dskit-stat-val" data-i18n-html="stock_val_3">175 tests · mypy strict · walk-forward 3-fold · Optuna tuning · anti-leakage in code</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="stock_lbl_3">Ops</div>
+          <div class="dskit-stat-val" data-i18n-html="stock_val_4">FastAPI · PSI drift monitoring · hybrid per-ticker routing · ONNX-ready</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">02</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="stock_tag_decisions">decisions</span>
+      </div>
+      <h2 class="sec-title" data-i18n="stock_title_decisions">Engineering decisions</h2>
+      <div class="dskit-dec-list">
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_1"><strong>Walk-forward is the only honest evaluation</strong>: 3-fold expanding window. The single 80/20 split inflated accuracy from 54.1% to 57.7% — discovered and corrected.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_2"><strong>Scaler fitted on train only</strong>: the test set never touches the scaler.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_3"><strong>Target built with <code>shift(-5)</code></strong>: the future only labels, never leaks into features.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_4"><strong>RandomForest over HistGradientBoosting</strong>: RF wins AUC in 7/7 tickers (+0.028 avg). Calibrated probabilities rejected by predefined criterion.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_5"><strong>Hybrid routing: pool as fallback</strong>: NVDA routes to a global model (pool AUC 0.539 vs individual 0.501). Others stay individual — TSLA is too idiosyncratic for pooling.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_6"><strong>Real sentiment via NewsAPI.ai</strong>: 4,303 articles fetched, VADER-scored and aggregated daily. GDELT blocked from this network; free plan archives ~60 days.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="stock_text_7"><strong>Leakage tests in CI</strong>: tests verify no feature correlates ≥0.95 with the target.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-num">03</span>
+        <div class="sec-divider"></div>
+        <span class="sec-tag" data-i18n="stock_tag_results">results</span>
+      </div>
+      <h2 class="sec-title" data-i18n="stock_title_results">The honest outcome</h2>
+      <div class="metric-block">
+        <span class="metric-lbl" data-i18n="stock_lbl_4">Walk-forward per ticker</span>
+        <span class="metric-val" data-i18n-html="stock_val_5">GOOGL <strong>64.5% / 0.626 AUC</strong> · MSFT 55.8% / 0.580 · AMZN 58.2% / 0.575 · AAPL 56.4% / 0.559 · META 53.4% / 0.564 · TSLA 55.0% / 0.530 · NVDA routed to global pool (0.539 AUC).</span>
+      </div>
+      <div class="metric-block">
+        <span class="metric-lbl" data-i18n="stock_lbl_5">Model comparison</span>
+        <span class="metric-val" data-i18n-html="stock_val_6">RandomForest wins AUC in <strong>7/7 tickers</strong> over HistGradientBoosting (+0.028 avg). Accuracy improved from 54.1% → 57.7% after tuning Optuna with walk-forward as the objective.</span>
+      </div>
+      <div class="proj-field-val proj-wide" data-i18n-html="stock_val_7">
+        The value is the <strong>evaluation rigour</strong>, not the model performance: knowing when a model
+        does not work is precisely what protects real capital. The single-split evaluation inflated
+        results by +3.6pp — only walk-forward revealed the true picture. This is the foundation
+        for the portfolio manager system in development.
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span data-i18n="footer_role">— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">github.com/cacelass/Stock-Market-Prediction</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../js/app.js"></script>
+  <script src="../i18n.js?v=20260826f"></script>
+
+</body>
+</html>

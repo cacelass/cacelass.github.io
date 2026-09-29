@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClimaSafe · MCP Web Client</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#09090b; --surface:#16161a; --surface2:#1c1c22;
+      --border:#27272a; --border-hi:#3f3f46;
+      --text:#fafafa; --muted:#a1a1aa; --dim:#52525b;
+      --accent:#006eff; --accent2:#006eff; --accent-lo:rgba(37,99,235,0.08);
+      --green:#22c55e; --green-lo:rgba(34,197,94,0.08);
+      --red:#ef4444; --red-lo:rgba(239,68,68,0.10);
+      --amber:#f59e0b; --amber-lo:rgba(245,158,11,0.08);
+      --mono:'JetBrains Mono',monospace; --sans:'Space Grotesk',sans-serif;
+      --display:'DM Serif Display',Georgia,serif;
+      --r:8px; --r2:12px; --max:940px;
+    }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { font-size:15px; }
+    body { color:var(--text); font-family:var(--sans); font-weight:300; letter-spacing:-0.02em; line-height:1.6; background:var(--bg); }
+    a { color:var(--accent2); text-decoration:none; }
+    a:hover { color:#fff; }
+    code { font-family:var(--mono); font-size:0.82em; color:var(--accent2); background:var(--accent-lo); padding:1px 5px; border-radius:3px; }
+    .container { max-width:var(--max); margin:0 auto; padding:0 28px; }
+
+    nav { border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; background:rgba(9,9,11,0.92); backdrop-filter:blur(20px); }
+    .nav-inner { max-width:var(--max); margin:0 auto; padding:0 28px; height:54px; display:flex; align-items:center; justify-content:space-between; }
+    .nav-brand { display:flex; align-items:center; gap:10px; }
+    .nav-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); }
+    .nav-id { font-family:var(--mono); font-size:0.76rem; color:var(--muted); }
+    .nav-id strong { color:var(--text); font-weight:500; }
+    .nav-links { display:flex; gap:4px; list-style:none; }
+    .nav-links a { font-size:0.8rem; color:var(--muted); padding:5px 11px; border-radius:60px; transition:color 0.15s, background 0.15s; }
+    .nav-links a:hover { color:var(--text); background:var(--surface); }
+
+    .hero { padding:60px 0 40px; }
+    .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:0.8rem; color:var(--accent2); background:var(--accent-lo); border:1px solid rgba(37,99,235,0.2); border-radius:20px; padding:4px 12px; margin-bottom:20px; }
+    .hero-eyebrow::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+    .hero h1 { font-family:var(--display); font-size:clamp(1.7rem,4.2vw,2.5rem); font-weight:400; line-height:1.15; color:#fff; margin-bottom:16px; }
+    .hero-sub { font-size:0.95rem; color:var(--muted); max-width:620px; line-height:1.75; margin-bottom:24px; }
+    .hero-sub strong { color:var(--text); }
+
+    .status { display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:0.78rem; padding:6px 14px; border-radius:60px; border:1px solid var(--border); margin-bottom:24px; }
+    .status.ok { color:var(--green); border-color:rgba(34,197,94,0.3); background:var(--green-lo); }
+    .status.err { color:var(--red); border-color:rgba(239,68,68,0.3); background:var(--red-lo); }
+    .status.off { color:var(--dim); }
+    .status::before { content:''; width:6px; height:6px; border-radius:50%; background:currentColor; }
+
+    .card { background:var(--surface); border:1px solid var(--border-hi); border-radius:var(--r2); padding:24px; margin-bottom:18px; }
+    .card h3 { font-size:1rem; font-weight:600; margin-bottom:14px; }
+    .tag { display:inline-block; font-family:var(--mono); font-size:0.68rem; color:var(--accent2); background:var(--accent-lo); border:1px solid rgba(37,99,235,0.2); border-radius:20px; padding:2px 8px; margin-bottom:10px; }
+
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    @media (max-width:640px) { .grid-2 { grid-template-columns:1fr; } }
+    .field { margin-bottom:14px; }
+    .field label { display:block; font-family:var(--mono); font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:4px; }
+    .field input, .field select { width:100%; font-family:var(--sans); font-size:0.88rem; color:var(--text); background:var(--surface2); border:1px solid var(--border-hi); border-radius:var(--r); padding:8px 12px; outline:none; transition:border-color 0.15s; }
+    .field input:focus, .field select:focus { border-color:var(--accent); }
+    .field select { cursor:pointer; }
+
+    .btn { display:inline-flex; align-items:center; gap:8px; font-family:var(--sans); font-size:0.85rem; font-weight:500; color:var(--accent2); background:transparent; border:1.5px solid var(--accent); border-radius:60px; padding:10px 28px; cursor:pointer; transition:all 0.2s; }
+    .btn:hover { background:var(--accent-lo); color:#fff; }
+    .btn:disabled { opacity:0.4; cursor:not-allowed; }
+    .btn-primary { background:var(--accent); color:#fff; }
+    .btn-primary:hover { background:#0058cc; }
+
+    .result { background:var(--surface2); border:1px solid var(--border); border-radius:var(--r2); padding:20px; margin-top:18px; display:none; }
+    .result.show { display:block; }
+    .result-header { display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+    .risk-badge { font-family:var(--mono); font-size:0.8rem; padding:4px 12px; border-radius:20px; border:1px solid; }
+    .risk-safe { color:var(--green); border-color:rgba(34,197,94,0.3); background:var(--green-lo); }
+    .risk-caution { color:var(--amber); border-color:rgba(245,158,11,0.3); background:var(--amber-lo); }
+    .risk-danger { color:var(--red); border-color:rgba(239,68,68,0.3); background:var(--red-lo); }
+    .result-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-bottom:14px; }
+    .metric { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:12px 14px; }
+    .metric-lbl { font-family:var(--mono); font-size:0.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; }
+    .metric-val { font-size:1.1rem; font-weight:500; color:var(--text); }
+    .result-text { font-size:0.88rem; color:var(--muted); line-height:1.7; }
+    .result-text strong { color:var(--text); }
+    .result-raw { font-family:var(--mono); font-size:0.75rem; color:var(--dim); background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:14px; margin-top:14px; max-height:400px; overflow:auto; white-space:pre-wrap; word-break:break-all; }
+
+    .spinner { display:inline-block; width:16px; height:16px; border:2px solid var(--border-hi); border-top-color:var(--accent); border-radius:50%; animation:spin 0.6s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    footer { padding:0; height:54px; background:#09090b; border-top:1px solid var(--border); margin-top:60px; }
+    .footer-inner { max-width:var(--max); margin:0 auto; padding:0 28px; display:flex; align-items:center; justify-content:space-between; height:100%; }
+    .footer-id { font-family:var(--mono); font-size:0.76rem; display:flex; align-items:center; gap:10px; }
+    .footer-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); }
+    .footer-id strong { color:var(--text); }
+    .footer-id span { color:var(--muted); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../../index.html" style="color:var(--muted)">← index</a> <strong>Alejandro Cancelas</strong> <span>/ ClimaSafe · MCP Web</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../probar-ya/">demo</a></li>
+        <li><a href="https://github.com/ANFAIA/ClimaSafe" target="_blank">github</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">ClimaSafe · MCP web client</div>
+      <h1>Predicción de riesgo vía MCP.</h1>
+      <p class="hero-sub">
+        Cliente web que se conecta a tu servidor MCP local
+        (<code>climasafeai-mcp</code>). Sin instalar nada en el navegador.
+      </p>
+      <div id="status" class="status off">Desconectado</div>
+    </div>
+  </section>
+
+  <section style="padding:0 0 60px;">
+    <div class="container">
+
+      <!-- Server config -->
+      <div class="card">
+        <span class="tag">servidor</span>
+        <h3>Conexión</h3>
+        <div class="grid-2">
+          <div class="field">
+            <label for="server-url">URL del servidor MCP</label>
+            <input type="text" id="server-url" value="http://localhost:8101/mcp" placeholder="http://localhost:8101/mcp" />
+          </div>
+          <div class="field" style="display:flex;align-items:flex-end;">
+            <button class="btn" id="btn-connect" onclick="connect()">Conectar</button>
+          </div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--dim);margin-top:8px;">
+          Primero arranca el servidor: <code>climasafeai-mcp</code> (o <code>climasafeai-mcp --insecure</code> si no tienes SSL).
+        </p>
+      </div>
+
+      <!-- Prediction form -->
+      <div class="card" id="predict-card" style="display:none;">
+        <span class="tag">predict_risk_mcp</span>
+        <h3>Predecir riesgo cardiovascular</h3>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="provincia">Provincia</label>
+            <select id="provincia"></select>
+          </div>
+          <div class="field">
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" />
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label for="lat">Latitud</label>
+            <input type="number" id="lat" step="0.0001" placeholder="40.4168" />
+          </div>
+          <div class="field">
+            <label for="lon">Longitud</label>
+            <input type="number" id="lon" step="0.0001" placeholder="-3.7038" />
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label for="edad">Edad</label>
+            <input type="number" id="edad" value="40" min="0" max="120" />
+          </div>
+          <div class="field">
+            <label for="sexo">Sexo</label>
+            <select id="sexo">
+              <option value="hombre">Hombre</option>
+              <option value="mujer">Mujer</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label for="nivel_actividad">Nivel de actividad</label>
+            <select id="nivel_actividad">
+              <option value="sedentario">Sedentario</option>
+              <option value="ligera" selected>Ligera</option>
+              <option value="moderada">Moderada</option>
+              <option value="intensa">Intensa</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="hora_inicio">Hora de inicio</label>
+            <input type="number" id="hora_inicio" value="10" min="0" max="23" />
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label for="duracion_h">Duración (horas)</label>
+            <input type="number" id="duracion_h" value="2" min="0.5" max="12" step="0.5" />
+          </div>
+          <div class="field">
+            <label for="aclimatado">Aclimatado al calor</label>
+            <select id="aclimatado">
+              <option value="false">No</option>
+              <option value="true">Sí</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="btn-predict" onclick="predict()" disabled>
+          Predecir riesgo
+        </button>
+      </div>
+
+      <!-- Results -->
+      <div class="result" id="result"></div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-id"><span class="footer-dot"></span><strong>ClimaSafe</strong><span>· MCP web client</span></div>
+      <div style="display:flex;gap:12px;">
+        <a href="../../index.html" style="font-size:0.78rem;color:var(--muted)">← index</a>
+        <a href="https://github.com/ANFAIA/ClimaSafe" target="_blank" style="font-size:0.78rem;color:var(--muted)">github</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+// ── Province coordinates ──
+const PROVINCIAS = {
+  "A Coruña":[43.37,-8.40],"Almería":[36.83,-2.47],"Asturias":[43.36,-5.85],
+  "Ávila":[40.65,-4.70],"Barcelona":[41.39,2.17],"Bizkaia":[43.26,-2.93],
+  "Burgos":[42.34,-3.70],"Cáceres":[39.47,-6.37],"Cádiz":[36.53,-6.29],
+  "Cantabria":[43.47,-3.81],"Castellón":[39.99,-0.05],"Ciudad Real":[38.99,-3.93],
+  "Córdoba":[37.88,-4.78],"Cuenca":[40.07,-2.13],"Gipuzkoa":[43.32,-1.98],
+  "Girona":[41.98,2.82],"Granada":[37.18,-3.60],"Guadalajara":[40.63,-3.17],
+  "Huelva":[37.26,-6.95],"Huesca":[42.14,-0.41],"Illes Balears":[39.57,2.65],
+  "Jaén":[37.77,-3.79],"La Rioja":[42.46,-2.45],"Las Palmas":[28.10,-15.43],
+  "León":[42.60,-5.57],"Lleida":[41.62,0.63],"Lugo":[43.01,-7.56],
+  "Madrid":[40.42,-3.70],"Málaga":[36.72,-4.42],"Murcia":[37.98,-1.13],
+  "Navarra":[42.82,-1.65],"Ourense":[42.34,-7.87],"Palencia":[42.01,-4.53],
+  "Pontevedra":[42.43,-8.65],"Salamanca":[40.97,-5.66],"Santa Cruz de Tenerife":[28.46,-16.25],
+  "Segovia":[40.95,-4.12],"Sevilla":[37.39,-5.99],"Soria":[41.76,-2.47],
+  "Tarragona":[41.12,1.25],"Teruel":[40.34,-1.10],"Toledo":[39.86,-4.03],
+  "Valencia":[39.47,-0.38],"Valladolid":[41.65,-4.72],"Zamora":[41.50,-5.74],
+  "Zaragoza":[41.65,-0.89]
+};
+
+// Populate province select
+const sel = document.getElementById("provincia");
+Object.keys(PROVINCIAS).sort().forEach(p => {
+  const o = document.createElement("option");
+  o.value = p; o.textContent = p;
+  sel.appendChild(o);
+});
+sel.value = "Madrid";
+sel.addEventListener("change", () => {
+  const [lat, lon] = PROVINCIAS[sel.value] || [40.42,-3.70];
+  document.getElementById("lat").value = lat;
+  document.getElementById("lon").value = lon;
+});
+// Set default coords
+document.getElementById("lat").value = 40.42;
+document.getElementById("lon").value = -3.70;
+
+// Set default date to today
+const today = new Date().toISOString().slice(0,10);
+document.getElementById("fecha").value = today;
+
+// ── MCP Client ──
+let sessionId = null;
+let msgId = 0;
+
+async function mcpCall(method, params = {}) {
+  const url = document.getElementById("server-url").value;
+  const body = { jsonrpc: "2.0", id: ++msgId, method, params };
+  const headers = { "Content-Type": "application/json", "Accept": "application/json, text/event-stream" };
+  if (sessionId) headers["Mcp-Session-Id"] = sessionId;
+
+  const r = await fetch(url, { method: "POST", headers, body: JSON.stringify(body) });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+
+  // Check for session header
+  const sid = r.headers.get("Mcp-Session-Id");
+  if (sid) sessionId = sid;
+
+  // Parse SSE or direct JSON
+  const ct = r.headers.get("content-type") || "";
+  if (ct.includes("text/event-stream")) {
+    const text = await r.text();
+    // Extract last JSON-RPC result from SSE events
+    const lines = text.split("\n");
+    for (const line of lines) {
+      if (line.startsWith("data: ")) {
+        try {
+          const data = JSON.parse(line.slice(6));
+          if (data.result || data.error) return data;
+        } catch {}
+      }
+    }
+    throw new Error("No result in SSE stream");
+  }
+  return r.json();
+}
+
+async function connect() {
+  const status = document.getElementById("status");
+  const btn = document.getElementById("btn-connect");
+  btn.disabled = true;
+  btn.textContent = "Conectando...";
+  status.className = "status off";
+  status.textContent = "Conectando...";
+
+  try {
+    sessionId = null;
+    msgId = 0;
+    const res = await mcpCall("initialize", {
+      protocolVersion: "2025-03-26",
+      capabilities: {},
+      clientInfo: { name: "climasafe-web", version: "1.0" }
+    });
+    if (res.error) throw new Error(res.error.message);
+
+    // Send initialized notification
+    await mcpCall("notifications/initialized");
+
+    status.className = "status ok";
+    status.textContent = `Conectado — ${res.result?.serverInfo?.name || "MCP server"}`;
+    document.getElementById("predict-card").style.display = "block";
+    document.getElementById("btn-predict").disabled = false;
+  } catch (e) {
+    status.className = "status err";
+    status.textContent = `Error: ${e.message}`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Conectar";
+  }
+}
+
+async function predict() {
+  const btn = document.getElementById("btn-predict");
+  const resultDiv = document.getElementById("result");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Prediciendo...';
+
+  const args = {
+    lat: parseFloat(document.getElementById("lat").value) || 40.42,
+    lon: parseFloat(document.getElementById("lon").value) || -3.70,
+    provincia: document.getElementById("provincia").value,
+    edad: parseInt(document.getElementById("edad").value) || 40,
+    sexo: document.getElementById("sexo").value,
+    nivel_actividad: document.getElementById("nivel_actividad").value,
+    hora_inicio: parseInt(document.getElementById("hora_inicio").value) || 10,
+    duracion_h: parseFloat(document.getElementById("duracion_h").value) || 2,
+    aclimatado: document.getElementById("aclimatado").value === "true",
+    fecha: document.getElementById("fecha").value || undefined
+  };
+
+  try {
+    const res = await mcpCall("tools/call", { name: "predict_risk_mcp", arguments: args });
+    if (res.error) throw new Error(res.error.message);
+
+    const content = res.result?.content;
+    if (!content || !content.length) throw new Error("Sin resultado");
+
+    const text = content.find(c => c.type === "text")?.text || "";
+    let data;
+    try { data = JSON.parse(text); } catch { data = null; }
+
+    resultDiv.classList.add("show");
+
+    if (data) {
+      const clase = data.clase_riesgo || data.clase || "—";
+      const riesgo = data.riesgo_pct != null ? data.riesgo_pct.toFixed(1) + "%" : "—";
+      const canal = data.canal_activo || "—";
+      const ventana = data.ventana || "—";
+      const hi = data.hi_pico != null ? data.hi_pico.toFixed(1) + " °C" : "—";
+      const wc = data.wc_min != null ? data.wc_min.toFixed(1) + " °C" : "—";
+
+      const riskClass = clase === "peligro" ? "risk-danger" : clase === "precaucion" ? "risk-caution" : "risk-safe";
+      const riskLabel = clase === "peligro" ? "PELIGRO" : clase === "precaucion" ? "PRECAUCIÓN" : "SEGURO";
+
+      let html = `
+        <div class="result-header">
+          <span class="risk-badge ${riskClass}">${riskLabel}</span>
+          <span style="font-family:var(--mono);font-size:0.8rem;color:var(--muted)">${canal} · ${ventana}</span>
+        </div>
+        <div class="result-grid">
+          <div class="metric"><div class="metric-lbl">Riesgo</div><div class="metric-val">${riesgo}</div></div>
+          <div class="metric"><div class="metric-lbl">Heat Index pico</div><div class="metric-val">${hi}</div></div>
+          <div class="metric"><div class="metric-lbl">Wind Chill min</div><div class="metric-val">${wc}</div></div>
+          <div class="metric"><div class="metric-lbl">Canal</div><div class="metric-val">${canal}</div></div>
+        </div>`;
+
+      if (data.recomendaciones && data.recomendaciones.length) {
+        html += `<div class="result-text"><strong>Recomendaciones:</strong><br/>${data.recomendaciones.map(r => typeof r === "string" ? r : r.texto || JSON.stringify(r)).join("<br/>")}</div>`;
+      }
+      if (data.factores && data.factores.length) {
+        html += `<div class="result-text" style="margin-top:10px;"><strong>Factores personales:</strong> ${data.factores.join(", ")}</div>`;
+      }
+
+      html += `<div class="result-raw">${JSON.stringify(data, null, 2)}</div>`;
+      resultDiv.innerHTML = html;
+    } else {
+      resultDiv.innerHTML = `<div class="result-text">${text}</div><div class="result-raw">${text}</div>`;
+    }
+  } catch (e) {
+    resultDiv.classList.add("show");
+    resultDiv.innerHTML = `<div class="result-text" style="color:var(--red)">Error: ${e.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Predecir riesgo";
+  }
+}
+</script>
+
+</body>
+</html>
