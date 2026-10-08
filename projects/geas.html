@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GEAS — Alejandro Cancelas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body class="proj-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+      <div class="nav-id"><a href="../index.html" class="nav-back" data-i18n="back_index">← index</a> <strong>Alejandro Cancelas</strong> <span>/ GEAS</span></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html#about" data-i18n="nav_about" aria-label="Ir a about">about</a></li>
+      <li><a href="../index.html#projects" data-i18n="nav_projects" aria-label="Ir a projects">projects</a></li>
+      <li><a href="../index.html#stack" data-i18n="nav_stack" aria-label="Ir a stack">stack</a></li>
+    </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow" data-i18n="geas_eyebrow">GEAS · coordination platform</div>
+      <h1 data-i18n-html="geas_h1">Who can do what,<br /><span class="hl">when, and what depends on what.</span></h1>
+      <p class="hero-sub" data-i18n-html="geas_sub">
+        A coordination platform for human developers and AI agents inside an
+        organization. It sits <strong>above Git and agent harnesses</strong>: it doesn't
+        replace either. It answers one atomic, verifiable question — who can claim
+        what resource, at what time, and with what permissions — using <strong>declarative
+        YAML trees</strong> versioned in Git and a lightweight database for runtime state.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="https://github.com/cacelass/geas" target="_blank">github.com/cacelass/geas</a>
+        <a class="hero-cta" href="../index.html" data-i18n="cta_back_projects">← back to projects</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-tag" data-i18n="geas_tag_problem">problem</span>
+      </div>
+      <h2 class="sec-title" data-i18n="geas_title_solves">What it solves</h2>
+      <div class="proj-field-val proj-wide" data-i18n-html="geas_val_1">
+        Multiple developers (or agents) working on the same repository collide on
+        the same files. GEAS solves the coordination problem before it happens:
+        <strong>atomic claims, resource locks, and role-based access control</strong> —
+        so two agents can never lock the same file, and tickets are ordered by
+        priority (which ones unblock the most others). Built in pure Python with
+        <strong>zero runtime dependencies</strong>.
+      </div>
+      <div class="dskit-grid">
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="geas_lbl_1">Profiles</div>
+          <div class="dskit-stat-val" data-i18n-html="geas_val_2">3 deployment profiles: Individual, Team, Enterprise</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="geas_lbl_2">Purity</div>
+          <div class="dskit-stat-val" data-i18n-html="geas_val_3">Zero runtime dependencies — stdlib-only Python</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl" data-i18n="geas_lbl_3">Concurrency</div>
+          <div class="dskit-stat-val" data-i18n-html="geas_val_4">Atomic claims + resource locks + TTL heartbeats</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-tag" data-i18n="geas_tag_decisions">decisions</span>
+      </div>
+      <h2 class="sec-title" data-i18n="geas_title_decisions">Engineering decisions</h2>
+      <div class="dskit-dec-list">
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="geas_text_1"><strong>Declarative tree, not imperative</strong>: <code>organization.yml</code>, <code>departments/</code>, <code>roles/</code> — YAML trees versioned in Git describe the desired state. <code>geas sync</code> applies them idempotently to the DB.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="geas_text_2"><strong>Atomic ticket claims</strong>: <code>UPDATE ... WHERE status='FREE'</code> — two concurrent agents never claim the same ticket. Locks prevent concurrent resource edits.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="geas_text_3"><strong>RBAC with declarative roles</strong>: each role declares its permissions. <code>geas role grant</code> is idempotent. The permission catalogue is versioned and auditable.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="geas_text_4"><strong>Git providers via REST</strong>: GitHub, GitLab, Bitbucket — stdlib-only, no SDKs. If the token is missing, the remote API fails cleanly (never silently degrades).</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="geas_text_5"><strong>Multi-provider harness</strong>: run a ticket with a local command or call an LLM directly (OpenAI / Anthropic via HTTP, stdlib). Token usage and cost are recorded.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="geas_text_6"><strong>MCP tools for AI agents</strong>: agents query tickets, permissions, and context via Model Context Protocol — no custom client needed.</span>
+        </div>
+        <div class="dskit-dec-item">
+          <span class="dskit-dec-arrow">→</span>
+          <span class="dskit-dec-text" data-i18n-html="geas_text_7"><strong>3 deployment profiles</strong>: Individual (SQLite, minimal), Team (+roles, RBAC, locks, web UI), Enterprise (+departments, policies, SSO/OIDC). A single codebase scales from solo to org.</span>
+        </div>
+      </div>
+      <div class="metric-block">
+        <span class="metric-lbl" data-i18n="geas_lbl_4">Relationship</span>
+        <span class="metric-val" data-i18n-html="geas_val_5">GEAS is the coordination layer that <a href="meshharmes.html">MeshHarmes</a> plugs into for multi-agent workflows — it manages tickets, locks, and permissions so harness agents don't collide.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-tag" data-i18n="geas_tag_architecture">architecture</span>
+      </div>
+      <h2 class="sec-title" data-i18n="geas_title_architecture">Architecture</h2>
+      <div class="proj-grid">
+        <div>
+          <div class="proj-field-lbl" data-i18n="geas_arch_git">Git: declarative tree</div>
+          <div class="proj-field-val" data-i18n-html="geas_arch_git_val">organization.yml, departments/, roles/, repositories/, policies/ — all versioned, all synced via <code>geas sync .</code></div>
+        </div>
+        <div>
+          <div class="proj-field-lbl" data-i18n="geas_arch_db">DB: runtime state</div>
+          <div class="proj-field-val" data-i18n-html="geas_arch_db_val">Tickets, locks, executions, event log, audit log. SQLite by default, PostgreSQL planned for Team/Enterprise.</div>
+        </div>
+        <div>
+          <div class="proj-field-lbl" data-i18n="geas_arch_cli">CLI</div>
+          <div class="proj-field-val" data-i18n-html="geas_arch_cli_val">Init, org management, tickets, resources, work, harness, MCP tools — 50+ subcommands.</div>
+        </div>
+        <div>
+          <div class="proj-field-lbl" data-i18n="geas_arch_web">Web panel</div>
+          <div class="proj-field-val" data-i18n-html="geas_arch_web_val"><code>geas serve</code> → read-only dashboard at <code>http://127.0.0.1:8787/</code>. Ticket detail pages with traceability.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span data-i18n="footer_role">— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass/geas" target="_blank">github.com/cacelass/geas</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../js/app.js"></script>
+  <script src="../i18n.js?v=20260824e"></script>
+
+</body>
+</html>
