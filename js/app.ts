@@ -66,6 +66,13 @@
       context.clearRect(0, 0, width, height);
       context.lineWidth = 1;
 
+      const dark = document.documentElement.dataset.theme === 'dark';
+      const lineStrong = dark ? 'rgba(235, 237, 240, 0.38)' : 'rgba(15, 15, 15, 0.34)';
+      const lineSoft = dark ? 'rgba(235, 237, 240, 0.16)' : 'rgba(15, 15, 15, 0.14)';
+      const dotStrong = dark ? 'rgba(244, 245, 247, 0.9)' : 'rgba(15, 15, 15, 0.8)';
+      const dotSoft = dark ? 'rgba(235, 237, 240, 0.5)' : 'rgba(15, 15, 15, 0.45)';
+      const tickColor = dark ? 'rgba(235, 237, 240, 0.06)' : 'rgba(15, 15, 15, 0.05)';
+
       for (let stream = 0; stream < 6; stream++) {
         context.beginPath();
         for (let x = 0; x <= width; x += 12) {
@@ -73,25 +80,19 @@
           if (x === 0) context.moveTo(x, y);
           else context.lineTo(x, y);
         }
-        context.strokeStyle =
-          stream === 2
-            ? 'rgba(33, 133, 95, 0.52)'
-            : 'rgba(33, 133, 95, 0.24)';
+        context.strokeStyle = stream === 2 ? lineStrong : lineSoft;
         context.stroke();
 
         const markerX =
           ((time * (0.045 + stream * 0.004) + stream * 173) % (width + 80)) -
           40;
         const markerY = signalY(stream, markerX, time);
-        context.fillStyle =
-          stream === 2
-            ? 'rgba(20, 97, 68, 0.95)'
-            : 'rgba(33, 133, 95, 0.72)';
+        context.fillStyle = stream === 2 ? dotStrong : dotSoft;
         context.fillRect(markerX - 1.5, markerY - 1.5, 3, 3);
       }
 
       for (let tick = 0; tick < width; tick += 96) {
-        context.fillStyle = 'rgba(23, 36, 39, 0.12)';
+        context.fillStyle = tickColor;
         context.fillRect(tick, 0, 1, height);
       }
     }
@@ -116,159 +117,15 @@
     if (!reducedMotion) frameId = window.requestAnimationFrame(animate);
   }
 
-  // ── GSAP hero + scroll animations (homepage only) ──────────
-  function initGsap(): void {
-    const reducedMotion =
-      window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const REVEAL_SEL =
-      '.reveal, .hero h1, .hero-sub, .hero-term, .hero-logos svg, .hero-chips .chip, .hero-cta, .hero-eyebrow';
-
-    function revealAll(): void {
-      document.querySelectorAll(REVEAL_SEL).forEach(function (el: Element) {
-        const h = el as HTMLElement;
-        h.style.opacity = '1';
-        h.style.transform = 'none';
-      });
-    }
-
-    if (reducedMotion) {
-      revealAll();
-      return;
-    }
-
-    const gsap = (window as any).gsap;
-    const ScrollTrigger = (window as any).ScrollTrigger;
-    if (!gsap || !ScrollTrigger) {
-      // GSAP not loaded (CDN blocked or offline): always visible
-      revealAll();
-      return;
-    }
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    /* Hero: fade in */
-    gsap.from('.hero-eyebrow', {
-      opacity: 0,
-      y: 8,
-      duration: 0.5,
-      ease: 'power2.out',
-    });
-    gsap.from('.hero h1', {
-      opacity: 0,
-      y: 8,
-      duration: 0.6,
-      delay: 0.15,
-      ease: 'power2.out',
-    });
-    gsap.from('.hero-sub', {
-      opacity: 0,
-      y: 8,
-      duration: 0.5,
-      delay: 0.3,
-      ease: 'power2.out',
-    });
-    gsap.from('.hero-term', {
-      opacity: 0,
-      y: 8,
-      duration: 0.5,
-      delay: 0.4,
-      ease: 'power2.out',
-    });
-    gsap.from('.hero-chips .chip', {
-      opacity: 0,
-      y: 6,
-      stagger: 0.06,
-      duration: 0.4,
-      delay: 0.5,
-      ease: 'power2.out',
-    });
-    gsap.from('.hero-cta', {
-      opacity: 0,
-      y: 6,
-      stagger: 0.08,
-      duration: 0.4,
-      delay: 0.65,
-      ease: 'power2.out',
-    });
-
-    /* ScrollTrigger: fade-in sutil */
-    gsap.utils.toArray('.reveal').forEach(function (el: Element) {
-      gsap.from(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 90%',
-          toggleActions: 'play none none none',
-        },
-        opacity: 0,
-        y: 10,
-        duration: 0.5,
-        ease: 'power2.out',
-      });
-    });
-
-    /* Cards: stagger sutil al entrar en viewport */
-    [
-      '.about-grid .about-card',
-      '.featured-grid .feat-card',
-      '.stack-grid .stack-card',
-      '.more-list .more-item',
-    ].forEach(function (sel: string) {
-      const els = gsap.utils.toArray(sel);
-      if (els.length) {
-        gsap.from(els, {
-          scrollTrigger: {
-            trigger: (els[0] as Element).parentElement,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-          opacity: 0,
-          y: 14,
-          stagger: 0.06,
-          duration: 0.45,
-          ease: 'power2.out',
-        });
-      }
-    });
-
-    /* Hero logos fade in */
-    gsap.from('.hero-logos svg', {
-      opacity: 0,
-      y: 6,
-      stagger: 0.1,
-      duration: 0.5,
-      delay: 0.45,
-      ease: 'power2.out',
-    });
-
-    /* Safety net: if anything is still hidden after 2.5s, reveal it */
-    setTimeout(function () {
-      document
-        .querySelectorAll(
-          '.hero-eyebrow, .hero h1, .hero-sub, .hero-term, .hero-logos svg, .hero-chips .chip, .hero-cta'
-        )
-        .forEach(function (el: Element) {
-          const h = el as HTMLElement;
-          const currentOpacity = h.style.opacity || getComputedStyle(h).opacity;
-          if (parseFloat(currentOpacity) < 0.05) {
-            h.style.opacity = '';
-            h.style.transform = 'none';
-          }
-        });
-    }, 2500);
-  }
-
   // ── Init on DOM ready ──────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     // Always: reveal sections
     initReveal();
 
-    // Homepage-specific: canvas + GSAP
+    // Homepage-specific: signal field canvas
     const body = document.body;
     if (body && body.classList.contains('homepage')) {
       initCanvas();
-      initGsap();
     }
   });
 })();
