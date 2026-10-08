@@ -87,6 +87,8 @@
     }
     // ── Typewriter del terminal del hero ────────────────────────
     function initTypewriter() {
+        if (!document.body || !document.body.classList.contains("homepage"))
+            return;
         var el = document.querySelector(".hero-term .term-cmd");
         if (!el || el.hasAttribute("data-i18n"))
             return;

@@ -48,8 +48,8 @@
       50%      { opacity: 0.95; transform: scale(1.12); }
     }
     @keyframes lampBulb {
-      0%, 100% { fill: #fff3e0; }
-      50%      { fill: #ffe6b8; }
+      0%, 100% { fill: #f0f1f3; }
+      50%      { fill: #d7dade; }
     }
     @keyframes lampCone {
       0%, 100% { opacity: 0.35; }
@@ -108,37 +108,37 @@
       </div>
 
       <div class="blog-lamp" aria-hidden="true">
-        <svg viewBox="0 0 240 340" role="img" aria-label="Lámpara de escritorio sobre mesa de madera con luz cálida">
+        <svg viewBox="0 0 240 340" role="img" aria-label="Lámpara de escritorio sobre mesa de madera">
           <defs>
             <radialGradient id="warmGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%"   stop-color="#ffd9a0" stop-opacity="0.95" />
-              <stop offset="40%"  stop-color="#ffb86b" stop-opacity="0.5" />
-              <stop offset="100%" stop-color="#ffb86b" stop-opacity="0" />
+              <stop offset="0%"   stop-color="#dfe2e7" stop-opacity="0.95" />
+              <stop offset="40%"  stop-color="#b9bec6" stop-opacity="0.5" />
+              <stop offset="100%" stop-color="#b9bec6" stop-opacity="0" />
             </radialGradient>
             <linearGradient id="woodTop" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#caa05c" />
-              <stop offset="1" stop-color="#9c6b35" />
+              <stop offset="0" stop-color="#c2c5cb" />
+              <stop offset="1" stop-color="#8f939a" />
             </linearGradient>
             <linearGradient id="woodSide" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#8a5a2b" />
-              <stop offset="1" stop-color="#5e3c1c" />
+              <stop offset="0" stop-color="#7c8087" />
+              <stop offset="1" stop-color="#5a5e64" />
             </linearGradient>
             <linearGradient id="bookBlue" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#4f7ea0" />
-              <stop offset="1" stop-color="#2c5876" />
+              <stop offset="0" stop-color="#9aa0a8" />
+              <stop offset="1" stop-color="#71767d" />
             </linearGradient>
             <linearGradient id="bookTerra" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#c8632f" />
-              <stop offset="1" stop-color="#8f3f1c" />
+              <stop offset="0" stop-color="#a4a9b0" />
+              <stop offset="1" stop-color="#7b8087" />
             </linearGradient>
             <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#ffd9a0" stop-opacity="0.9" />
-              <stop offset="1" stop-color="#ffd9a0" stop-opacity="0" />
+              <stop offset="0" stop-color="#dfe2e7" stop-opacity="0.9" />
+              <stop offset="1" stop-color="#dfe2e7" stop-opacity="0" />
             </linearGradient>
             <radialGradient id="redShade" cx="38%" cy="33%" r="72%">
-              <stop offset="0"   stop-color="#ff8a7c" />
-              <stop offset="0.5" stop-color="#e23b2e" />
-              <stop offset="1"   stop-color="#7e160f" />
+              <stop offset="0"   stop-color="#e6e8eb" />
+              <stop offset="0.5" stop-color="#b9bec6" />
+              <stop offset="1"   stop-color="#5c6067" />
             </radialGradient>
             <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0"   stop-color="#6b6b73" />
@@ -157,16 +157,16 @@
           <!-- mesita de madera 3D -->
           <polygon points="34,244 206,244 212,256 28,256" fill="url(#woodTop)" />
           <rect x="28" y="256" width="184" height="12" fill="url(#woodSide)" />
-          <polygon points="34,244 206,244 206,248 34,248" fill="#e0b878" opacity="0.45" />
+          <polygon points="34,244 206,244 206,248 34,248" fill="#d0d3d8" opacity="0.45" />
           <rect x="44" y="268" width="14" height="56" fill="url(#woodSide)" />
-          <polygon points="58,268 64,268 64,324 58,324" fill="#4f3216" />
+          <polygon points="58,268 64,268 64,324 58,324" fill="#4a4e54" />
           <rect x="182" y="268" width="14" height="56" fill="url(#woodSide)" />
-          <polygon points="196,268 202,268 202,324 196,324" fill="#4f3216" />
+          <polygon points="196,268 202,268 202,324 196,324" fill="#4a4e54" />
 
           <!-- charco de luz sobre la mesa -->
-          <ellipse class="lamp-pool" cx="120" cy="250" rx="72" ry="11" fill="#ffd9a0" opacity="0.4" />
+          <ellipse class="lamp-pool" cx="120" cy="250" rx="72" ry="11" fill="#dfe2e7" opacity="0.4" />
 
-          <!-- halo cálido detrás de la lámpara -->
+          <!-- halo neutro detrás de la lámpara -->
           <circle class="lamp-glow" cx="120" cy="120" r="64" fill="url(#warmGlow)" />
 
           <!-- lámpara de escritorio 3D -->
@@ -176,32 +176,32 @@
           <rect x="116" y="150" width="8" height="87" fill="url(#metal)" />
           <ellipse cx="120" cy="150" rx="8" ry="8" fill="url(#joint)" />
 
-          <!-- lámpara de papel estilo japonés (washi) roja -->
+          <!-- lámpara de papel estilo japonés (washi) -->
           <path d="M120 88 C150 88 153 104 153 120 C153 136 150 152 120 152 C90 152 87 136 87 120 C87 104 90 88 120 88 Z" fill="url(#redShade)" />
-          <path d="M92 102 Q120 110 148 102" fill="none" stroke="#8e1f17" stroke-width="1.5" opacity="0.55" />
-          <path d="M89 120 Q120 128 151 120" fill="none" stroke="#8e1f17" stroke-width="1.5" opacity="0.55" />
-          <path d="M92 138 Q120 146 148 138" fill="none" stroke="#8e1f17" stroke-width="1.5" opacity="0.55" />
-          <path d="M109 92 Q104 120 109 148" fill="none" stroke="#ff9a8c" stroke-width="8" opacity="0.22" stroke-linecap="round" />
-          <ellipse cx="120" cy="120" rx="12" ry="16" fill="#ffd9a0" opacity="0.45" />
+          <path d="M92 102 Q120 110 148 102" fill="none" stroke="#6a6e75" stroke-width="1.5" opacity="0.55" />
+          <path d="M89 120 Q120 128 151 120" fill="none" stroke="#6a6e75" stroke-width="1.5" opacity="0.55" />
+          <path d="M92 138 Q120 146 148 138" fill="none" stroke="#6a6e75" stroke-width="1.5" opacity="0.55" />
+          <path d="M109 92 Q104 120 109 148" fill="none" stroke="#cfd3d8" stroke-width="8" opacity="0.22" stroke-linecap="round" />
+          <ellipse cx="120" cy="120" rx="12" ry="16" fill="#dfe2e7" opacity="0.45" />
 
           <!-- libros 3D (izquierda) -->
           <polygon points="40,237 96,237 96,251 40,251" fill="url(#bookBlue)" />
-          <polygon points="96,237 101,240 101,254 96,251" fill="#244a63" />
-          <rect x="44" y="247" width="50" height="4" fill="#efe6d4" />
-          <line x1="44" y1="249" x2="94" y2="249" stroke="#cfc3a8" stroke-width="0.6" />
+          <polygon points="96,237 101,240 101,254 96,251" fill="#5f646b" />
+          <rect x="44" y="247" width="50" height="4" fill="#e3e5e8" />
+          <line x1="44" y1="249" x2="94" y2="249" stroke="#b4b8be" stroke-width="0.6" />
           <polygon points="46,223 92,223 92,237 46,237" fill="url(#bookTerra)" />
-          <polygon points="92,223 97,226 97,240 92,237" fill="#7e3a1e" />
-          <rect x="50" y="233" width="42" height="4" fill="#efe6d4" />
-          <line x1="50" y1="235" x2="92" y2="235" stroke="#cfc3a8" stroke-width="0.6" />
+          <polygon points="92,223 97,226 97,240 92,237" fill="#63676e" />
+          <rect x="50" y="233" width="42" height="4" fill="#e3e5e8" />
+          <line x1="50" y1="235" x2="92" y2="235" stroke="#b4b8be" stroke-width="0.6" />
 
           <!-- taza de té (derecha) -->
-          <path class="lamp-steam" d="M174 224 q-5 -7 0 -14 q5 -7 0 -14" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.3" />
-          <path class="lamp-steam" d="M188 224 q5 -7 0 -14 q-5 -7 0 -14" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.3" />
-          <ellipse cx="180" cy="250" rx="24" ry="5" fill="#d9d2c4" stroke="#b3a892" stroke-width="1" />
-          <path d="M164 231 L196 231 L193 249 Q180 253 167 249 Z" fill="#ece6da" stroke="#c9c0ad" stroke-width="1" />
-          <ellipse cx="180" cy="231" rx="16" ry="4" fill="#f3eee4" />
-          <ellipse cx="180" cy="231" rx="12" ry="3" fill="#6f4e2e" />
-          <path d="M196 236 q12 2 8 12 q-3 6 -9 3" fill="none" stroke="#c9c0ad" stroke-width="3" />
+          <path class="lamp-steam" d="M174 224 q-5 -7 0 -14 q5 -7 0 -14" fill="none" stroke="#c7cbd1" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+          <path class="lamp-steam" d="M188 224 q5 -7 0 -14 q-5 -7 0 -14" fill="none" stroke="#c7cbd1" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+          <ellipse cx="180" cy="250" rx="24" ry="5" fill="#d2d5da" stroke="#b0b4ba" stroke-width="1" />
+          <path d="M164 231 L196 231 L193 249 Q180 253 167 249 Z" fill="#e4e6e9" stroke="#b6bac0" stroke-width="1" />
+          <ellipse cx="180" cy="231" rx="16" ry="4" fill="#eef0f2" />
+          <ellipse cx="180" cy="231" rx="12" ry="3" fill="#5f636a" />
+          <path d="M196 236 q12 2 8 12 q-3 6 -9 3" fill="none" stroke="#b6bac0" stroke-width="3" />
         </svg>
       </div>
     </div>

@@ -12,11 +12,11 @@
 .post-content p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin: 0 0 20px; }
 .post-content p strong { color: var(--text); font-weight: 500; }
 .post-content a { color: var(--accent2); text-decoration: underline; text-underline-offset: 2px; }
-.post-content a:hover { color: #fff; }
+.post-content a:hover { color: var(--accent-strong); }
 .post-content ul, .post-content ol { margin: 0 0 20px 22px; color: var(--muted); line-height: 1.8; font-size: 1.02rem; }
 .post-content li { margin-bottom: 6px; }
 .post-content blockquote {
-  border-left: 3px solid var(--accent); background: rgba(52,211,153,0.05);
+  border-left: 3px solid var(--accent); background: var(--accent-lo);
   padding: 12px 18px; margin: 0 0 20px; border-radius: 0 8px 8px 0;
   color: var(--muted); font-style: italic;
 }
