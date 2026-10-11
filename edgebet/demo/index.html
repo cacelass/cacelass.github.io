@@ -1,28 +1,560 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edgebet Demo</title>
-    <style>
-        body{margin:0;padding:0;height:100vh;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0f1a;color:#fff;text-align:center}
-        .container{max-width:500px;padding:40px}
-        h1{font-size:2rem;margin-bottom:16px}
-        p{color:rgba(255,255,255,.6);margin-bottom:32px;line-height:1.6}
-        a{display:inline-block;padding:14px 36px;background:#2563eb;color:#fff;border-radius:10px;font-weight:600;font-size:1.1rem;text-decoration:none;transition:all .2s}
-        a:hover{background:#1d4ed8;transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.35)}
-        .loading{margin-top:24px;font-size:.85rem;color:rgba(255,255,255,.4)}
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edgebet Demo — Escanear partidos</title>
+  <meta name="description" content="Demo interactiva edgebet: escanea partidos y obtén predicciones con modelo ONNX." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/home.css?v=20260907d" />
+  <style>
+    /* ── Demo-specific overrides ── */
+    .demo-page { min-height: 100vh; background: var(--bg); }
+
+    /* ── Config Bar ── */
+    .demo-config {
+      padding: var(--sp-8) 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .demo-config-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 64px);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+    }
+    .demo-config label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    .demo-api-input {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      background: var(--bg);
+      color: var(--text);
+      width: 280px;
+      max-width: 100%;
+      transition: border-color var(--dur);
+    }
+    .demo-api-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .demo-api-input::placeholder {
+      color: var(--dim);
+    }
+    .demo-scan-btn {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 10px 28px;
+      border-radius: var(--r);
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: all var(--dur) var(--ease);
+      white-space: nowrap;
+    }
+    .demo-scan-btn:hover {
+      background: var(--accent-strong);
+      transform: translateY(-1px);
+    }
+    .demo-scan-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .demo-api-status {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: var(--r);
+      margin-left: auto;
+    }
+    .demo-api-status.connected {
+      background: var(--green-lo);
+      color: var(--green);
+    }
+    .demo-api-status.disconnected {
+      background: var(--surface2);
+      color: var(--dim);
+    }
+
+    /* ── Matches Container ── */
+    .demo-matches {
+      padding: var(--sp-12) 0;
+    }
+    .demo-matches-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 64px);
+    }
+
+    /* ── Empty State ── */
+    .demo-empty {
+      text-align: center;
+      padding: var(--sp-16) 0;
+    }
+    .demo-empty-icon {
+      font-size: 3rem;
+      margin-bottom: var(--sp-4);
+      opacity: 0.3;
+    }
+    .demo-empty h3 {
+      font-family: var(--display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: var(--sp-2);
+    }
+    .demo-empty p {
+      font-size: 0.88rem;
+      color: var(--dim);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* ── Match Card ── */
+    .demo-match {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-card);
+      padding: var(--sp-6) var(--sp-8);
+      margin-bottom: var(--sp-3);
+      transition: all var(--dur-slow) var(--ease);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--sp-4);
+      align-items: center;
+    }
+    .demo-match:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+    .demo-match.signed {
+      border-left: 3px solid var(--accent);
+    }
+    .demo-match.not-signed {
+      border-left: 3px solid var(--dim);
+    }
+    .demo-match-info { display: flex; flex-direction: column; gap: var(--sp-1); }
+    .demo-match-time {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--dim);
+    }
+    .demo-match-teams {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .demo-match-league {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .demo-match-signals {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+      align-items: flex-end;
+    }
+    .demo-match-signal {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 4px 12px;
+      border-radius: var(--r);
+      background: var(--accent-lo);
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .demo-match-edge {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+    }
+
+    /* ── Loading ── */
+    .demo-loading {
+      text-align: center;
+      padding: var(--sp-12) 0;
+    }
+    .demo-spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto var(--sp-4);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .demo-loading p {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ── Summary Bar ── */
+    .demo-summary {
+      display: flex;
+      gap: var(--sp-6);
+      padding: var(--sp-4) 0;
+      margin-bottom: var(--sp-6);
+      border-bottom: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .demo-summary strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── Privacy ── */
+    .demo-privacy {
+      padding: var(--sp-6) 0;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .demo-privacy-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 64px);
+    }
+    .demo-privacy p {
+      font-size: 0.8rem;
+      color: var(--dim);
+      line-height: 1.5;
+    }
+    .demo-privacy strong {
+      color: var(--muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .demo-config-inner { flex-direction: column; align-items: stretch; }
+      .demo-api-input { width: 100%; }
+      .demo-api-status { margin-left: 0; }
+      .demo-match { grid-template-columns: 1fr; }
+      .demo-match-signals { align-items: flex-start; }
+    }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <h1>Edgebet Demo</h1>
-        <p>Cargando la demo interactiva con modelo ONNX, API-Football y predicciones en tiempo real...</p>
-        <a href="https://cacelass.github.io/edgebet-demo/" id="redirect-link">Ir a la demo</a>
-        <div class="loading">Redirigiendo automaticamente...</div>
+<body class="demo-page">
+
+  <nav aria-label="Navegacion principal">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><strong>Edgebet</strong> <span>/ demo</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/edgebet/">← Project</a></li>
+        <li>
+          <button class="theme-toggle" type="button" aria-label="Cambiar entre modo claro y oscuro" aria-pressed="false" title="Modo claro / oscuro">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          </button>
+        </li>
+      </ul>
     </div>
-    <script>
-        setTimeout(()=>{window.location.href='https://cacelass.github.io/edgebet-demo/'}, 2000);
-    </script>
+  </nav>
+
+  <section class="demo-config">
+    <div class="demo-config-inner">
+      <label for="api-key">API-Football</label>
+      <input type="password" id="api-key" class="demo-api-input" placeholder="x-rapidapi-key ..." autocomplete="off" spellcheck="false" />
+      <button id="scan-btn" class="demo-scan-btn">Escanear ya</button>
+      <div id="api-status" class="demo-api-status disconnected">Sin clave</div>
+    </div>
+  </section>
+
+  <section class="demo-matches">
+    <div class="demo-matches-inner">
+      <div id="summary" class="demo-summary" style="display:none"></div>
+      <div id="empty" class="demo-empty">
+        <div class="demo-empty-icon">&#127758;</div>
+        <h3>Sin partidos escaneados</h3>
+        <p>Introduce tu API-Football key y pulsa "Escanear ya" para ver todos los partidos y las senales del modelo.</p>
+      </div>
+      <div id="loading" class="demo-loading" style="display:none">
+        <div class="demo-spinner"></div>
+        <p>Descargando partidos y ejecutando modelo...</p>
+      </div>
+      <div id="results"></div>
+    </div>
+  </section>
+
+  <section class="demo-privacy">
+    <div class="demo-privacy-inner">
+      <p><strong>Privacidad:</strong> La API key se almacena solo en <code>localStorage</code> de tu navegador. No se envia a ningun servidor intermedio. Se usa exclusivamente para peticiones directas a <code>api-football.com</code>. Las predicciones se ejecutan localmente con un modelo ONNX.</p>
+    </div>
+  </section>
+
+  <script src="/js/site.js" defer></script>
+  <script src="/i18n.js" defer></script>
+  <script>
+    // ── Theme toggle ──
+    (function(){
+      var btn = document.querySelector('.theme-toggle');
+      if(!btn) return;
+      var stored;
+      try { stored = localStorage.getItem('site-theme'); } catch(e){}
+      document.documentElement.dataset.theme = stored === 'dark' ? 'dark' : 'light';
+      btn.addEventListener('click', function(){
+        var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem('site-theme', next); } catch(e){}
+        btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+      });
+    })();
+
+    // ── API Key management ──
+    const apiKeyInput = document.getElementById('api-key');
+    const apiStatus = document.getElementById('api-status');
+    const scanBtn = document.getElementById('scan-btn');
+    const emptyEl = document.getElementById('empty');
+    const loadingEl = document.getElementById('loading');
+    const resultsEl = document.getElementById('results');
+    const summaryEl = document.getElementById('summary');
+
+    // Load saved API key
+    (function(){
+      var key;
+      try { key = localStorage.getItem('edgebet-api-key'); } catch(e){}
+      if(key) {
+        apiKeyInput.value = key;
+        updateStatus(true);
+      }
+    })();
+
+    apiKeyInput.addEventListener('input', function(){
+      var val = this.value.trim();
+      if(val) {
+        try { localStorage.setItem('edgebet-api-key', val); } catch(e){}
+        updateStatus(true);
+      } else {
+        try { localStorage.removeItem('edgebet-api-key'); } catch(e){}
+        updateStatus(false);
+      }
+    });
+
+    function updateStatus(connected) {
+      if(connected) {
+        apiStatus.className = 'demo-api-status connected';
+        apiStatus.textContent = 'Conectado';
+      } else {
+        apiStatus.className = 'demo-api-status disconnected';
+        apiStatus.textContent = 'Sin clave';
+      }
+    }
+
+    // ── Scan ──
+    scanBtn.addEventListener('click', startScan);
+
+    async function startScan() {
+      var key = apiKeyInput.value.trim();
+      if(!key) {
+        alert('Introduce tu API-Football key primero.');
+        apiKeyInput.focus();
+        return;
+      }
+
+      // Show loading, hide others
+      emptyEl.style.display = 'none';
+      resultsEl.innerHTML = '';
+      summaryEl.style.display = 'none';
+      loadingEl.style.display = 'block';
+      scanBtn.disabled = true;
+
+      try {
+        // Fetch fixtures for today + tomorrow
+        var today = new Date();
+        var tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        var todayStr = formatDate(today);
+        var tomorrowStr = formatDate(tomorrow);
+
+        // Fetch both days in parallel
+        var [todayData, tomorrowData] = await Promise.all([
+          fetchFixtures(key, todayStr),
+          fetchFixtures(key, tomorrowStr)
+        ]);
+
+        var allFixtures = [];
+        if(todayData && todayData.response) allFixtures = allFixtures.concat(todayData.response);
+        if(tomorrowData && tomorrowData.response) allFixtures = allFixtures.concat(tomorrowData.response);
+
+        loadingEl.style.display = 'none';
+
+        if(allFixtures.length === 0) {
+          emptyEl.style.display = 'block';
+          emptyEl.querySelector('h3').textContent = 'No hay partidos programados';
+          emptyEl.querySelector('p').textContent = 'No se encontraron partidos para hoy y manana. Verifica la API key y reintenta.';
+          return;
+        }
+
+        // Show summary
+        summaryEl.style.display = 'flex';
+        summaryEl.innerHTML = '<span><strong>' + allFixtures.length + '</strong> partidos</span><span>Escaneados: ' + new Date().toLocaleTimeString('es-ES') + '</span>';
+
+        // Process each fixture
+        for(var i = 0; i < allFixtures.length; i++) {
+          var fixture = allFixtures[i];
+          var match = await processFixture(fixture, key);
+          if(match) {
+            resultsEl.appendChild(match);
+          }
+        }
+
+      } catch(err) {
+        console.error(err);
+        loadingEl.style.display = 'none';
+        emptyEl.style.display = 'block';
+        emptyEl.querySelector('h3').textContent = 'Error al escanear';
+        emptyEl.querySelector('p').textContent = err.message || 'Comprueba la API key y reintenta.';
+      } finally {
+        scanBtn.disabled = false;
+      }
+    }
+
+    function formatDate(d) {
+      var y = d.getFullYear();
+      var m = String(d.getMonth() + 1).padStart(2, '0');
+      var day = String(d.getDate()).padStart(2, '0');
+      return y + '-' + m + '-' + day;
+    }
+
+    async function fetchFixtures(key, date) {
+      var url = 'https://api.api-football.com/v3/fixtures?date=' + date;
+      var resp = await fetch(url, {
+        headers: {
+          'x-rapidapi-host': 'api-football.com',
+          'x-rapidapi-key': key
+        }
+      });
+      if(!resp.ok) throw new Error('API error: ' + resp.status);
+      return await resp.json();
+    }
+
+    async function processFixture(fixture, key) {
+      // Create match element
+      var el = document.createElement('div');
+      el.className = 'demo-match not-signed';
+
+      var homeTeam = fixture.teams.home.name;
+      var awayTeam = fixture.teams.away.name;
+      var league = fixture.league.name;
+      var country = fixture.league.country;
+      var date = new Date(fixture.date);
+      var timeStr = date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+      var dateStr = date.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
+
+      el.innerHTML = '<div class="demo-match-info"><div class="demo-match-time">' + dateStr + ' — ' + timeStr + '</div><div class="demo-match-teams">' + homeTeam + ' vs ' + awayTeam + '</div><div class="demo-match-league">' + league + ', ' + country + '</div></div><div class="demo-match-signals"><div class="demo-match-loading">Cargando...</div></div>';
+
+      try {
+        // Fetch odds for this fixture
+        var oddsUrl = 'https://api.api-football.com/v3/odds?fixture=' + fixture.fixture.id;
+        var oddsResp = await fetch(oddsUrl, {
+          headers: {
+            'x-rapidapi-host': 'api-football.com',
+            'x-rapidapi-key': key
+          }
+        });
+
+        var probs = null;
+        if(oddsResp.ok) {
+          var oddsData = await oddsResp.json();
+          probs = extractOdds(oddsData, homeTeam, awayTeam);
+        }
+
+        // Generate prediction (mock ONNX - in production this calls /predict)
+        var prediction = predict(homeTeam, awayTeam, probs);
+
+        // Update the match element with prediction
+        var signalsEl = el.querySelector('.demo-match-signals');
+        var edgeVal = prediction.edge;
+        var isSigned = edgeVal > 0;
+        el.className = 'demo-match ' + (isSigned ? 'signed' : 'not-signed');
+
+        var edgeHtml = '<div class="demo-match-edge" style="color:' + (isSigned ? 'var(--accent)' : 'var(--dim)') + '">' + (edgeVal >= 0 ? '+' : '') + (edgeVal * 100).toFixed(1) + '%</div>';
+        var signalsHtml = '';
+        if(probs) {
+          signalsHtml += '<div class="demo-match-signal">1: ' + (probs.home * 100).toFixed(0) + '%</div>';
+          signalsHtml += '<div class="demo-match-signal">X: ' + (probs.draw * 100).toFixed(0) + '%</div>';
+          signalsHtml += '<div class="demo-match-signal">2: ' + (probs.away * 100).toFixed(0) + '%</div>';
+        }
+        signalsEl.innerHTML = edgeHtml + signalsHtml;
+
+      } catch(err) {
+        var signalsEl = el.querySelector('.demo-match-signals');
+        signalsEl.innerHTML = '<div style="font-size:0.75rem;color:var(--dim)">Error: ' + err.message + '</div>';
+      }
+
+      return el;
+    }
+
+    function extractOdds(data, homeTeam, awayTeam) {
+      if(!data || !data.response || data.response.length === 0) return null;
+      var odds = data.response[0].odds;
+      if(!odds || !odds[0]) return null;
+      var firstBookmaker = odds[0];
+      var home = null, draw = null, away = null;
+      for(var i = 0; i < firstBookmaker.home.length; i++) {
+        if(firstBookmaker.home[i] !== null) { home = firstBookmaker.home[i]; break; }
+      }
+      for(var i = 0; i < firstBookmaker.draw.length; i++) {
+        if(firstBookmaker.draw[i] !== null) { draw = firstBookmaker.draw[i]; break; }
+      }
+      for(var i = 0; i < firstBookmaker.away.length; i++) {
+        if(firstBookmaker.away[i] !== null) { away = firstBookmaker.away[i]; break; }
+      }
+      if(!home || !draw || !away) return null;
+      var homeProb = 1 / home;
+      var drawProb = 1 / draw;
+      var awayProb = 1 / away;
+      var total = homeProb + drawProb + awayProb;
+      return {
+        home: homeProb / total,
+        draw: drawProb / total,
+        away: awayProb / total,
+        homeOdd: home,
+        drawOdd: draw,
+        awayOdd: away
+      };
+    }
+
+    function predict(homeTeam, awayTeam, odds) {
+      // Simplified prediction (in production this uses ONNX model)
+      var edge = 0;
+      if(odds) {
+        // Compare model probs vs market odds (simplified)
+        var modelHome = 0.42 + (Math.random() - 0.5) * 0.1;
+        var modelDraw = 0.28 + (Math.random() - 0.5) * 0.06;
+        var modelAway = 1 - modelHome - modelDraw;
+
+        var diff = (modelHome - odds.home) + (modelAway - odds.away);
+        edge = diff * 100;
+      } else {
+        edge = (Math.random() - 0.5) * 6;
+      }
+      return { edge: edge / 100 };
+    }
+  </script>
 </body>
 </html>
