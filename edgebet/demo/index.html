@@ -428,22 +428,28 @@
         if(todayData && todayData.response) allFixtures = allFixtures.concat(todayData.response);
         if(tomorrowData && tomorrowData.response) allFixtures = allFixtures.concat(tomorrowData.response);
 
+        // Filter: solo ligas top y max 50 partidos
+        var TOP_LEAGUES = ['Premier League','LaLiga','Bundesliga','Serie A','Ligue 1'];
+        var filtered = allFixtures.filter(function(f) {
+          return TOP_LEAGUES.indexOf(f.league.name) >= 0;
+        }).slice(0, 50);
+
         loadingEl.style.display = 'none';
 
-        if(allFixtures.length === 0) {
+        if(filtered.length === 0) {
           emptyEl.style.display = 'block';
-          emptyEl.querySelector('h3').textContent = 'No hay partidos programados';
-          emptyEl.querySelector('p').textContent = 'No se encontraron partidos para hoy y manana. Verifica la API key y reintenta.';
+          emptyEl.querySelector('h3').textContent = 'No hay partidos en ligas top';
+          emptyEl.querySelector('p').textContent = 'No se encontraron partidos de Premier, LaLiga, Bundesliga, Serie A o Ligue 1. Prueba otro dia.';
           return;
         }
 
         // Show summary
         summaryEl.style.display = 'flex';
-        summaryEl.innerHTML = '<span><strong>' + allFixtures.length + '</strong> partidos</span><span>Escaneados: ' + new Date().toLocaleTimeString('es-ES') + '</span>';
+        summaryEl.innerHTML = '<span><strong>' + filtered.length + '</strong> partidos</span><span>Ligas top</span><span>' + new Date().toLocaleTimeString('es-ES') + '</span>';
 
         // Process each fixture
-        for(var i = 0; i < allFixtures.length; i++) {
-          var fixture = allFixtures[i];
+        for(var i = 0; i < filtered.length; i++) {
+          var fixture = filtered[i];
           var match = await processFixture(fixture, key);
           if(match) {
             resultsEl.appendChild(match);
@@ -486,7 +492,6 @@
     }
 
     async function processFixture(fixture, key) {
-      // Create match element
       var el = document.createElement('div');
       el.className = 'demo-match not-signed';
 
@@ -494,11 +499,21 @@
       var awayTeam = fixture.teams.away.name;
       var league = fixture.league.name;
       var country = fixture.league.country;
-      var date = new Date(fixture.date);
-      var timeStr = date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-      var dateStr = date.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
 
-      el.innerHTML = '<div class="demo-match-info"><div class="demo-match-time">' + dateStr + ' — ' + timeStr + '</div><div class="demo-match-teams">' + homeTeam + ' vs ' + awayTeam + '</div><div class="demo-match-league">' + league + ', ' + country + '</div></div><div class="demo-match-signals"><div class="demo-match-loading">Cargando...</div></div>';
+      // Fix date handling
+      var dateStr = '';
+      var timeStr = '';
+      if(fixture.date) {
+        var date = new Date(fixture.date);
+        if(!isNaN(date.getTime())) {
+          timeStr = date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+          dateStr = date.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' });
+        } else {
+          dateStr = 'Fecha invalida';
+        }
+      }
+
+      el.innerHTML = '<div class="demo-match-info"><div class="demo-match-time">' + dateStr + (timeStr ? ' — ' + timeStr : '') + '</div><div class="demo-match-teams">' + homeTeam + ' vs ' + awayTeam + '</div><div class="demo-match-league">' + league + ', ' + country + '</div></div><div class="demo-match-signals"><div class="demo-match-loading">Cargando prediccion...</div></div>';
 
       try {
         // Fetch odds for this fixture
@@ -519,20 +534,49 @@
         // Generate prediction (mock ONNX - in production this calls /predict)
         var prediction = predict(homeTeam, awayTeam, probs);
 
-        // Update the match element with prediction
+        // Update the match element with clear prediction
         var signalsEl = el.querySelector('.demo-match-signals');
         var edgeVal = prediction.edge;
         var isSigned = edgeVal > 0;
         el.className = 'demo-match ' + (isSigned ? 'signed' : 'not-signed');
 
+        // Determine winner and uncertainty
+        var winner = '';
+        var uncertainty = '';
+        if(probs) {
+          var maxP = Math.max(probs.home, probs.draw, probs.away);
+          if(probs.home === maxP) {
+            winner = 'Gana ' + homeTeam;
+          } else if(probs.away === maxP) {
+            winner = 'Gana ' + awayTeam;
+          } else {
+            winner = 'Empate probable';
+          }
+          // Uncertainty: how close are the top 2?
+          var sorted = [probs.home, probs.draw, probs.away].sort(function(a,b){return b-a});
+          var gap = sorted[0] - sorted[1];
+          if(gap > 0.20) {
+            uncertainty = 'Baja incertidumbre';
+          } else if(gap > 0.10) {
+            uncertainty = 'Inc. media';
+          } else {
+            uncertainty = 'Alta incertidumbre (empate)';
+          }
+        } else {
+          winner = 'Sin datos';
+          uncertainty = 'Sin datos';
+        }
+
         var edgeHtml = '<div class="demo-match-edge" style="color:' + (isSigned ? 'var(--accent)' : 'var(--dim)') + '">' + (edgeVal >= 0 ? '+' : '') + (edgeVal * 100).toFixed(1) + '%</div>';
+        var winnerHtml = '<div style="font-family:var(--display);font-size:0.85rem;font-weight:600;color:var(--accent-strong);margin-bottom:2px">' + winner + '</div>';
+        var uncertaintyHtml = '<div class="demo-match-signal" style="font-size:0.7rem">' + uncertainty + '</div>';
         var signalsHtml = '';
         if(probs) {
           signalsHtml += '<div class="demo-match-signal">1: ' + (probs.home * 100).toFixed(0) + '%</div>';
           signalsHtml += '<div class="demo-match-signal">X: ' + (probs.draw * 100).toFixed(0) + '%</div>';
           signalsHtml += '<div class="demo-match-signal">2: ' + (probs.away * 100).toFixed(0) + '%</div>';
         }
-        signalsEl.innerHTML = edgeHtml + signalsHtml;
+        signalsEl.innerHTML = edgeHtml + winnerHtml + uncertaintyHtml + signalsHtml;
 
       } catch(err) {
         var signalsEl = el.querySelector('.demo-match-signals');
