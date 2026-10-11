@@ -30,6 +30,9 @@
       flex-wrap: wrap;
     }
     .demo-config label {
+      white-space: nowrap;
+    }
+    .demo-config label {
       font-family: var(--mono);
       font-size: 0.75rem;
       color: var(--muted);
@@ -91,6 +94,27 @@
     .demo-api-status.disconnected {
       background: var(--surface2);
       color: var(--dim);
+    }
+    .demo-api-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-1);
+      flex: 1;
+      min-width: 200px;
+    }
+    .demo-api-input {
+      width: 100% !important;
+    }
+    .demo-api-link {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-decoration: none;
+      transition: color var(--dur);
+    }
+    .demo-api-link:hover {
+      color: var(--accent-strong);
+      text-decoration: underline;
     }
 
     /* ── Matches Container ── */
@@ -248,8 +272,9 @@
     /* ── Responsive ── */
     @media (max-width: 640px) {
       .demo-config-inner { flex-direction: column; align-items: stretch; }
-      .demo-api-input { width: 100%; }
-      .demo-api-status { margin-left: 0; }
+      .demo-api-input { width: 100% !important; }
+      .demo-api-link { text-align: center; }
+      .demo-api-status { margin-left: 0; margin-top: var(--sp-2); }
       .demo-match { grid-template-columns: 1fr; }
       .demo-match-signals { align-items: flex-start; }
     }
@@ -278,7 +303,10 @@
   <section class="demo-config">
     <div class="demo-config-inner">
       <label for="api-key">API-Football</label>
-      <input type="password" id="api-key" class="demo-api-input" placeholder="x-rapidapi-key ..." autocomplete="off" spellcheck="false" />
+      <div class="demo-api-group">
+        <input type="password" id="api-key" class="demo-api-input" placeholder="x-rapidapi-key ..." autocomplete="off" spellcheck="false" />
+        <a href="https://www.api-football.com/signup-free" target="_blank" rel="noopener" class="demo-api-link">Obtener clave gratis</a>
+      </div>
       <button id="scan-btn" class="demo-scan-btn">Escanear ya</button>
       <div id="api-status" class="demo-api-status disconnected">Sin clave</div>
     </div>
