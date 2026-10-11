@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edgebet — Prediccion de Futbol con ML</title>
+    <meta name="description" content="Edgebet: proyecto de investigacion abierto sobre edge explotable en apuestas de futbol. Modelo LightGBM con ~245 features, calibration ECE, CLV tracking y Kelly sizing.">
+    <meta name="keywords" content="prediccion futbol, apuestas, machine learning, lightgbm, xG, probabilidades, apuestas deportivas, modelado estadistico">
+    <meta name="author" content="cacelass">
+    <meta property="og:title" content="Edgebet — Prediccion de Futbol con ML">
+    <meta property="og:description" content="Investigacion abierta sobre edge explotable en apuestas de futbol con modelos de machine learning.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#fafafa;--bg-dark:#0a0f1a;--bg-card:#ffffff;
+            --text:#111827;--text-light:#6b7280;--text-muted:#9ca3af;
+            --primary:#2563eb;--primary-dark:#1d4ed8;--primary-light:#3b82f6;
+            --accent:#10b981;--accent-dark:#059669;
+            --warning:#f59e0b;--danger:#ef4444;
+            --border:#e5e7eb;--border-light:#f3f4f6;
+            --shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);
+            --shadow-md:0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);
+            --shadow-lg:0 10px 25px rgba(0,0,0,.08),0 6px 10px rgba(0,0,0,.06);
+            --radius:12px;--radius-lg:16px;
+            --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+            --mono:'JetBrains Mono','Fira Code','Courier New',monospace;
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.7;overflow-x:hidden}
+        a{text-decoration:none;color:inherit}
+
+        /* ── Nav ── */
+        .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-light);transition:box-shadow .3s}
+        .nav.scrolled{box-shadow:var(--shadow)}
+        .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+        .nav-brand{font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:10px}
+        .nav-brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block}
+        .nav-links{display:flex;gap:32px;align-items:center}
+        .nav-links a{font-size:.9rem;font-weight:500;color:var(--text-light);transition:color .2s}
+        .nav-links a:hover{color:var(--primary)}
+        .nav-links .btn-nav{background:var(--primary);color:#fff;padding:8px 20px;border-radius:8px;font-weight:600;font-size:.85rem;transition:all .2s}
+        .nav-links .btn-nav:hover{background:var(--primary-dark);transform:translateY(-1px)}
+
+        /* ── Hero ── */
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#0a0f1a 0%,#111827 40%,#1a2332 100%);color:#fff;position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(37,99,235,.15) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(16,185,129,.1) 0%,transparent 50%);pointer-events:none}
+        .hero::after{content:'';position:absolute;top:50%;left:50%;width:800px;height:800px;transform:translate(-50%,-50%);background:conic-gradient(from 0deg,transparent,rgba(37,99,235,.05),transparent,rgba(16,185,129,.05),transparent);animation:heroRotate 30s linear infinite;pointer-events:none}
+        @keyframes heroRotate{to{transform:translate(-50%,-50%) rotate(360deg)}}
+        .hero-content{position:relative;z-index:1;text-align:center;max-width:800px;padding:0 24px}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:6px 16px;border-radius:20px;font-size:.8rem;color:rgba(255,255,255,.7);margin-bottom:32px;backdrop-filter:blur(8px)}
+        .hero-badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+        .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:24px}
+        .hero h1 .gradient{background:linear-gradient(135deg,#60a5fa,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hero p{font-size:1.15rem;color:rgba(255,255,255,.6);max-width:600px;margin:0 auto 40px;line-height:1.7}
+        .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+        .hero-actions .btn{padding:14px 32px;border-radius:10px;font-weight:600;font-size:1rem;cursor:pointer;border:none;transition:all .25s}
+        .btn-primary{background:var(--primary);color:#fff}
+        .btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,99,235,.35)}
+        .btn-ghost{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.15)!important}
+        .btn-ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+
+        /* ── Sections ── */
+        .section{padding:100px 24px}
+        .section-inner{max-width:1200px;margin:0 auto}
+        .section-header{text-align:center;margin-bottom:64px}
+        .section-header h2{font-size:2.2rem;font-weight:800;letter-spacing:-.02em;margin-bottom:16px}
+        .section-header p{color:var(--text-light);font-size:1.05rem;max-width:600px;margin:0 auto}
+
+        /* ── Stats ── */
+        .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-bottom:80px}
+        .stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;text-align:center;transition:all .3s}
+        .stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+        .stat-value{font-size:2.5rem;font-weight:900;color:var(--primary);line-height:1;margin-bottom:8px}
+        .stat-label{font-size:.9rem;color:var(--text-light);font-weight:500}
+
+        /* ── Features grid ── */
+        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+        .feature-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px;transition:all .3s;position:relative;overflow:hidden}
+        .feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--primary-light)}
+        .feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--accent));opacity:0;transition:opacity .3s}
+        .feature-card:hover::before{opacity:1}
+        .feature-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(16,185,129,.1));display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px}
+        .feature-card h3{font-size:1.1rem;font-weight:700;margin-bottom:10px}
+        .feature-card p{color:var(--text-light);font-size:.95rem;line-height:1.6}
+
+        /* ── Metrics table ── */
+        .metrics-section{background:var(--bg-dark);color:#fff;border-radius:var(--radius-lg);padding:48px;margin:80px 0}
+        .metrics-section h2{font-size:2rem;font-weight:800;margin-bottom:16px}
+        .metrics-section p{color:rgba(255,255,255,.6);margin-bottom:40px;max-width:600px}
+        .metrics-table{width:100%;border-collapse:collapse}
+        .metrics-table th{text-align:left;padding:14px 20px;border-bottom:2px solid rgba(255,255,255,.1);font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.5);font-weight:600}
+        .metrics-table td{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.06);font-size:.95rem}
+        .metrics-table tr:hover td{background:rgba(255,255,255,.03)}
+        .metric-tag{display:inline-block;padding:3px 10px;border-radius:6px;font-size:.8rem;font-weight:600}
+        .metric-tag.positive{background:rgba(16,185,129,.15);color:#34d399}
+        .metric-tag.negative{background:rgba(239,68,68,.15);color:#f87171}
+        .metric-tag.neutral{background:rgba(245,158,11,.15);color:#fbbf24}
+
+        /* ── Architecture ── */
+        .arch-flow{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin:40px 0}
+        .arch-step{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;text-align:center;font-size:.9rem;font-weight:600;min-width:140px;transition:all .3s}
+        .arch-step:hover{border-color:var(--primary);transform:scale(1.05)}
+        .arch-arrow{color:var(--text-muted);font-size:1.2rem}
+
+        /* ── CTA ── */
+        .cta-section{text-align:center;background:linear-gradient(160deg,#0a0f1a,#111827);color:#fff;border-radius:var(--radius-lg);padding:80px 24px;position:relative;overflow:hidden}
+        .cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(37,99,235,.12) 0%,transparent 70%)}
+        .cta-section h2{font-size:2.5rem;font-weight:900;margin-bottom:16px;position:relative}
+        .cta-section p{color:rgba(255,255,255,.6);font-size:1.1rem;margin-bottom:32px;position:relative}
+        .cta-section .btn-primary{padding:18px 48px;font-size:1.15rem;border-radius:12px;position:relative}
+
+        /* ── Footer ── */
+        .footer{background:var(--bg-dark);color:rgba(255,255,255,.5);padding:40px 24px;text-align:center;font-size:.85rem}
+        .footer a{color:var(--primary-light)}
+        .footer p{margin-bottom:8px}
+        .footer .disclaimer{max-width:600px;margin:16px auto 0;font-size:.8rem;line-height:1.6}
+
+        /* ── Responsive ── */
+        @media(max-width:768px){
+            .nav-links{display:none}
+            .hero h1{font-size:2.5rem}
+            .stats{grid-template-columns:repeat(2,1fr)}
+            .features-grid{grid-template-columns:1fr}
+            .metrics-table{font-size:.85rem}
+            .metrics-table th,.metrics-table td{padding:12px 14px}
+            .arch-flow{flex-direction:column}
+            .arch-arrow{transform:rotate(90deg)}
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="#" class="nav-brand"><span class="dot"></span> Edgebet</a>
+        <div class="nav-links">
+            <a href="#about">Proyecto</a>
+            <a href="#metrics">Metricas</a>
+            <a href="#architecture">Arquitectura</a>
+            <a href="https://github.com/cacelass/edgebet-demo" target="_blank" class="btn-nav">Probar demo</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero" id="hero">
+    <div class="hero-content">
+        <div class="hero-badge"><span class="pulse"></span> Proyecto de investigacion abierto</div>
+        <h1>Medir si existe <span class="gradient">edge explotable</span> en apuestas de futbol</h1>
+        <p>Un sistema completo de prediccion con machine learning: LightGBM con ~245 features, calibration ECE, tracking de CLV y sizing con Kelly fraccional. Todo documentado, todo reproducible.</p>
+        <div class="hero-actions">
+            <a href="demo/" class="btn btn-primary">Probar ya</a>
+            <a href="#about" class="btn btn-ghost">Saber mas</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="about">
+    <div class="section-inner">
+        <div class="section-header">
+            <h2>Acerca del proyecto</h2>
+            <p>La pregunta que este proyecto intenta responder: con datos publicos y un panel de casas, existe una seleccion de partidos y mercados cuyo precio ejecutable bate al cierre justo de Pinnacle?</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value">245</div>
+                <div class="stat-label">Features de contrato</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">28</div>
+                <div class="stat-label">Categorias de features</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Ligas cubiertas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">105</div>
+                <div class="stat-label">Tests automatizados</div>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Features de contrato</h3>
+                <p>~245 features organizadas en 28 categorias: rolling stats (xG, goles, SoT, corners), Elo dinamico MoV, fatiga y descanso, H2H, lineups, arbitro con shrinkage bayesiano, home advantage dinamico, OA-xG, strength ratings, momentum EWMA y mas.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Modelo LightGBM Poisson</h3>
+                <p>Entrenamiento con TimeSeriesSplit x 5 folds (assert temporal estricto), pesos temporales con semivida 180 dias, regularizacion L1+L2, early stopping por fold. Correccion Dixon-Coles para 0-0 y 1-0.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Calibracion ECE</h3>
+                <p>Seleccion de modelos por classwise Expected Calibration Error, no por accuracy. Platt, isotonica, segmentada y cross-fitting. Monitor de drift: alerta si Brier sube >0.015.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Kelly fraccional</h3>
+                <p>Quarter Kelly (25% del Kelly completo) en produccion. Capado al 3% bankroll por apuesta, maximo 15% exposicion total. Kelly adaptativo basado en CLV rodante.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Tracking de CLV</h3>
+                <p>CLV_log = ln(ejecutada / cierre_devigado). t-test + IC 90% bootstrap + sign-flip. Deteccion de degradation en ventana de 30 apuestas. Correlacion r=0.87 con ROI.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Anti-leakage</h3>
+                <p>8 tests automatizados: prefijo f_ obligatorio, rolling con .shift(1), Elo pre-partido, H2H pre-partido, TimeSeriesSplit con date_tr_max < date_val_min, strength ratings temporales.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="metrics" style="padding-top:0">
+    <div class="section-inner">
+        <div class="metrics-section">
+            <h2>Metricas del sistema</h2>
+            <p>Las metricas que se usan para evaluar edge real. CLV es la métrica primaria (r=0.87 con ROI).</p>
+
+            <table class="metrics-table">
+                <thead>
+                    <tr>
+                        <th>Metrica</th>
+                        <th>Que mide</th>
+                        <th>Interpretacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>CLV_log</strong></td>
+                        <td>ln(ejecutada / cierre Pinnacle devigado)</td>
+                        <td><span class="metric-tag positive">&gt;0.01 = edge real</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Brier Score</strong></td>
+                        <td>Error cuadratico de probabilidades</td>
+                        <td>Menor = mejor calibracion</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ECE</strong></td>
+                        <td>Expected Calibration Error (classwise)</td>
+                        <td><span class="metric-tag negative">Selección de modelo</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>ΔBrier</strong></td>
+                        <td>Modelo Brier vs cierre mercado Brier</td>
+                        <td><span class="metric-tag positive">&lt;0 = modelo mejor</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Yield</strong></td>
+                        <td>ROI real sobre stakes Kelly</td>
+                        <td><span class="metric-tag neutral">Positivo sin CLV = suerte</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Luck score</strong></td>
+                        <td>yield_real − clv_mean</td>
+                        <td><span class="metric-tag negative">&gt;5pp = suerte probable</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="architecture">
+    <div class="section-inner">
+        <div class="section-header">
+            <h2>Arquitectura del pipeline</h2>
+            <p>Desde los datos crudos hasta la senal de apuesta, cada paso es reproducible y auditable.</p>
+        </div>
+
+        <div class="arch-flow">
+            <div class="arch-step">Datos crudos<br><small style="color:var(--text-muted)">Understat + API-FB + FDCO</small></div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-step">Features<br><small style="color:var(--text-muted)">~245 f_ columns</small></div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-step">Entrenamiento<br><small style="color:var(--text-muted)">LightGBM + DC</small></div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-step">Prediccion<br><small style="color:var(--text-muted)">Poisson bivariada</small></div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-step">EV + Kelly<br><small style="color:var(--text-muted)">Shin + sizing</small></div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-step">CLV Tracking<br><small style="color:var(--text-muted)">Bootstrap + sign-flip</small></div>
+        </div>
+
+        <div style="margin-top:48px">
+            <h3 style="text-align:center;margin-bottom:24px;font-size:1.3rem">Mercados cubiertos en produccion</h3>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
+                <span style="background:var(--bg-card);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:.9rem;font-weight:500">1X2</span>
+                <span style="background:var(--bg-card);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:.9rem;font-weight:500">Over/Under 0.5-4.5</span>
+                <span style="background:var(--bg-card);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:.9rem;font-weight:500">BTTS</span>
+                <span style="background:var(--bg-card);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:.9rem;font-weight:500">Asian Handicap</span>
+                <span style="background:var(--bg-card);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:.9rem;font-weight:500">Quarter Lines</span>
+                <span style="background:var(--bg-card);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:.9rem;font-weight:500">Corners O/U</span>
+                <span style="background:var(--bg-card);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:.9rem;font-weight:500">Score Exacto Top-20</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="padding-top:0">
+    <div class="section-inner">
+        <div class="cta-section">
+            <h2>Probar la demo</h2>
+            <p>Prueba predicciones con el modelo ONNX. Introduce tus propias API keys o usa datos simulados.</p>
+            <a href="demo/" class="btn btn-primary">Probar ya</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>Edgebet — Proyecto de investigacion en prediccion de futbol con ML</p>
+    <p><a href="https://github.com/cacelass/edgebet-demo" target="_blank">GitHub</a></p>
+    <p class="disclaimer">Las predicciones de la demo son solo para fines educativos. No constituyen consejo de apuestas. Apuesta con responsabilidad. El codigo fuente del sistema de produccion esta en un repository privado.</p>
+</footer>
+
+<script>
+    // Navbar scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+</script>
+
+</body>
+</html>
