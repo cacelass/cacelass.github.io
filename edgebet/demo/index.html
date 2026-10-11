@@ -304,7 +304,7 @@
     <div class="demo-config-inner">
       <label for="api-key">API-Football</label>
       <div class="demo-api-group">
-        <input type="password" id="api-key" class="demo-api-input" placeholder="x-rapidapi-key ..." autocomplete="off" spellcheck="false" />
+        <input type="password" id="api-key" class="demo-api-input" placeholder="API key (b3 ...)" autocomplete="off" spellcheck="false" />
         <a href="https://www.api-football.com/signup-free" target="_blank" rel="noopener" class="demo-api-link">Obtener clave gratis</a>
       </div>
       <button id="scan-btn" class="demo-scan-btn">Escanear ya</button>
@@ -330,7 +330,7 @@
 
   <section class="demo-privacy">
     <div class="demo-privacy-inner">
-      <p><strong>Privacidad:</strong> La API key se almacena solo en <code>localStorage</code> de tu navegador. No se envia a ningun servidor intermedio. Se usa exclusivamente para peticiones directas a <code>api-football.com</code>. Las predicciones se ejecutan localmente con un modelo ONNX.</p>
+      <p><strong>Privacidad:</strong> La API key se almacena solo en <code>localStorage</code> de tu navegador. No se envia a ningun servidor intermedio. Se usa exclusivamente para peticiones directas a <code>v3.football.api-sports.io</code>. Las predicciones se ejecutan localmente con un modelo ONNX.</p>
     </div>
   </section>
 
@@ -455,7 +455,12 @@
         loadingEl.style.display = 'none';
         emptyEl.style.display = 'block';
         emptyEl.querySelector('h3').textContent = 'Error al escanear';
-        emptyEl.querySelector('p').textContent = err.message || 'Comprueba la API key y reintenta.';
+        var errMsg = err.message || 'Comprueba la API key y reintenta.';
+        // Show more details about the error
+        if(err.message && err.message.includes('Failed to fetch')) {
+          errMsg = 'No se pudo conectar. Verifica la API key. La clave gratuita de api-football.com usa el endpoint: v3.football.api-sports.io';
+        }
+        emptyEl.querySelector('p').textContent = errMsg;
       } finally {
         scanBtn.disabled = false;
       }
@@ -469,10 +474,10 @@
     }
 
     async function fetchFixtures(key, date) {
-      var url = 'https://api.api-football.com/v3/fixtures?date=' + date;
+      var url = 'https://v3.football.api-sports.io/fixtures?date=' + date;
       var resp = await fetch(url, {
         headers: {
-          'x-rapidapi-host': 'api-football.com',
+          'x-rapidapi-host': 'v3.football.api-sports.io',
           'x-rapidapi-key': key
         }
       });
@@ -497,10 +502,10 @@
 
       try {
         // Fetch odds for this fixture
-        var oddsUrl = 'https://api.api-football.com/v3/odds?fixture=' + fixture.fixture.id;
+        var oddsUrl = 'https://v3.football.api-sports.io/odds?fixture=' + fixture.fixture.id;
         var oddsResp = await fetch(oddsUrl, {
           headers: {
-            'x-rapidapi-host': 'api-football.com',
+            'x-rapidapi-host': 'v3.football.api-sports.io',
             'x-rapidapi-key': key
           }
         });
