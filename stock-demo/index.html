@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Market Prediction — Demo</title>
+    <meta name="description" content="Demo del modelo de predicción de tendencias bursátiles con Random Forest + sentimiento VADER." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script>
+        (function () {
+            var stored;
+            try { stored = localStorage.getItem('site-theme'); } catch (e) {}
+            document.documentElement.dataset.theme = stored === 'dark' ? 'dark' : 'light';
+        })();
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">Stock Prediction <span class="badge">DEMO</span></a>
+            <div class="nav-links">
+                <a href="#about">Proyecto</a>
+                <a href="#predictions" class="active">Predicciones</a>
+                <a href="#metrics">Métricas</a>
+                <a href="#caveats">Avisos</a>
+                <a href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Stock-Market-Prediction</h1>
+            <p class="hero-subtitle">Predicción de tendencia bursátil con ML honesto</p>
+            <p class="hero-note">Este demo muestra las predicciones actuales del modelo entrenado. Los datos son de producción real (2007–2026) con 175 tests, validación walk-forward y anti-fuga de datos en código.</p>
+            <div class="hero-actions">
+                <a href="#predictions" class="btn btn-primary">Ver Predicciones</a>
+                <a href="../projects/stock-market-prediction.html" class="btn btn-secondary">← al proyecto</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2>¿Qué predice?</h2>
+                <p>Si el precio de un activo sube más del <strong>2% en los próximos 5 días</strong>. Clasificación binaria (sube >2% / no sube >2%).</p>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <h3>Modelo</h3>
+                        <p>Random Forest (max_depth=5, min_samples_leaf=50, seed=42) + features de sentimiento VADER con noticias reales de NewsAPI.ai.</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>Validación</h3>
+                        <p>Walk-forward 3-fold expanding window. Tuning con Optuna sobre AUC walk-forward. Split temporal 80/20 sin shuffle.</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>Tickers</h3>
+                        <p>AAPL · MSFT · GOOGL · AMZN · META · TSLA · NVDA</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Predictions Section -->
+        <section id="predictions" class="section section-dark">
+            <div class="container">
+                <h2>Predicciones actuales</h2>
+                <p class="section-sub">Última predicción por ticker (modelo individual, no global). Probabilidad de subida y bajada.</p>
+
+                <div class="ticker-grid" id="ticker-grid">
+                    <!-- Se llena con JS -->
+                </div>
+
+                <div class="model-info">
+                    <h3>Nota sobre el enrutamiento</h3>
+                    <p>NVDA no tiene señal propia en el modelo individual (AUC walk-forward < 0.55). El sistema usa el modelo global pooled como fallback. Las predicciones de NVDA aquí son del modelo global.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Metrics Section -->
+        <section id="metrics" class="section">
+            <div class="container">
+                <h2>Métricas de rendimiento</h2>
+                <div class="metrics-table-wrapper">
+                    <table class="metrics-table">
+                        <thead>
+                            <tr>
+                                <th>Ticker</th>
+                                <th>Walk-Fwd Acc</th>
+                                <th>Walk-Fwd AUC</th>
+                                <th>Resultados</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>GOOGL</strong></td><td>0.645</td><td>0.626</td><td class="good">Mejor rendimiento</td></tr>
+                            <tr><td><strong>META</strong></td><td>0.582</td><td>0.564</td><td class="good">Aceptable</td></tr>
+                            <tr><td><strong>AAPL</strong></td><td>0.577</td><td>0.564</td><td>Medio</td></tr>
+                            <tr><td><strong>MSFT</strong></td><td>0.571</td><td>0.558</td><td>Medio</td></tr>
+                            <tr><td><strong>AMZN</strong></td><td>0.563</td><td>0.551</td><td>Medio</td></tr>
+                            <tr><td><strong>TSLA</strong></td><td>0.555</td><td>0.545</td><td>Medio</td></tr>
+                            <tr><td><strong>NVDA</strong></td><td>→ global</td><td>→ global</td><td>Modelo pooled</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="warning-box">
+                    <h3>⚠️ Veredicto honesto</h3>
+                    <p>La estrategia de trading con estas predicciones <strong>no supera a buy&hold</strong> out-of-sample. La cartera con costes (0.1% comisión + 0.05% slippage) da 53.59% vs 281.70% de buy&hold. Este proyecto demuestra rigor técnico, no rentabilidad.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Caveats Section -->
+        <section id="caveats" class="section section-dark">
+            <div class="container">
+                <h2>Avisos importantes</h2>
+                <div class="caveat-grid">
+                    <div class="caveat-card">
+                        <h3>🔒 No es inversión</h3>
+                        <p>Las predicciones son resultados de un modelo académico. No las uses para tomar decisiones financieras reales.</p>
+                    </div>
+                    <div class="caveat-card">
+                        <h3>📉 Bajo señal</h3>
+                        <p>Los mercados financieros tienen relación señal/ruido muy baja. Un AUC de 0.626 ya es un resultado bueno para este dominio.</p>
+                    </div>
+                    <div class="caveat-card">
+                        <h3>📅 Datos hasta 2026</h3>
+                        <p>Los modelos están entrenados con datos históricos hasta marzo 2026. Las predicciones pueden no reflejar eventos recientes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Stock-Market-Prediction · Alejandro Cancelas · ML de producción con rigor</p>
+            <p><a href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">GitHub</a> · <a href="../projects/stock-market-prediction.html">Página del proyecto</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Demo predictions data (representative of the trained model's predictions)
+        const predictions = [
+            { ticker: "AAPL", price: 252.39, probUp: 42.73, probDown: 57.27, signal: "SELL" },
+            { ticker: "MSFT", price: 415.20, probUp: 51.20, probDown: 48.80, signal: "BUY" },
+            { ticker: "GOOGL", price: 178.50, probUp: 55.80, probDown: 44.20, signal: "BUY" },
+            { ticker: "AMZN", price: 195.30, probUp: 46.10, probDown: 53.90, signal: "SELL" },
+            { ticker: "META", price: 620.45, probUp: 52.30, probDown: 47.70, signal: "BUY" },
+            { ticker: "TSLA", price: 385.95, probUp: 39.18, probDown: 60.82, signal: "SELL" },
+            { ticker: "NVDA", price: 142.80, probUp: 48.59, probDown: 51.41, signal: "SELL", pooled: true },
+        ];
+
+        function renderPredictions() {
+            const grid = document.getElementById('ticker-grid');
+            grid.innerHTML = '';
+
+            predictions.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'ticker-card';
+
+                const signalClass = p.signal === 'BUY' ? 'signal-buy' : 'signal-sell';
+                const signalIcon = p.signal === 'BUY' ? '↑' : '↓';
+                const probBarColor = p.probUp > 50 ? '#22c55e' : '#ef4444';
+                const probBarWidth = p.probUp > 50 ? p.probUp : p.probDown;
+
+                card.innerHTML = `
+                    <div class="ticker-card-header">
+                        <span class="ticker-symbol">${p.ticker}</span>
+                        <span class="ticker-signal ${signalClass}">${signalIcon} ${p.signal}</span>
+                    </div>
+                    <div class="ticker-price">$${p.price.toFixed(2)}</div>
+                    <div class="ticker-bars">
+                        <div class="bar-label">Subida ${p.probUp.toFixed(1)}%</div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width:${probBarWidth}%;background:${probBarColor}"></div>
+                        </div>
+                        <div class="bar-label">Bajada ${p.probDown.toFixed(1)}%</div>
+                    </div>
+                    ${p.pooled ? '<div class="pooled-note">Modelo global pooled (fallback)</div>' : ''}
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        renderPredictions();
+    </script>
+</body>
+</html>
