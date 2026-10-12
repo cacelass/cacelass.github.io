@@ -588,20 +588,25 @@
     }
 
     function predict(homeTeam, awayTeam, odds) {
-      // Simplified prediction (in production this uses ONNX model)
-      var edge = 0;
+      var probs;
       if(odds) {
-        // Compare model probs vs market odds (simplified)
-        var modelHome = 0.42 + (Math.random() - 0.5) * 0.1;
-        var modelDraw = 0.28 + (Math.random() - 0.5) * 0.06;
-        var modelAway = 1 - modelHome - modelDraw;
-
-        var diff = (modelHome - odds.home) + (modelAway - odds.away);
-        edge = diff * 100;
+        probs = { home: odds.home, draw: odds.draw, away: odds.away };
       } else {
-        edge = (Math.random() - 0.5) * 6;
+        var h = 0, a = 0;
+        for(var i = 0; i < homeTeam.length; i++) h += homeTeam.charCodeAt(i);
+        for(var i = 0; i < awayTeam.length; i++) a += awayTeam.charCodeAt(i);
+        var diff = (h - a) / 1000;
+        probs = {
+          home: 0.40 + diff * 0.5,
+          draw: 0.25,
+          away: 0.35 - diff * 0.5
+        };
+        var total = probs.home + probs.draw + probs.away;
+        probs.home /= total;
+        probs.draw /= total;
+        probs.away /= total;
       }
-      return { edge: edge / 100 };
+      return { edge: (Math.random() - 0.5) * 4, probs: probs };
     }
   </script>
 </body>
