@@ -420,8 +420,8 @@
 
         // Fetch both days in parallel
         var [todayData, tomorrowData] = await Promise.all([
-          fetchFixtures(key, todayStr),
-          fetchFixtures(key, tomorrowStr)
+          fetchFixtures(key, formatDate(today)),
+          fetchFixtures(key, formatDate(tomorrow))
         ]);
 
         var allFixtures = [];
@@ -471,6 +471,20 @@
     }
 
 
+
+    function formatDate(d) {
+      var y = d.getFullYear();
+      var m = String(d.getMonth()+1).padStart(2,'0');
+      var day = String(d.getDate()).padStart(2,'0');
+      return y+'-'+m+'-'+day;
+    }
+
+    async function fetchFixtures(key, date) {
+      var url = 'https://v3.football.api-sports.io/fixtures?date='+date;
+      var resp = await fetch(url, {headers:{'x-rapidapi-host':'v3.football.api-sports.io','x-rapidapi-key':key}});
+      if(!resp.ok) throw new Error('API error: '+resp.status);
+      return await resp.json();
+    }
 
     function processFixture(fixture) {
       var el = document.createElement('div');
