@@ -596,20 +596,18 @@
         for(var i = 0; i < homeTeam.length; i++) h += homeTeam.charCodeAt(i);
         for(var i = 0; i < awayTeam.length; i++) a += awayTeam.charCodeAt(i);
         var diff = (h - a) / 1000;
-        // Clamp diff to [-1, 1] to prevent extreme probabilities
         diff = Math.max(-1, Math.min(1, diff));
         probs = {
-          home: 0.40 + diff * 0.3,
-          draw: 0.25 + Math.abs(diff) * 0.05,
-          away: 0.35 - diff * 0.3
+          home: Math.max(0.10, Math.min(0.70, 0.40 + diff * 0.3)),
+          draw: Math.max(0.15, Math.min(0.40, 0.25 + Math.abs(diff) * 0.05)),
+          away: Math.max(0.10, Math.min(0.70, 0.35 - diff * 0.3))
         };
-        // Normalize to sum to 1
         var total = probs.home + probs.draw + probs.away;
         probs.home /= total;
         probs.draw /= total;
         probs.away /= total;
       }
-      return { edge: (Math.random() - 0.5) * 4, probs: probs };
+      return { edge: (Math.random() - 0.5) * 0.08, probs: probs };
     }
   </script>
 </body>
