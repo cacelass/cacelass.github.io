@@ -447,13 +447,11 @@
         summaryEl.style.display = 'flex';
         summaryEl.innerHTML = '<span><strong>' + filtered.length + '</strong> partidos</span><span>Ligas top</span><span>' + new Date().toLocaleTimeString('es-ES') + '</span>';
 
-        // Process each fixture
+        // Process each fixture (no network calls, instant)
         for(var i = 0; i < filtered.length; i++) {
           var fixture = filtered[i];
-          var match = await processFixture(fixture, key);
-          if(match) {
-            resultsEl.appendChild(match);
-          }
+          var match = processFixture(fixture);
+          resultsEl.appendChild(match);
         }
 
       } catch(err) {
@@ -491,7 +489,7 @@
       return await resp.json();
     }
 
-    async function processFixture(fixture, key) {
+    function processFixture(fixture) {
       var el = document.createElement('div');
       el.className = 'demo-match not-signed';
 
@@ -513,75 +511,30 @@
         }
       }
 
-      el.innerHTML = '<div class="demo-match-info"><div class="demo-match-time">' + dateStr + (timeStr ? ' — ' + timeStr : '') + '</div><div class="demo-match-teams">' + homeTeam + ' vs ' + awayTeam + '</div><div class="demo-match-league">' + league + ', ' + country + '</div></div><div class="demo-match-signals"><div class="demo-match-loading">Cargando prediccion...</div></div>';
+      el.innerHTML = '<div class="demo-match-info"><div class="demo-match-time">' + dateStr + (timeStr ? ' — ' + timeStr : '') + '</div><div class="demo-match-teams">' + homeTeam + ' vs ' + awayTeam + '</div><div class="demo-match-league">' + league + ', ' + country + '</div></div><div class="demo-match-signals">Prediccion calculada</div>';
 
-      try {
-        // Fetch odds for this fixture
-        var oddsUrl = 'https://v3.football.api-sports.io/odds?fixture=' + fixture.fixture.id;
-        var oddsResp = await fetch(oddsUrl, {
-          headers: {
-            'x-rapidapi-host': 'v3.football.api-sports.io',
-            'x-rapidapi-key': key
-          }
-        });
+      // Simple prediction without odds API (always works)
+      var prediction = predict(homeTeam, awayTeam, null);
+      var probs = prediction.probs;
 
-        var probs = null;
-        if(oddsResp.ok) {
-          var oddsData = await oddsResp.json();
-          probs = extractOdds(oddsData, homeTeam, awayTeam);
-        }
-
-        // Generate prediction (mock ONNX - in production this calls /predict)
-        var prediction = predict(homeTeam, awayTeam, probs);
-
-        // Update the match element with clear prediction
         var signalsEl = el.querySelector('.demo-match-signals');
         var edgeVal = prediction.edge;
         var isSigned = edgeVal > 0;
         el.className = 'demo-match ' + (isSigned ? 'signed' : 'not-signed');
 
-        // Use probs from predict() or extractOdds() — whichever is available
-        var probs = prediction.probs || probs;
-        var winner = 'Gana ' + homeTeam;
-        var uncertainty = 'Baja incertidumbre';
-        if(probs) {
-          var maxP = Math.max(probs.home, probs.draw, probs.away);
-          if(probs.home === maxP) {
-            winner = 'Gana ' + homeTeam;
-          } else if(probs.away === maxP) {
-            winner = 'Gana ' + awayTeam;
-          } else {
-            winner = 'Empate probable';
-          }
-          var sorted = [probs.home, probs.draw, probs.away].sort(function(a,b){return b-a});
-          var gap = sorted[0] - sorted[1];
-          if(gap > 0.20) {
-            uncertainty = 'Baja incertidumbre';
-          } else if(gap > 0.10) {
-            uncertainty = 'Inc. media';
-          } else {
-            uncertainty = 'Alta incertidumbre';
-          }
-        } else {
-          winner = 'Sin datos';
-          uncertainty = 'Sin datos';
-        }
+        var maxP = Math.max(probs.home, probs.draw, probs.away);
+        var winner = probs.home === maxP ? 'Gana ' + homeTeam : (probs.away === maxP ? 'Gana ' + awayTeam : 'Empate probable');
+        var sorted = [probs.home, probs.draw, probs.away].sort(function(a,b){return b-a});
+        var gap = sorted[0] - sorted[1];
+        var uncertainty = gap > 0.20 ? 'Baja incertidumbre' : (gap > 0.10 ? 'Inc. media' : 'Alta incertidumbre');
 
-        var edgeHtml = '<div class="demo-match-edge" style="color:' + (isSigned ? 'var(--accent)' : 'var(--dim)') + '">' + (edgeVal >= 0 ? '+' : '') + (edgeVal * 100).toFixed(1) + '%</div>';
-        var winnerHtml = '<div style="font-family:var(--display);font-size:0.85rem;font-weight:600;color:var(--accent-strong);margin-bottom:2px">' + winner + '</div>';
-        var uncertaintyHtml = '<div class="demo-match-signal" style="font-size:0.7rem">' + uncertainty + '</div>';
-        var signalsHtml = '';
-        if(probs) {
-          signalsHtml += '<div class="demo-match-signal">1: ' + (probs.home * 100).toFixed(0) + '%</div>';
-          signalsHtml += '<div class="demo-match-signal">X: ' + (probs.draw * 100).toFixed(0) + '%</div>';
-          signalsHtml += '<div class="demo-match-signal">2: ' + (probs.away * 100).toFixed(0) + '%</div>';
-        }
-        signalsEl.innerHTML = edgeHtml + winnerHtml + uncertaintyHtml + signalsHtml;
-
-      } catch(err) {
-        var signalsEl = el.querySelector('.demo-match-signals');
-        signalsEl.innerHTML = '<div style="font-size:0.75rem;color:var(--dim)">Error: ' + err.message + '</div>';
-      }
+        signalsEl.innerHTML =
+          '<div class="demo-match-edge" style="color:' + (isSigned ? 'var(--accent)' : 'var(--dim)') + '">' + (edgeVal >= 0 ? '+' : '') + (edgeVal * 100).toFixed(1) + '%</div>' +
+          '<div style="font-family:var(--display);font-size:0.85rem;font-weight:600;color:var(--accent-strong);margin-bottom:2px">' + winner + '</div>' +
+          '<div class="demo-match-signal" style="font-size:0.7rem">' + uncertainty + '</div>' +
+          '<div class="demo-match-signal">1: ' + (probs.home * 100).toFixed(0) + '%</div>' +
+          '<div class="demo-match-signal">X: ' + (probs.draw * 100).toFixed(0) + '%</div>' +
+          '<div class="demo-match-signal">2: ' + (probs.away * 100).toFixed(0) + '%</div>';
 
       return el;
     }
