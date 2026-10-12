@@ -540,9 +540,10 @@
         var isSigned = edgeVal > 0;
         el.className = 'demo-match ' + (isSigned ? 'signed' : 'not-signed');
 
-        // Determine winner and uncertainty
-        var winner = '';
-        var uncertainty = '';
+        // Use probs from predict() or extractOdds() — whichever is available
+        var probs = prediction.probs || probs;
+        var winner = 'Gana ' + homeTeam;
+        var uncertainty = 'Baja incertidumbre';
         if(probs) {
           var maxP = Math.max(probs.home, probs.draw, probs.away);
           if(probs.home === maxP) {
@@ -552,7 +553,6 @@
           } else {
             winner = 'Empate probable';
           }
-          // Uncertainty: how close are the top 2?
           var sorted = [probs.home, probs.draw, probs.away].sort(function(a,b){return b-a});
           var gap = sorted[0] - sorted[1];
           if(gap > 0.20) {
@@ -560,7 +560,7 @@
           } else if(gap > 0.10) {
             uncertainty = 'Inc. media';
           } else {
-            uncertainty = 'Alta incertidumbre (empate)';
+            uncertainty = 'Alta incertidumbre';
           }
         } else {
           winner = 'Sin datos';
@@ -587,21 +587,42 @@
     }
 
     function extractOdds(data, homeTeam, awayTeam) {
-      if(!data || !data.response || data.response.length === 0) return null;
-      var odds = data.response[0].odds;
-      if(!odds || !odds[0]) return null;
-      var firstBookmaker = odds[0];
+      if(!data || !data.response || data.response.length === 0) {
+        console.log('extractOdds: no response data');
+        return null;
+      }
+      var fixtureData = data.response[0];
+      // Try multiple formats that the API might return
+      var oddsArr = fixtureData.odds || fixtureData.response[0].odds || [];
+      if(!oddsArr || oddsArr.length === 0) {
+        console.log('extractOdds: no odds in response');
+        return null;
+      }
+      var firstBookmaker = oddsArr[0];
       var home = null, draw = null, away = null;
-      for(var i = 0; i < firstBookmaker.home.length; i++) {
-        if(firstBookmaker.home[i] !== null) { home = firstBookmaker.home[i]; break; }
+      // Format 1: arrays like [null, 2.10, 3.50]
+      if(Array.isArray(firstBookmaker.home)) {
+        for(var i = 0; i < firstBookmaker.home.length; i++) {
+          if(firstBookmaker.home[i] !== null) { home = firstBookmaker.home[i]; break; }
+        }
+        for(var i = 0; i < firstBookmaker.draw.length; i++) {
+          if(firstBookmaker.draw[i] !== null) { draw = firstBookmaker.draw[i]; break; }
+        }
+        for(var i = 0; i < firstBookmaker.away.length; i++) {
+          if(firstBookmaker.away[i] !== null) { away = firstBookmaker.away[i]; break; }
+        }
       }
-      for(var i = 0; i < firstBookmaker.draw.length; i++) {
-        if(firstBookmaker.draw[i] !== null) { draw = firstBookmaker.draw[i]; break; }
+      // Format 2: object like {"1": 2.10, "X": 3.50, "2": 4.00}
+      if(!home && firstBookmaker["1"]) home = firstBookmaker["1"];
+      if(!draw && firstBookmaker["X"]) draw = firstBookmaker["X"];
+      if(!away && firstBookmaker["2"]) away = firstBookmaker["2"];
+      if(!home && firstBookmaker.home) home = firstBookmaker.home;
+      if(!draw && firstBookmaker.draw) draw = firstBookmaker.draw;
+      if(!away && firstBookmaker.away) away = firstBookmaker.away;
+      if(!home || !draw || !away) {
+        console.log('extractOdds: missing odds. Bookmaker:', JSON.stringify(firstBookmaker).substring(0, 200));
+        return null;
       }
-      for(var i = 0; i < firstBookmaker.away.length; i++) {
-        if(firstBookmaker.away[i] !== null) { away = firstBookmaker.away[i]; break; }
-      }
-      if(!home || !draw || !away) return null;
       var homeProb = 1 / home;
       var drawProb = 1 / draw;
       var awayProb = 1 / away;
