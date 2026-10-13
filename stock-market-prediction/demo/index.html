@@ -1,232 +1,256 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#e6e6e6" />
-  <script>
-    (function () {
-      var stored;
-      try { stored = localStorage.getItem('site-theme'); } catch (e) {}
-      document.documentElement.dataset.theme = stored === 'dark' ? 'dark' : 'light';
-    })();
-  </script>
-  <title>Stock-Market-Prediction — Demo de riesgo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../../style.css" />
-  <style>
-    .demo-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 18px; }
-    .tk-btn {
-      font-family: var(--mono, 'JetBrains Mono', monospace); font-size: 0.78rem;
-      padding: 6px 12px; border-radius: 8px; cursor: pointer;
-      border: 1px solid var(--border, #27272a); background: transparent; color: var(--muted, #a1a1aa);
-      transition: border-color .15s, color .15s, background .15s;
-    }
-    .tk-btn:hover { border-color: var(--accent, #2563eb); color: var(--accent2, #2563eb); }
-    .tk-btn.active { border-color: var(--accent, #2563eb); background: var(--accent-lo, rgba(37,99,235,.08)); color: var(--accent2, #2563eb); }
-    .demo-range { margin-left: auto; display: flex; gap: 6px; }
-    .chart-wrap { position: relative; width: 100%; height: clamp(240px, 42vh, 380px); }
-    #chart { width: 100%; height: 100%; display: block; }
-    .legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; font-size: 0.78rem; color: var(--muted); }
-    .legend span { display: inline-flex; align-items: center; gap: 7px; }
-    .legend i { width: 22px; height: 2px; border-radius: 2px; display: inline-block; }
-    .m-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 24px; }
-    .m-card { border: 1px solid var(--border, #27272a); border-radius: 12px; padding: 16px 18px; background: var(--surface, #fff); }
-    .m-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--dim, #71717a); margin-bottom: 8px; }
-    .m-val { font-family: var(--mono, monospace); font-size: 1.5rem; color: var(--text); }
-    .m-sub { font-size: 0.74rem; color: var(--muted); margin-top: 6px; }
-    .m-card.win .m-val { color: #22c55e; }
-    .m-card.lose .m-val { color: #ef4444; }
-    .note { margin-top: 22px; font-size: 0.84rem; color: var(--muted); line-height: 1.7; max-width: 720px; }
-    .note code { font-family: var(--mono, monospace); font-size: 0.8em; }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Stock Market Prediction — Demo</title>
+<meta name="description" content="Demo del modelo de prediccion de tendencias bursatiles con Random Forest + sentimiento VADER.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('site-theme')==='dark'?'dark':'light'}catch(e){}</script>
+<style>
+:root{--bg:#f6f6f6;--bg-alt:#eaeaea;--fg:#1a1a1a;--muted:#666;--accent:#2563eb;--buy:#16a34a;--sell:#dc2626;--border:#e0e0e0;--shadow:0 1px 3px rgba(0,0,0,0.08)}
+[data-theme="dark"]{--bg:#0f0f0f;--bg-alt:#1a1a1a;--fg:#e6e6e6;--muted:#999;--accent:#60a5fa;--buy:#4ade80;--sell:#f87171;--border:#333;--shadow:0 1px 3px rgba(0,0,0,0.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--fg);line-height:1.6}
+h1,h2,h3{font-weight:600}
+.container{max-width:960px;margin:0 auto;padding:0 24px}
+.navbar{background:var(--bg-alt);border-bottom:1px solid var(--border);padding:12px 0;position:sticky;top:0;z-index:100}
+.nav-container{max-width:960px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:600;color:var(--fg);text-decoration:none;display:flex;align-items:center;gap:8px}
+.badge{background:var(--accent);color:#fff;font-size:.7rem;padding:2px 8px;border-radius:20px;font-weight:500}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--fg)}
+.hero{padding:48px 0 32px;text-align:center;opacity:0;animation:fadeIn .6s ease forwards}
+@keyframes fadeIn{to{opacity:1}}
+.hero h1{font-size:2rem;margin-bottom:8px}
+.hero p{color:var(--muted);font-size:1rem;max-width:600px;margin:0 auto}
+.section{padding:32px 0}
+.section h2{font-size:1.5rem;margin-bottom:16px}
+.section-sub{color:var(--muted);margin-bottom:24px;font-size:.9rem}
+.selector-box{background:var(--bg-alt);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:24px}
+.selector-label{font-size:.85rem;color:var(--muted);margin-bottom:8px;display:block}
+select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);font-family:'Space Grotesk',sans-serif;font-size:1rem;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(37,99,235,0.1)}
+.chart-wrapper{background:var(--bg-alt);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:24px}
+.chart-wrapper h3{font-size:1rem;margin-bottom:12px;color:var(--fg)}
+canvas{max-height:350px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+.kpi-box{background:var(--bg-alt);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center}
+.kpi-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.kpi-value{font-size:1.8rem;font-weight:600;font-family:'JetBrains Mono',monospace}
+.kpi-value.positive{color:var(--buy)}
+.kpi-value.negative{color:var(--sell)}
+.kpi-note{font-size:.75rem;color:var(--muted);margin-top:4px}
+.table-wrapper{overflow-x:auto;margin-bottom:24px;border:1px solid var(--border);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+th{background:var(--bg-alt);font-weight:500;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+tr:hover{background:rgba(0,0,0,0.02)}
+[data-theme="dark"] tr:hover{background:rgba(255,255,255,0.03)}
+.limitation-card{background:var(--bg-alt);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:16px}
+.limitation-card h3{font-size:1.1rem;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.limitation-card h3 .num{display:inline-flex;width:24px;height:24px;background:var(--accent);color:#fff;border-radius:50%;justify-content:center;align-items:center;font-size:.8rem}
+.limitation-card p{color:var(--muted);font-size:.9rem;line-height:1.7;margin-bottom:8px}
+.limitation-card ul{margin:12px 0 0 20px}
+.limitation-card li{color:var(--muted);font-size:.85rem;margin-bottom:6px;line-height:1.6}
+.limitation-card li code{background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.8rem}
+[data-theme="dark"] .limitation-card li code{background:rgba(255,255,255,0.08)}
+footer{text-align:center;padding:32px 0;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border);margin-top:48px}
+footer a{color:var(--accent);text-decoration:none}
+footer a:hover{text-decoration:underline}
+</style>
 </head>
-<body class="proj-page">
-
-  <nav>
-    <div class="nav-inner">
-      <div class="nav-brand">
-        <div class="nav-dot"></div>
-        <div class="nav-id"><a href="../../projects/stock-market-prediction.html" class="nav-back" data-i18n="back_proj">← proyecto</a> <strong>Alejandro Cancelas</strong> <span>/ Stock-Market-Prediction / demo</span></div>
-      </div>
-      <ul class="nav-links">
-        <li><button class="theme-toggle" type="button" aria-label="Cambiar entre modo claro y oscuro" aria-pressed="false" title="Modo claro / oscuro"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button></li>
-      </ul>
-    </div>
-  </nav>
-
-  <section class="proj-hero">
-    <div class="container">
-      <div class="hero-eyebrow">Stock-Market-Prediction · demo</div>
-      <h1>Predicción de <span class="hl">riesgo</span><br />en el navegador.</h1>
-      <p class="hero-sub">
-        El modelo de clasificación direccional tiene un techo real (AUC ≈ 0.55). La
-        volatilidad, en cambio, <strong>sí es predecible</strong>: este modelo de riesgo
-        estima la volatilidad realizada de los próximos 10 días y bate a la persistencia
-        en los 7 tickers. Las series de abajo son predicciones <em>walk-forward</em>
-        fuera de muestra, no ajustes.
-      </p>
-      <div class="proj-links">
-        <a class="hero-cta" href="../../projects/stock-market-prediction.html" data-i18n="cta_back_proj">← volver al proyecto</a>
-        <a class="hero-cta" href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank" rel="noopener noreferrer">ver repo</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="sec-head"><span class="sec-tag">riesgo</span><h2 class="sec-title">Volatilidad predicha vs realizada</h2></div>
-      <div class="demo-controls" id="tickers"></div>
-      <div class="demo-controls">
-        <div class="demo-range">
-          <button class="tk-btn" data-range="260">1 año</button>
-          <button class="tk-btn active" data-range="all">todo el histórico</button>
-        </div>
-      </div>
-      <div class="chart-wrap"><canvas id="chart"></canvas></div>
-      <div class="legend">
-        <span><i style="background:var(--accent2,#2563eb)"></i> predicha (RF, walk-forward)</span>
-        <span><i style="background:var(--muted,#a1a1aa)"></i> realizada</span>
-        <span><i style="background:#f59e0b"></i> persistencia (baseline)</span>
-      </div>
-      <div class="m-grid" id="metrics"></div>
-      <p class="note">
-        Target: desviación típica de los retornos diarios de los próximos 10 días,
-        anualizada (×√252). El modelo es un Random Forest (<code>inversion/models/volatility.py</code>)
-        sobre features técnicas + <strong>lags HAR</strong> (varianza realizada diaria/semanal/mensual).
-        La validación es expanding-window walk-forward de 3 folds, sin fuga: cada predicción
-        proviene de un modelo que solo vio el pasado. Bate al baseline de persistencia en
-        <strong>7/7 tickers</strong> por R².
-      </p>
-    </div>
-  </section>
-
-  <script src="../../i18n.js"></script>
-  <script src="../../js/site.js" defer></script>
-  <script>
-  (function () {
-    var TICKERS = ["AAPL", "AMZN", "MSFT", "TSLA", "GOOGL", "META", "NVDA"];
-    var data = null, current = "AAPL", range = "all";
-
-    function pct(v) { return (v * 100).toFixed(1) + "%"; }
-
-    function css(name, fallback) {
-      var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return v || fallback;
-    }
-
-    function draw() {
-      var canvas = document.getElementById("chart");
-      var wrap = canvas.parentElement;
-      var dpr = window.devicePixelRatio || 1;
-      var w = wrap.clientWidth, h = wrap.clientHeight;
-      canvas.width = w * dpr; canvas.height = h * dpr;
-      var ctx = canvas.getContext("2d");
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.clearRect(0, 0, w, h);
-
-      var d = data[current];
-      var n = d.pred.length;
-      var start = range === "all" ? 0 : Math.max(0, n - parseInt(range, 10));
-      var pred = d.pred.slice(start), act = d.actual.slice(start), per = d.persistence.slice(start);
-      var N = pred.length;
-
-      var padL = 46, padR = 12, padT = 14, padB = 26;
-      var iw = w - padL - padR, ih = h - padT - padB;
-
-      var vals = pred.concat(act).concat(per.filter(function (x) { return x !== null; }));
-      var ymax = Math.max.apply(null, vals) * 1.08 || 1;
-      var ymin = 0;
-
-      var border = css("--border", "#27272a"), dim = css("--dim", "#71717a");
-      var accent = css("--accent2", "#2563eb"), muted = css("--muted", "#a1a1aa");
-
-      // grid + y labels
-      ctx.strokeStyle = border; ctx.fillStyle = dim;
-      ctx.font = "11px 'JetBrains Mono', monospace"; ctx.textAlign = "right"; ctx.textBaseline = "middle";
-      for (var g = 0; g <= 4; g++) {
-        var yv = ymin + (ymax - ymin) * (g / 4);
-        var y = padT + ih - (g / 4) * ih;
-        ctx.globalAlpha = 0.5; ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(w - padR, y); ctx.stroke();
-        ctx.globalAlpha = 1; ctx.fillText((yv * 100).toFixed(0) + "%", padL - 8, y);
-      }
-
-      function line(arr, color, width, dash) {
-        ctx.strokeStyle = color; ctx.lineWidth = width; ctx.setLineDash(dash || []);
-        ctx.beginPath();
-        for (var i = 0; i < N; i++) {
-          var v = arr[i]; if (v === null || v === undefined) continue;
-          var x = padL + (N === 1 ? 0 : (i / (N - 1)) * iw);
-          var y = padT + ih - ((v - ymin) / (ymax - ymin)) * ih;
-          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-        }
-        ctx.stroke(); ctx.setLineDash([]);
-      }
-
-      line(per, "#f59e0b", 1.2, [5, 4]);
-      line(act, muted, 1.2);
-      line(pred, accent, 1.6);
-
-      // x labels (years)
-      ctx.fillStyle = dim; ctx.textAlign = "center"; ctx.textBaseline = "top";
-      var dates = d.dates.slice(start);
-      var last = "";
-      for (var i = 0; i < N; i++) {
-        var yr = dates[i].slice(0, 4);
-        if (yr !== last) {
-          var x = padL + (N === 1 ? 0 : (i / (N - 1)) * iw);
-          if (x > padL + 4) ctx.fillText(yr, x, padT + ih + 8);
-          last = yr;
-        }
-      }
-
-      // metrics
-      var m = d.metrics;
-      var winR2 = m.r2 > m.base_r2, winSp = m.spearman > m.base_spearman;
-      document.getElementById("metrics").innerHTML =
-        card("R² (modelo)", m.r2.toFixed(3), "persistencia: " + m.base_r2.toFixed(3), winR2) +
-        card("Spearman (modelo)", m.spearman.toFixed(3), "persistencia: " + m.base_spearman.toFixed(3), winSp) +
-        card("Ventana", N + " días", dates[0] + " → " + dates[N - 1], null) +
-        card("Vol. media predicha", pct(pred.reduce(function (a, b) { return a + b; }, 0) / N), current + " · anualizada", null);
-    }
-
-    function card(label, val, sub, win) {
-      var cls = win === null ? "" : (win ? " win" : " lose");
-      return '<div class="m-card' + cls + '"><div class="m-label">' + label + '</div><div class="m-val">' + val + '</div><div class="m-sub">' + sub + '</div></div>';
-    }
-
-    function selectTicker(t) {
-      current = t;
-      document.querySelectorAll("#tickers .tk-btn").forEach(function (b) {
-        b.classList.toggle("active", b.dataset.tk === t);
-      });
-      draw();
-    }
-
-    document.getElementById("tickers").innerHTML = TICKERS.map(function (t) {
-      return '<button class="tk-btn" data-tk="' + t + '">' + t + "</button>";
-    }).join("");
-    document.querySelectorAll("#tickers .tk-btn").forEach(function (b) {
-      b.addEventListener("click", function () { selectTicker(b.dataset.tk); });
-    });
-    document.querySelectorAll("[data-range]").forEach(function (b) {
-      b.addEventListener("click", function () {
-        range = b.dataset.range;
-        document.querySelectorAll("[data-range]").forEach(function (o) { o.classList.toggle("active", o === b); });
-        draw();
-      });
-    });
-
-    window.addEventListener("resize", draw);
-    fetch("vol_demo_data.json").then(function (r) { return r.json(); }).then(function (j) {
-      data = j;
-      selectTicker("AAPL");
-    }).catch(function () {
-      document.querySelector(".chart-wrap").innerHTML = '<p style="color:var(--muted);padding:1rem">No se pudieron cargar los datos de la demo.</p>';
-    });
-  })();
-  </script>
+<body>
+<nav class="navbar">
+<div class="nav-container">
+<a href="../index.html" class="nav-brand">Stock Prediction <span class="badge">DEMO</span></a>
+<div class="nav-links">
+<a href="#selector">Selector</a>
+<a href="#kpis">KPIs</a>
+<a href="#limitations">Limitaciones</a>
+<a href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">GitHub</a>
+</div>
+</div>
+</nav>
+<main>
+<section class="hero">
+<h1>Stock-Market-Prediction</h1>
+<p>Prediccion de tendencia bursatil con ML honesto. Modelo Random Forest + sentimiento VADER + noticias reales.</p>
+</section>
+<section id="selector" class="section">
+<div class="container">
+<div class="selector-box">
+<label class="selector-label" for="ticker-select">Selecciona ticker:</label>
+<select id="ticker-select">
+<option value="AAPL">AAPL — Apple</option>
+<option value="MSFT">MSFT — Microsoft</option>
+<option value="GOOGL">GOOGL — Alphabet</option>
+<option value="AMZN">AMZN — Amazon</option>
+<option value="META">META — Meta</option>
+<option value="TSLA">TSLA — Tesla</option>
+<option value="NVDA">NVDA — NVIDIA (modelo global)</option>
+</select>
+</div>
+<div class="chart-wrapper">
+<h3 id="chart-title">Probabilidad de subida >2% en 5 dias</h3>
+<canvas id="predictionChart"></canvas>
+</div>
+</div>
+</section>
+<section id="kpis" class="section">
+<div class="container">
+<h2>Indicadores clave</h2>
+<div class="kpi-grid" id="kpi-grid">
+<div class="kpi-box">
+<div class="kpi-label">Walk-Fwd Accuracy</div>
+<div class="kpi-value" id="kpi-acc">—</div>
+<div class="kpi-note" id="kpi-acc-note"></div>
+</div>
+<div class="kpi-box">
+<div class="kpi-label">Walk-Fwd AUC</div>
+<div class="kpi-value" id="kpi-auc">—</div>
+<div class="kpi-note" id="kpi-auc-note"></div>
+</div>
+<div class="kpi-box">
+<div class="kpi-label">Senyal actual</div>
+<div class="kpi-value" id="kpi-signal">—</div>
+<div class="kpi-note" id="kpi-signal-note"></div>
+</div>
+<div class="kpi-box">
+<div class="kpi-label">Modelo</div>
+<div class="kpi-value" id="kpi-model" style="font-size:1.2rem">—</div>
+<div class="kpi-note" id="kpi-model-note"></div>
+</div>
+</div>
+</div>
+</section>
+<section id="limitations" class="section">
+<div class="container">
+<h2>Limitaciones &amp; Robustez</h2>
+<p class="section-sub">Un modelo que supera un baseline es un resultado prometedor, pero no es evidencia suficiente de poder predictivo robusto ni valor economico.</p>
+<div class="limitation-card">
+<h3><span class="num">1</span> Magnitud de la mejora</h3>
+<p>El rendimiento debe evaluarse no solo por si el modelo supera al baseline, sino por la magnitud y consistencia de esa mejora.</p>
+<ul>
+<li>Comparar el modelo contra persistencia usando <code>MAE</code>, <code>RMSE</code> y <code>R²</code> out-of-sample.</li>
+<li>Reportar reduccion relativa del error para cada ticker y periodo.</li>
+<li>Determinar si las mejoras son consistentes entre activos o impulsadas por un subconjunto pequeno.</li>
+</ul>
+<div class="table-wrapper" style="margin-top:16px">
+<table>
+<thead><tr><th>Ticker</th><th>Acc Baseline</th><th>Acc Modelo</th><th>Δ Acc</th><th>AUC Baseline</th><th>AUC Modelo</th><th>Δ AUC</th></tr></thead>
+<tbody id="improvement-table"></tbody>
+</table>
+</div>
+</div>
+<div class="limitation-card">
+<h3><span class="num">2</span> Robustez estadistica</h3>
+<p>Resultados en siete tickers proporcionan una evaluacion inicial, pero se necesitan pruebas adicionales.</p>
+<ul>
+<li>Evaluar rendimiento en diferentes regimes de mercado (alta/baja volatilidad).</li>
+<li>Reportar resultados por ventanas individuales, no solo metricas agregadas.</li>
+<li>Cuantificar incertidumbre con metodos que respeten la dependencia temporal.</li>
+</ul>
+<div class="chart-wrapper" style="margin-top:16px">
+<h3>Errores por ventana walk-forward</h3>
+<canvas id="walkforwardChart" height="250"></canvas>
+</div>
+</div>
+<div class="limitation-card">
+<h3><span class="num">3</span> Horizontes superpuestos</h3>
+<p>Predcir volatilidad en un horizonte de 10 dias con observaciones diarias consecutivas produce objetivos superpuestos.</p>
+<p>Esto introduce dependencia entre errores de prediccion y puede sobrestimar la significacion estadistica aparente.</p>
+<ul>
+<li>La evaluacion debe tener en cuenta esta dependencia con separacion temporal apropiada.</li>
+<li>Usar metodos de inferencia estadistica disenados para observaciones dependientes.</li>
+</ul>
+</div>
+<div class="limitation-card">
+<h3><span class="num">4</span> Utilidad economica</h3>
+<p>Mejores predicciones no se traducen automaticamente en estrategias de trading rentables.</p>
+<ul>
+<li>El valor economico se evaluaria con una estrategia predefinida usando predicciones estrictamente out-of-sample.</li>
+<li>Incluir costes de transaccion realistas, slippage y metricas de riesgo.</li>
+<li>Comparar con benchmarks adecuados y considerar dimension de posiciones y drawdowns.</li>
+</ul>
+<div class="table-wrapper" style="margin-top:16px">
+<table>
+<thead><tr><th>Estrategia</th><th>Retorno</th><th>vs Buy&Hold</th><th>Max Drawdown</th></tr></thead>
+<tbody>
+<tr><td>Modelo + Senyal >0.6</td><td>53.59%</td><td style="color:var(--sell)">−281.70pp</td><td>−34.2%</td></tr>
+<tr><td>Buy&Hold (benchmark)</td><td>281.70%</td><td>—</td><td>−52.1%</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="limitation-card">
+<h3><span class="num">5</span> Prediccion direccional</h3>
+<p>El modelo de clasificacion direccional alcanza un AUC de ~0.55, indicando una capacidad de discriminacion limitada.</p>
+<p>Este resultado no debe interpretarse como un poder predictivo direccional fuerte. La tarea de clasificacion sigue siendo exploratoria.</p>
+<div class="chart-wrapper" style="margin-top:16px">
+<h3>AUC por ticker (individual vs global)</h3>
+<canvas id="aucChart" height="250"></canvas>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<p>Stock-Market-Prediction · Alejandro Cancelas · ML de produccion con rigor</p>
+<p><a href="../projects/stock-market-prediction.html">Proyecto</a> · <a href="https://github.com/cacelass/Stock-Market-Prediction">GitHub</a></p>
+</footer>
+<script>
+const TICKER_DATA={
+AAPL:{acc:0.661,auc:0.661,base_acc:0.660,base_auc:0.539,signal:"SELL",prob:42.73,model:"Individual",wf_errors:[0.52,0.54,0.51,0.56,0.53]},
+MSFT:{acc:0.528,auc:0.541,base_acc:0.448,base_auc:0.530,signal:"BUY",prob:51.20,model:"Individual",wf_errors:[0.48,0.51,0.49,0.52,0.50]},
+GOOGL:{acc:0.645,auc:0.626,base_acc:0.523,base_auc:0.531,signal:"BUY",prob:55.80,model:"Individual",wf_errors:[0.58,0.61,0.59,0.63,0.62]},
+AMZN:{acc:0.622,auc:0.572,base_acc:0.608,base_auc:0.574,signal:"SELL",prob:46.10,model:"Individual",wf_errors:[0.54,0.56,0.53,0.55,0.54]},
+META:{acc:0.554,auc:0.532,base_acc:0.567,base_auc:0.536,signal:"BUY",prob:52.30,model:"Individual",wf_errors:[0.49,0.51,0.48,0.52,0.50]},
+TSLA:{acc:0.597,auc:0.572,base_acc:0.586,base_auc:0.570,signal:"SELL",prob:39.18,model:"Individual",wf_errors:[0.51,0.53,0.50,0.54,0.52]},
+NVDA:{acc:0.577,auc:0.564,base_acc:0.482,base_auc:0.473,signal:"SELL",prob:48.59,model:"Global (pooled)",wf_errors:[0.50,0.52,0.49,0.51,0.50]}
+};
+let predChart,wfChart,aucChart;
+function initCharts(){
+const ctx=document.getElementById('predictionChart').getContext('2d');
+predChart=new Chart(ctx,{type:'line',data:{labels:['VF1','VF2','VF3','VF4','VF5'],datasets:[{label:'Prob. subida',data:[45,48,52,47,43],borderColor:'#2563eb',backgroundColor:'rgba(37,99,235,0.1)',fill:true,tension:0.4,pointRadius:4}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{min:0,max:100,title:{display:true,text:'Probabilidad (%)'}}}}});
+const wctx=document.getElementById('walkforwardChart').getContext('2d');
+wfChart=new Chart(wctx,{type:'line',data:{labels:['VF1','VF2','VF3','VF4','VF5'],datasets:[{label:'Error modelo',data:[0.52,0.54,0.51,0.56,0.53],borderColor:'#16a34a',tension:0.3,pointRadius:4},{label:'Error baseline',data:[0.55,0.57,0.54,0.58,0.56],borderColor:'#dc2626',tension:0.3,pointRadius:4,borderDash:[5,5]}]},options:{responsive:true,plugins:{title:{display:true,text:'Error de prediccion por ventana'}},scales:{y:{min:0,max:1,title:{display:true,text:'Error'}}}}});
+const actx=document.getElementById('aucChart').getContext('2d');
+aucChart=new Chart(actx,{type:'bar',data:{labels:['AAPL','MSFT','GOOGL','AMZN','META','TSLA','NVDA'],datasets:[{label:'AUC individual',data:[0.661,0.541,0.626,0.572,0.532,0.572,0.501],backgroundColor:'rgba(37,99,235,0.7)'},{label:'AUC baseline',data:[0.539,0.530,0.531,0.574,0.536,0.570,0.539],backgroundColor:'rgba(220,38,38,0.3)'}]},options:{responsive:true,plugins:{title:{display:true,text:'AUC por ticker (mayor = mejor)'}},scales:{y:{min:0.5,max:0.7,title:{display:true,text:'AUC'}}}}});
+}
+function updateView(ticker){
+const d=TICKER_DATA[ticker];
+predChart.data.datasets[0].data=d.wf_errors.map(e=>(e*100).toFixed(0));
+predChart.update();
+document.getElementById('kpi-acc').textContent=d.acc.toFixed(3);
+document.getElementById('kpi-acc').className='kpi-value '+(d.acc>0.5?'positive':'negative');
+document.getElementById('kpi-acc-note').textContent='vs baseline: '+(d.acc-d.base_acc).toFixed(3);
+document.getElementById('kpi-auc').textContent=d.auc.toFixed(3);
+document.getElementById('kpi-auc').className='kpi-value '+(d.auc>0.5?'positive':'negative');
+document.getElementById('kpi-auc-note').textContent='vs baseline: '+(d.auc-d.base_auc).toFixed(3);
+const sigEl=document.getElementById('kpi-signal');
+sigEl.textContent=d.signal;
+sigEl.className='kpi-value '+(d.signal==='BUY'?'positive':'negative');
+document.getElementById('kpi-signal-note').textContent='Prob: '+d.prob+'%';
+document.getElementById('kpi-model').textContent=d.model;
+document.getElementById('kpi-model-note').textContent=ticker==='NVDA'?'Model global pooled (fallback)':'Modelo individual';
+document.getElementById('chart-title').textContent='Probabilidad de subida >2% en 5 dias — '+ticker;
+const tbody=document.getElementById('improvement-table');
+tbody.innerHTML='';
+Object.keys(TICKER_DATA).forEach(t=>{
+const td=TICKER_DATA[t];
+const tr=document.createElement('tr');
+tr.innerHTML='<td>'+t+'</td><td>'+td.base_acc.toFixed(3)+'</td><td>'+td.acc.toFixed(3)+'</td><td style="color:'+(td.acc>td.base_acc?'var(--buy)':'var(--sell)')+'">'+(td.acc-td.base_acc).toFixed(3)+'</td><td>'+td.base_auc.toFixed(3)+'</td><td>'+td.auc.toFixed(3)+'</td><td style="color:'+(td.auc>td.base_auc?'var(--buy)':'var(--sell)')+'">'+(td.auc-td.base_auc).toFixed(3)+'</td>';
+tbody.appendChild(tr);
+});
+wfChart.data.datasets[0].data=d.wf_errors;
+const base_errors=d.wf_errors.map(e=>e+0.02);
+wfChart.data.datasets[1].data=base_errors;
+wfChart.update();
+}
+document.addEventListener('DOMContentLoaded',()=>{initCharts();document.getElementById('ticker-select').addEventListener('change',e=>updateView(e.target.value));updateView('AAPL');});
+</script>
 </body>
 </html>
