@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#e6e6e6" />
+  <script>
+    (function () {
+      var stored;
+      try { stored = localStorage.getItem('site-theme'); } catch (e) {}
+      document.documentElement.dataset.theme = stored === 'dark' ? 'dark' : 'light';
+    })();
+  </script>
+  <title>Stock-Market-Prediction — Demo de riesgo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <style>
+    .demo-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 18px; }
+    .tk-btn {
+      font-family: var(--mono, 'JetBrains Mono', monospace); font-size: 0.78rem;
+      padding: 6px 12px; border-radius: 8px; cursor: pointer;
+      border: 1px solid var(--border, #27272a); background: transparent; color: var(--muted, #a1a1aa);
+      transition: border-color .15s, color .15s, background .15s;
+    }
+    .tk-btn:hover { border-color: var(--accent, #2563eb); color: var(--accent2, #2563eb); }
+    .tk-btn.active { border-color: var(--accent, #2563eb); background: var(--accent-lo, rgba(37,99,235,.08)); color: var(--accent2, #2563eb); }
+    .demo-range { margin-left: auto; display: flex; gap: 6px; }
+    .chart-wrap { position: relative; width: 100%; height: clamp(240px, 42vh, 380px); }
+    #chart { width: 100%; height: 100%; display: block; }
+    .legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; font-size: 0.78rem; color: var(--muted); }
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .legend i { width: 22px; height: 2px; border-radius: 2px; display: inline-block; }
+    .m-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 24px; }
+    .m-card { border: 1px solid var(--border, #27272a); border-radius: 12px; padding: 16px 18px; background: var(--surface, #fff); }
+    .m-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--dim, #71717a); margin-bottom: 8px; }
+    .m-val { font-family: var(--mono, monospace); font-size: 1.5rem; color: var(--text); }
+    .m-sub { font-size: 0.74rem; color: var(--muted); margin-top: 6px; }
+    .m-card.win .m-val { color: #22c55e; }
+    .m-card.lose .m-val { color: #ef4444; }
+    .note { margin-top: 22px; font-size: 0.84rem; color: var(--muted); line-height: 1.7; max-width: 720px; }
+    .note code { font-family: var(--mono, monospace); font-size: 0.8em; }
+  </style>
+</head>
+<body class="proj-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../../projects/stock-market-prediction.html" class="nav-back" data-i18n="back_proj">← proyecto</a> <strong>Alejandro Cancelas</strong> <span>/ Stock-Market-Prediction / demo</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><button class="theme-toggle" type="button" aria-label="Cambiar entre modo claro y oscuro" aria-pressed="false" title="Modo claro / oscuro"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow">Stock-Market-Prediction · demo</div>
+      <h1>Predicción de <span class="hl">riesgo</span><br />en el navegador.</h1>
+      <p class="hero-sub">
+        El modelo de clasificación direccional tiene un techo real (AUC ≈ 0.55). La
+        volatilidad, en cambio, <strong>sí es predecible</strong>: este modelo de riesgo
+        estima la volatilidad realizada de los próximos 10 días y bate a la persistencia
+        en los 7 tickers. Las series de abajo son predicciones <em>walk-forward</em>
+        fuera de muestra, no ajustes.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="../../projects/stock-market-prediction.html" data-i18n="cta_back_proj">← volver al proyecto</a>
+        <a class="hero-cta" href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank" rel="noopener noreferrer">ver repo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head"><span class="sec-tag">riesgo</span><h2 class="sec-title">Volatilidad predicha vs realizada</h2></div>
+      <div class="demo-controls" id="tickers"></div>
+      <div class="demo-controls">
+        <div class="demo-range">
+          <button class="tk-btn" data-range="260">1 año</button>
+          <button class="tk-btn active" data-range="all">todo el histórico</button>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="chart"></canvas></div>
+      <div class="legend">
+        <span><i style="background:var(--accent2,#2563eb)"></i> predicha (RF, walk-forward)</span>
+        <span><i style="background:var(--muted,#a1a1aa)"></i> realizada</span>
+        <span><i style="background:#f59e0b"></i> persistencia (baseline)</span>
+      </div>
+      <div class="m-grid" id="metrics"></div>
+      <p class="note">
+        Target: desviación típica de los retornos diarios de los próximos 10 días,
+        anualizada (×√252). El modelo es un Random Forest (<code>inversion/models/volatility.py</code>)
+        sobre features técnicas + <strong>lags HAR</strong> (varianza realizada diaria/semanal/mensual).
+        La validación es expanding-window walk-forward de 3 folds, sin fuga: cada predicción
+        proviene de un modelo que solo vio el pasado. Bate al baseline de persistencia en
+        <strong>7/7 tickers</strong> por R².
+      </p>
+    </div>
+  </section>
+
+  <script src="../../i18n.js"></script>
+  <script src="../../js/site.js" defer></script>
+  <script>
+  (function () {
+    var TICKERS = ["AAPL", "AMZN", "MSFT", "TSLA", "GOOGL", "META", "NVDA"];
+    var data = null, current = "AAPL", range = "all";
+
+    function pct(v) { return (v * 100).toFixed(1) + "%"; }
+
+    function css(name, fallback) {
+      var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    }
+
+    function draw() {
+      var canvas = document.getElementById("chart");
+      var wrap = canvas.parentElement;
+      var dpr = window.devicePixelRatio || 1;
+      var w = wrap.clientWidth, h = wrap.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      var ctx = canvas.getContext("2d");
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+
+      var d = data[current];
+      var n = d.pred.length;
+      var start = range === "all" ? 0 : Math.max(0, n - parseInt(range, 10));
+      var pred = d.pred.slice(start), act = d.actual.slice(start), per = d.persistence.slice(start);
+      var N = pred.length;
+
+      var padL = 46, padR = 12, padT = 14, padB = 26;
+      var iw = w - padL - padR, ih = h - padT - padB;
+
+      var vals = pred.concat(act).concat(per.filter(function (x) { return x !== null; }));
+      var ymax = Math.max.apply(null, vals) * 1.08 || 1;
+      var ymin = 0;
+
+      var border = css("--border", "#27272a"), dim = css("--dim", "#71717a");
+      var accent = css("--accent2", "#2563eb"), muted = css("--muted", "#a1a1aa");
+
+      // grid + y labels
+      ctx.strokeStyle = border; ctx.fillStyle = dim;
+      ctx.font = "11px 'JetBrains Mono', monospace"; ctx.textAlign = "right"; ctx.textBaseline = "middle";
+      for (var g = 0; g <= 4; g++) {
+        var yv = ymin + (ymax - ymin) * (g / 4);
+        var y = padT + ih - (g / 4) * ih;
+        ctx.globalAlpha = 0.5; ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(w - padR, y); ctx.stroke();
+        ctx.globalAlpha = 1; ctx.fillText((yv * 100).toFixed(0) + "%", padL - 8, y);
+      }
+
+      function line(arr, color, width, dash) {
+        ctx.strokeStyle = color; ctx.lineWidth = width; ctx.setLineDash(dash || []);
+        ctx.beginPath();
+        for (var i = 0; i < N; i++) {
+          var v = arr[i]; if (v === null || v === undefined) continue;
+          var x = padL + (N === 1 ? 0 : (i / (N - 1)) * iw);
+          var y = padT + ih - ((v - ymin) / (ymax - ymin)) * ih;
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke(); ctx.setLineDash([]);
+      }
+
+      line(per, "#f59e0b", 1.2, [5, 4]);
+      line(act, muted, 1.2);
+      line(pred, accent, 1.6);
+
+      // x labels (years)
+      ctx.fillStyle = dim; ctx.textAlign = "center"; ctx.textBaseline = "top";
+      var dates = d.dates.slice(start);
+      var last = "";
+      for (var i = 0; i < N; i++) {
+        var yr = dates[i].slice(0, 4);
+        if (yr !== last) {
+          var x = padL + (N === 1 ? 0 : (i / (N - 1)) * iw);
+          if (x > padL + 4) ctx.fillText(yr, x, padT + ih + 8);
+          last = yr;
+        }
+      }
+
+      // metrics
+      var m = d.metrics;
+      var winR2 = m.r2 > m.base_r2, winSp = m.spearman > m.base_spearman;
+      document.getElementById("metrics").innerHTML =
+        card("R² (modelo)", m.r2.toFixed(3), "persistencia: " + m.base_r2.toFixed(3), winR2) +
+        card("Spearman (modelo)", m.spearman.toFixed(3), "persistencia: " + m.base_spearman.toFixed(3), winSp) +
+        card("Ventana", N + " días", dates[0] + " → " + dates[N - 1], null) +
+        card("Vol. media predicha", pct(pred.reduce(function (a, b) { return a + b; }, 0) / N), current + " · anualizada", null);
+    }
+
+    function card(label, val, sub, win) {
+      var cls = win === null ? "" : (win ? " win" : " lose");
+      return '<div class="m-card' + cls + '"><div class="m-label">' + label + '</div><div class="m-val">' + val + '</div><div class="m-sub">' + sub + '</div></div>';
+    }
+
+    function selectTicker(t) {
+      current = t;
+      document.querySelectorAll("#tickers .tk-btn").forEach(function (b) {
+        b.classList.toggle("active", b.dataset.tk === t);
+      });
+      draw();
+    }
+
+    document.getElementById("tickers").innerHTML = TICKERS.map(function (t) {
+      return '<button class="tk-btn" data-tk="' + t + '">' + t + "</button>";
+    }).join("");
+    document.querySelectorAll("#tickers .tk-btn").forEach(function (b) {
+      b.addEventListener("click", function () { selectTicker(b.dataset.tk); });
+    });
+    document.querySelectorAll("[data-range]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        range = b.dataset.range;
+        document.querySelectorAll("[data-range]").forEach(function (o) { o.classList.toggle("active", o === b); });
+        draw();
+      });
+    });
+
+    window.addEventListener("resize", draw);
+    fetch("vol_demo_data.json").then(function (r) { return r.json(); }).then(function (j) {
+      data = j;
+      selectTicker("AAPL");
+    }).catch(function () {
+      document.querySelector(".chart-wrap").innerHTML = '<p style="color:var(--muted);padding:1rem">No se pudieron cargar los datos de la demo.</p>';
+    });
+  })();
+  </script>
+</body>
+</html>
