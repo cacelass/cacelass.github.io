@@ -4,313 +4,161 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Stock Market Prediction — Demo</title>
-<meta name="description" content="Demo del modelo de predicción de tendencias bursátiles con Random Forest + sentimiento VADER.">
+<meta name="description" content="Demo del modelo de predicción de tendencias bursátiles.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../home.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-<script>try{document.documentElement.dataset.theme=localStorage.getItem('site-theme')==='dark'?'dark':'light'}catch(e){}</script>
+<script>
+(function(){try{var s=localStorage.getItem('site-theme');document.documentElement.dataset.theme=s==='dark'?'dark':'light'}catch(e){}
+window.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.theme-toggle');if(!b)return;b.addEventListener('click',function(){var c=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=c;try{localStorage.setItem('site-theme',c)}catch(e){}})});
+})();
+</script>
 <style>
-:root{--buy:#16a34a;--sell:#dc2626;--bg-alt:#f0f0f0}
-[data-theme="dark"]{--buy:#4ade80;--sell:#f87171;--bg-alt:#22252a}
-@keyframes fadeIn{to{opacity:1}}
-.hero{opacity:0;animation:fadeIn .6s ease forwards}
-.badge{background:var(--accent);color:#fff;font-size:.7rem;padding:2px 8px;border-radius:20px;font-weight:500}
-.nav-container{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center}
-.nav-brand{font-weight:600;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
-.hero-content{max-width:700px;margin:0 auto}
-.hero-subtitle{font-size:1.2rem;color:var(--muted);margin-bottom:8px}
-.hero-note{font-size:.95rem;color:var(--muted);margin-bottom:24px;line-height:1.7}
-.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn{padding:10px 24px;border-radius:var(--r2);text-decoration:none;font-weight:500;transition:opacity .2s,transform .1s}
-.btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0)}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
-.section{padding:48px 0}.section-dark{background:var(--bg-alt)}
-.section h2{font-size:1.8rem;margin-bottom:16px}
-.section-sub{color:var(--muted);margin-bottom:32px}
-.about-grid,.caveat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:24px}
-.about-card,.caveat-card,.model-info{background:var(--bg);padding:24px;border-radius:var(--r2);box-shadow:0 2px 8px rgba(0,0,0,.08)}
-[data-theme="dark"] .about-card,[data-theme="dark"] .caveat-card,[data-theme="dark"] .model-info{box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.about-card h3,.caveat-card h3,.model-info h3{margin-bottom:8px;font-size:1.05rem}
-.predictions-header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.last-update{font-size:.85rem;color:var(--muted);font-family:var(--mono)}
-.chart-container{max-width:600px;margin:0 auto 24px;background:var(--bg);border-radius:var(--r2);padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-[data-theme="dark"] .chart-container{box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.btn-simulate{display:block;margin:0 auto 32px;padding:12px 28px;border:2px solid var(--accent);border-radius:var(--r2);background:transparent;color:var(--accent);font-family:var(--sans);font-size:1rem;font-weight:600;cursor:pointer;transition:background .2s,color .2s,transform .1s}
-.btn-simulate:hover:not(:disabled){background:var(--accent);color:#fff}
-.btn-simulate:active:not(:disabled){transform:scale(.97)}
-.btn-simulate:disabled{opacity:.6;cursor:not-allowed}
-.btn-simulate-loading{display:inline-flex;align-items:center;gap:8px}
-.spinner{animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.ticker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;margin-bottom:32px}
-.ticker-card{background:var(--bg);border-radius:var(--r2);padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.08);transition:transform .2s,box-shadow .2s;cursor:pointer}
-[data-theme="dark"] .ticker-card{box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.ticker-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 8px 24px rgba(0,0,0,.12)}
-[data-theme="dark"] .ticker-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.4)}
-.ticker-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.ticker-symbol{font-size:1.3rem;font-weight:600;font-family:var(--mono)}
-.ticker-signal{font-size:.85rem;font-weight:600;padding:5px 14px;border-radius:20px;font-family:var(--mono);letter-spacing:.5px;transition:transform .15s}
-.ticker-card:hover .ticker-signal{transform:scale(1.08)}
+.demo-header{padding:24px 0 32px;text-align:center}
+.demo-header h1{font-size:2rem;font-weight:600;margin-bottom:8px}
+.demo-header p{color:var(--muted);font-size:.95rem;margin-bottom:24px}
+.ticker-select-wrapper{display:inline-block;margin-bottom:32px}
+.ticker-select{padding:10px 40px 10px 16px;font-family:var(--mono);font-size:1rem;font-weight:500;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);color:var(--text);appearance:none;cursor:pointer;transition:border-color .2s;min-width:180px}
+.ticker-select:focus{outline:none;border-color:var(--accent)}
+.ticker-select-wrapper::after{content:'\25BC';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:.7rem;color:var(--muted);pointer-events:none}
+.chart-card{background:var(--bg);border-radius:var(--r2);padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.08);max-width:720px;margin:0 auto}
+[data-theme="dark"] .chart-card{box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.chart-title{font-size:.85rem;color:var(--muted);font-family:var(--mono);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.chart-title .signal{font-weight:600;padding:3px 10px;border-radius:12px;font-size:.75rem}
 .signal-buy{background:rgba(22,163,74,.12);color:var(--buy);border:1px solid rgba(22,163,74,.25)}
 .signal-sell{background:rgba(220,38,38,.12);color:var(--sell);border:1px solid rgba(220,38,38,.25)}
-.ticker-price{font-size:1.8rem;font-weight:600;font-family:var(--mono);margin-bottom:16px}
-.ticker-bars{display:flex;flex-direction:column;gap:6px}
-.bar-label{font-size:.8rem;color:var(--muted);display:flex;justify-content:space-between}
-.bar-track{background:rgba(128,128,128,.15);border-radius:4px;height:8px;overflow:hidden}
-.bar-fill{height:100%;border-radius:4px;transition:width .8s ease}
-.pooled-note{margin-top:12px;font-size:.75rem;color:var(--muted);font-style:italic}
-.tooltip{position:fixed;background:var(--text);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:.8rem;line-height:1.5;pointer-events:none;z-index:200;font-family:var(--mono);box-shadow:0 4px 12px rgba(0,0,0,.25);display:none}
-.metrics-table-wrapper{overflow-x:auto;margin-bottom:24px}
-.metrics-table{width:100%;border-collapse:collapse;font-size:.95rem}
-.metrics-table th,.metrics-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border)}
-.metrics-table th{font-weight:500;color:var(--muted);font-size:.85rem}
-.good{color:var(--buy);font-weight:500}
-.warning-box{background:rgba(220,38,38,.08);border-left:4px solid var(--sell);padding:24px;border-radius:0 var(--r2) var(--r2) 0}
-[data-theme="dark"] .warning-box{background:rgba(248,113,113,.1)}
-.warning-box h3{margin-bottom:8px;font-size:1.05rem}
-.footer{background:var(--bg-alt);padding:32px 0;text-align:center;font-size:.9rem;color:var(--muted);border-top:1px solid var(--border)}
+canvas{max-height:360px}
+.footer{background:var(--bg-alt);padding:24px 0;text-align:center;font-size:.85rem;color:var(--muted);border-top:1px solid var(--border)}
 .footer a{color:var(--accent);text-decoration:none}
 .footer a:hover{text-decoration:underline}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
-.kpi-box{background:var(--bg);border-radius:var(--r2);padding:24px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-[data-theme="dark"] .kpi-box{box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.kpi-label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.kpi-value{font-size:1.8rem;font-weight:600;font-family:var(--mono)}
-.kpi-value.positive{color:var(--buy)}
-.kpi-value.negative{color:var(--sell)}
-.kpi-note{font-size:.75rem;color:var(--muted);margin-top:4px}
-.limitation-card{background:var(--bg);border-radius:var(--r2);padding:24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-[data-theme="dark"] .limitation-card{box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.limitation-card h3{font-size:1.1rem;margin-bottom:12px}
-.limitation-card p{color:var(--muted);font-size:.9rem;line-height:1.7;margin-bottom:8px}
-.table-wrapper{overflow-x:auto;margin-top:16px}
-.table-wrapper table{width:100%;border-collapse:collapse;font-size:.9rem}
-.table-wrapper th,.table-wrapper td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
-.table-wrapper th{background:var(--bg-alt);font-weight:500;font-size:.8rem;color:var(--muted)}
-@media(max-width:640px){.hero h1{font-size:1.8rem}.nav-links{gap:12px}.nav-links a{font-size:.8rem}.ticker-grid{grid-template-columns:1fr}.chart-container{padding:12px}.predictions-header{flex-direction:column;gap:4px}}
 </style>
 </head>
 <body>
-<nav class="navbar"><div class="nav-container">
-<a href="#" class="nav-brand">Stock Prediction <span class="badge">DEMO</span></a>
-<div class="nav-links"><a href="#about">Proyecto</a><a href="#predictions" class="active">Predicciones</a><a href="#metrics">Métricas</a><a href="#caveats">Avisos</a><a href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">GitHub</a></div>
-</div></nav>
+<nav>
+<div class="nav-inner">
+<div class="nav-brand">
+<div class="nav-dot"></div>
+<div class="nav-id"><a href="../../index.html" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ Stock-Market-Prediction</span></div>
+</div>
+<ul class="nav-links">
+<li><a href="../../index.html#about">about</a></li>
+<li><a href="../../index.html#projects">projects</a></li>
+<li><a href="../../index.html#stack">stack</a></li>
+<li><a href="../../projects/stock-market-prediction.html">proyecto</a></li>
+<li><button class="theme-toggle" type="button" aria-label="Cambiar entre modo claro y oscuro" aria-pressed="false" title="Modo claro / oscuro"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button></li>
+</ul>
+</div>
+</nav>
 
-<header class="hero"><div class="hero-content">
+<section class="demo-header">
+<div class="container">
 <h1>Stock-Market-Prediction</h1>
-<p class="hero-subtitle">Predicción de tendencia bursátil con ML honesto</p>
-<p class="hero-note">Este demo muestra las predicciones actuales del modelo entrenado. Los datos son de producción real (2007–2026) con 175 tests, validación walk-forward y anti-fuga de datos en código.</p>
-<div class="hero-actions">
-<a href="#predictions" class="btn btn-primary">Ver Predicciones</a>
-<a href="../projects/stock-market-prediction.html" class="btn btn-secondary">← al proyecto</a>
-</div>
-</div></header>
-
-<main>
-<section id="about" class="section"><div class="container">
-<h2>¿Qué predice?</h2>
-<p>Si el precio de un activo sube más del <strong>2% en los próximos 5 días</strong>. Clasificación binaria (sube &gt;2% / no sube &gt;2%).</p>
-<div class="about-grid">
-<div class="about-card"><h3>Modelo</h3><p>Random Forest (max_depth=5, min_samples_leaf=50, seed=42) + features de sentimiento VADER con noticias reales de NewsAPI.ai.</p></div>
-<div class="about-card"><h3>Validación</h3><p>Walk-forward 3-fold expanding window. Tuning con Optuna sobre AUC walk-forward. Split temporal 80/20 sin shuffle.</p></div>
-<div class="about-card"><h3>Tickers</h3><p>AAPL · MSFT · GOOGL · AMZN · META · TSLA · NVDA</p></div>
-</div>
-</div></section>
-
-<section id="predictions" class="section section-dark"><div class="container">
-<div class="predictions-header"><h2>Predicciones actuales</h2><span class="last-update" id="last-update">—</span></div>
-<p class="section-sub">Última predicción por ticker (modelo individual, no global). Probabilidad de subida y bajada.</p>
-<div class="chart-container"><canvas id="predictionChart"></canvas></div>
-<button class="btn-simulate" id="btn-simulate"><span class="btn-simulate-text">Simular predicción</span><span class="btn-simulate-loading" style="display:none"><svg class="spinner" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="32" stroke-linecap="round"/></svg> Simulando…</span></button>
-<div class="ticker-grid" id="ticker-grid"></div>
-<div class="model-info"><h3>Nota sobre el enrutamiento</h3><p>NVDA no tiene señal propia en el modelo individual (AUC walk-forward &lt; 0.55). El sistema usa el modelo global pooled como fallback. Las predicciones de NVDA aquí son del modelo global.</p></div>
-</div></section>
-
-<section id="kpis" class="section">
-<div class="container">
-<h2>Indicadores clave</h2>
-<div class="kpi-grid" id="kpi-grid">
-<div class="kpi-box">
-<div class="kpi-label">Walk-Fwd Accuracy</div>
-<div class="kpi-value" id="kpi-acc">—</div>
-<div class="kpi-note" id="kpi-acc-note"></div>
-</div>
-<div class="kpi-box">
-<div class="kpi-label">Walk-Fwd AUC</div>
-<div class="kpi-value" id="kpi-auc">—</div>
-<div class="kpi-note" id="kpi-auc-note"></div>
-</div>
-<div class="kpi-box">
-<div class="kpi-label">Senyal actual</div>
-<div class="kpi-value" id="kpi-signal">—</div>
-<div class="kpi-note" id="kpi-signal-note"></div>
-</div>
-<div class="kpi-box">
-<div class="kpi-label">Modelo</div>
-<div class="kpi-value" id="kpi-model" style="font-size:1.2rem">—</div>
-<div class="kpi-note" id="kpi-model-note"></div>
-</div>
+<p>Demo interactiva — modelo Random Forest con sentimiento VADER</p>
+<div class="ticker-select-wrapper">
+<select class="ticker-select" id="ticker-select">
+<option value="AAPL">AAPL — Apple</option>
+<option value="MSFT">MSFT — Microsoft</option>
+<option value="GOOGL">GOOGL — Alphabet</option>
+<option value="AMZN">AMZN — Amazon</option>
+<option value="META">META — Meta</option>
+<option value="TSLA">TSLA — Tesla</option>
+<option value="NVDA">NVDA — NVIDIA</option>
+</select>
 </div>
 </div>
 </section>
 
-<section id="metrics" class="section"><div class="container">
-<h2>Métricas de rendimiento</h2>
-<div class="metrics-table-wrapper"><table class="metrics-table"><thead><tr><th>Ticker</th><th>Walk-Fwd Acc</th><th>Walk-Fwd AUC</th><th>Resultados</th></tr></thead>
-<tbody>
-<tr><td><strong>GOOGL</strong></td><td>0.645</td><td>0.626</td><td class="good">Mejor rendimiento</td></tr>
-<tr><td><strong>META</strong></td><td>0.582</td><td>0.564</td><td class="good">Aceptable</td></tr>
-<tr><td><strong>AAPL</strong></td><td>0.577</td><td>0.564</td><td>Medio</td></tr>
-<tr><td><strong>MSFT</strong></td><td>0.571</td><td>0.558</td><td>Medio</td></tr>
-<tr><td><strong>AMZN</strong></td><td>0.563</td><td>0.551</td><td>Medio</td></tr>
-<tr><td><strong>TSLA</strong></td><td>0.555</td><td>0.545</td><td>Medio</td></tr>
-<tr><td><strong>NVDA</strong></td><td>→ global</td><td>→ global</td><td>Modelo pooled</td></tr>
-</tbody></table></div>
-<div class="warning-box"><h3>Veredicto honesto</h3><p>La estrategia de trading con estas predicciones <strong>no supera a buy&hold</strong> out-of-sample. La cartera con costes (0.1% comisión + 0.05% slippage) da 53.59% vs 281.70% de buy&hold. Este proyecto demuestra rigor técnico, no rentabilidad.</p></div>
-</div></section>
-
-<section id="limitations" class="section section-dark">
+<section class="section">
 <div class="container">
-<h2>Limitaciones y Robustez</h2>
-<p class="section-sub">Un modelo que supera un baseline es prometedor pero no prueba robustez ni valor económico.</p>
-<div class="limitation-card">
-<h3>1. Magnitud de la mejora</h3>
-<p>Comparar contra persistencia con MAE, RMSE y R² out-of-sample. Reportar reducción relativa del error.</p>
-<div class="table-wrapper">
-<table>
-<thead><tr><th>Ticker</th><th>Acc Baseline</th><th>Acc Modelo</th><th>Diferencia</th><th>AUC Baseline</th><th>AUC Modelo</th><th>Diferencia</th></tr></thead>
-<tbody id="improvement-table"></tbody>
-</table>
+<div class="chart-card">
+<div class="chart-title">
+<span id="chart-label">Selecciona un ticker</span>
+<span class="signal" id="signal-badge">—</span>
 </div>
-</div>
-<div class="limitation-card">
-<h3>2. Robustez estadística</h3>
-<p>Evaluar en diferentes regímenes de mercado y reportar por ventanas individuales.</p>
-</div>
-<div class="limitation-card">
-<h3>3. Utilidad económica</h3>
-<p>Mejores predicciones no se traducen automáticamente en estrategias rentables. Evaluar con estrategia predefinida, costes realistas y benchmarks.</p>
-<div class="table-wrapper">
-<table>
-<thead><tr><th>Estrategia</th><th>Retorno</th><th>vs Buy&Hold</th></tr></thead>
-<tbody>
-<tr><td>Modelo</td><td>53.59%</td><td style="color:var(--sell)">−281.70pp</td></tr>
-<tr><td>Buy&Hold</td><td>281.70%</td><td>—</td></tr>
-</tbody>
-</table>
-</div>
+<canvas id="predictionChart"></canvas>
 </div>
 </div>
 </section>
-
-<section id="caveats" class="section section-dark"><div class="container">
-<h2>Avisos importantes</h2>
-<div class="caveat-grid">
-<div class="caveat-card"><h3>No es inversion</h3><p>Las predicciones son resultados de un modelo académico. No las uses para tomar decisiones financieras reales.</p></div>
-<div class="caveat-card"><h3>Bajo senal</h3><p>Los mercados financieros tienen relación señal/ruido muy baja. Un AUC de 0.626 ya es un resultado bueno para este dominio.</p></div>
-<div class="caveat-card"><h3>Datos hasta 2026</h3><p>Los modelos están entrenados con datos históricos hasta marzo 2026. Las predicciones pueden no reflejar eventos recientes.</p></div>
-</div>
-</div></section>
-</main>
 
 <footer class="footer"><div class="container">
-<p>Datos simulados para demostración</p>
-<p><a href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">GitHub</a> · <a href="../projects/stock-market-prediction.html">Página del proyecto</a></p>
+<p>Datos de produccion (2007–2026) · Validacion walk-forward · Anti-fuga de datos</p>
+<p><a href="https://github.com/cacelass/Stock-Market-Prediction" target="_blank">GitHub</a> · <a href="../../projects/stock-market-prediction.html">Proyecto</a></p>
 </div></footer>
 
-<div class="tooltip" id="tooltip"></div>
-
 <script>
-const DATA=[{ticker:"AAPL",price:252.39,probUp:42.73},{ticker:"MSFT",price:415.20,probUp:51.20},{ticker:"GOOGL",price:178.50,probUp:55.80},{ticker:"AMZN",price:195.30,probUp:46.10},{ticker:"META",price:620.45,probUp:52.30},{ticker:"TSLA",price:385.95,probUp:39.18},{ticker:"NVDA",price:142.80,probUp:48.59,pooled:true}];
-let chart,tooltip=document.getElementById('tooltip');
-const fmt=d=>d.toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-function stamp(){document.getElementById('last-update').textContent='Última actualización: '+fmt(new Date())}
+var TICKER_DATA={
+AAPL:{price:252.39,probUp:42.73,acc:0.661,auc:0.661,base_acc:0.660,base_auc:0.539,signal:"SELL",model:"Individual",pooled:false},
+MSFT:{price:415.20,probUp:51.20,acc:0.528,auc:0.541,base_acc:0.448,base_auc:0.530,signal:"BUY",model:"Individual",pooled:false},
+GOOGL:{price:178.50,probUp:55.80,acc:0.645,auc:0.626,base_acc:0.523,base_auc:0.531,signal:"BUY",model:"Individual",pooled:false},
+AMZN:{price:195.30,probUp:46.10,acc:0.622,auc:0.572,base_acc:0.608,base_auc:0.574,signal:"SELL",model:"Individual",pooled:false},
+META:{price:620.45,probUp:52.30,acc:0.554,auc:0.532,base_acc:0.567,base_auc:0.536,signal:"BUY",model:"Individual",pooled:false},
+TSLA:{price:385.95,probUp:39.18,acc:0.597,auc:0.572,base_acc:0.586,base_auc:0.570,signal:"SELL",model:"Individual",pooled:false},
+NVDA:{price:142.80,probUp:48.59,acc:0.577,auc:0.564,base_acc:0.482,base_auc:0.473,signal:"SELL",model:"Global (pooled)",pooled:true}
+};
 
-function render(data,anim){
-  const grid=document.getElementById('ticker-grid');grid.innerHTML='';
-  data.forEach((p,i)=>{
-    const card=document.createElement('div');card.className='ticker-card';
-    if(anim){card.style.opacity='0';card.style.transform='translateY(20px)'}
-    const buy=p.probUp>=50,col=buy?'var(--buy)':'var(--sell)',sig=buy?'BUY':'SELL',w=buy?p.probUp:100-p.probUp;
-    card.innerHTML=`<div class="ticker-card-header"><span class="ticker-symbol">${p.ticker}</span><span class="ticker-signal ${buy?'signal-buy':'signal-sell'}">${buy?'↑':'↓'} ${sig}</span></div><div class="ticker-price">$${p.price.toFixed(2)}</div><div class="ticker-bars"><div class="bar-label">Subida ${p.probUp.toFixed(1)}%</div><div class="bar-track"><div class="bar-fill" data-prob="${p.probUp}" style="width:0%;background:${col}"></div></div><div class="bar-label">Bajada ${(100-p.probUp).toFixed(1)}%</div></div>${p.pooled?'<div class="pooled-note">Modelo global pooled (fallback)</div>':''}`;
-    card.onmouseenter=()=>{tooltip.innerHTML=`<strong>${p.ticker}</strong><br>Subida: ${p.probUp.toFixed(2)}% · Bajada: ${(100-p.probUp).toFixed(2)}%<br>Señal: ${sig}${p.pooled?'<br><em>pooled</em>':''}`;tooltip.style.display='block'};
-    card.onmousemove=e=>{tooltip.style.left=(e.pageX+12)+'px';tooltip.style.top=(e.pageY-50)+'px'};
-    card.onmouseleave=()=>{tooltip.style.display='none'};
-    grid.appendChild(card);
-    if(anim){setTimeout(()=>{card.style.transition='opacity .5s ease,transform .5s ease';card.style.opacity='1';card.style.transform='translateY(0)';const f=card.querySelector('.bar-fill');setTimeout(()=>{f.style.width=w+'%'},100)},i*100)}
-    else{setTimeout(()=>{card.querySelector('.bar-fill').style.width=w+'%'},i*100)}
-  });
-  drawChart(data);
-}
+var chart=null;
+var select=document.getElementById('ticker-select');
 
-function drawChart(data){
-  const ctx=document.getElementById('predictionChart').getContext('2d');
-  const labs=data.map(p=>p.ticker),probs=data.map(p=>p.probUp);
-  const bg=probs.map(v=>v>50?'rgba(34,197,94,0.85)':'rgba(239,68,68,0.85)'),
-        bd=probs.map(v=>v>50?'#16a34a':'#dc2626');
+function renderChart(ticker){
+  var d=TICKER_DATA[ticker];
+  var buy=d.probUp>=50;
+  var sigClass=buy?'signal-buy':'signal-sell';
+  var sigText=buy?'BUY':'SELL';
+  var col=buy?'var(--buy)':'var(--sell)';
+
+  document.getElementById('chart-label').textContent=ticker+' — '+d.model+(d.pooled?' (pooled)':'');
+  var badge=document.getElementById('signal-badge');
+  badge.textContent=sigText+' '+d.probUp.toFixed(1)+'%';
+  badge.className='signal '+sigClass;
+
   if(chart)chart.destroy();
-  chart=new Chart(ctx,{type:'bar',data:{labels:labs,datasets:[{label:'Prob. subida (%)',data:probs,backgroundColor:bg,borderColor:bd,borderWidth:1.5,borderRadius:6,hoverBackgroundColor:bg.map(c=>c.replace('0.85','1'))}]},
-    options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(0,0,0,0.85)',titleFont:{family:'Space Grotesk',size:13},bodyFont:{family:'JetBrains Mono',size:13},padding:10,cornerRadius:8,callbacks:{label:c=>`Prob. subida: ${c.parsed.y.toFixed(2)}%`,afterLabel:c=>`Señal: ${DATA[c.dataIndex].signal}${DATA[c.dataIndex].pooled?' (pooled)':''}`}}},
-    scales:{y:{beginAtZero:true,max:100,ticks:{font:{family:'JetBrains Mono',size:11},color:'var(--muted)'},grid:{color:'rgba(128,128,128,0.15)'}},x:{ticks:{font:{family:'JetBrains Mono',weight:'500',size:12}},grid:{display:false}}},
-    animation:{duration:600,easing:'easeOutQuart'}}});
+
+  var ctx=document.getElementById('predictionChart').getContext('2d');
+  chart=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:['Prob. subida','Prob. bajada','Baseline acc','Acc modelo','AUC modelo'],
+      datasets:[{
+        data:[d.probUp,100-d.probUp,d.base_acc*100,d.acc*100,d.auc*100],
+        backgroundColor:[col,col,'rgba(128,128,128,0.3)','rgba(38,38,38,0.8)','rgba(38,38,38,0.5)'],
+        borderColor:['var(--buy)','var(--sell)','rgba(128,128,128,0.4)','rgba(38,38,38,0.9)','rgba(38,38,38,0.6)'],
+        borderWidth:1,borderRadius:4
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:true,
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'rgba(0,0,0,0.85)',
+          titleFont:{family:'Space Grotesk',size:13},
+          bodyFont:{family:'JetBrains Mono',size:13},
+          padding:10,cornerRadius:8,
+          callbacks:{
+            label:function(c){
+              var v=c.parsed.y;
+              if(c.dataIndex===0||c.dataIndex===1)return'Prob. '+((c.dataIndex===0?'subida':'bajada')+': '+v.toFixed(1)+'%');
+              if(c.dataIndex===2)return'Baseline acc: '+v.toFixed(1)+'%';
+              if(c.dataIndex===3)return'Acc modelo: '+v.toFixed(1)+'%';
+              return'AUC modelo: '+v.toFixed(1)+'%';
+            }
+          }
+        }
+      },
+      scales:{
+        y:{beginAtZero:true,max:100,ticks:{font:{family:'JetBrains Mono',size:11},color:'var(--muted)'},grid:{color:'rgba(128,128,128,0.12)'}},
+        x:{ticks:{font:{family:'JetBrains Mono',weight:'500',size:11}},grid:{display:false}}
+      },
+      animation:{duration:600,easing:'easeOutQuart'}
+    }
+  });
 }
 
-document.getElementById('btn-simulate').onclick=()=>{
-  const btn=document.getElementById('btn-simulate');
-  btn.querySelector('.btn-simulate-text').style.display='none';
-  btn.querySelector('.btn-simulate-loading').style.display='inline-flex';btn.disabled=true;
-  setTimeout(()=>{
-    const data=DATA.map(p=>{let pu=(p.probUp-50)*(0.5+Math.random())+50;if(pu>100)pu=99.5;if(pu<10)pu=10.5;return{...p,price:+(p.price*(.92+Math.random()*.16)).toFixed(2),probUp:+pu.toFixed(2),probDown:+(100-pu).toFixed(2)}});
-    render(data,true);stamp();
-    btn.querySelector('.btn-simulate-text').style.display='inline';
-    btn.querySelector('.btn-simulate-loading').style.display='none';btn.disabled=false;
-  },900);
-};
-
-render(DATA,true);stamp();
-
-// KPIs & Limitations JS
-const TICKER_DATA = {
-    AAPL: {acc:0.661, auc:0.661, base_acc:0.660, base_auc:0.539, signal:"SELL", prob:42.73, model:"Individual"},
-    MSFT: {acc:0.528, auc:0.541, base_acc:0.448, base_auc:0.530, signal:"BUY", prob:51.20, model:"Individual"},
-    GOOGL: {acc:0.645, auc:0.626, base_acc:0.523, base_auc:0.531, signal:"BUY", prob:55.80, model:"Individual"},
-    AMZN: {acc:0.622, auc:0.572, base_acc:0.608, base_auc:0.574, signal:"SELL", prob:46.10, model:"Individual"},
-    META: {acc:0.554, auc:0.532, base_acc:0.567, base_auc:0.536, signal:"BUY", prob:52.30, model:"Individual"},
-    TSLA: {acc:0.597, auc:0.572, base_acc:0.586, base_auc:0.570, signal:"SELL", prob:39.18, model:"Individual"},
-    NVDA: {acc:0.577, auc:0.564, base_acc:0.482, base_auc:0.473, signal:"SELL", prob:48.59, model:"Global (pooled)"}
-};
-function updateKPIs(ticker) {
-    const d = TICKER_DATA[ticker];
-    document.getElementById('kpi-acc').textContent = d.acc.toFixed(3);
-    document.getElementById('kpi-acc').className = 'kpi-value ' + (d.acc > 0.5 ? 'positive' : 'negative');
-    document.getElementById('kpi-acc-note').textContent = 'vs baseline: ' + (d.acc - d.base_acc).toFixed(3);
-    document.getElementById('kpi-auc').textContent = d.auc.toFixed(3);
-    document.getElementById('kpi-auc').className = 'kpi-value ' + (d.auc > 0.5 ? 'positive' : 'negative');
-    document.getElementById('kpi-auc-note').textContent = 'vs baseline: ' + (d.auc - d.base_auc).toFixed(3);
-    const sigEl = document.getElementById('kpi-signal');
-    sigEl.textContent = d.signal;
-    sigEl.className = 'kpi-value ' + (d.signal === 'BUY' ? 'positive' : 'negative');
-    document.getElementById('kpi-signal-note').textContent = 'Prob: ' + d.prob + '%';
-    document.getElementById('kpi-model').textContent = d.model;
-    document.getElementById('kpi-model-note').textContent = ticker === 'NVDA' ? 'Model global pooled' : 'Modelo individual';
-    const tbody = document.getElementById('improvement-table');
-    tbody.innerHTML = '';
-    Object.keys(TICKER_DATA).forEach(t => {
-        const td = TICKER_DATA[t];
-        const tr = document.createElement('tr');
-        tr.innerHTML = '<td>' + t + '</td><td>' + td.base_acc.toFixed(3) + '</td><td>' + td.acc.toFixed(3) + '</td><td style="color:' + (td.acc > td.base_acc ? 'var(--buy)' : 'var(--sell)') + '">' + (td.acc - td.base_acc).toFixed(3) + '</td><td>' + td.base_auc.toFixed(3) + '</td><td>' + td.auc.toFixed(3) + '</td><td style="color:' + (td.auc > td.base_auc ? 'var(--buy)' : 'var(--sell)') + '">' + (td.auc - td.base_auc).toFixed(3) + '</td>';
-        tbody.appendChild(tr);
-    });
-}
-document.addEventListener('DOMContentLoaded', () => {
-    const select = document.getElementById('ticker-select');
-    if (select) select.addEventListener('change', e => updateKPIs(e.target.value));
-    updateKPIs('AAPL');
-});
+select.addEventListener('change',function(){renderChart(this.value)});
+renderChart('AAPL');
 </script>
 </body>
 </html>
