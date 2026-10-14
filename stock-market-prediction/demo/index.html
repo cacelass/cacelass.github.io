@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="../home.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../home.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('site-theme')==='dark'?'dark':'light'}catch(e){}</script>
 <style>
@@ -125,7 +125,7 @@
 <div class="predictions-header"><h2>Predicciones actuales</h2><span class="last-update" id="last-update">—</span></div>
 <p class="section-sub">Última predicción por ticker (modelo individual, no global). Probabilidad de subida y bajada.</p>
 <div class="chart-container"><canvas id="predictionChart"></canvas></div>
-<button class="btn-simulate" id="btn-simulate"><span class="btn-simulate-text">⚡ Simular predicción</span><span class="btn-simulate-loading" style="display:none"><svg class="spinner" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="32" stroke-linecap="round"/></svg> Simulando…</span></button>
+<button class="btn-simulate" id="btn-simulate"><span class="btn-simulate-text">Simular predicción</span><span class="btn-simulate-loading" style="display:none"><svg class="spinner" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="32" stroke-linecap="round"/></svg> Simulando…</span></button>
 <div class="ticker-grid" id="ticker-grid"></div>
 <div class="model-info"><h3>Nota sobre el enrutamiento</h3><p>NVDA no tiene señal propia en el modelo individual (AUC walk-forward &lt; 0.55). El sistema usa el modelo global pooled como fallback. Las predicciones de NVDA aquí son del modelo global.</p></div>
 </div></section>
@@ -170,7 +170,7 @@
 <tr><td><strong>TSLA</strong></td><td>0.555</td><td>0.545</td><td>Medio</td></tr>
 <tr><td><strong>NVDA</strong></td><td>→ global</td><td>→ global</td><td>Modelo pooled</td></tr>
 </tbody></table></div>
-<div class="warning-box"><h3>⚠️ Veredicto honesto</h3><p>La estrategia de trading con estas predicciones <strong>no supera a buy&hold</strong> out-of-sample. La cartera con costes (0.1% comisión + 0.05% slippage) da 53.59% vs 281.70% de buy&hold. Este proyecto demuestra rigor técnico, no rentabilidad.</p></div>
+<div class="warning-box"><h3>Veredicto honesto</h3><p>La estrategia de trading con estas predicciones <strong>no supera a buy&hold</strong> out-of-sample. La cartera con costes (0.1% comisión + 0.05% slippage) da 53.59% vs 281.70% de buy&hold. Este proyecto demuestra rigor técnico, no rentabilidad.</p></div>
 </div></section>
 
 <section id="limitations" class="section section-dark">
@@ -210,9 +210,9 @@
 <section id="caveats" class="section section-dark"><div class="container">
 <h2>Avisos importantes</h2>
 <div class="caveat-grid">
-<div class="caveat-card"><h3>🔒 No es inversión</h3><p>Las predicciones son resultados de un modelo académico. No las uses para tomar decisiones financieras reales.</p></div>
-<div class="caveat-card"><h3>📉 Bajo señal</h3><p>Los mercados financieros tienen relación señal/ruido muy baja. Un AUC de 0.626 ya es un resultado bueno para este dominio.</p></div>
-<div class="caveat-card"><h3>📅 Datos hasta 2026</h3><p>Los modelos están entrenados con datos históricos hasta marzo 2026. Las predicciones pueden no reflejar eventos recientes.</p></div>
+<div class="caveat-card"><h3>No es inversion</h3><p>Las predicciones son resultados de un modelo académico. No las uses para tomar decisiones financieras reales.</p></div>
+<div class="caveat-card"><h3>Bajo senal</h3><p>Los mercados financieros tienen relación señal/ruido muy baja. Un AUC de 0.626 ya es un resultado bueno para este dominio.</p></div>
+<div class="caveat-card"><h3>Datos hasta 2026</h3><p>Los modelos están entrenados con datos históricos hasta marzo 2026. Las predicciones pueden no reflejar eventos recientes.</p></div>
 </div>
 </div></section>
 </main>
