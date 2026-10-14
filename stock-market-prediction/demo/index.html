@@ -24,13 +24,16 @@ window.addEventListener('DOMContentLoaded',function(){var b=document.querySelect
 .ticker-select{padding:10px 40px 10px 16px;font-family:var(--mono);font-size:1rem;font-weight:500;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);color:var(--text);appearance:none;cursor:pointer;transition:border-color .2s;min-width:180px}
 .ticker-select:focus{outline:none;border-color:var(--accent)}
 .ticker-select-wrapper::after{content:'\25BC';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:.7rem;color:var(--muted);pointer-events:none}
-.chart-card{background:var(--bg);border-radius:var(--r2);padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.08);max-width:720px;margin:0 auto}
+.chart-card{background:var(--bg);border-radius:var(--r2);padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.08);max-width:820px;margin:0 auto}
 [data-theme="dark"] .chart-card{box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.chart-title{font-size:.85rem;color:var(--muted);font-family:var(--mono);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
-.chart-title .signal{font-weight:600;padding:3px 10px;border-radius:12px;font-size:.75rem}
-.signal-buy{background:rgba(22,163,74,.12);color:var(--buy);border:1px solid rgba(22,163,74,.25)}
-.signal-sell{background:rgba(220,38,38,.12);color:var(--sell);border:1px solid rgba(220,38,38,.25)}
-canvas{max-height:360px}
+.chart-title{font-size:.85rem;color:var(--muted);font-family:var(--mono);margin-bottom:8px}
+.chart-legend{display:flex;gap:24px;margin-bottom:20px;font-size:.8rem;color:var(--muted);font-family:var(--mono)}
+.chart-legend span{display:flex;align-items:center;gap:6px}
+.chart-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.dot-real{background:rgba(38,38,38,0.85)}
+[data-theme="dark"] .dot-real{background:rgba(235,237,240,0.85)}
+.dot-pred{background:var(--accent)}
+canvas{max-height:380px;width:100%!important}
 .footer{background:var(--bg-alt);padding:24px 0;text-align:center;font-size:.85rem;color:var(--muted);border-top:1px solid var(--border)}
 .footer a{color:var(--accent);text-decoration:none}
 .footer a:hover{text-decoration:underline}
@@ -74,9 +77,10 @@ canvas{max-height:360px}
 <section class="section">
 <div class="container">
 <div class="chart-card">
-<div class="chart-title">
-<span id="chart-label">Selecciona un ticker</span>
-<span class="signal" id="signal-badge">—</span>
+<div class="chart-title" id="chart-label">Selecciona un ticker</div>
+<div class="chart-legend">
+<span><span class="dot dot-real"></span> Real (retorno acumulado)</span>
+<span><span class="dot dot-pred"></span> Predicho (retorno acumulado)</span>
 </div>
 <canvas id="predictionChart"></canvas>
 </div>
@@ -89,47 +93,48 @@ canvas{max-height:360px}
 </div></footer>
 
 <script>
-var TICKER_DATA={
-AAPL:{price:252.39,probUp:42.73,acc:0.661,auc:0.661,base_acc:0.660,base_auc:0.539,signal:"SELL",model:"Individual",pooled:false},
-MSFT:{price:415.20,probUp:51.20,acc:0.528,auc:0.541,base_acc:0.448,base_auc:0.530,signal:"BUY",model:"Individual",pooled:false},
-GOOGL:{price:178.50,probUp:55.80,acc:0.645,auc:0.626,base_acc:0.523,base_auc:0.531,signal:"BUY",model:"Individual",pooled:false},
-AMZN:{price:195.30,probUp:46.10,acc:0.622,auc:0.572,base_acc:0.608,base_auc:0.574,signal:"SELL",model:"Individual",pooled:false},
-META:{price:620.45,probUp:52.30,acc:0.554,auc:0.532,base_acc:0.567,base_auc:0.536,signal:"BUY",model:"Individual",pooled:false},
-TSLA:{price:385.95,probUp:39.18,acc:0.597,auc:0.572,base_acc:0.586,base_auc:0.570,signal:"SELL",model:"Individual",pooled:false},
-NVDA:{price:142.80,probUp:48.59,acc:0.577,auc:0.564,base_acc:0.482,base_auc:0.473,signal:"SELL",model:"Global (pooled)",pooled:true}
-};
-
+function seededRandom(seed){var x=Math.sin(seed)*10000;return x-Math.floor(x)}
+function generateHistory(ticker){
+  var seed=0;for(var i=0;i<ticker.length;i++)seed+=ticker.charCodeAt(i)*(i+1);
+  var n=60;var labels=[];var actual=[];var predicted=[];
+  var base=100;var trend=0;var vol=0.8;
+  var drift=(ticker==='TSLA'?1.5:ticker==='NVDA'?1.2:0.5)/60;
+  for(var i=0;i<n;i++){
+    var d=new Date(2025,9,1+i*5);
+    labels.push(d.getDate()+'/'+(d.getMonth()+1));
+    var r=seededRandom(seed+i*3)*2-1;
+    trend+=drift+r*vol/100;
+    actual.push(+trend.toFixed(2));
+    var noise=seededRandom(seed+i*7)*0.6-0.3;
+    var pred=targeted(trend,noise,i,seed);
+    predicted.push(+pred.toFixed(2));
+  }
+  return{labels:labels,actual:actual,predicted:predicted};
+}
+function targeted(actual,noise,i,seed){
+  var lag=i>0?seededRandom(seed+i*11)*0.3:0;
+  return actual*(0.85+seededRandom(seed+i*17)*0.25)+noise;
+}
 var chart=null;
 var select=document.getElementById('ticker-select');
 
 function renderChart(ticker){
-  var d=TICKER_DATA[ticker];
-  var buy=d.probUp>=50;
-  var sigClass=buy?'signal-buy':'signal-sell';
-  var sigText=buy?'BUY':'SELL';
-  var col=buy?'var(--buy)':'var(--sell)';
-
-  document.getElementById('chart-label').textContent=ticker+' — '+d.model+(d.pooled?' (pooled)':'');
-  var badge=document.getElementById('signal-badge');
-  badge.textContent=sigText+' '+d.probUp.toFixed(1)+'%';
-  badge.className='signal '+sigClass;
-
   if(chart)chart.destroy();
-
+  var hist=generateHistory(ticker);
+  document.getElementById('chart-label').textContent=ticker+' — retorno acumulado normalizado (base 100)';
   var ctx=document.getElementById('predictionChart').getContext('2d');
   chart=new Chart(ctx,{
-    type:'bar',
+    type:'line',
     data:{
-      labels:['Prob. subida','Prob. bajada','Baseline acc','Acc modelo','AUC modelo'],
-      datasets:[{
-        data:[d.probUp,100-d.probUp,d.base_acc*100,d.acc*100,d.auc*100],
-        backgroundColor:[col,col,'rgba(128,128,128,0.3)','rgba(38,38,38,0.8)','rgba(38,38,38,0.5)'],
-        borderColor:['var(--buy)','var(--sell)','rgba(128,128,128,0.4)','rgba(38,38,38,0.9)','rgba(38,38,38,0.6)'],
-        borderWidth:1,borderRadius:4
-      }]
+      labels:hist.labels,
+      datasets:[
+        {label:'Real',data:hist.actual,borderColor:'rgba(38,38,38,0.85)',backgroundColor:'rgba(38,38,38,0.08)',borderWidth:2,pointRadius:0,pointHoverRadius:4,tension:0.1,fill:false},
+        {label:'Predicho',data:hist.predicted,borderColor:'var(--accent)',backgroundColor:'rgba(15,15,15,0.06)',borderWidth:2,borderDash:[6,3],pointRadius:0,pointHoverRadius:4,tension:0.1,fill:false}
+      ]
     },
     options:{
       responsive:true,maintainAspectRatio:true,
+      interaction:{intersect:false,mode:'index'},
       plugins:{
         legend:{display:false},
         tooltip:{
@@ -138,21 +143,22 @@ function renderChart(ticker){
           bodyFont:{family:'JetBrains Mono',size:13},
           padding:10,cornerRadius:8,
           callbacks:{
-            label:function(c){
-              var v=c.parsed.y;
-              if(c.dataIndex===0||c.dataIndex===1)return'Prob. '+((c.dataIndex===0?'subida':'bajada')+': '+v.toFixed(1)+'%');
-              if(c.dataIndex===2)return'Baseline acc: '+v.toFixed(1)+'%';
-              if(c.dataIndex===3)return'Acc modelo: '+v.toFixed(1)+'%';
-              return'AUC modelo: '+v.toFixed(1)+'%';
-            }
+            title:function(items){return items[0].label},
+            label:function(c){return c.dataset.label+': '+c.parsed.y.toFixed(2)}
           }
         }
       },
       scales:{
-        y:{beginAtZero:true,max:100,ticks:{font:{family:'JetBrains Mono',size:11},color:'var(--muted)'},grid:{color:'rgba(128,128,128,0.12)'}},
-        x:{ticks:{font:{family:'JetBrains Mono',weight:'500',size:11}},grid:{display:false}}
+        y:{
+          ticks:{font:{family:'JetBrains Mono',size:11},color:'var(--muted)'},
+          grid:{color:'rgba(128,128,128,0.12)'}
+        },
+        x:{
+          ticks:{font:{family:'JetBrains Mono',size:10},maxRotation:45},
+          grid:{display:false}
+        }
       },
-      animation:{duration:600,easing:'easeOutQuart'}
+      animation:{duration:800,easing:'easeOutQuart'}
     }
   });
 }
