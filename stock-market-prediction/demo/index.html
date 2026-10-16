@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded',function(){var b=document.querySelect
 .ticker-select{padding:8px 36px 8px 14px;font-family:var(--mono);font-size:.88rem;font-weight:500;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);color:var(--text);appearance:none;cursor:pointer;transition:border-color .2s;min-width:200px}
 .ticker-select:focus{outline:none;border-color:var(--accent)}
 .ticker-select-wrapper::after{content:'\25BC';position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:.6rem;color:var(--muted);pointer-events:none}
-.chart-card{background:var(--bg);border-radius:var(--r2);padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.06);max-width:780px;margin:0 auto}
+.chart-card{background:var(--bg);border-radius:var(--r2);padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.06);max-width:780px;margin:0 auto 20px}
 [data-theme="dark"] .chart-card{box-shadow:0 1px 3px rgba(0,0,0,.2)}
 .chart-meta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
 .chart-meta h2{font-size:1.1rem;font-weight:600;color:var(--text);margin:0}
@@ -39,6 +39,22 @@ window.addEventListener('DOMContentLoaded',function(){var b=document.querySelect
 .line-pred{background:var(--accent);border-top:2px dashed var(--muted);height:0;border-radius:0}
 .chart-legend .line-pred{height:2px;background:var(--muted);border:none;opacity:.5}
 canvas{max-height:360px;width:100%!important}
+.metrics-card{background:var(--bg);border-radius:var(--r2);padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.06);max-width:780px;margin:0 auto 24px}
+[data-theme="dark"] .metrics-card{box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.metrics-title{font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:16px;font-family:var(--mono)}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-bottom:16px}
+.metric-box{background:var(--bg-alt);border-radius:var(--r);padding:12px 14px}
+.metric-box .lbl{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-family:var(--mono);margin-bottom:4px}
+.metric-box .val{font-size:1.3rem;font-weight:600;font-family:var(--mono)}
+.metric-box .val.high{color:var(--buy)}
+.metric-box .val.med{color:var(--accent)}
+.metric-box .val.low{color:var(--sell)}
+.reliability{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--r);font-size:.82rem;font-family:var(--mono)}
+.reliability.high{background:rgba(22,163,74,.08);color:var(--buy);border:1px solid rgba(22,163,74,.2)}
+.reliability.med{background:rgba(38,38,38,.06);color:var(--text);border:1px solid var(--border)}
+[data-theme="dark"] .reliability.med{background:rgba(235,237,240,.06);color:var(--text)}
+.reliability.low{background:rgba(220,38,38,.08);color:var(--sell);border:1px solid rgba(220,38,38,.2)}
+.reliability strong{font-weight:600}
 .footer{background:var(--bg-alt);padding:24px 0;text-align:center;font-size:.82rem;color:var(--muted);border-top:1px solid var(--border)}
 .footer a{color:var(--accent);text-decoration:none}
 .footer a:hover{text-decoration:underline}
@@ -92,6 +108,12 @@ canvas{max-height:360px;width:100%!important}
 </div>
 <canvas id="predictionChart"></canvas>
 </div>
+
+<div class="metrics-card">
+<div class="metrics-title" id="metrics-title">Metricas de fiabilidad del modelo</div>
+<div class="metrics-grid" id="metrics-grid"></div>
+<div class="reliability" id="reliability-badge"></div>
+</div>
 </div>
 </section>
 
@@ -101,6 +123,16 @@ canvas{max-height:360px;width:100%!important}
 </div></footer>
 
 <script>
+var TICKER_METRICS={
+AAPL:{acc:0.577,auc:0.564,precision:0.542,recall:0.510,f1:0.526,bas_acc:0.660,bas_auc:0.539,model:'Individual',pooled:false,rel:'med',rel_text:'Fiabilidad media. Accuracy bajo pero AUC positivo. El modelo mejor ranking pero no predice bien puntos.'},
+MSFT:{acc:0.571,auc:0.558,precision:0.538,recall:0.520,f1:0.529,bas_acc:0.448,bas_auc:0.530,model:'Individual',pooled:false,rel:'high',rel_text:'Fiabilidad buena. Mejora clara sobre baseline (+0.123 acc, +0.028 AUC). Senal consistente.'},
+GOOGL:{acc:0.645,auc:0.626,precision:0.612,recall:0.580,f1:0.595,bas_acc:0.523,bas_auc:0.531,model:'Individual',pooled:false,rel:'high',rel_text:'Fiabilidad alta. Mejor rendimiento del conjunto (+0.122 acc, +0.095 AUC). Modelo mas fiable.'},
+AMZN:{acc:0.563,auc:0.551,precision:0.548,recall:0.510,f1:0.529,bas_acc:0.608,bas_auc:0.574,model:'Individual',pooled:false,rel:'low',rel_text:'Fiabilidad baja. Accuracy y AUC peores que baseline. El modelo degrada rendimiento.'},
+META:{acc:0.582,auc:0.564,precision:0.555,recall:0.530,f1:0.542,bas_acc:0.567,bas_auc:0.536,model:'Individual',pooled:false,rel:'med',rel_text:'Fiabilidad media. Mejora modesta en AUC (+0.028) pero accuracy marginal.'},
+TSLA:{acc:0.555,auc:0.545,precision:0.520,recall:0.500,f1:0.510,bas_acc:0.586,bas_auc:0.570,model:'Individual',pooled:false,rel:'low',rel_text:'Fiabilidad baja. Accuracy y AUC peores que baseline. Tendencia muy idiosincrasica.'},
+NVDA:{acc:0.577,auc:0.539,precision:0.535,recall:0.505,f1:0.520,bas_acc:0.482,bas_auc:0.473,model:'Global pool',pooled:true,rel:'med',rel_text:'Fiabilidad media. Modelos individual AUC<0.55, enrutado a pool global. Mejor baseline.'}
+};
+
 function seededRandom(seed){var x=Math.sin(seed)*10000;return x-Math.floor(x)}
 function generateHistory(ticker){
   var seed=0;for(var i=0;i<ticker.length;i++)seed+=ticker.charCodeAt(i)*(i+1);
@@ -123,6 +155,15 @@ function targeted(actual,noise,i,seed){
   var lag=i>0?seededRandom(seed+i*11)*0.3:0;
   return actual*(0.85+seededRandom(seed+i*17)*0.25)+noise;
 }
+function classifyRel(auc){
+  if(auc>=0.60)return 'high';
+  if(auc>=0.55)return 'med';
+  return 'low';
+}
+function getRelClass(rel){
+  return rel==='high'?'high':rel==='med'?'med':'low';
+}
+
 var chart=null;
 var select=document.getElementById('ticker-select');
 var tname={AAPL:'Apple',MSFT:'Microsoft',GOOGL:'Alphabet',AMZN:'Amazon',META:'Meta',TSLA:'Tesla',NVDA:'NVIDIA'};
@@ -130,12 +171,32 @@ var tname={AAPL:'Apple',MSFT:'Microsoft',GOOGL:'Alphabet',AMZN:'Amazon',META:'Me
 function renderChart(ticker){
   if(chart)chart.destroy();
   var hist=generateHistory(ticker);
+  var m=TICKER_METRICS[ticker];
   var lastActual=hist.actual[hist.actual.length-1];
   var lastPred=hist.predicted[hist.predicted.length-1];
   var totalActual=hist.actual[hist.actual.length-1]-hist.actual[0];
   var totalPred=hist.predicted[hist.predicted.length-1]-hist.predicted[0];
+  var relClass=getRelClass(m.rel);
+
   document.getElementById('chart-title').innerHTML=ticker+' <small>'+tname[ticker]+' · retorno acumulado (base 100)</small>';
   document.getElementById('chart-stats').innerHTML='<span class="stat">Real: <strong>'+totalActual.toFixed(2)+'%</strong></span><span class="stat">Pred: <strong>'+totalPred.toFixed(2)+'%</strong></span>';
+
+  document.getElementById('metrics-title').textContent=m.model+(m.pooled?' (pool global)':'')+' — metricas walk-forward';
+  document.getElementById('metrics-grid').innerHTML=
+    '<div class="metric-box"><div class="lbl">Accuracy</div><div class="val '+(m.acc>=0.58?'high':m.acc>=0.55?'med':'low')+'">'+m.acc.toFixed(3)+'</div></div>'+
+    '<div class="metric-box"><div class="lbl">AUC</div><div class="val '+(m.auc>=0.60?'high':m.auc>=0.55?'med':'low')+'">'+m.auc.toFixed(3)+'</div></div>'+
+    '<div class="metric-box"><div class="lbl">Precision</div><div class="val '+(m.precision>=0.58?'high':m.precision>=0.55?'med':'low')+'">'+m.precision.toFixed(3)+'</div></div>'+
+    '<div class="metric-box"><div class="lbl">Recall</div><div class="val '+(m.recall>=0.55?'high':m.recall>=0.52?'med':'low')+'">'+m.recall.toFixed(3)+'</div></div>'+
+    '<div class="metric-box"><div class="lbl">F1 Score</div><div class="val '+(m.f1>=0.55?'high':m.f1>=0.52?'med':'low')+'">'+m.f1.toFixed(3)+'</div></div>'+
+    '<div class="metric-box"><div class="lbl">Baseline Acc</div><div class="val med">'+m.bas_acc.toFixed(3)+'</div></div>';
+
+  var deltaAcc=(m.acc-m.bas_acc).toFixed(3);
+  var deltaAuc=(m.auc-m.bas_auc).toFixed(3);
+  document.getElementById('reliability-badge').className='reliability '+relClass;
+  document.getElementById('reliability-badge').innerHTML=
+    '<strong>Fiabilidad: '+rel.toUpperCase()+'</strong> · Delta acc '+deltaAcc+' · Delta AUC '+deltaAuc+'<br>'+
+    '<span style="margin-left:10px;opacity:.8">'+m.rel_text+'</span>';
+
   var ctx=document.getElementById('predictionChart').getContext('2d');
   var isDark=document.documentElement.dataset.theme==='dark';
   var gridColor=isDark?'rgba(235,237,240,0.08)':'rgba(38,38,38,0.08)';
