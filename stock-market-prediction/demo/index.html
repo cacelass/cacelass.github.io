@@ -194,7 +194,7 @@ function renderChart(ticker){
   var deltaAuc=(m.auc-m.bas_auc).toFixed(3);
   document.getElementById('reliability-badge').className='reliability '+relClass;
   document.getElementById('reliability-badge').innerHTML=
-    '<strong>Fiabilidad: '+rel.toUpperCase()+'</strong> · Delta acc '+deltaAcc+' · Delta AUC '+deltaAuc+'<br>'+
+    '<strong>Fiabilidad: '+m.rel.toUpperCase()+'</strong> · Delta acc '+deltaAcc+' · Delta AUC '+deltaAuc+'<br>'+
     '<span style="margin-left:10px;opacity:.8">'+m.rel_text+'</span>';
 
   var ctx=document.getElementById('predictionChart').getContext('2d');
