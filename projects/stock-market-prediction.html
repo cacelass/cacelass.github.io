@@ -369,6 +369,114 @@
     </div>
   </section>
 
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-tag">failed improvements</span>
+      </div>
+      <h2 class="sec-title">12 improvements that didn't work</h2>
+      <div class="proj-field-val proj-wide">
+        After the baseline was established, <strong>12 systematic improvement attempts</strong> were
+        implemented and tested. None surpassed the original Random Forest. This is the honest record —
+        documenting failures is what separates rigorous evaluation from cherry-picked results.
+      </div>
+      <div style="overflow-x:auto;margin-top:24px;margin-bottom:24px;">
+        <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;padding:10px 14px;color:var(--muted);font-size:.78rem;font-weight:500;">#</th>
+              <th style="text-align:left;padding:10px 14px;color:var(--muted);font-size:.78rem;font-weight:500;">Improvement</th>
+              <th style="text-align:left;padding:10px 14px;color:var(--muted);font-size:.78rem;font-weight:500;">Result</th>
+              <th style="text-align:right;padding:10px 14px;color:var(--muted);font-size:.78rem;font-weight:500;">Δ AUC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">1</td>
+              <td style="padding:10px 14px;">HGB tuning (Optuna)</td>
+              <td style="padding:10px 14px;">Worse than RF individual</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:#dc2626;">−0.028</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">2</td>
+              <td style="padding:10px 14px;">Ensemble (RF + HGB + RF-sent)</td>
+              <td style="padding:10px 14px;">Worse than RF alone</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:#dc2626;">−0.005</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">3</td>
+              <td style="padding:10px 14px;">Macro features (VIX, sectors, treasury, DXY)</td>
+              <td style="padding:10px 14px;">Noise overwhelms signal</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:#dc2626;">−0.034</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">4</td>
+              <td style="padding:10px 14px;">Advanced features (Hurst, entropy, Roll's spread)</td>
+              <td style="padding:10px 14px;">No change from baseline</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:var(--muted);">±0.000</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">5</td>
+              <td style="padding:10px 14px;">Stacking meta-learner</td>
+              <td style="padding:10px 14px;">Meta-learners worse than base</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:#dc2626;">−0.012</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">6</td>
+              <td style="padding:10px 14px;">SHAP top-5 feature selection</td>
+              <td style="padding:10px 14px;">Removing context hurts generalization</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:#dc2626;">−0.014</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">7</td>
+              <td style="padding:10px 14px;">ElasticNet (strong regularization)</td>
+              <td style="padding:10px 14px;">Marginal improvement (only one)</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:#16a34a;">+0.009</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">8</td>
+              <td style="padding:10px 14px;">Regime-specific models (bull/bear/neutral)</td>
+              <td style="padding:10px 14px;">Per-regime models overfit</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:#dc2626;">−0.003</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">9</td>
+              <td style="padding:10px 14px;">Continuous target (regression)</td>
+              <td style="padding:10px 14px;">R² negative (worse than mean)</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:#dc2626;">n/a</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">10</td>
+              <td style="padding:10px 14px;">Diverse ensemble (Linear + RF + HGB)</td>
+              <td style="padding:10px 14px;">Different biases don't complement</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:var(--muted);">+0.002</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">11</td>
+              <td style="padding:10px 14px;">Purged CV + imbalance handling</td>
+              <td style="padding:10px 14px;">Better methodology, same metrics</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:var(--muted);">±0.000</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--muted);">12</td>
+              <td style="padding:10px 14px;">Edgebet formulas (Poisson, BTTS, Over/Under)</td>
+              <td style="padding:10px 14px;">Football formulas don't transfer</td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:var(--muted);">±0.000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="proj-field-val proj-wide">
+        <strong>Why none worked:</strong> financial time series have inherently low signal-to-noise
+        ratios (~1–5% predictable), markets are semi-formally efficient, and increased model
+        complexity amplifies overfitting rather than capturing real structure. The only marginal
+        gain came from ElasticNet's strong regularization (+0.009 AUC), which suggests the problem
+        benefits from <em>simpler</em> models, not more complex ones. This is a well-known result
+        in quantitative finance — and the project's honest documentation of it is the actual contribution.
+      </div>
+    </div>
+  </section>
+
   <footer id="contact">
     <div class="footer-inner">
       <div class="footer-id">
