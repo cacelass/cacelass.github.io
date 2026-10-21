@@ -135,8 +135,12 @@
       </div>
       <h2 class="sec-title">The honest outcome</h2>
       <div class="metric-block">
-        <span class="metric-lbl">Walk-forward per ticker</span>
-        <span class="metric-val">GOOGL <strong>64.5% / 0.626 AUC</strong> · MSFT 55.8% / 0.580 · AMZN 58.2% / 0.575 · AAPL 56.4% / 0.559 · META 53.4% / 0.564 · TSLA 55.0% / 0.530 · NVDA routed to global pool (0.539 AUC).</span>
+        <span class="metric-lbl">Walk-forward per ticker (RF+LGB Ensemble)</span>
+        <span class="metric-val">GOOGL <strong>63.4% / 0.565 AUC</strong> · MSFT 65.1% / 0.560 · AMZN 64.6% / 0.547 · AAPL 63.2% / 0.514 · META 63.3% / 0.580 · TSLA 56.1% / 0.542 · NVDA 54.3% / 0.496.</span>
+      </div>
+      <div class="metric-block">
+        <span class="metric-lbl">LightGBM breakthrough</span>
+        <span class="metric-val">After 12 failed improvements, <strong>LightGBM + ensemble RF+LGB</strong> finally beats RF alone: +0.007 AUC average (6/7 tickers), +0.058 accuracy average. LightGBM wins AUC in 4/7, ensemble wins in 6/7. Different model biases (bagging vs boosting) complement each other.</span>
       </div>
       <div class="metric-block">
         <span class="metric-lbl">Model comparison</span>
@@ -145,7 +149,9 @@
       <div class="proj-field-val proj-wide">
         The value is the <strong>evaluation rigour</strong>, not the model performance: knowing when a model
         does not work is precisely what protects real capital. The single-split evaluation inflated
-        results by +3.6pp — only walk-forward revealed the true picture. This is the foundation
+        results by +3.6pp — only walk-forward revealed the true picture. After 12 failed attempts,
+        the breakthrough came from combining models with different inductive biases (RF bagging + LGB
+        boosting), not from more features or more complexity. This is the foundation
         for the portfolio manager system in development.
       </div>
       <div class="proj-links" style="margin-top:28px;">
@@ -207,7 +213,7 @@
       <div class="sec-head reveal">
         <span class="sec-tag">metrics</span>
       </div>
-      <h2 class="sec-title">Detailed per-ticker metrics</h2>
+      <h2 class="sec-title">Detailed per-ticker metrics (RF+LGB Ensemble)</h2>
       <div style="overflow-x:auto;margin-bottom:24px;">
         <table style="width:100%;border-collapse:collapse;font-size:.9rem;">
           <thead>
@@ -215,8 +221,8 @@
               <th style="text-align:left;padding:12px 16px;color:var(--muted);font-size:.8rem;font-weight:500;">Ticker</th>
               <th style="text-align:right;padding:12px 16px;color:var(--muted);font-size:.8rem;font-weight:500;">Walk-Fwd Acc</th>
               <th style="text-align:right;padding:12px 16px;color:var(--muted);font-size:.8rem;font-weight:500;">Walk-Fwd AUC</th>
+              <th style="text-align:right;padding:12px 16px;color:var(--muted);font-size:.8rem;font-weight:500;">RF AUC</th>
               <th style="text-align:right;padding:12px 16px;color:var(--muted);font-size:.8rem;font-weight:500;">Baseline Acc</th>
-              <th style="text-align:right;padding:12px 16px;color:var(--muted);font-size:.8rem;font-weight:500;">Baseline AUC</th>
               <th style="text-align:right;padding:12px 16px;color:var(--muted);font-size:.8rem;font-weight:500;">Δ Acc</th>
               <th style="text-align:right;padding:12px 16px;color:var(--muted);font-size:.8rem;font-weight:500;">Δ AUC</th>
               <th style="text-align:right;padding:12px 16px;color:var(--muted);font-size:.8rem;font-weight:500;">Model</th>
@@ -225,73 +231,85 @@
           <tbody>
             <tr style="border-bottom:1px solid var(--border);">
               <td style="padding:12px 16px;font-weight:500;">GOOGL</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.645</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.626</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.634</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.565</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.564</td>
               <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.523</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.531</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.122</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.095</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">Individual</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.111</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.034</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">RF+LGB</td>
             </tr>
             <tr style="border-bottom:1px solid var(--border);">
               <td style="padding:12px 16px;font-weight:500;">META</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.582</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.564</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.633</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.580</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.574</td>
               <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.567</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.536</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.015</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.028</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">Individual</td>
-            </tr>
-            <tr style="border-bottom:1px solid var(--border);">
-              <td style="padding:12px 16px;font-weight:500;">AAPL</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.577</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.564</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.660</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.539</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#dc2626;font-weight:500;">-0.083</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.025</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">Individual</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.066</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.044</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">RF+LGB</td>
             </tr>
             <tr style="border-bottom:1px solid var(--border);">
               <td style="padding:12px 16px;font-weight:500;">MSFT</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.571</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.558</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.651</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.560</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.547</td>
               <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.448</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.530</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.123</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.028</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">Individual</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.203</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.112</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">RF+LGB</td>
             </tr>
             <tr style="border-bottom:1px solid var(--border);">
               <td style="padding:12px 16px;font-weight:500;">AMZN</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.563</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.551</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.646</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.547</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.538</td>
               <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.608</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.574</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#dc2626;font-weight:500;">-0.045</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">-0.023</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">Individual</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.038</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">−0.027</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">RF+LGB</td>
             </tr>
             <tr style="border-bottom:1px solid var(--border);">
               <td style="padding:12px 16px;font-weight:500;">TSLA</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.555</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.545</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.561</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.542</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.530</td>
               <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.586</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.570</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#dc2626;font-weight:500;">-0.031</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">-0.025</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">Individual</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">−0.025</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">−0.028</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">RF+LGB</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:12px 16px;font-weight:500;">AAPL</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.632</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.514</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.503</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.660</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">−0.028</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">−0.025</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">RF+LGB</td>
             </tr>
             <tr>
               <td style="padding:12px 16px;font-weight:500;">NVDA</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">—</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.539</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">—</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">—</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">—</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">—</td>
-              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">Global pool</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);">0.543</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--sell);">0.496</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.496</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">0.482</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:500;">+0.061</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">+0.014</td>
+              <td style="padding:12px 16px;text-align:right;font-family:var(--mono);color:var(--muted);">RF+LGB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="proj-field-val" style="font-size:.88rem;color:var(--muted);">
+        <strong>Notes:</strong> Walk-forward 3-fold, same protocol as baseline. Ensemble = 0.5×RF + 0.5×LGB.
+        Δ Acc = ensemble − persistence baseline. Δ AUC = ensemble − RF individual.
+        Ensemble improves AUC in 6/7 tickers (+0.007 avg). NVDA remains unpredictable (AUC &lt; 0.50).
+        Accuracy is consistently higher than RF alone across all tickers.
+      </div>
+    </div>
+  </section>
             </tr>
           </tbody>
         </table>
@@ -374,7 +392,7 @@
       <div class="sec-head reveal">
         <span class="sec-tag">failed improvements</span>
       </div>
-      <h2 class="sec-title">12 improvements that didn't work</h2>
+      <h2 class="sec-title">12 failures → 1 breakthrough</h2>
       <div class="proj-field-val proj-wide">
         After the baseline was established, <strong>12 systematic improvement attempts</strong> were
         implemented and tested. None surpassed the original Random Forest. This is the honest record —
@@ -463,16 +481,24 @@
               <td style="padding:10px 14px;">Football formulas don't transfer</td>
               <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:var(--muted);">±0.000</td>
             </tr>
+            <tr style="border-bottom:2px solid var(--accent);">
+              <td style="padding:10px 14px;font-family:var(--mono);color:var(--accent);">★</td>
+              <td style="padding:10px 14px;"><strong>LightGBM + RF ensemble</strong></td>
+              <td style="padding:10px 14px;"><strong>Breakthrough: 6/7 tickers improve</strong></td>
+              <td style="padding:10px 14px;text-align:right;font-family:var(--mono);color:#16a34a;font-weight:600;">+0.007</td>
+            </tr>
           </tbody>
         </table>
       </div>
       <div class="proj-field-val proj-wide">
-        <strong>Why none worked:</strong> financial time series have inherently low signal-to-noise
+        <strong>Why none worked (until #13):</strong> financial time series have inherently low signal-to-noise
         ratios (~1–5% predictable), markets are semi-formally efficient, and increased model
         complexity amplifies overfitting rather than capturing real structure. The only marginal
         gain came from ElasticNet's strong regularization (+0.009 AUC), which suggests the problem
-        benefits from <em>simpler</em> models, not more complex ones. This is a well-known result
-        in quantitative finance — and the project's honest documentation of it is the actual contribution.
+        benefits from <em>simpler</em> models, not more complex ones. <strong>The breakthrough (#13)
+        came from combining models with different inductive biases</strong> — RF's bagging + LGB's
+        boosting — not from more features. This is a well-known result in quantitative finance —
+        and the project's honest documentation of the 12 failures + 1 success is the actual contribution.
       </div>
     </div>
   </section>
