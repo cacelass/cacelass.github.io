@@ -137,7 +137,7 @@ body.page::before {
     radial-gradient(3px 3px at 140px 80px, #fff 0%, transparent 50%),
     radial-gradient(2px 2px at 210px 100px, #fff 0%, transparent 50%),
     radial-gradient(3px 3px at 290px 130px, #fff 0%, transparent 50%);
-  background-size: 350px 400px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-size: 350px 400px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   opacity: 0.9;
   pointer-events: none;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
@@ -148,36 +148,10 @@ body.page::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body.page::before {
-    background-image:
-      linear-gradient(180deg, #8B4513 60%, #5D3208 100%),
-      radial-gradient(50px 70px at 150px 100px, #2e7d32 0%, #1b5e20 35%, #14532d 100%),
-      radial-gradient(60px 80px at 220px 130px, #2e7d32 0%, #1b5e20 35%, #14532d 100%),
-      radial-gradient(50px 60px at 80px 150px, #2e7d32 0%, #1b5e20 35%, #14532d 100%),
-      radial-gradient(55px 70px at 300px 160px, #2e7d32 0%, #1b5e20 35%, #14532d 100%);
-    animation: none;
-  }
-}
-  position: relative;
-  overflow: hidden;
-}
-
-#team .feat-card::after {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: 8%;
-  right: 8%;
-  height: 5px;
-  border-radius: 0 0 8px 8px;
-  background: linear-gradient(180deg, var(--navi-snow), transparent);
-  opacity: 0.8;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
+  body.page::before,
   body.page::after,
   .navi-lights {
     animation: none;
+    background-size: auto;
   }
 }
