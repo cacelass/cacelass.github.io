@@ -36,6 +36,8 @@ html[data-theme="dark"] {
 /* ——— símbolo, ya dibujado por assets/marca.js ——— */
 .tv-simbolo { display: inline-block; flex: none; line-height: 0; color: var(--tv-tinta); }
 .tv-simbolo svg { display: block; }
+/* la marca girada: el árbol pasa a ser la V */
+.tv-girada { display: inline-block; transform: rotate(180deg); }
 .tv-lockup { display: inline-flex; align-items: center; color: var(--tv-tinta); }
 .tv-nombre {
   font: 600 calc(var(--tv-s, 28px) * .86)/1 var(--f-ui);
@@ -46,7 +48,6 @@ html[data-theme="dark"] {
 
 /* ——— matasellos (A Navideña) ——— */
 .tv-mat { display: block; color: var(--tv-tinta); }
-.tv-mat__v { fill: currentColor; }
 .tv-mat__luz { fill: var(--tv-luz); }
 .tv-mat__arco, .tv-mat__fecha { fill: currentColor; font-family: var(--f-ui); }
 .tv-mat__fecha { font-variant-numeric: tabular-nums; }

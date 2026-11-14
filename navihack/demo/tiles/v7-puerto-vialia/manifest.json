@@ -1,0 +1,44 @@
+{
+  "version": "v7-puerto-vialia",
+  "source": "v15.png",
+  "width": 4096,
+  "height": 3072,
+  "tile_size": 512,
+  "format": "webp",
+  "min_level": 9,
+  "max_level": 12,
+  "levels": {
+    "9": {
+      "width": 512,
+      "height": 384,
+      "cols": 1,
+      "rows": 1
+    },
+    "10": {
+      "width": 1024,
+      "height": 768,
+      "cols": 2,
+      "rows": 2
+    },
+    "11": {
+      "width": 2048,
+      "height": 1536,
+      "cols": 4,
+      "rows": 3
+    },
+    "12": {
+      "width": 4096,
+      "height": 3072,
+      "cols": 8,
+      "rows": 6
+    }
+  },
+  "canvas": {
+    "width": 3072,
+    "height": 3072
+  },
+  "offset": {
+    "x": 0,
+    "y": 0
+  }
+}

@@ -30,12 +30,44 @@
 
 ## Iconos y assets
 
-- **Iconos de interfaz: Lucide, sueltos, de línea (trazo 1,5 px, 20–24 px), un solo
-  color que hereda `currentColor`.** Sin fondo, sin círculo de color.
-- **Píxel solo dentro del mapa:** marcadores, sprites de punto y matasellos. En un
-  mismo componente no se mezclan los dos registros.
+- **Una sola librería de iconos para todo: Lucide, de línea (trazo 1,5 px), un solo
+  color que hereda `currentColor`.** Vale para botones, filtros, estado (abierto
+  `circle-check`, cerrado `ban`), tipo de punto (`lightbulb`, `ferris-wheel`, `store`,
+  `gift`, `camera`) y los marcadores del mapa. Se registran en
+  `web/ui/assets/vendor/lucide/` y `tools/build-lucide.py` genera `lucide.js`.
+- **Nada de pixel art en la interfaz:** ni iconos, ni texto, ni marcadores, ni la «prohibida».
+  El píxel solo existe como ilustración de fondo (el mapa isométrico).
 - **Imagen antes que texto**, icono antes que frase. Frases cortas y llanas.
 - **Fotos reales** para los puntos; nunca ilustraciones genéricas de relleno.
+
+### Pendiente: lo que aún usa píxel (documentado, no tocado)
+
+Las maquetas de `web/ui/` (`navidena`, `postal`, `marca`, `marca-exploracion`,
+`components`, `mapa`, `ficha`) y `assets/iconos.js` siguen dibujando iconos en píxel.
+`assets/navidena.js` (matasellos) y `assets/marca.js` (V de 16 px) también. No están en la
+app (`web/index.html`); al tocarlas se pasan a Lucide, salvo la V y el matasellos, que son
+marca/ilustración y se deciden aparte.
+
+## Imágenes
+
+- **Proporción fija con `aspect-ratio`**, nunca una altura suelta: miniaturas de lista
+  3:2 con `object-fit: cover`; hero de la ficha 3:2 (16:9 en móvil).
+- **El hero muestra la foto entera** (`object-fit: contain`) sobre su propio desenfoque
+  (`--photo`): ni recorte ni barras vacías, sea cual sea la proporción original.
+- Toda `<img>` lleva `width` y `height` (sin saltos de maquetación), `decoding="async"` y
+  `loading="lazy"` fuera de la primera pantalla.
+- Sin foto, el hueco lleva el icono del tipo en gris.
+
+## Datos sobre la imagen (patrón de red social)
+
+El dato corto va **encima de la imagen**, en chips de superficie sólida y texto blanco:
+
+- **Arriba a la izquierda: el tipo**, icono dorado + nombre («Luces»). Fondo `#1b1f2c`.
+- **Abajo a la izquierda: el estado**, icono + «Abierto» (verde `#2f7a41`) o «Cerrado»
+  (rojo `#b53a26`). Nunca solo color: el icono y el texto lo dicen.
+- **Arriba a la derecha: cerrar.**
+- Debajo de la imagen: título, la hora («Abre 18:00», «Cierra 03:00») y la acción.
+- En la lista, la misma jerarquía: foto 3:2, título, tipo con su icono y estado con su icono.
 
 ## Controles sobre el mapa
 
@@ -101,8 +133,8 @@ Frases cortas en presente, cero adjetivos, la tecnología real por su nombre
 3. ¿Cero sombras decorativas y cero degradados?
 4. ¿Color solo en estado o en el acento dorado, nunca decorativo?
 5. ¿Controles sobre el mapa con superficie sólida y contraste AA medido?
-6. ¿Iconos de interfaz Lucide de línea, y el píxel solo dentro del mapa?
-7. ¿La imagen se recoloca según el ancho (izquierda con sitio, arriba en móvil, o sin ella en compacto) sin cambiar la jerarquía?
+6. ¿Todos los iconos son Lucide (también marcadores y estado) y no hay píxel salvo el mapa ilustrado?
+7. ¿Las imágenes tienen proporción fija, `width`/`height` y el tipo y el estado van sobre ellas? ¿Se recoloca según el ancho (izquierda con sitio, arriba en móvil, o sin ella en compacto) sin cambiar la jerarquía?
 8. ¿Objetivos táctiles de 44 px o más?
 9. ¿Estado visible y divulgación progresiva (detalle en panel, no sobre el mapa)?
 10. ¿Cero elementos de la lista de AI slop?

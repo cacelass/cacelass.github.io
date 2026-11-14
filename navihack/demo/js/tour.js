@@ -1,4 +1,4 @@
-// TinyVigo: tour a pie según tu tiempo y cómo llegar al centro (bus, coche con parkings en vivo, a pie).
+// TinyVigo: tour a pie según tu tiempo y, si estás lejos, cómo llegar al primer punto (a pie, bus o coche: GO-01, js/getthere.js).
 // Elige paradas abiertas y cercanas que caben en el tiempo, ordena por vecino más próximo,
 // enruta por calles reales (OSRM a pie de openstreetmap.de) y dibuja la línea sobre el mapa isométrico.
 (function () {
@@ -9,11 +9,19 @@
   const STAY = { light: 5, exhibit: 3, photo_gallery: 5, photocall: 3, santa_kings: 10, market: 20, attraction: 15 };
   const VALUE = { attraction: 3, market: 3, light: 2.5, santa_kings: 2, photocall: 1.5, exhibit: 1, photo_gallery: 1 };
   const BUDGETS = [30, 60, 90, 120];
-  const FAR_KM = 2.5; // más lejos de Porta do Sol: primero hay que llegar al centro
+  const NEAR_MIN = 5; // a más de 5 min a pie del primer punto, preguntamos cómo quieres llegar (GO-01)
   const ROUTER = "https://routing.openstreetmap.de/routed-foot/route/v1/foot/";
-  const CAR_ROUTER = "https://routing.openstreetmap.de/routed-car/route/v1/driving/";
+  // PLANNER-01: puntos de salida fijos (estaciones de Renfe del GTFS de X-02)
+  const STARTS = {
+    here: { label: "tour.from_here" },
+    centre: { label: "tour.from_centre", pos: [42.238072, -8.725813] },
+    urzaiz: { label: "planner.from_urzaiz", pos: [42.234189, -8.713728] },
+    guixar: { label: "planner.from_guixar", pos: [42.2392656, -8.7146089] },
+    street: { label: "planner.from_street" },
+  };
+  const norm = (x) => String(x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+  const lu = (name, size = 20) => { const s = document.createElement("span"); s.innerHTML = window.LU ? LU.svg(name, { size }) : ""; return s.firstChild || s; };
   const emit = (name, detail) => document.dispatchEvent(new CustomEvent(name, { detail }));
-  const PARKINGS = "https://datos.vigo.org/data/trafico/parkings-ocupacion.json";
 
   let elev = null;
   fetch("data/elevation.json").then((r) => r.json()).then((g) => (elev = g)).catch(() => {});
@@ -81,7 +89,7 @@
   // ── dibujo sobre el mapa ─────────────────────────────────────────────────
   const SVG = "http://www.w3.org/2000/svg";
   let layer = null;
-  function draw(viewer, line, start, stops) {
+  function draw(viewer, line, start, stops, onPick) {
     clear(viewer);
     layer = document.createElementNS(SVG, "svg");
     layer.setAttribute("viewBox", "0 0 " + CANVAS + " " + CANVAS);
@@ -102,15 +110,24 @@
       g.setAttribute("class", "tv-route-stop");
       const c = document.createElementNS(SVG, "circle"); c.setAttribute("cx", x); c.setAttribute("cy", y - 40); c.setAttribute("r", 20);
       const tx = document.createElementNS(SVG, "text"); tx.setAttribute("x", x); tx.setAttribute("y", y - 33); tx.textContent = i + 1;
-      g.append(c, tx); layer.append(g);
+      const hit = document.createElementNS(SVG, "circle"); hit.setAttribute("cx", x); hit.setAttribute("cy", y - 40); hit.setAttribute("r", 34); hit.setAttribute("class", "tv-route-hit");
+      const title = document.createElementNS(SVG, "title"); title.textContent = (i + 1) + ". " + (onPick ? onPick.name(st.p) : "");
+      g.append(c, tx, hit, title); layer.append(g);
+      if (onPick) {
+        g.addEventListener("pointerdown", (e) => e.stopPropagation());
+        new OpenSeadragon.MouseTracker({ element: g, clickHandler: (e) => { e.preventDefaultAction = true; onPick.pick(i); } });
+      }
     });
     viewer.addOverlay({ element: layer, location: new OpenSeadragon.Rect(0, 0, 1, 1) });
     // encuadra la ruta
     const xs = line.map(([lo, la]) => project(la, lo));
     const minX = Math.min(...xs.map((p) => p[0])), maxX = Math.max(...xs.map((p) => p[0]));
     const minY = Math.min(...xs.map((p) => p[1])), maxY = Math.max(...xs.map((p) => p[1]));
-    const pad = 150;
-    viewer.viewport.fitBounds(new OpenSeadragon.Rect((minX - pad) / CANVAS, (minY - pad) / CANVAS, (maxX - minX + 2 * pad) / CANVAS, (maxY - minY + 2 * pad) / CANVAS));
+    const pad = matchMedia("(max-width: 700px)").matches ? 90 : 420; // en escritorio los paneles tapan los bordes
+    // MOB-01: en móvil la hoja tapa ~60 % de abajo; ampliamos el encuadre hacia abajo para que la ruta quede arriba, a la vista
+    const h = maxY - minY + 2 * pad, below = matchMedia("(max-width: 700px)").matches ? h * 1.5 : 0;
+    viewer.viewport.fitBounds(new OpenSeadragon.Rect((minX - pad) / CANVAS, (minY - pad) / CANVAS, (maxX - minX + 2 * pad) / CANVAS, (h + below) / CANVAS));
+    viewer.viewport.applyConstraints(); // WEB-01: nunca deja ver fondo fuera del bloque
   }
   function clear(viewer) { if (layer) { viewer.removeOverlay(layer); layer = null; } }
 
@@ -125,46 +142,129 @@
     document.body.append(btn, box);
     let when = "now";
     const startTime = () => { if (when === "now") return new Date(); const d = new Date(); d.setHours(+when, 0, 0, 0); if (d < new Date()) d.setDate(d.getDate() + 1); return d; };
-    let budget = 60, fromHere = true, result = null, startPos = ORIGIN, busy = "", far = null, parkings = null;
+    let budget = 60, fromHere = true, result = null, startPos = ORIGIN, busy = "", trip = null, offset = 0, editing = false, startKind = "here", startPick = null, streets = null;
 
     const el = (tag, cls, ...kids) => { const n = document.createElement(tag); if (cls) n.className = cls; n.append(...kids.filter((k) => k != null && k !== false)); return n; };
-    const hhmm = (min) => { const d = new Date(startTime().getTime() + min * 60000); return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); };
+    const hhmm = (min) => { const d = new Date(startTime().getTime() + (min + offset) * 60000); return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); };
     const gmaps = (mode, dest, way = []) => "https://www.google.com/maps/dir/?api=1&travelmode=" + mode + "&origin=" + startPos.join(",") + "&destination=" + dest.join(",") + (way.length ? "&waypoints=" + way.map((w) => w.join(",")).join("|") : "");
 
     function render() {
-      btn.textContent = t("tour.open");
+      btn.replaceChildren(lu("route"), t("tour.open"));
       box.replaceChildren();
       if (!box.classList.contains("is-open")) return;
-      const close = el("button", "tv-close", "×"); close.onclick = () => { box.classList.remove("is-open"); render(); };
+      const close = el("button", "tv-close", lu("x")); close.setAttribute("aria-label", t("common.close")); close.onclick = () => { box.classList.remove("is-open"); render(); };
       const chips = el("div", "tv-chips", ...BUDGETS.map((b) => { const c = el("button", b === budget ? "is-on" : "", t("tour.minutes", { min: b })); c.onclick = () => { budget = b; render(); }; return c; }));
-      const from = el("div", "tv-langs tv-from", ...[[true, "tour.from_here"], [false, "tour.from_centre"]].map(([v, k]) => { const c = el("button", v === fromHere ? "is-on" : "", t(k)); c.onclick = () => { fromHere = v; render(); }; return c; }));
+      // PLANNER-01: la salida acepta mi ubicación, Porta do Sol, las dos estaciones o una calle
+      const sel = el("select", "tv-start", ...Object.entries(STARTS).map(([k, v]) => Object.assign(el("option", null, t(v.label)), { value: k, selected: k === startKind })));
+      sel.setAttribute("aria-label", t("planner.start"));
+      sel.onchange = () => { startKind = sel.value; fromHere = startKind === "here"; startPick = STARTS[startKind].pos ? { pos: STARTS[startKind].pos, label: t(STARTS[startKind].label) } : null; render(); if (startKind === "street") loadStreets(); };
+      let street = null;
+      if (startKind === "street") {
+        const input = el("input", "tv-street");
+        Object.assign(input, { type: "search", placeholder: t("planner.street_placeholder"), value: startPick ? startPick.label : "" });
+        input.setAttribute("list", "tv-streets"); input.setAttribute("aria-label", t("planner.street_placeholder"));
+        const dl = el("datalist", null); dl.id = "tv-streets";
+        const fill = () => { dl.replaceChildren(...(streets || []).filter((x) => !input.value || norm(x[0]).includes(norm(input.value))).slice(0, 40).map((x) => Object.assign(el("option"), { value: x[0] }))); };
+        input.oninput = () => { fill(); const hit = (streets || []).find((x) => norm(x[0]) === norm(input.value)); startPick = hit ? { pos: [hit[1], hit[2]], label: hit[0] } : null; go.disabled = !startPick; };
+        fill(); street = el("div", "tv-street-wrap", input, dl);
+      }
+      const from = el("div", "tv-from", el("label", "tv-note", t("planner.start")), sel, street);
       const whenChips = el("div", "tv-chips", ...[["now", t("tour.now")], ["18", "18:00"], ["20", "20:00"], ["22", "22:00"]].map(([v, label]) => { const c = el("button", v === when ? "is-on" : "", label); c.onclick = () => { when = v; render(); }; return c; }));
-      const go = el("button", "tv-btn tv-go", t("tour.go")); go.onclick = run;
-      box.append(close, el("h2", null, t("tour.title")), chips, el("p", "tv-note", t("tour.when")), whenChips, from, go);
+      const go = el("button", "tv-btn tv-go", t("tour.go")); go.onclick = () => { editing = false; run(); };
+      go.disabled = startKind === "street" && !startPick;
+      // MOB-01: con un tour o un «cómo llegar» ya calculado, el formulario se pliega en una línea
+      // de resumen para que la ruta se vea en el mapa; «Cambiar» lo vuelve a abrir.
+      const folded = (result || trip) && !editing && !busy;
+      box.classList.toggle("has-result", !!folded);
+      if (folded) {
+        const edit = el("button", "tv-btn tv-btn-quiet tv-edit", t("go.change"));
+        edit.onclick = () => { editing = true; render(); };
+        const whenLabel = when === "now" ? t("tour.now") : when + ":00";
+        box.append(close, el("div", "tv-tour-head",
+          el("p", "tv-kicker", t("tour.minutes", { min: budget }) + " · " + whenLabel + " · " + (startPick ? startPick.label : t(STARTS[startKind].label))), edit));
+      } else {
+        box.append(close, el("h2", null, t("tour.title")), chips, el("p", "tv-note", t("tour.when")), whenChips, from, go);
+      }
       if (busy) box.append(el("p", "tv-note", busy));
-      if (far) box.append(renderFar());
+      if (trip) box.append(renderGo());
       if (result) box.append(renderResult());
     }
 
-    function renderFar() {
-      const total = parkings ? parkings.reduce((a, p) => a + Math.max(0, p.plazaslibres), 0) : 0;
-      const cap = parkings ? parkings.reduce((a, p) => a + p.totalplazas, 0) : 0;
-      const mode = (k, m, extra) => el("a", "tv-mode", el("strong", null, t(k)), extra || null);
-      const links = el("div", "tv-modes",
-        Object.assign(mode("go.bus", "transit", el("span", null, t("go.bus_tip"))), { href: gmaps("transit", ORIGIN), target: "_blank", rel: "noopener" }),
-        Object.assign(mode("go.car", "driving", el("span", null, t("go.live_traffic"))), { href: gmaps("driving", ORIGIN), target: "_blank", rel: "noopener" }),
-        Object.assign(mode("go.walk", "walking"), { href: gmaps("walking", ORIGIN), target: "_blank", rel: "noopener" }));
-      const list = parkings ? el("ul", "tv-parkings", ...parkings.slice().sort((a, b) => b.plazaslibres - a.plazaslibres).map((p) => {
-        const a = el("a", null, el("span", "tv-name", p.nombre.replace(/^Parking /, "")), el("span", "tv-badge " + (p.plazaslibres > 20 ? "is-open" : ""), p.plazaslibres > 0 ? t("go.free_n", { n: p.plazaslibres }) : t("go.full")));
-        a.href = gmaps("driving", [p.lat, p.lon]); a.target = "_blank"; a.rel = "noopener"; a.title = t("go.route_to");
-        return el("li", null, a);
-      })) : null;
-      return el("div", "tv-far",
-        el("h3", null, t("tour.far_title")), el("p", null, t("tour.far_body", { km: far.toFixed(1) })), links,
-        parkings ? el("h3", null, t("go.parkings")) : null,
-        parkings && cap ? el("p", "tv-note", t("go.parking_chance", { pct: Math.round((100 * total) / cap) })) : null, list);
+    // ── GO-01: cómo llegar al primer punto ───────────────────────────────
+    const MODE_ICON = { walk: "footprints", bus: "bus", car: "car" };
+    const minTxt = (m) => t("tour.minutes", { min: Math.round(m) });
+    const clock = (d) => String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+    const routeLegs = (o) => o.legs.map((l) => ({ line: l.line, mode: l.mode, parking: l.parking ? l.to : null, board: l.mode === "bus" ? l.from : null, alight: l.mode === "bus" ? l.to : null }));
+    function optionSub(o) {
+      if (o.unavailable) return t(o.unavailable);
+      if (o.mode === "bus") { const b = o.legs[1]; return t("go.opt_bus_sub", { line: b.busLine, time: b.dep, stop: b.fromName }); }
+      if (o.mode === "car" && o.legs[0].parking) { const k = o.legs[0].parking; return t("go.opt_car_sub", { name: k.name, free: k.free }); }
+      return t("go.arrive_at", { time: clock(o.arrive) });
+    }
+    function legRow(l, o) {
+      let title, detail;
+      if (l.mode === "walk") { title = t("go.leg_walk", { to: l.toName }); detail = t("go.meters", { m: Math.round(l.meters / 10) * 10 }); }
+      else if (l.mode === "bus") { title = t("go.leg_bus", { line: l.busLine, headsign: l.headsign }); detail = t("go.leg_bus_detail", { dep: l.dep, from: l.fromName, arr: l.arr, to: l.toName, n: l.nStops }); }
+      else {
+        title = t("go.leg_car", { to: l.toName });
+        const k = l.parking;
+        detail = k ? t("go.park_detail", { free: k.free, total: k.total, time: k.updated }) + " · " + t("go.forecast_" + k.forecast) + " · " + t("go.park_time", { min: o.parkMin }) : t(o.warning || "go.no_parking_data");
+      }
+      const toStop = l.mode === "walk" && o.mode === "bus" && o.legs[0] === l;
+      const maps = Object.assign(el("a", "tv-leg-maps", lu("arrow-up-right", 14), t(toStop ? "go.open_to_stop" : "go.open_leg")), { href: l.gmaps, target: "_blank", rel: "noopener" });
+      return el("li", "tv-leg tv-leg-" + l.mode,
+        el("span", "tv-leg-icon", lu(MODE_ICON[l.mode], 18)),
+        el("div", "tv-leg-body", el("strong", null, title), el("span", null, detail + (l.approx ? " · " + t("go.approx") : "")), maps),
+        el("span", "tv-leg-time", minTxt(l.min)));
+    }
+    function renderGo() {
+      const name = txt(trip.first.name);
+      const head = [el("h3", null, t("go.how_title", { name })), el("p", "tv-note", t("go.how_body", { min: trip.away }))];
+      if (trip.loading) return el("div", "tv-go", ...head, el("p", "tv-note tv-loading", t("go.calculating")));
+      if (!trip.chosen) {
+        const opts = ["walk", "bus", "car"].map((m) => {
+          const o = trip.opts[m];
+          const b = el("button", "tv-goopt" + (o.unavailable ? " is-off" : ""),
+            el("span", "tv-leg-icon", lu(MODE_ICON[m], 20)),
+            el("span", "tv-goopt-body", el("strong", null, t("go." + m)), el("span", null, optionSub(o))),
+            el("span", "tv-leg-time", o.unavailable ? "—" : minTxt(o.total)));
+          b.disabled = !!o.unavailable;
+          b.onclick = () => choose(o);
+          return b;
+        });
+        return el("div", "tv-go", ...head, el("div", "tv-goopts", ...opts));
+      }
+      const o = trip.chosen;
+      let alt = null;
+      if (o.alternative) {
+        const k = o.alternative.legs[0].parking;
+        alt = el("button", "tv-btn tv-btn-quiet tv-go-alt", lu("rotate-cw", 16), t("go.use_parking", { name: k.name, free: k.free, min: o.alternative.total }));
+        alt.onclick = () => { const a = o.alternative; a.alternative = { ...o, alternative: null }; choose(a); };
+      }
+      const start = el("button", "tv-btn tv-go", t("go.start_tour"));
+      start.onclick = () => startTour();
+      const all = Object.assign(el("a", "tv-btn", lu("route", 16), t("tour.open_gmaps")), { href: o.gmaps, target: "_blank", rel: "noopener" });
+      const back = el("button", "tv-btn tv-btn-quiet", t("go.change"));
+      back.onclick = () => { trip.chosen = null; emit("tv:clear-route"); render(); };
+      return el("div", "tv-go", ...head,
+        el("p", "tv-summary", t("go.total", { min: o.total, time: clock(o.arrive) })),
+        el("ol", "tv-legs", ...o.legs.map((l) => legRow(l, o))),
+        o.mode === "bus" ? el("p", "tv-note", t("transit.scheduled")) : null,
+        alt, start, el("div", "tv-actions", all, back));
+    }
+    function choose(o) {
+      trip.chosen = o;
+      emit("tv:route", { legs: routeLegs(o), start: startPos, stops: [], showCity: true });
+      render();
     }
 
+    const PLAN_ICON = { fastest: "footprints", after_dark: "star", easy_walk: "route" };
+    function explain(o) {
+      const base = t("planner.why_walk", { min: o.walkMin, m: o.walkMeters });
+      if (o.mode === "after_dark") return base + " · " + (o.explain.unlitLegs == null ? t("planner.why_dark_day") : t("planner.why_dark", { n: String(o.explain.unlitLegs).replace(".", ",") }));
+      if (o.mode === "easy_walk") return base + " · " + (o.explain.maxGradePct == null ? t("planner.why_easy_nodata") : t("planner.why_easy", { pct: o.explain.maxGradePct }));
+      return base + " · " + t("planner.why_fastest");
+    }
     function renderResult() {
       const { stops, later, closed, line, km } = result;
       if (!stops.length) return el("p", "tv-note", t("tour.nothing"));
@@ -178,14 +278,23 @@
         return el("li", null, b);
       }));
       const walk = el("button", "tv-btn tv-go", t("walk.start")); walk.onclick = () => startWalk(0);
-      const gm = el("a", "tv-btn", t("tour.open_gmaps"));
+      const gm = el("a", "tv-btn tv-btn-quiet", t("tour.open_gmaps"));
       const dest = stops[stops.length - 1].p;
       gm.href = gmaps("walking", [dest.lat, dest.lon], stops.slice(0, -1).map((s) => [s.p.lat, s.p.lon]).slice(0, 9));
       gm.target = "_blank"; gm.rel = "noopener";
       const clr = el("button", "tv-btn tv-btn-quiet", t("tour.clear")); clr.onclick = () => { result = null; clear(viewer); emit("tv:clear-route"); render(); };
-      return el("div", "tv-result",
+      const opts = result.options || [];
+      const cur = opts.find((o) => o.mode === result.mode);
+      const tabs = opts.length > 1 ? el("div", "tv-planmodes", ...opts.map((o) => {
+        const b = el("button", o.mode === result.mode ? "is-on" : "", lu(PLAN_ICON[o.mode], 16), el("span", null, t("planner." + o.mode)), el("small", null, t("tour.minutes", { min: o.total })));
+        b.setAttribute("aria-pressed", String(o.mode === result.mode));
+        b.onclick = () => { if (o.mode !== result.mode) { busy = t("tour.routing"); render(); applyMode(o.mode); } };
+        return b;
+      })) : null;
+      const why = cur ? el("p", "tv-note tv-why", explain(cur) + (result.source === "approx" ? " · " + t("go.approx") : "")) : null;
+      return el("div", "tv-result", tabs, why,
         el("p", "tv-summary", t("tour.summary", { min: budget, n: stops.length, km })),
-        el("p", "tv-note", t("walk.story")), ol, walk, el("div", "tv-actions", gm, clr),
+        el("p", "tv-note", t("walk.story")), ol, walk, el("div", "tv-actions", gm, window.tinyvigoShare ? window.tinyvigoShare.button(t("tour.summary", { min: budget, n: stops.length, km })) : null, clr),
         later.length ? el("details", "tv-later", el("summary", null, t("tour.later") + " · " + later.length),
           el("ul", null, ...later.slice(0, 12).map((l) => { const b = el("button", null, el("span", "tv-name", txt(l.p.name)), el("span", "tv-badge", t("tour.later_item", { km: l.km.toFixed(1), min: l.min }))); b.onclick = () => P.select(l.p); return el("li", null, b); }))) : null,
         closed.length ? el("details", "tv-later", el("summary", null, t("tour.closed_now") + " · " + closed.length),
@@ -215,14 +324,15 @@
       const prev = el("button", "tv-btn tv-btn-quiet", t("walk.prev")); prev.disabled = at === 0; prev.onclick = () => { at--; showStep(); };
       const last = at === st.length - 1;
       const next = el("button", "tv-btn", last ? t("common.close") : t("walk.next")); next.onclick = () => { if (last) { at = -1; } else { at++; } showStep(); };
-      const close = el("button", "tv-close", "×"); close.onclick = () => { at = -1; showStep(); };
+      const close = el("button", "tv-close", lu("x")); close.setAttribute("aria-label", t("common.close")); close.onclick = () => { at = -1; showStep(); };
       const dots = el("div", "tv-step-dots", ...st.map((_, i) => el("span", i === at ? "is-on" : i < at ? "is-done" : "")));
-      step.append(...[close,
+      step.append(...[close, el("div", "tv-step-body",
         p.photo ? Object.assign(el("img", "tv-step-photo"), { src: p.photo, alt: txt(p.name) }) : null,
+        el("div", null,
         el("p", "tv-kicker", t("walk.step", { n: at + 1, total: st.length }) + " · " + hhmm(s.arrive)),
         el("h2", null, txt(p.name)),
-        el("p", "tv-step-leg", t("walk.leg", { min: legMin(at), from })),
-        p.short ? el("p", "tv-short", txt(p.short)) : null,
+        el("p", "tv-step-leg", lu("footprints", 16), t("walk.leg", { min: legMin(at), from })),
+        p.short ? el("p", "tv-short", txt(p.short)) : null)),
         dots,
         last ? el("p", "tv-note", t("walk.end")) : null,
         el("div", "tv-actions", prev, next)].filter(Boolean));
@@ -244,46 +354,94 @@
     }
 
     async function run() {
-      result = null; far = null; busy = fromHere ? t("tour.locating") : ""; render();
-      const here = await locate();
-      if (fromHere && !here) busy = t("tour.no_location");
+      result = null; trip = null; offset = 0; busy = fromHere ? t("tour.locating") : ""; emit("tv:clear-route"); render();
+      const here = startKind === "here" ? await locate() : startPick ? startPick.pos : null;
+      if (startKind === "here" && !here) busy = t("tour.no_location");
       startPos = here || ORIGIN;
-      const kmToCentre = distM(startPos, ORIGIN) / 1000;
-      if (kmToCentre > FAR_KM) {
-        far = kmToCentre;
-        try { parkings = (await (await fetch(PARKINGS)).json()).filter((p) => p.lat); } catch (e) { parkings = null; }
-        busy = ""; render();
-        // ruta en coche hasta el parking con más plazas libres, dibujada en la vista ciudad
-        const best = parkings && parkings.slice().sort((a, b) => b.plazaslibres - a.plazaslibres)[0];
-        const dest = best ? [best.lat, best.lon] : ORIGIN;
-        try {
-          const j = await (await fetch(CAR_ROUTER + startPos[1] + "," + startPos[0] + ";" + dest[1] + "," + dest[0] + "?overview=full&geometries=geojson")).json();
-          if (j.code === "Ok") emit("tv:route", { line: j.routes[0].geometry.coordinates, start: startPos, stops: [], mode: "driving", showCity: true });
-        } catch (e) { /* sin router: quedan los enlaces */ }
-        return;
+      offset = 0;
+      // GO-01: el tour empieza en el punto abierto más cercano; si está a más de 5 min, ¿cómo llegas?
+      if (here && window.tinyvigoGo) {
+        const now = startTime();
+        // el tour arranca en las luces (el núcleo navideño): la luz encendida más cercana, o la más cercana
+        const lights = P.points.filter((p) => p.type === "light");
+        const lit = lights.filter((p) => { const st = P.status(p, now); return st && st.open; });
+        const pool = lit.length ? lit : lights.length ? lights : P.points;
+        const anchor = pool.reduce((a, p) => (walkMin(startPos, [p.lat, p.lon]) < walkMin(startPos, [a.lat, a.lon]) ? p : a));
+        const away = walkMin(startPos, [anchor.lat, anchor.lon]);
+        if (away > NEAR_MIN) {
+          trip = { first: anchor, away: Math.round(away), loading: true, opts: null, chosen: null };
+          busy = ""; render();
+          try { trip.opts = await tinyvigoGo.options(startPos, [anchor.lat, anchor.lon], txt(anchor.name), now); }
+          catch (e) { const off = (mode) => ({ mode, unavailable: "go.unavailable" }); trip.opts = { walk: off("walk"), bus: off("bus"), car: off("car") }; }
+          trip.loading = false; render();
+          return;
+        }
       }
       const planned = plan(P.points, startPos, budget, P.status, startTime());
       if (!planned.stops.length) { result = { ...planned, line: [], km: "0" }; busy = ""; render(); return; }
       busy = t("tour.routing"); render();
+      await finish(startPos, planned, startTime(), []);
+    }
+
+    // PLANNER-01: optimiza el orden con 3 criterios (js/planner.js) y dibuja la opción elegida
+    async function finish(from, planned, at, extraLegs) {
+      let options = null, source = null;
+      if (window.tinyvigoPlanner && planned.stops.length > 1) {
+        const lights = P.points.filter((p) => p.type === "light" && (P.status(p, at) || {}).open).map((p) => [p.lat, p.lon]);
+        const h = at.getHours();
+        const res = await tinyvigoPlanner.plan({
+          start: from,
+          stops: planned.stops.map((s) => ({ id: s.p.id, lat: s.p.lat, lon: s.p.lon, stay: s.stay })),
+          signals: { dark: h >= 18 || h < 8, lights, elev: elev ? (la, lo) => z(la, lo) : null },
+        });
+        options = res.options.filter((o) => o.ok); source = res.source;
+      }
+      result = { ...planned, options, source, from, extraLegs, mode: options && options.length ? options[0].mode : null };
+      await applyMode(result.mode);
+    }
+    async function applyMode(mode) {
+      const o = result.options && result.options.find((x) => x.mode === mode);
+      if (o) {
+        const byId = new Map(result.stops.map((s) => [s.p.id, s]));
+        result.stops = o.legs.map((l) => ({ ...byId.get(l.id), arrive: l.arrive, stay: l.stay }));
+        result.mode = mode;
+      }
+      const from = result.from, stops = result.stops;
       let line, meters;
-      try {
-        const r = await route(startPos, planned.stops);
-        line = r.geometry.coordinates; meters = r.distance;
-      } catch (e) {
-        line = [startPos, ...planned.stops.map((s) => [s.p.lat, s.p.lon])].map(([la, lo]) => [lo, la]);
+      try { const r = await route(from, stops); line = r.geometry.coordinates; meters = r.distance; }
+      catch (e) {
+        line = [from, ...stops.map((s) => [s.p.lat, s.p.lon])].map(([la, lo]) => [lo, la]);
         meters = line.reduce((a, c, i) => (i ? a + distM([line[i - 1][1], line[i - 1][0]], [c[1], c[0]]) : 0), 0) * DETOUR;
       }
-      result = { ...planned, line, km: (meters / 1000).toFixed(1).replace(".", P.lang() === "en" ? "." : ",") };
+      result.line = line;
+      result.km = (meters / 1000).toFixed(1).replace(".", P.lang() === "en" ? "." : ",");
       busy = "";
-      draw(viewer, line, startPos, planned.stops);
-      emit("tv:route", { line, start: startPos, stops: planned.stops, mode: "walking", showCity: planned.stops.some((s) => !s.p.on_map) || distM(startPos, ORIGIN) > 900 });
+      if (stops.length) draw(viewer, line, from, stops, { name: (p) => txt(p.name), pick: (i) => startWalk(i) });
+      const legs = result.extraLegs || [];
+      if (legs.length) emit("tv:route", { legs: legs.concat(line.length ? [{ line, mode: "tour" }] : []), start: startPos, stops, showCity: true });
+      else emit("tv:route", { line, start: from, stops, mode: "walking", showCity: stops.some((s) => !s.p.on_map) || distM(from, ORIGIN) > 900 });
+      render();
+    }
+    async function loadStreets() {
+      if (streets) return;
+      try { streets = await (await fetch("data/streets.json")).json(); } catch (e) { streets = []; }
       render();
     }
 
-    btn.onclick = () => { box.classList.toggle("is-open"); render(); };
+    async function startTour() {
+      const o = trip.chosen, first = trip.first, from = [first.lat, first.lon];
+      offset = o.total;
+      const arrive = new Date(startTime().getTime() + offset * 60000);
+      const planned = plan(P.points, from, budget, P.status, arrive);
+      const legs = routeLegs(o);
+      trip = null; busy = t("tour.routing"); render();
+      await finish(from, planned, arrive, legs);
+    }
+
+    btn.onclick = () => { const open = !box.classList.contains("is-open"); document.querySelectorAll(".tv-tour.is-open").forEach((b) => b.classList.remove("is-open")); box.classList.toggle("is-open", open); render(); };
     document.addEventListener("tv:lang", render);
     render();
-    window.tinyvigoTour = { plan, project, run, setWhen: (v) => { when = v; }, startWalk: (i) => startWalk(i), setStart: (p) => { fromHere = true; navigator.geolocation.getCurrentPosition = (ok) => ok({ coords: { latitude: p[0], longitude: p[1] } }); }, open: () => { box.classList.add("is-open"); render(); }, setBudget: (b) => { budget = b; }, setFromHere: (v) => { fromHere = v; } };
+    window.tinyvigoTour = { plan, project, run, setWhen: (v) => { when = v; }, state: () => budget + "-" + when, startWalk: (i) => startWalk(i), setStart: (p) => { fromHere = true; navigator.geolocation.getCurrentPosition = (ok) => ok({ coords: { latitude: p[0], longitude: p[1] } }); }, open: () => { box.classList.add("is-open"); render(); }, setBudget: (b) => { budget = b; }, setFromHere: (v) => { fromHere = v; startKind = v ? "here" : "centre"; startPick = v ? null : { pos: STARTS.centre.pos, label: "Porta do Sol" }; }, setStart2: (k) => { startKind = k; fromHere = k === "here"; startPick = STARTS[k].pos ? { pos: STARTS[k].pos, label: k } : null; }, result: () => result };
   }
 
   if (window.tinyvigoPoints) init();

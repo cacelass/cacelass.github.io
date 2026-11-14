@@ -7,6 +7,9 @@
   const base = "tiles/" + current.version + "/";
   const m = await (await fetch(base + "manifest.json")).json();
 
+  // el mapa es pixel art: dibujarlo a la densidad de la pantalla (2x, 3x) multiplica el trabajo de
+  // cada fotograma sin ganar nitidez (se escala con image-rendering: pixelated). Se dibuja a 1x.
+  OpenSeadragon.pixelDensityRatio = 1;
   const viewer = OpenSeadragon({
     id: "map",
     showNavigationControl: false,
@@ -37,7 +40,15 @@
   const fit = (goHome) => {
     const vp = viewer.viewport;
     vp.minZoomLevel = vp.getHomeZoom();
-    if (goHome) vp.goHome(true);
+    if (goHome) {
+      vp.goHome(true);
+      // MOB-02: en un móvil vertical «home» encaja todo el alto del lienzo (mucho mar); arrancamos
+      // ya en el núcleo navideño (Porta do Sol = centro del lienzo). Alejar sigue llegando al todo.
+      if (matchMedia("(max-width: 700px)").matches) {
+        vp.zoomTo(vp.getHomeZoom() * 1.7, null, true);
+        vp.panTo(new OpenSeadragon.Point(0.5, 0.53), true);
+      }
+    }
     vp.applyConstraints(true);
   };
   viewer.addHandler("open", () => fit(true));

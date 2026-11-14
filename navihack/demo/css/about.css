@@ -1,30 +1,28 @@
+/* «Acerca de» (D-17) sobre los tokens de web/ui (guía web/ui/DESIGN.md): sólido, sin sombras, Inter. */
 #about-open {
   position: fixed; left: 12px; bottom: 12px; z-index: 5;
-  width: 44px; height: 44px; border: 0; border-radius: 8px; cursor: pointer;
-  font: 600 18px/1 Inter, system-ui, sans-serif; color: #efeee9;
-  background: #151b2a;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12);
-  -webkit-tap-highlight-color: transparent;
+  width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 8px; cursor: pointer;
+  color: var(--fg); background: var(--raised); -webkit-tap-highlight-color: transparent;
 }
-#about-open:active { background: #222a40; }
+#about-open:active { background: var(--surface); }
 #about {
   box-sizing: border-box; overflow-wrap: anywhere;
   width: min(520px, calc(100vw - 32px)); max-height: calc(100vh - 48px); overflow: auto;
-  border: 0; border-radius: 12px; padding: 20px 20px 16px;
-  background: #151b2a; color: #efeee9; font: 16px/1.45 Inter, system-ui, sans-serif;
+  border: 1px solid var(--line); border-radius: 12px; padding: 20px 20px 16px;
+  background: var(--raised); color: var(--fg); font: 16px/1.45 var(--f-ui);
 }
-#about::backdrop { background: rgba(5, 8, 18, .55); }
-#about h2 { margin: 0 0 4px; font-size: 20px; font-weight: 600; color: #f4cd80; }
-#about h3 { margin: 16px 0 8px; font-size: 14px; font-weight: 500; color: #a5947e; }
+#about::backdrop { background: rgba(16, 18, 26, .45); }
+#about h2 { margin: 0 0 4px; font-size: 20px; font-weight: 600; }
+#about h3 { margin: 16px 0 8px; font-size: 14px; font-weight: 500; color: var(--fg-2); }
 #about p { margin: 0; }
-#about a { color: #efeee9; text-decoration-color: rgba(239, 238, 233, .35); }
-.about-sources { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.about-sources li { display: grid; gap: 2px; padding: 8px 10px; border-radius: 8px; background: rgba(255, 255, 255, .04); }
-.about-sources strong { font-size: 13px; color: #dedbd0; font-weight: 500; }
-.about-sources em { font-style: normal; font-size: 12px; color: #a5947e; }
-.about-note { margin-top: 12px !important; font-size: 12px; color: #a5947e; }
+#about a { color: var(--fg); text-decoration-color: var(--line); }
+.about-sources { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.about-sources li { display: grid; gap: 2px; padding: 8px 10px; border-radius: 8px; background: var(--surface); font-size: 14px; }
+.about-sources strong { font-size: 14px; font-weight: 500; color: var(--fg-2); }
+.about-sources em { font-style: normal; font-size: 12px; color: var(--fg-3); }
+.about-note { margin-top: 12px !important; font-size: 12px; color: var(--fg-3); }
 .about-close {
   position: sticky; top: 0; float: right; margin: -8px -8px 0 0;
-  width: 44px; height: 44px; border: 0; border-radius: 8px; cursor: pointer;
-  font: 22px/1 Inter, system-ui, sans-serif; color: #efeee9; background: rgba(255, 255, 255, .06);
+  width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 8px; cursor: pointer;
+  color: var(--fg); background: var(--sunk);
 }

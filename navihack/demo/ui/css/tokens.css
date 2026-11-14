@@ -1,7 +1,7 @@
 /* TinyVigo UI v2 — tokens. Sistema copiado de Strivon (sistema, no identidad).
    Neutros cálidos, profundidad por tonos, CERO sombras, color solo para estados.
    El acento es la luz cálida de la Navidad: una rampa de 7 pasos para magnitudes
-   y para "cuánto falta/queda". El pixel es recurso (mapa, iconos, marca), no lenguaje. */
+   y para "cuánto falta/queda". El píxel es solo la ilustración del mapa; los iconos son Lucide. */
 :root {
   /* tipografía única: Inter, 5 tamaños fijos, 3 pesos, nada entre medias */
   --f-ui: "Inter", system-ui, sans-serif;
@@ -92,4 +92,25 @@ html[data-theme="dark"] {
   --ink: var(--fg); --ink2: var(--fg-2); --mute: var(--fg-3);
   --panel: var(--surface); --hair: var(--line);
   --hi: var(--accent-5); --bad: var(--danger); --warn: var(--warning);
+}
+
+/* ——— barras de desplazamiento ———
+   Finas, solo el pulgar, sin carril ni flechas. Un único camino por motor, porque en Chromium
+   121+ poner scrollbar-width/color anula ::-webkit-scrollbar (y es lo único que quita las flechas):
+   · Chromium y Safari: ::-webkit-scrollbar (8 px, pulgar redondeado de 4 px, sin botones).
+   · Firefox: el estándar scrollbar-width / scrollbar-color. */
+:root, html[data-theme="light"], html[data-theme="dark"] {
+  --scroll-thumb: color-mix(in srgb, var(--fg-3) 45%, transparent);
+  --scroll-thumb-hover: var(--fg-3);
+}
+@supports selector(::-webkit-scrollbar) {
+  *::-webkit-scrollbar { width: 8px; height: 8px; background: transparent; }
+  *::-webkit-scrollbar-track, *::-webkit-scrollbar-corner { background: transparent; }
+  *::-webkit-scrollbar-thumb { background: var(--scroll-thumb); background-clip: padding-box; border: 2px solid transparent; border-radius: 6px; min-height: 40px; }
+  *::-webkit-scrollbar-thumb:hover, *::-webkit-scrollbar-thumb:active { background: var(--scroll-thumb-hover); background-clip: padding-box; }
+  *::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+}
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: var(--scroll-thumb) transparent; }
+  *:hover { scrollbar-color: var(--scroll-thumb-hover) transparent; }
 }

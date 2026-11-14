@@ -29,8 +29,8 @@ icons = {p.stem: inner(p) for p in sorted(SRC.glob("*.svg"))}
 lines = [
     "/* Iconos de interfaz: Lucide v0.462.0 (ISC, ver assets/vendor/lucide/LICENSE).",
     "   Inline y en currentColor para que hereden el color del texto. Generado por",
-    "   tools/build-lucide.py — no editar a mano. Los iconos de MAPA son los de",
-    "   assets/iconos.js (píxel); los dos registros no se mezclan. */",
+    "   tools/build-lucide.py — no editar a mano. Los marcadores del mapa usan estos mismos iconos",
+    "   (un solo registro de iconos para toda la interfaz). */",
     "(function () {",
     "  var P = {",
 ]
