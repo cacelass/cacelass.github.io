@@ -1,0 +1,62 @@
+/* Ficha de un punto — el panel compartido (panel.css) con foto a la izquierda.
+   Escritorio: foto en columna de 220 px y el contenido a la derecha, título arriba.
+   Móvil: la foto pasa arriba, a todo el ancho del panel. */
+.panel--lugar {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: var(--sp-5);
+  align-items: stretch;
+  padding: var(--sp-3);
+  max-height: calc(100dvh - 88px);
+}
+
+/* ——— columna de la foto ——— */
+.panel__media { position: relative; border-radius: var(--r-ctl); overflow: hidden; background: var(--sunk); min-height: 100%; }
+.panel__photo { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* el sprite pixel es la misma pieza del mapa: va como sello sobre la foto */
+.panel__sprite {
+  position: absolute; left: var(--sp-2); bottom: var(--sp-2);
+  width: 56px; height: 56px; display: flex; align-items: center; justify-content: center;
+  background: var(--bg); border-radius: var(--r-ctl);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.panel__sprite .px { width: 40px; height: 40px; }
+
+/* ——— columna de contenido ——— */
+.panel__body { display: flex; flex-direction: column; gap: var(--sp-3); min-width: 0; overflow: auto; padding: var(--sp-1) 0; }
+
+/* estado: icono + texto + la hora de cierre en grande. No depende solo del color. */
+.panel__status { display: flex; align-items: center; gap: var(--sp-2); font: 500 var(--fs-label)/1.3 var(--f-ui); }
+.panel__status[data-open="1"] { color: var(--ok); }
+.panel__status[data-open="0"] { color: var(--danger); }
+.panel__status .big { font: 600 var(--fs-title)/1 var(--f-ui); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+
+.panel__hours { margin: 0; color: var(--fg-2); font-size: var(--fs-label); }
+.panel__hours small { display: block; color: var(--fg-3); font-size: var(--fs-meta); margin-top: 2px; }
+
+.panel__actions { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+.panel__actions .btn { flex: 1; }
+
+/* divulgación progresiva: la historia va plegada, se abre si interesa */
+.panel__story { border-top: 1px solid var(--line); padding-top: var(--sp-2); }
+.panel__story summary {
+  cursor: pointer; list-style: none; display: flex; align-items: center; gap: var(--sp-2);
+  font: 500 var(--fs-label)/1.4 var(--f-ui); color: var(--fg-2); min-height: var(--tap);
+}
+.panel__story summary::-webkit-details-marker { display: none; }
+.panel__story summary::after { content: "+"; margin-left: auto; font: 500 18px/1 var(--f-ui); color: var(--fg-3); }
+.panel__story[open] summary::after { content: "−"; }
+.panel__story p { margin: var(--sp-1) 0 0; font-size: var(--fs-copy); line-height: 1.6; }
+.panel__story a { color: var(--fg-2); font-size: var(--fs-meta); display: inline-block; margin-top: 6px; text-underline-offset: 3px; }
+
+/* cerca de aquí (lista breve, hora + nombre + minutos) */
+.panel__near { border-top: 1px solid var(--line); padding-top: var(--sp-3); }
+
+/* ——— móvil: foto arriba, contenido debajo ——— */
+@media (max-width: 700px) {
+  .panel--lugar { grid-template-columns: 1fr; gap: var(--sp-3); max-height: calc(100dvh - 24px); }
+  .panel__media { min-height: 0; aspect-ratio: 16 / 9; }
+  .panel__sprite { width: 48px; height: 48px; }
+  .panel__sprite .px { width: 34px; height: 34px; }
+  .panel__actions .btn small { display: none; }
+}

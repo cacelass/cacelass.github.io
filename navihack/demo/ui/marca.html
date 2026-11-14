@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TinyVigo · Marca</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/marca.css">
+</head>
+<body>
+<main class="mk">
+
+  <header class="mk__cab">
+    <div>
+      <span data-tv="logo" data-tv-size="40"></span>
+      <h1 style="margin-top:20px">La V encendida</h1>
+      <p class="mk__lead">Una V y un punto de luz. La V que se hace con las manos delante del árbol y el punto
+        de luz de Porta do Sol: el gesto de la ciudad y lo que lo enciende, en una sola forma.</p>
+    </div>
+    <button class="btn sec ic" data-theme-toggle aria-label="Tema"><i class="lu"></i></button>
+  </header>
+
+  <!-- 01 · CONCEPTO -->
+  <section>
+    <h2><span class="mk__num">01</span>El concepto</h2>
+    <p>La V es el gesto que todo el mundo repite en Porta do Sol: dos brazos abiertos, punta abajo. El punto es
+      la luz de la plaza. Juntos dan lo que la estrella no daba: se reconoce a 16 px, aguanta una sola tinta y
+      dice algo de Vigo sin explicarlo.</p>
+    <div class="mk__nota">La marca no dibuja el árbol ni la ría: los insinúa. El árbol es un punto encendido; la V,
+      la boca de la ría que entra en la ciudad. El trazo se afina hacia la punta, como la luz que cae del árbol.</div>
+  </section>
+
+  <!-- 02 · VARIANTES -->
+  <section>
+    <h2><span class="mk__num">02</span>Variantes</h2>
+    <p>Tres versiones, tres usos. No se inventa una cuarta.</p>
+    <div class="mk__fila">
+      <figure class="mk__caja base">
+        <span data-tv="simbolo" data-tv-size="96"></span>
+        <figcaption>Principal · vector<br>32 px en adelante</figcaption>
+      </figure>
+      <figure class="mk__caja base">
+        <span data-tv="simbolo" data-tv-size="32"></span>
+        <figcaption>Reducida · rejilla 16<br>16 a 32 px</figcaption>
+      </figure>
+      <figure class="mk__caja tinta">
+        <span data-tv="simbolo" data-tv-size="96" data-tv-variante="tinta"></span>
+        <figcaption>Una tinta<br>papel, fax, troquel, sello</figcaption>
+      </figure>
+    </div>
+    <div class="mk__nota" style="margin-top:16px">A 32 px cambia el dibujo, no la forma: por debajo se usa la
+      rejilla de 16 (píxeles enteros, sin desenfoque) y por encima el trazado vectorial. Las dos versiones son el
+      mismo símbolo a distinta resolución.</div>
+  </section>
+
+  <!-- 03 · TAMAÑOS -->
+  <section>
+    <h2><span class="mk__num">03</span>Tamaños</h2>
+    <p>Mínimo 16 px para el símbolo suelto y 24 px para el logotipo completo.</p>
+    <div class="mk__caja base">
+      <div class="mk__escala">
+        <figure><span data-tv="simbolo" data-tv-size="16"></span><figcaption>16</figcaption></figure>
+        <figure><span data-tv="simbolo" data-tv-size="20"></span><figcaption>20</figcaption></figure>
+        <figure><span data-tv="simbolo" data-tv-size="24"></span><figcaption>24</figcaption></figure>
+        <figure><span data-tv="simbolo" data-tv-size="32"></span><figcaption>32</figcaption></figure>
+        <figure><span data-tv="simbolo" data-tv-size="48"></span><figcaption>48</figcaption></figure>
+        <figure><span data-tv="simbolo" data-tv-size="96"></span><figcaption>96</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · CONSTRUCCIÓN -->
+  <section>
+    <h2><span class="mk__num">04</span>Construcción</h2>
+    <p>Rejilla de 16. Brazos de 3 celdas que se cierran en una punta de 2, y el punto de luz a 6,7 % del símbolo,
+      separado de la punta por medio punto. El aire mínimo alrededor de la marca es ese mismo medio punto.</p>
+    <div class="mk__fila">
+      <figure class="mk__caja base">
+        <span data-tv="simbolo" data-tv-size="128"></span>
+        <figcaption>Rejilla 16 · la punta se enciende</figcaption>
+      </figure>
+      <figure class="mk__caja noche">
+        <span data-tv="simbolo" data-tv-size="96"></span>
+        <figcaption>Sobre la noche, la luz sube de tono</figcaption>
+      </figure>
+      <figure class="mk__caja claro">
+        <span data-tv="simbolo" data-tv-size="96"></span>
+        <figcaption>Sobre papel, el punto va en oro oscuro</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 05 · LOGOTIPO -->
+  <section>
+    <h2><span class="mk__num">05</span>Logotipo</h2>
+    <p>Símbolo y nombre. El nombre va en Inter 600, interletraje −2 %, y <b>nunca</b> en fuente de píxel: el píxel
+      es la imagen, no el texto. La separación entre símbolo y nombre es un tercio del símbolo.</p>
+    <div class="mk__fila">
+      <figure class="mk__caja base"><span data-tv="logo" data-tv-size="36"></span><figcaption>Principal</figcaption></figure>
+      <figure class="mk__caja base"><span data-tv="logo" data-tv-size="24"></span><figcaption>Mínimo · 24 px</figcaption></figure>
+      <figure class="mk__caja noche"><span data-tv="logo" data-tv-size="32"></span><figcaption>Sobre noche</figcaption></figure>
+    </div>
+    <div class="mk__nota" style="margin-top:16px">Corrección pendiente en el resto de la UI: <code>.wm</code>
+      (<code>css/base.css</code>) pone el nombre en Pixelify Sans y la cabecera de <code>mapa.html</code> todavía
+      la usa. La marca de aquí es Inter; quien lleve el mapa cambia esa línea por la de esta página.</div>
+  </section>
+
+  <!-- 06 · PALETA -->
+  <section>
+    <h2><span class="mk__num">06</span>Paleta</h2>
+    <p>Siete valores. La marca usa tres: tinta, luz y papel. Los demás son soporte.</p>
+    <table>
+      <thead><tr><th>Muestra</th><th>Nombre</th><th>Hex</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td><span class="mk__chip" style="background:#1d1d1d"></span></td><td>tinta</td><td><code>#1D1D1D</code></td><td>El trazo sobre fondo claro</td></tr>
+        <tr><td><span class="mk__chip" style="background:#10121a"></span></td><td>noche</td><td><code>#10121A</code></td><td>Fondo de la vista nocturna</td></tr>
+        <tr><td><span class="mk__chip" style="background:#d9a441"></span></td><td>luz</td><td><code>#D9A441</code></td><td>El punto, sobre papel y fondos claros</td></tr>
+        <tr><td><span class="mk__chip" style="background:#f4cd80"></span></td><td>luz alta</td><td><code>#F4CD80</code></td><td>El punto, sobre noche</td></tr>
+        <tr><td><span class="mk__chip" style="background:#fbfaf7"></span></td><td>papel</td><td><code>#FBFAF7</code></td><td>Marco de la postal y símbolo invertido</td></tr>
+        <tr><td><span class="mk__chip" style="background:#3d6a96"></span></td><td>ría</td><td><code>#3D6A96</code></td><td>Solo en la ilustración, nunca en el símbolo</td></tr>
+        <tr><td><span class="mk__chip" style="background:#b4472b"></span></td><td>sello</td><td><code>#B4472B</code></td><td>Sello de correos y matasellos</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 07 · TIPOGRAFÍA -->
+  <section>
+    <h2><span class="mk__num">07</span>Tipografía</h2>
+    <p>Una familia para el texto de la marca: Inter. Tres pesos, tres usos.</p>
+    <table>
+      <thead><tr><th>Uso</th><th>Cuerpo</th><th>Inter</th><th>Interletraje</th></tr></thead>
+      <tbody>
+        <tr><td>Nombre de la marca</td><td>0,86 × símbolo</td><td>600</td><td>−2 %</td></tr>
+        <tr><td>Complemento y pies</td><td>12 a 14 px</td><td>500</td><td>−0,6 %</td></tr>
+        <tr><td>Matasellos y sellos</td><td>9,4 / 7,4 (rejilla 100)</td><td>600 / 500</td><td>versalitas espaciadas</td></tr>
+        <tr><td>Manuscrito de la postal</td><td>19 a 22 px</td><td>Caveat 500</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="mk__nota" style="margin-top:12px">Caveat (OFL) se añade solo para lo que de verdad va escrito a
+      mano: el mensaje y la dirección del reverso de la postal. Ni un título ni un botón.</div>
+  </section>
+
+  <!-- 08 · APLICACIONES -->
+  <section>
+    <h2><span class="mk__num">08</span>Aplicaciones</h2>
+    <p>Las tres formas en que la marca aparece en el producto, con el marcado real.</p>
+
+    <h3>1 · Cabecera del mapa</h3>
+    <div class="mk__mapa">
+      <div class="hud">
+        <div class="hud__brand tv-hud"><span data-tv="logo" data-tv-size="20"></span></div>
+      </div>
+    </div>
+    <div class="mk__nota" style="margin-top:8px">Símbolo a 20 px (dibujo de rejilla) y nombre a 16 px. El vidrio
+      oscurece con el tema y la luz pasa a <code>#F4CD80</code>. Mismo marcado que <code>.hud__brand</code>:
+      <code>&lt;div class="hud__brand tv-hud"&gt;</code>.</div>
+
+    <h3 style="margin-top:24px">2 · Matasellos de A Navideña</h3>
+    <div class="mk__fila">
+      <div class="tv-sello-nav">
+        <span data-tv="matasellos" data-tv-size="148" data-tv-fecha="14 · 12 · 2026"></span>
+        <p>VIGO · A NAVIDEÑA · 43 puntos</p>
+      </div>
+      <div style="max-width:280px">
+        <p style="margin:0;font-size:var(--fs-label);line-height:1.55;color:var(--fg-2)">Cierra la colección. El aro
+          dentado es la perforación del sello y la fecha, la de la visita. Se estampa al conseguir el sello 43.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:24px">3 · Certificado</h3>
+    <div class="tv-cert">
+      <div class="tv-cert__filete"></div>
+      <span class="tv-cert__marca tv-tinta" data-tv="simbolo" data-tv-size="56" data-tv-variante="tinta"></span>
+      <p class="tv-cert__nombre-doc">A Navideña</p>
+      <p class="tv-cert__texto">Certifica que <b>Marta Costas</b> visitó las 43 instalaciones de la Navidad de Vigo
+        entre el 14 de noviembre y el 6 de enero.</p>
+      <div class="tv-cert__pie"><span>N.º 00184/2026</span><span>14 · 12 · 2026</span></div>
+    </div>
+    <div class="mk__nota" style="margin-top:8px">Una tinta: el símbolo toma el color del texto y el punto se funde
+      con el trazo. Es la versión que sobrevive a una impresora de una tinta y a un troquel.</div>
+  </section>
+
+  <!-- 09 · REGLAS -->
+  <section>
+    <h2><span class="mk__num">09</span>Reglas</h2>
+    <div class="mk__si-no">
+      <div class="mk__si">
+        <h3><i class="lu" data-lu="circle-check" data-size="16"></i>Sí</h3>
+        <ul>
+          <li>Una tinta cuando el soporte solo tiene una</li>
+          <li>Aire de medio punto alrededor</li>
+          <li>Símbolo suelto cuando el nombre ya está cerca</li>
+          <li>Invertir sobre noche: trazo papel, luz alta</li>
+        </ul>
+      </div>
+      <div class="mk__no">
+        <h3><i class="lu" data-lu="x" data-size="16"></i>No</h3>
+        <ul>
+          <li>Estrellas, copos o árboles dibujados: la marca es una V</li>
+          <li>El nombre en Pixelify o en cualquier fuente de píxel</li>
+          <li>Sombras, degradados, biseles o contornos</li>
+          <li>Rotar, estirar o mover el punto a otro sitio</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="mk__num">10</span>Archivos</h2>
+    <table>
+      <tbody>
+        <tr><td><code>assets/marca.js</code></td><td>Dibuja símbolo, logotipo y matasellos: <code>MARCA.simbolo()</code>, <code>MARCA.logotipo()</code>, <code>MARCA.matasellos()</code></td></tr>
+        <tr><td><code>css/marca.css</code></td><td>Tokens de marca, logotipo y las tres aplicaciones</td></tr>
+        <tr><td><code>marca-exploracion.html</code></td><td>Los tres conceptos que se probaron antes de elegir este</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:16px"><a class="btn sec mk__explorar" href="marca-exploracion.html"><i class="lu" data-lu="palette" data-size="16"></i>Ver la exploración (3 conceptos)</a></p>
+  </section>
+
+</main>
+<script src="assets/lucide.js"></script>
+<script src="assets/marca.js"></script>
+<script src="assets/theme.js"></script>
+</body>
+</html>

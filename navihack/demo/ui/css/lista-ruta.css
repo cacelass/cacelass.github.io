@@ -1,0 +1,17 @@
+/* Lista de ruta — paradas ordenadas con hora, modo y parada fija. */
+.stops { list-style: none; margin: 0; padding: 0; max-width: 420px; }
+.stops li { display: grid; grid-template-columns: 48px 20px 1fr; gap: 0 10px; position: relative; padding-bottom: 4px; }
+.stops .stops__t { font: 500 13px/24px var(--f-ui); font-variant-numeric: tabular-nums; color: var(--ink2); }
+.stops .stops__dot { width: 8px; height: 8px; margin: 8px auto 0; background: var(--ink); }
+.stops li.is-fixed .stops__dot { background: var(--hi); }
+.stops li::before { content: ""; position: absolute; left: 62px; top: 20px; bottom: -4px; width: 2px; background: var(--sunk); }
+.stops li:last-child::before { display: none; }
+.stops h4 { margin: 0; font: 500 15px/24px var(--f-ui); }
+.stops .stops__leg { display: flex; align-items: center; gap: 6px; color: var(--mute); font-size: var(--fs-meta); min-height: 30px; }
+.stops .stops__fixed { font-size: var(--fs-meta); color: var(--hi); font-weight: 500; }
+
+/* resumen de la ruta: cifras grandes de tiempo y distancia */
+.stops__sum { display: flex; gap: var(--sp-5); margin: 0 0 var(--sp-3); }
+.stops__sum div { display: flex; flex-direction: column; }
+.stops__sum .num { font: 600 var(--fs-display)/1 var(--f-ui); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.stops__sum .lbl { color: var(--mute); font-size: var(--fs-meta); }

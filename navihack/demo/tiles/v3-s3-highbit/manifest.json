@@ -1,0 +1,32 @@
+{
+  "version": "v3-s3-highbit",
+  "source": "s-3-highbit.png",
+  "width": 1024,
+  "height": 1024,
+  "tile_size": 512,
+  "format": "webp",
+  "min_level": 9,
+  "max_level": 10,
+  "levels": {
+    "9": {
+      "width": 512,
+      "height": 512,
+      "cols": 1,
+      "rows": 1
+    },
+    "10": {
+      "width": 1024,
+      "height": 1024,
+      "cols": 2,
+      "rows": 2
+    }
+  },
+  "canvas": {
+    "width": 3072,
+    "height": 3072
+  },
+  "offset": {
+    "x": 1024,
+    "y": 1024
+  }
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TinyVigo · Eventos de hoy</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/tarjeta-evento.css">
+<link rel="stylesheet" href="css/chip-filtro.css">
+</head>
+<body>
+<div class="page" style="max-width:600px">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h1>Hoy en Vigo</h1>
+    <button class="btn sec ic" data-theme-toggle aria-label="Tema"><i class="lu"></i></button>
+  </div>
+  <div class="chips">
+    <button class="chip on" aria-pressed="true"><i class="lu" data-lu="calendar-days" data-size="16"></i>Todo el día</button>
+    <button class="chip" aria-pressed="false"><i class="lu" data-lu="star" data-size="16"></i>Gratis</button>
+    <button class="chip" aria-pressed="false"><i class="lu" data-lu="map-pin" data-size="16"></i>Cerca de mí</button>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="ev"><span class="ev__time">18:00</span><div class="ev__body"><h4>Pase de música y luz del árbol</h4><p><i class="lu" data-lu="map-pin" data-size="14"></i>Porta do Sol · gratis</p></div><button class="btn sec ev__add" data-addroute data-label="Añadir"><span class="bi"><i class="lu" data-lu="route" data-size="16"></i></span><span class="lb">Añadir</span></button></div>
+    <div class="ev"><span class="ev__time">18:30</span><div class="ev__body"><h4>Concierto de Nadal</h4><p><i class="lu" data-lu="map-pin" data-size="14"></i>Alameda · gratis</p></div><button class="btn sec ev__add" data-addroute data-label="Añadir"><span class="bi"><i class="lu" data-lu="route" data-size="16"></i></span><span class="lb">Añadir</span></button></div>
+    <div class="ev"><span class="ev__time">19:30</span><div class="ev__body"><h4>Desfile de los Reyes Magos</h4><p><i class="lu" data-lu="map-pin" data-size="14"></i>Rúa do Príncipe</p></div><button class="btn sec ev__add" data-addroute data-label="Añadir"><span class="bi"><i class="lu" data-lu="route" data-size="16"></i></span><span class="lb">Añadir</span></button></div>
+    <div class="ev"><span class="ev__time">20:00</span><div class="ev__body"><h4>Pase de música y luz del árbol</h4><p><i class="lu" data-lu="map-pin" data-size="14"></i>Porta do Sol</p></div><button class="btn sec ev__add" data-addroute data-label="Añadir"><span class="bi"><i class="lu" data-lu="route" data-size="16"></i></span><span class="lb">Añadir</span></button></div>
+    <div class="ev"><span class="ev__time">21:00</span><div class="ev__body"><h4>Encendido de García Barbón</h4><p><i class="lu" data-lu="map-pin" data-size="14"></i>García Barbón</p></div><button class="btn sec ev__add" data-addroute data-label="Añadir"><span class="bi"><i class="lu" data-lu="route" data-size="16"></i></span><span class="lb">Añadir</span></button></div>
+  </div>
+  <p class="lead" style="margin:0;color:var(--mute);font-size:12px">Fuente: agenda cultural del Concello · <a href="#" style="color:var(--ink2)">ver fuente</a></p>
+</div>
+<script src="assets/lucide.js"></script>
+<script src="assets/theme.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

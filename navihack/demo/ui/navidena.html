@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TinyVigo · A Navideña</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/navidena.css">
+</head>
+<body data-view="lista">
+<div class="nv">
+  <header class="nv__head">
+    <div class="nv__title">A Navideña</div>
+    <div class="nv__headrow">
+      <div class="nv__view" role="group" aria-label="Vista">
+        <button class="on" data-view="lista" aria-pressed="true"><i class="lu" data-lu="layers" data-size="16"></i>Lista</button>
+        <button data-view="mapa" aria-pressed="false"><i class="lu" data-lu="map-pin" data-size="16"></i>Mapa</button>
+      </div>
+      <button class="btn sec ic" data-theme-toggle aria-label="Tema"><i class="lu"></i></button>
+      <button class="btn sec nv__reset" aria-label="Reiniciar">Reiniciar</button>
+    </div>
+  </header>
+
+  <div class="nv__prog">
+    <div class="nv__count"><b>0</b><small>/ 43 sellos</small></div>
+    <div class="nv__bar"><i></i></div>
+    <button class="btn pri nv__gen" style="display:none"><i class="lu" data-lu="mail" data-size="16"></i>Generar certificado</button>
+  </div>
+
+  <p class="nv__empty">Todavía no tienes sellos. Toca un punto para empezar.</p>
+
+  <div class="nv__map" aria-hidden="true"></div>
+  <div class="nv__zones" aria-label="Puntos por zona"></div>
+
+  <div class="nv__toast" hidden role="status"><span class="tx"></span><button class="btn sec undo">Deshacer</button></div>
+
+  <section class="cert" hidden aria-label="Certificado">
+    <div class="cert__inner">
+      <button class="btn ic cert__close" aria-label="Cerrar"><i class="lu" data-lu="x" data-size="16"></i></button>
+      <div class="cert__mark"><i class="marca" data-marca data-size="40"></i></div>
+      <h2 class="cert__title">A Navideña</h2>
+      <div class="cert__form" hidden>
+        <label for="cert-nombre">Tu nombre</label>
+        <input id="cert-nombre" placeholder="Nombre y apellidos">
+        <button class="btn pri" id="cert-generar">Generar certificado</button>
+      </div>
+      <div class="cert__result" hidden>
+        <p class="cert__sub">Certifica que <span class="cert__nombre">—</span> visitó las 43 instalaciones de la Navidad de Vigo.</p>
+        <div class="cert__meta"><span class="cert__numero">N.º 00000/2026</span><span class="cert__fecha">—</span></div>
+        <button class="btn sec cert__share"><i class="lu" data-lu="share-2" data-size="16"></i>Copiar enlace</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="assets/iconos.js"></script>
+<script src="assets/marca.js"></script>
+<script src="assets/lucide.js"></script>
+<script src="assets/theme.js"></script>
+<script src="assets/navidena.js"></script>
+</body>
+</html>

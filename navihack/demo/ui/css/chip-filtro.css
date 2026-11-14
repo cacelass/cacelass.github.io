@@ -1,0 +1,20 @@
+/* Chips de filtro / capas — componente. Icono + etiqueta corta + estado no solo por color. */
+.chip {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  min-height: var(--tap); padding: 0 14px; border: 0; border-radius: var(--r-ctl);
+  background: var(--sunk); color: var(--ink2);
+  font: 500 var(--fs-label)/1 var(--f-ui); cursor: pointer; position: relative;
+  transition: background .25s var(--ease), color .25s var(--ease);
+}
+.chip:hover { background: var(--raised); }
+.chip.on { background: var(--raised); color: var(--ink); }
+/* el punto de encendido no es el único indicador: también el icono y el peso */
+.chip.on::after { content: ""; width: 6px; height: 6px; background: var(--hi); margin-left: 2px; border-radius: 2px; }
+.chip:not(.on) .px { opacity: .8; }
+.chip:not(.on) { color: var(--fg-2); }
+.chip--layer { background: var(--glass-strong); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.chip--layer.on { background: var(--raised); }
+
+/* grupo de chips con encabezado */
+.chips { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+.chips__label { width: 100%; margin: 0; font: 500 var(--fs-label)/1.4 var(--f-ui); color: var(--ink2); }

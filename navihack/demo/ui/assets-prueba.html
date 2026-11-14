@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TinyVigo · prueba de assets (árbol)</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<style>
+  body { padding: 24px; }
+  h1 { font: 600 24px/1.2 Inter, sans-serif; letter-spacing: -.02em; margin: 0 0 4px; }
+  .lead { color: var(--fg-2); font-size: 14px; margin: 0 0 20px; }
+  .aviso { background: var(--accent-2); color: var(--accent-6); padding: 10px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 20px; }
+  h2 { font: 500 13px/1.4 Inter, sans-serif; color: var(--fg-3); margin: 24px 0 8px; }
+  .par { display: flex; gap: 12px; flex-wrap: wrap; }
+  figure { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+  figcaption { font: 500 12px/1.4 Inter, sans-serif; color: var(--fg-2); }
+  img { display: block; border-radius: 8px; image-rendering: pixelated; max-width: 100%; }
+  .zoom img { width: 384px; }
+</style>
+</head>
+<body>
+<h1>Prueba de asset: el árbol de Porta do Sol</h1>
+<p class="lead">Método: recorte del bloque ensamblado → el modelo pinta el árbol dentro, mismo estilo → se compone con máscara suave (fuera queda el bloque intacto). Sin croma ni recorte pegado.</p>
+<div class="aviso">Validación visual pendiente: el modelo de visión (OpenCode Go kimi-k3) está en límite. Compara tú por ahora.</div>
+
+<h2>Día · antes / después (a escala real, 512 m)</h2>
+<div class="par">
+  <figure><img src="assets-prueba/dia-antes.png" width="512" alt="Porta do Sol sin árbol"><figcaption>Sin árbol</figcaption></figure>
+  <figure><img src="assets-prueba/dia-despues.png" width="512" alt="Porta do Sol con árbol"><figcaption>Con árbol</figcaption></figure>
+</div>
+
+<h2>Noche · antes / después</h2>
+<div class="par">
+  <figure><img src="assets-prueba/noche-antes.png" width="512" alt="noche sin árbol"><figcaption>Sin árbol</figcaption></figure>
+  <figure><img src="assets-prueba/noche-despues.png" width="512" alt="noche con árbol"><figcaption>Con árbol (halo por código)</figcaption></figure>
+</div>
+
+<h2>Zoom al árbol (día)</h2>
+<div class="par zoom">
+  <figure><img src="assets-prueba/dia-despues.png" alt="zoom día"></figure>
+</div>
+</body>
+</html>

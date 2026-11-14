@@ -1,0 +1,29 @@
+/* Barra de tiempo — control de hora (día→noche continuo). Cifras grandes, Inter. */
+.timebar {
+  display: flex; align-items: center; gap: var(--sp-2);
+  padding: 0 var(--sp-3) 0 0; border-radius: var(--r-ctl);
+  background: var(--glass); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  height: var(--tap); color: var(--ink);
+}
+.timebar__toggle { background: transparent; }
+.timebar__time {
+  font: 600 var(--fs-body)/1 var(--f-ui); font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em; min-width: 44px; text-align: center;
+}
+.timebar__track { position: relative; width: 168px; height: var(--tap); cursor: pointer; touch-action: none; }
+.timebar__track::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 20px; height: 4px;
+  background: var(--sunk); border-radius: 2px; box-shadow: inset 0 0 0 1px var(--hair);
+}
+.timebar__fill { position: absolute; left: 0; top: 20px; height: 4px; width: calc(var(--p, .5) * 100%); background: var(--hi); border-radius: 2px; }
+.timebar__thumb { position: absolute; top: 15px; left: calc(var(--p, .5) * 100% - 7px); width: 14px; height: 14px; background: var(--ink); border-radius: var(--r-sm); }
+.timebar__note { color: var(--ink2); }
+
+/* dato de clima junto a la hora: cifra grande de temperatura + icono */
+.timebar__weather { display: flex; align-items: center; gap: 6px; padding-left: var(--sp-2); border-left: 1px solid var(--hair); }
+.timebar__temp { font: 600 var(--fs-title)/1 var(--f-ui); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 700px) {
+  .timebar__track { width: 120px; }
+  .timebar__weather, .timebar__note { display: none; }
+}

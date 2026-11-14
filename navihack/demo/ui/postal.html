@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TinyVigo · Postal</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/marca.css">
+<link rel="stylesheet" href="css/postal.css">
+</head>
+<body>
+<main class="pc-page">
+
+  <header class="pc-cab">
+    <div>
+      <h1>Tu postal de Vigo</h1>
+      <p>Sube una foto, elige el sitio y la postal se escribe sola. La escena es el mapa en píxel; el modelo
+        coloca a la persona dentro. El marco, el texto y el reverso los pone el código.</p>
+    </div>
+    <button class="btn sec ic" data-theme-toggle aria-label="Tema"><i class="lu"></i></button>
+  </header>
+
+  <div class="pc-grid">
+
+    <!-- ——— el objeto ——— -->
+    <div class="pc-stage">
+      <div class="pc" id="pc" data-estado="inicial">
+        <div class="pc__flip">
+
+          <!-- anverso -->
+          <div class="pc__cara">
+            <div class="pc__foto">
+              <img id="foto-escena" src="assets/postal-bloque-3x2.webp" alt="Porta do Sol con el árbol, recorte del mapa en píxel">
+              <span class="pc__persona" id="persona"><span>Aquí irá tu persona</span></span>
+            </div>
+            <div class="pc__velo">
+              <div class="pc__velo-top"><i class="lu" data-lu="loader-circle" data-size="16"></i><span>Pintando tu postal…</span></div>
+              <div class="skel" style="height:8px;width:60%;margin-top:10px"></div>
+            </div>
+            <div class="pc__pie">
+              <div class="pc__lugar"><span id="p-lugar">Porta do Sol</span><small id="p-sub">Árbol gigante · 45 m</small></div>
+              <div class="pc__firma"><span id="p-nombre">—</span><br><span id="p-fecha">14 · 12 · 2026</span></div>
+            </div>
+          </div>
+
+          <!-- reverso -->
+          <div class="pc__cara pc__cara--reverso">
+            <div class="pc__reverso">
+              <div class="pc__msg">
+                <p id="r-msg">Con muchas ganas de turrón.</p>
+                <p class="pc__msg-firma" id="r-firma">— Marta</p>
+              </div>
+              <div class="pc__linea"></div>
+              <div class="pc__reverso-dcha">
+                <div class="pc__sello" aria-hidden="true">
+                  <span data-tv="simbolo" data-tv-size="20"></span>
+                  <b>A NAVIDEÑA</b>
+                  <b style="font-size:6px;opacity:.7">VIGO · 2026</b>
+                </div>
+                <div class="pc__matasellos" id="matasellos" aria-hidden="true"></div>
+                <div class="pc__dir">
+                  <span class="pc__dir-rot">Para</span>
+                  <div class="pc__dir-linea">Familia Costas</div>
+                  <div class="pc__dir-linea">Rúa do Príncipe 12, 2º</div>
+                  <div class="pc__dir-linea">36202 Vigo · Pontevedra</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="pc-acciones">
+        <button class="btn sec" id="girar"><i class="lu" data-lu="rotate-cw" data-size="16"></i><span>Ver el reverso</span></button>
+        <button class="btn sec" id="descargar" hidden><i class="lu" data-lu="download" data-size="16"></i>Descargar PNG</button>
+      </div>
+      <p class="pc-nota" id="nota-export" hidden>La descarga necesita la página servida por http, no abierta como fichero.</p>
+    </div>
+
+    <!-- ——— el formulario ——— -->
+    <form class="pc-form" id="form" novalidate>
+
+      <div class="pc-campo">
+        <label for="foto">Tu foto</label>
+        <div class="pc-foto">
+          <span class="pc-foto__preview" id="preview"><i class="lu" data-lu="camera" data-size="20"></i></span>
+          <div class="pc-foto__txt">
+            <b id="foto-estado">Sube o haz una foto</b>
+            <small>De frente, de cuerpo entero. Se recorta sola.</small>
+          </div>
+          <label class="btn sec" for="foto" style="flex:none"><i class="lu" data-lu="image" data-size="16"></i>Elegir</label>
+        </div>
+        <input id="foto" name="foto" type="file" accept="image/*" capture="environment">
+        <span class="ayuda">La foto va a un modelo externo y no se guarda. Límite diario por dispositivo.</span>
+      </div>
+
+      <div class="pc-campo">
+        <label for="lugar"><i class="lu" data-lu="map-pin" data-size="16"></i>Lugar</label>
+        <select id="lugar">
+          <option value="porta" data-lugar="Porta do Sol" data-sub="Árbol gigante · 45 m">Porta do Sol · el árbol</option>
+          <option value="noria" data-lugar="Vialia" data-sub="Noria y Cíes Market">Vialia · la noria</option>
+          <option value="bele" data-lugar="Casa das Artes" data-sub="Belén monumental">Casa das Artes · el Belén</option>
+          <option value="laxe" data-lugar="A Laxe" data-sub="Mercado y luces del puerto">A Laxe · el mercado</option>
+          <option value="castelo" data-lugar="Castelo de San Sebastián" data-sub="Vistas de la ría">Castelo · la ría</option>
+        </select>
+      </div>
+
+      <div class="pc-campo">
+        <label for="mensaje"><i class="lu" data-lu="pen-line" data-size="16"></i>Mensaje</label>
+        <textarea id="mensaje" rows="3" maxlength="210">Con muchas ganas de turrón.</textarea>
+        <span class="ayuda">Va escrito a mano en el reverso. 210 caracteres como mucho.</span>
+      </div>
+
+      <div class="pc-campo">
+        <label for="nombre"><i class="lu" data-lu="user" data-size="16"></i>Tu nombre</label>
+        <input id="nombre" type="text" value="Marta" maxlength="24" autocomplete="given-name">
+      </div>
+
+      <div class="pc-acciones">
+        <button class="btn pri" id="generar" type="submit"><i class="lu" data-lu="wand-sparkles" data-size="16"></i>Generar postal</button>
+        <button class="btn sec" id="otra" type="button" hidden>Hacer otra</button>
+      </div>
+
+      <p class="pc-error" id="error" role="alert"></p>
+      <p class="pc-pasos"><i class="lu" data-lu="stamp" data-size="16"></i><span><b>1</b> foto · <b>2</b> sitio · <b>3</b> postal</span></p>
+    </form>
+  </div>
+</main>
+
+<script src="assets/lucide.js"></script>
+<script src="assets/marca.js"></script>
+<script src="assets/theme.js"></script>
+<script src="assets/postal.js"></script>
+</body>
+</html>

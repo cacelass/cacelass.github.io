@@ -1,0 +1,32 @@
+/* Franja de cifras: número grande, etiqueta pequeña, fuente. Lo dudoso, marcado como estimación. */
+.cifras { display: flex; flex-wrap: wrap; gap: 12px; }
+.cifra { flex: 1; min-width: 140px; background: var(--surface); border-radius: var(--r-panel); padding: 14px; display: flex; flex-direction: column; gap: 2px; }
+.cifra .num { font: 600 var(--fs-display)/1 var(--f-ui); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.cifra .lbl { color: var(--fg-2); font-size: var(--fs-label); line-height: 1.35; }
+.cifra .src { color: var(--fg-3); font-size: var(--fs-meta); margin-top: 4px; }
+.cifra .est { color: var(--warning); font-size: var(--fs-meta); }
+.cifra .num .tilde { color: var(--fg-3); font-weight: 500; }
+
+/* tarjetas "qué puedes hacer hoy": icono + título + una línea */
+.haz { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 700px) { .haz { grid-template-columns: repeat(3, 1fr); } }
+.haz__card { background: var(--surface); border-radius: var(--r-panel); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.haz__card .lu { width: 28px; height: 28px; color: var(--accent-5); }
+.haz__card h3 { margin: 0; font: 600 var(--fs-title)/1.2 var(--f-ui); letter-spacing: -.01em; }
+.haz__card p { margin: 0; color: var(--fg-2); font-size: var(--fs-label); line-height: 1.45; }
+
+/* "cómo funciona" en 3 pasos */
+.pasos { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 700px) { .pasos { grid-template-columns: repeat(3, 1fr); } }
+.paso { display: flex; gap: 12px; align-items: flex-start; }
+.paso .n { width: 28px; height: 28px; flex: none; border-radius: var(--r-sm); background: var(--accent-3); color: #181206; font: 600 15px/28px var(--f-ui); text-align: center; }
+.paso h3 { margin: 0; font: 500 var(--fs-copy)/1.3 var(--f-ui); }
+.paso p { margin: 2px 0 0; color: var(--fg-2); font-size: var(--fs-label); line-height: 1.45; }
+
+/* hero de una frase */
+.hero { max-width: 560px; }
+.hero h1 { margin: 0; font: 600 var(--fs-display)/1.2 var(--f-ui); letter-spacing: -.02em; }
+.hero p { margin: 8px 0 0; color: var(--fg-2); font-size: var(--fs-copy); line-height: 1.5; }
+
+/* marca de "sin confirmar" */
+.sinconf { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: var(--r-sm); background: var(--accent-2); color: var(--accent-6); font-size: var(--fs-meta); }

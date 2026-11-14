@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TinyVigo · Marca, exploración</title>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/marca.css">
+<style>
+  .ex { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; display: flex; flex-direction: column; gap: 20px; }
+  .ex__card {
+    display: grid; grid-template-columns: 132px 1fr; gap: 20px; align-items: center;
+    padding: 20px; background: var(--surface); border-radius: var(--r-panel);
+  }
+  .ex__card.on { background: var(--raised); border: 1px solid var(--line); }
+  .ex__muestra { display: grid; place-items: center; min-height: 132px; }
+  .ex__muestra figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .ex__muestra figcaption { font-size: 12px; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+  .ex h2 { margin: 0 0 6px; font: 600 20px/1.2 var(--f-ui); letter-spacing: -.02em; }
+  .ex p { margin: 0; color: var(--fg-2); font-size: 14px; line-height: 1.55; }
+  .ex .tag { display: inline-flex; align-items: center; gap: 6px; font: 500 12px/1 var(--f-ui); color: var(--fg-3); margin-bottom: 8px; }
+  .ex .tag.on { color: var(--fg); }
+  .ex .tag.on::before { content: ""; width: 6px; height: 6px; background: var(--accent-4); border-radius: 1px; }
+  .ex h1 { margin: 0; font: 600 28px/1.15 var(--f-ui); letter-spacing: -.02em; }
+  .ex .lead { margin: 6px 0 0; color: var(--fg-2); font-size: 16px; line-height: 1.5; max-width: 54ch; }
+  .ex__svg { width: 112px; height: 112px; color: var(--fg); }
+  .ex__svg .luz { fill: var(--accent-4); }
+  @media (max-width: 560px) {
+    .ex__card { grid-template-columns: 1fr; }
+    .ex__muestra { min-height: 0; }
+  }
+</style>
+</head>
+<body>
+<main class="ex">
+  <header>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
+      <div>
+        <h1>La marca, tres caminos</h1>
+        <p class="lead">Tres formas de partir de la V de Vigo. La entregada es la primera; las otras dos
+          quedan aquí para comparar y para que decidas sin adivinar.</p>
+      </div>
+      <div><a class="btn sec ic" href="marca.html" aria-label="Volver a la marca"><i data-lu="arrow-right" data-size="20"></i></a>
+      <button class="btn sec ic" data-theme-toggle aria-label="Tema"><i class="lu"></i></button></div>
+    </div>
+  </header>
+
+  <!-- A -->
+  <article class="ex__card on">
+    <div class="ex__muestra">
+      <figure>
+        <span data-tv="simbolo" data-tv-size="96"></span>
+        <figcaption>96 px</figcaption>
+      </figure>
+      <figure>
+        <span data-tv="simbolo" data-tv-size="16"></span>
+        <figcaption>16 px</figcaption>
+      </figure>
+    </div>
+    <div>
+      <span class="tag on">Entregada</span>
+      <h2>A · La V encendida</h2>
+      <p>La V del gesto, con la punta encendida: el punto de luz de Porta do Sol. La V se afina hacia abajo
+        como la luz que cae del árbol. A 16 px sigue siendo una V y el punto se lee como dos píxeles de oro.</p>
+    </div>
+  </article>
+
+  <!-- B -->
+  <article class="ex__card">
+    <div class="ex__muestra">
+      <figure>
+        <svg class="ex__svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M2 2.4H6.6L12 17.2L17.4 2.4H22L13.4 22.4H10.6Z" fill="currentColor"/>
+          <circle class="luz" cx="9" cy="8.6" r="1.15"/>
+          <circle class="luz" cx="12" cy="7.2" r="1.15"/>
+          <circle class="luz" cx="15" cy="8.6" r="1.15"/>
+        </svg>
+        <figcaption>96 px</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 16 16" width="16" height="16" shape-rendering="crispEdges" aria-hidden="true">
+          <path d="M1 1h3l1 1v1H2V2H1z" fill="currentColor"/>
+          <path d="M12 1h3v1h-1v1h-3V2z" fill="currentColor"/>
+          <path d="M2 3h2l8 10h-2z" fill="currentColor"/>
+          <path d="M14 3h-2L4 13h2z" fill="currentColor"/>
+          <rect class="luz" x="5" y="5" width="1" height="1"/>
+          <rect class="luz" x="8" y="4" width="1" height="1"/>
+          <rect class="luz" x="10" y="5" width="1" height="1"/>
+        </svg>
+        <figcaption>16 px · mal</figcaption>
+      </figure>
+    </div>
+    <div>
+      <span class="tag">Descartada</span>
+      <h2>B · Las Cíes dentro</h2>
+      <p>La V como la ría: las tres islas en la abertura. Cuenta más de Vigo, pero los tres puntos y la V se
+        pelean en pequeño — a 16 px se convierte en un borrón. Sirve como ilustración, no como marca.</p>
+    </div>
+  </article>
+
+  <!-- C -->
+  <article class="ex__card">
+    <div class="ex__muestra">
+      <figure>
+        <svg class="ex__svg" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor"
+             stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1.4 2.6">
+          <path d="M2.6 2.8H7L12 16.8L17 2.8H21.4"/>
+        </svg>
+        <figcaption>96 px</figcaption>
+      </figure>
+      <figure>
+        <span style="display:inline-block;width:16px;height:16px;background:
+          radial-gradient(circle at 2px 2px,currentColor 1.1px,#0000 1.2px) 0 0/4px 4px,
+          radial-gradient(circle at 2px 2px,currentColor 1.1px,#0000 1.2px) 2px 2px/4px 4px"></span>
+        <figcaption>16 px · mal</figcaption>
+      </figure>
+    </div>
+    <div>
+      <span class="tag">Descartada</span>
+      <h2>C · La V de luces</h2>
+      <p>La V dibujada con bombillas, como las guirnaldas de las calles. Muy de Vigo de cerca; a tamaño de
+        icono las bombillas se deshacen y la V deja de leerse. Sobrevive como recurso para la cabecera grande,
+        no como símbolo.</p>
+    </div>
+  </article>
+
+  <div class="mk__nota">
+    Criterio: a 16 px y en una tinta. B y C fallan una de las dos. A es la única que aguanta las dos y todavía
+    dice algo de Vigo.
+  </div>
+</main>
+<script src="assets/lucide.js"></script>
+<script src="assets/marca.js"></script>
+<script src="assets/theme.js"></script>
+</body>
+</html>
