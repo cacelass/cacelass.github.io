@@ -21,6 +21,72 @@
 </head>
 <body class="page">
 
+  <!-- Árbol de Navidad SVG -->
+  <div class="navi-tree" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400" width="300" height="400">
+      <!-- Tronco -->
+      <rect x="135" y="300" width="30" height="50" fill="#8B4513" rx="3"/>
+      <!-- Copas del árbol (3 niveles) -->
+      <polygon points="150,30 60,150 240,150" fill="#1b5e20"/>
+      <polygon points="150,30 60,150 240,150" fill="url(#treeGrad1)"/>
+      <polygon points="150,80 50,200 250,200" fill="#2e7d32"/>
+      <polygon points="150,130 40,250 260,250" fill="#2e7d32"/>
+      <polygon points="150,180 30,300 270,300" fill="#388e3c"/>
+      <!-- Sombra/detalle -->
+      <polygon points="150,30 100,150 200,150" fill="rgba(255,255,255,0.08)"/>
+      <polygon points="150,80 110,200 190,200" fill="rgba(255,255,255,0.08)"/>
+      <!-- Decoraciones / bolas -->
+      <circle cx="100" cy="120" r="6" fill="#d32f2f"/>
+      <circle cx="200" cy="140" r="6" fill="#fdd835"/>
+      <circle cx="150" cy="170" r="6" fill="#d32f2f"/>
+      <circle cx="80" cy="180" r="6" fill="#fdd835"/>
+      <circle cx="220" cy="190" r="6" fill="#d32f2f"/>
+      <circle cx="120" cy="210" r="6" fill="#fdd835"/>
+      <circle cx="180" cy="220" r="6" fill="#d32f2f"/>
+      <circle cx="90" cy="250" r="6" fill="#d32f2f"/>
+      <circle cx="210" cy="260" r="6" fill="#fdd835"/>
+      <circle cx="150" cy="270" r="6" fill="#d32f2f"/>
+      <!-- Nieve en las copas -->
+      <ellipse cx="150" cy="55" rx="12" ry="4" fill="white" opacity="0.9"/>
+      <ellipse cx="100" cy="140" rx="10" ry="3" fill="white" opacity="0.7"/>
+      <ellipse cx="200" cy="170" rx="10" ry="3" fill="white" opacity="0.7"/>
+      <ellipse cx="150" cy="220" rx="10" ry="3" fill="white" opacity="0.7"/>
+      <ellipse cx="80" cy="260" rx="8" ry="3" fill="white" opacity="0.6"/>
+      <ellipse cx="220" cy="280" rx="8" ry="3" fill="white" opacity="0.6"/>
+      <!-- Estrella -->
+      <polygon points="150,5 155,25 175,25 160,38 165,58 150,45 135,58 140,38 125,25 145,25" fill="#fdd835"/>
+    </svg>
+  </div>
+
+  <!-- Santa Claus SVG -->
+  <div class="navi-santa" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 250" width="200" height="250">
+      <!-- Barba -->
+      <ellipse cx="100" cy="160" rx="45" ry="50" fill="white"/>
+      <!-- Cara -->
+      <circle cx="100" cy="120" r="35" fill="#ffcc99"/>
+      <!-- Ojos -->
+      <ellipse cx="85" cy="110" rx="6" ry="6" fill="#333"/>
+      <ellipse cx="115" cy="110" rx="6" ry="6" fill="#333"/>
+      <!-- Nariz -->
+      <circle cx="100" cy="125" r="10" fill="#ff8a65"/>
+      <!-- Sombrero rojo -->
+      <path d="M60,90 Q100,10 140,90" fill="#d32f2f"/>
+      <path d="M65,90 Q100,15 135,90" fill="#b71c1c"/>
+      <rect x="55" y="85" width="90" height="12" rx="5" fill="#d32f2f"/>
+      <ellipse cx="135" cy="15" rx="18" ry="18" fill="white"/>
+      <!-- Cinturón -->
+      <rect x="60" y="175" width="80" height="8" fill="#333" rx="2"/>
+      <rect x="95" y="172" width="10" height="14" fill="#fdd835" rx="2"/>
+      <!-- Brazos -->
+      <path d="M65,150 Q30,180 40,210" stroke="#d32f2f" stroke-width="12" fill="none" stroke-linecap="round"/>
+      <path d="M135,150 Q170,180 160,210" stroke="#d32f2f" stroke-width="12" fill="none" stroke-linecap="round"/>
+      <!-- Manos -->
+      <circle cx="40" cy="215" r="8" fill="#ffcc99"/>
+      <circle cx="160" cy="215" r="8" fill="#ffcc99"/>
+    </svg>
+  </div>
+
   <nav aria-label="Navegacion principal">
     <div class="nav-inner">
       <div class="nav-brand">

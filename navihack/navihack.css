@@ -15,46 +15,6 @@
   --navi-snow: rgba(255, 255, 255, 0.95);
 }
 
-/* Árbol de Navidad en el fondo (solo /navihack/) */
-body.page::before {
-  content: "";
-  position: fixed;
-  z-index: 0;
-  width: 340px;
-  height: 440px;
-  left: -80px;
-  top: -80px;
-  background:
-    /* Tronco */
-    linear-gradient(180deg, #8B4513 55%, #5D3208 100%),
-    /* Copas principales */
-    radial-gradient(60px 80px at 150px 100px, #2e7d32 0%, #1b5e20 35%, #14532d 100%),
-    radial-gradient(65px 85px at 240px 135px, #2e7d32 0%, #1b5e20 35%, #14532d 100%),
-    radial-gradient(50px 65px at 70px 155px, #2e7d32 0%, #1b5e20 35%, #14532d 100%),
-    /* Segunda capa de follaje */
-    radial-gradient(55px 75px at 200px 120px, #378e48 0%, #2e7d32 35%, #1e5629 100%),
-    radial-gradient(50px 70px at 310px 150px, #378e48 0%, #2e7d32 35%, #1e5629 100%),
-    /* Decoraciones - limitadas al árbol */
-    radial-gradient(6px 6px at 130px 90px, #e53935 0%, #c62828 100%),
-    radial-gradient(5px 5px at 220px 110px, #fdd835 0%, #f9a825 100%),
-    radial-gradient(6px 6px at 300px 140px, #e53935 0%, #c62828 100%),
-    radial-gradient(5px 5px at 150px 170px, #fdd835 0%, #f9a825 100%),
-    radial-gradient(5px 5px at 240px 180px, #e53935 0%, #c62828 100%),
-    /* Estrellas / nieve superior */
-    radial-gradient(3px 3px at 150px 60px, #fff 0%, transparent 50%),
-    radial-gradient(2px 2px at 250px 70px, #fff 0%, transparent 50%),
-    radial-gradient(3px 3px at 330px 80px, #fff 0%, transparent 50%);
-  background-size: 340px 440px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-  opacity: 0.92;
-  pointer-events: none;
-  mask-image: radial-gradient(ellipse at center, black 35%, transparent 75%);
-}
-
-/* Copia para dark mode - árbol un poco más tenue */
-[data-theme="dark"] body.page::before {
-  opacity: 0.65;
-}
-
 /* Nieve cayendo (CSS puro, tres capas) */
 body.page::after {
   content: "";
@@ -78,6 +38,38 @@ body.page::after {
 @keyframes navi-snow {
   from { background-position: 0 -120px, 0 -160px, 0 -200px; }
   to   { background-position: 0 120px, 0 160px, 0 200px; }
+}
+
+/* Árbol de Navidad SVG en el fondo */
+.navi-tree {
+  position: fixed;
+  z-index: 1;
+  left: -30px;
+  top: -30px;
+  width: 300px;
+  height: 400px;
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+[data-theme="dark"] .navi-tree {
+  opacity: 0.75;
+}
+
+/* Santa Claus SVG */
+.navi-santa {
+  position: fixed;
+  z-index: 1;
+  right: -20px;
+  bottom: -30px;
+  width: 200px;
+  height: 250px;
+  pointer-events: none;
+  opacity: 0.88;
+}
+
+[data-theme="dark"] .navi-santa {
+  opacity: 0.7;
 }
 
 /* Guirnalda de luces en el hero */
@@ -168,7 +160,6 @@ body.page::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body.page::before,
   body.page::after,
   .navi-lights {
     animation: none;
