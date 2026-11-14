@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TinyVigo · Ajustes</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/barra-tiempo.css">
+<link rel="stylesheet" href="css/chip-filtro.css">
+<style>
+  .fila { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .fila .lbl { flex: 1; font-size: var(--fs-label); }
+  .fila .val { color: var(--fg-2); font-size: var(--fs-label); font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div class="page" style="max-width:560px">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h1>Ajustes</h1>
+    <button class="btn sec ic" data-theme-toggle aria-label="Tema"><i class="lu"></i></button>
+  </div>
+
+  <div class="fila"><span class="lbl"><i class="lu" data-lu="sun" data-size="16"></i> Tema</span><button class="btn sec" data-theme-toggle><i class="lu"></i>Claro / oscuro</button></div>
+
+  <div class="fila" style="align-items:flex-start;flex-direction:column;align-items:stretch;gap:8px">
+    <span class="lbl"><i class="lu" data-lu="clock" data-size="16"></i> Hora de la vista</span>
+    <div class="timebar" style="--p:.9">
+      <button class="btn ic timebar__toggle" aria-label="Día / noche"><i class="lu" data-lu="moon" data-size="20"></i></button>
+      <span class="timebar__time">21:30</span>
+      <div class="timebar__track" role="slider" aria-label="Hora"><span class="timebar__fill"></span><span class="timebar__thumb"></span></div>
+    </div>
+  </div>
+
+  <div class="fila"><span class="lbl"><i class="lu" data-lu="cloud" data-size="16"></i> Clima</span><span class="val">Real (Open-Meteo)</span></div>
+  <div class="chips" style="padding-left:28px">
+    <button class="chip on" aria-pressed="true">Real</button>
+    <button class="chip" aria-pressed="false">Despejado</button>
+    <button class="chip" aria-pressed="false"><i class="lu" data-lu="cloud-fog" data-size="16"></i>Niebla</button>
+    <button class="chip" aria-pressed="false"><i class="lu" data-lu="cloud-rain" data-size="16"></i>Lluvia</button>
+  </div>
+
+  <div class="fila"><span class="lbl"><i class="lu" data-lu="layers" data-size="16"></i> Capas por defecto</span><span class="val">Navidad y eventos</span></div>
+
+  <div class="fila"><span class="lbl"><i class="lu" data-lu="mail" data-size="16"></i> Postales hoy</span><span class="val">0 de 5</span></div>
+
+  <div class="fila"><span class="lbl"><i class="lu" data-lu="share-2" data-size="16"></i> Créditos y licencias</span><a href="CREDITOS.md" class="val" style="color:var(--ink);text-decoration:none">ver</a></div>
+</div>
+<script src="assets/lucide.js"></script>
+<script src="assets/theme.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

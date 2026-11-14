@@ -1,0 +1,36 @@
+{
+  "version": "v4-bloque-p3",
+  "source": "ensamblado.png",
+  "width": 3072,
+  "height": 3072,
+  "tile_size": 512,
+  "format": "webp",
+  "min_level": 9,
+  "max_level": 12,
+  "levels": {
+    "9": {
+      "width": 384,
+      "height": 384,
+      "cols": 1,
+      "rows": 1
+    },
+    "10": {
+      "width": 768,
+      "height": 768,
+      "cols": 2,
+      "rows": 2
+    },
+    "11": {
+      "width": 1536,
+      "height": 1536,
+      "cols": 3,
+      "rows": 3
+    },
+    "12": {
+      "width": 3072,
+      "height": 3072,
+      "cols": 6,
+      "rows": 6
+    }
+  }
+}

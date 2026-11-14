@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TinyVigo · Catálogo de componentes (v2)</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/panel-lugar.css">
+<link rel="stylesheet" href="css/tarjeta-evento.css">
+<link rel="stylesheet" href="css/barra-tiempo.css">
+<link rel="stylesheet" href="css/chip-filtro.css">
+<link rel="stylesheet" href="css/lista-ruta.css">
+<link rel="stylesheet" href="css/aviso.css">
+<link rel="stylesheet" href="css/tooltip.css">
+<link rel="stylesheet" href="css/marcadores.css">
+<style>
+  body { min-height: 100%; padding-bottom: 48px; }
+  .cat { max-width: 760px; margin: 0 auto; padding: 24px 20px; }
+  .cat h1 { font: 600 28px/1.2 var(--f-ui); letter-spacing: -.02em; margin: 0 0 4px; }
+  .cat .lead { color: var(--ink2); margin: 0 0 8px; font-size: 15px; }
+  .cat h2 { font: 500 13px/1.4 var(--f-ui); color: var(--mute); letter-spacing: .04em; margin: 28px 0 10px; border-bottom: 1px solid var(--hair); padding-bottom: 6px; }
+  .cat .stage { background: var(--stage); border-radius: var(--r-panel); padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+  .cat .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .cat .demo { display: flex; flex-direction: column; gap: 8px; }
+  .cat .demo > small { color: var(--mute); font-size: 12px; }
+  .cat code { color: var(--ink2); font-size: 12px; }
+  .cat .bar { display: flex; justify-content: space-between; align-items: center; }
+  .mapbit { position: relative; height: 120px; border-radius: var(--r-panel); overflow: hidden; background: url(assets/mapa-escritorio.jpg) center/cover; }
+  .mapbit .mk, .mapbit .asset { position: absolute; }
+</style>
+</head>
+<body>
+<div class="cat">
+  <div class="bar">
+    <div>
+      <h1>Catálogo · v2</h1>
+      <p class="lead">Dirección D ejecutada: Inter, vidrio, jerarquía por tonos. El pixel solo en marca, iconos, marcadores y mapa.</p>
+    </div>
+    <button class="btn sec ic" data-theme-toggle aria-label="Tema"><i class="lu"></i></button>
+  </div>
+
+  <h2>Marca</h2>
+  <div class="stage row">
+    <div class="demo"><small>marca</small><div class="row" style="gap:10px"><i class="marca" data-marca data-size="22"></i><span class="wm">TinyVigo</span></div></div>
+    <div class="demo"><small>marca grande</small><div class="row" style="gap:14px"><i class="marca" data-marca data-size="30"></i><span class="wm" style="font-size:32px">TinyVigo</span></div></div>
+  </div>
+
+  <h2>Botones</h2>
+  <div class="stage row">
+    <div class="demo"><small>primario</small><button class="btn pri"><i class="lu" data-lu="route" data-size="16"></i>Añadir a la ruta</button></div>
+    <div class="demo"><small>primario, añadido</small><button class="btn pri is-added"><span class="bi"><i class="lu" data-lu="check" data-size="16"></i></span>En la ruta</button></div>
+    <div class="demo"><small>secundario</small><button class="btn sec"><i class="lu" data-lu="footprints" data-size="16"></i>Cómo llegar</button></div>
+    <div class="demo"><small>icono</small><button class="btn ic" aria-label="Compartir"><i class="lu" data-lu="share-2" data-size="20"></i></button></div>
+    <div class="demo"><small>desactivado</small><button class="btn pri" disabled><i class="lu" data-lu="route" data-size="16"></i>Añadir a la ruta</button></div>
+  </div>
+
+  <h2>Chips de capas</h2>
+  <div class="stage row">
+    <button class="chip chip--layer on" aria-pressed="true"><i class="lu" data-lu="tree-pine" data-size="20"></i>Navidad</button>
+    <button class="chip chip--layer on" aria-pressed="true"><i class="lu" data-lu="calendar-days" data-size="20"></i>Eventos</button>
+    <button class="chip chip--layer on" aria-pressed="true"><i class="lu" data-lu="bus" data-size="20"></i>Buses</button>
+    <button class="chip chip--layer" aria-pressed="false"><i class="lu" data-lu="train-front" data-size="20"></i>Trenes</button>
+    <button class="chip chip--layer" aria-pressed="false"><i class="lu" data-lu="square-parking" data-size="20"></i>Parkings</button>
+    <button class="chip chip--layer" aria-pressed="false"><i class="lu" data-lu="camera" data-size="20"></i>Cámaras</button>
+    <button class="chip chip--layer" aria-pressed="false"><i class="lu" data-lu="route" data-size="20"></i>Rutas</button>
+  </div>
+
+  <h2>Buscador (colapsable)</h2>
+  <div class="stage">
+    <div class="search is-collapsed"><button class="search__btn btn ic" aria-label="Buscar"><i class="lu" data-lu="search" data-size="20"></i></button><input placeholder="Buscar un sitio, una calle o una estación" aria-label="Buscar"></div>
+    <div class="search"><button class="search__btn btn ic" aria-label="Buscar"><i class="lu" data-lu="search" data-size="20"></i></button><input value="Porta" placeholder="Buscar"></div>
+  </div>
+
+  <h2>Barra de tiempo y clima</h2>
+  <div class="stage row">
+    <div class="timebar" style="--p:.9"><button class="btn ic timebar__toggle" aria-label="Cambiar entre día y noche"><i class="lu" data-lu="moon" data-size="20"></i></button><span class="timebar__time">21:30</span><div class="timebar__track" role="slider" aria-label="Hora"><span class="timebar__fill"></span><span class="timebar__thumb"></span></div><span class="timebar__weather"><i class="lu" data-lu="cloud-rain" data-size="20"></i><span class="timebar__temp">8°</span></span></div>
+    <div class="timebar" style="--p:.5"><button class="btn ic timebar__toggle" aria-label="Cambiar entre día y noche"><i class="lu" data-lu="sun" data-size="20"></i></button><span class="timebar__time">12:00</span><div class="timebar__track" role="slider" aria-label="Hora"><span class="timebar__fill"></span><span class="timebar__thumb"></span></div><span class="timebar__weather"><i class="lu" data-lu="sun" data-size="20"></i><span class="timebar__temp">14°</span></span></div>
+    <span class="tag"><i class="lu" data-lu="bus" data-size="16"></i>Horario, no en vivo</span>
+  </div>
+
+  <h2>Tarjeta de evento</h2>
+  <div class="stage">
+    <div class="ev"><span class="ev__time">18:00</span><div class="ev__body"><h4>Pase de música y luz del árbol</h4><p><i class="lu" data-lu="map-pin" data-size="14"></i>Porta do Sol · gratis</p></div><button class="btn sec ev__add" data-addroute data-label="Añadir a la ruta"><span class="bi"><i class="lu" data-lu="route" data-size="16"></i></span><span class="lb">Añadir</span></button></div>
+    <div class="ev"><span class="ev__time">19:30</span><div class="ev__body"><h4>Desfile de los Reyes Magos</h4><p><i class="lu" data-lu="map-pin" data-size="14"></i>Rúa do Príncipe</p></div><button class="btn sec ev__add" data-addroute data-label="Añadir a la ruta"><span class="bi"><i class="lu" data-lu="route" data-size="16"></i></span><span class="lb">Añadir</span></button></div>
+  </div>
+
+  <h2>Lista de ruta</h2>
+  <div class="stage">
+    <div class="stops__sum"><div><span class="num">1 h 25</span><span class="lbl">a pie</span></div><div><span class="num">3,4 km</span><span class="lbl">distancia</span></div><div><span class="num">5</span><span class="lbl">paradas</span></div></div>
+    <ol class="stops">
+      <li><span class="stops__t">19:00</span><span class="stops__dot"></span><h4>Vigo-Urzáiz</h4></li>
+      <li><span class="stops__t"></span><span></span><div class="stops__leg"><i class="lu" data-lu="footprints" data-size="14"></i>9 min · 700 m</div></li>
+      <li class="is-fixed"><span class="stops__t">19:30</span><span class="stops__dot"></span><h4>Desfile de los Reyes <span class="stops__fixed">hora fija</span></h4></li>
+      <li><span class="stops__t"></span><span></span><div class="stops__leg"><i class="lu" data-lu="footprints" data-size="14"></i>4 min · 300 m</div></li>
+      <li><span class="stops__t">20:00</span><span class="stops__dot"></span><h4>Árbol gigante de Nadal</h4></li>
+      <li><span class="stops__t"></span><span></span><div class="stops__leg"><i class="lu" data-lu="bus" data-size="14"></i>Bus 4C, 12 min · horario</div></li>
+      <li><span class="stops__t">20:30</span><span class="stops__dot"></span><h4>Noria gigante</h4></li>
+    </ol>
+  </div>
+
+  <h2>Panel de lugar</h2>
+  <div class="stage row" style="align-items:flex-start">
+    <div class="panel" aria-label="Ficha del punto">
+      <div class="panel__head">
+        <div class="panel__photo" style="background-image:url('assets/foto-noria.jpg')" role="img" aria-label="Foto de la noria"></div>
+        <div class="panel__sprite"><i class="ic" data-ic="wheel" data-size="112"></i></div>
+        <div class="panel__title"><h2>Noria gigante</h2><p class="panel__type">Atracciones</p></div>
+        <button class="btn ic panel__close" aria-label="Cerrar"><i class="lu" data-lu="x" data-size="16"></i></button>
+      </div>
+      <div class="panel__status" data-open="1"><i class="lu" data-lu="circle-check" data-size="16"></i><span>Abierto ahora, hasta las <span class="big">22:30</span></span></div>
+      <p class="panel__hours">Laborables de 17:00 a 22:30<small>Cambia del 21 de diciembre al 12 de enero</small></p>
+      <div class="panel__actions">
+        <button class="btn sec"><i class="lu" data-lu="footprints" data-size="16"></i>Cómo llegar</button>
+        <button class="btn pri" data-addroute data-label="Añadir a la ruta"><span class="bi"><i class="lu" data-lu="route" data-size="16"></i></span><span class="lb">Añadir a la ruta</span></button>
+      </div>
+      <details class="panel__story"><summary>Historia</summary><p>La noria cambia de sitio en 2026 y pasa a Vialia. La información viene de la prensa local y el Concello aún no la ha confirmado.</p><a href="#">Prensa local, sin confirmar por el Concello</a></details>
+    </div>
+    <div class="panel" aria-label="Ficha del punto cerrado">
+      <div class="panel__head">
+        <div class="panel__photo" style="background-image:url('assets/foto-arbol.jpg')" role="img" aria-label="Foto del árbol"></div>
+        <div class="panel__sprite"><i class="ic" data-ic="tree" data-size="112"></i></div>
+        <div class="panel__title"><h2>Árbol gigante de Nadal</h2><p class="panel__type">Elementos lumínicos</p></div>
+        <button class="btn ic panel__close" aria-label="Cerrar"><i class="lu" data-lu="x" data-size="16"></i></button>
+      </div>
+      <div class="panel__status" data-open="0"><i class="lu" data-lu="circle-x" data-size="16"></i><span>Cerrado ahora, abre a las <span class="big">18:00</span></span></div>
+      <p class="panel__hours">Todos los días de 18:00 a 00:00<small>Pases a las 18:00 y a las 20:00</small></p>
+      <div class="panel__actions">
+        <button class="btn sec"><i class="lu" data-lu="footprints" data-size="16"></i>Cómo llegar</button>
+        <button class="btn pri" data-addroute data-label="Añadir a la ruta"><span class="bi"><i class="lu" data-lu="route" data-size="16"></i></span><span class="lb">Añadir a la ruta</span></button>
+      </div>
+      <details class="panel__story"><summary>Historia</summary><p>Árbol de luces led de 46,40 metros en la Praza da Porta do Sol.</p><a href="#">Concello de Vigo, programa de Navidad</a></details>
+    </div>
+  </div>
+
+  <h2>Avisos</h2>
+  <div class="stage row">
+    <span class="toast toast--ok"><i class="lu" data-lu="check" data-size="16"></i>Añadido a la ruta <button class="btn sec">Deshacer</button></span>
+    <span class="toast toast--warn"><i class="lu" data-lu="cloud-rain" data-size="16"></i>Lloverá a las 21:00 en esta ruta</span>
+    <span class="toast toast--warn"><i class="lu" data-lu="circle-x" data-size="16"></i>Cerrado ahora, abre a las 17:00</span>
+    <span class="toast toast--info"><i class="lu" data-lu="bus" data-size="16"></i>Horario, no en vivo</span>
+  </div>
+
+  <h2>Tooltip</h2>
+  <div class="stage row">
+    <span class="tip"><button class="btn ic" aria-label="Capas"><i class="lu" data-lu="layers" data-size="20"></i></button><span class="tip__bubble">Mostrar u ocultar capas del mapa</span></span>
+    <span class="tip"><button class="btn ic" aria-label="Compartir"><i class="lu" data-lu="share-2" data-size="20"></i></button><span class="tip__bubble">Copiar el enlace de esta vista</span></span>
+  </div>
+
+  <h2>Marcadores por tipo (no genéricos)</h2>
+  <div class="stage">
+    <div class="mapbit">
+      <button class="mk" data-kind="bus" data-state="normal" style="left:20px;top:30px" aria-label="Parada de bus"><i class="ic" data-ic="bus" data-size="20"></i></button>
+      <button class="mk" data-kind="train" data-state="normal" style="left:70px;top:30px" aria-label="Estación"><i class="ic" data-ic="train" data-size="20"></i></button>
+      <button class="mk" data-kind="parking" data-state="normal" style="left:120px;top:30px" aria-label="Parking"><i class="ic" data-ic="parking" data-size="20"></i></button>
+      <button class="mk" data-kind="camara" data-state="normal" style="left:170px;top:30px" aria-label="Cámara"><i class="ic" data-ic="camera" data-size="20"></i></button>
+      <button class="mk" data-kind="train" data-state="sel" style="left:70px;top:80px" aria-label="Estación seleccionada"><i class="ic" data-ic="train" data-size="20"></i></button>
+    </div>
+    <small class="demo">Las piezas gordas de Navidad (noria, árbol) no son marcadores: van como assets animados en el mapa.</small>
+  </div>
+
+  <h2>Estado de carga</h2>
+  <div class="stage row" style="gap:40px">
+    <div class="demo"><small>texto con brillo</small><div style="display:flex;flex-direction:column;gap:12px"><span class="shimmer">Cargando el mapa de Vigo</span></div></div>
+    <div class="demo"><small>esqueleto (primera carga)</small><div style="display:flex;flex-direction:column;gap:8px;width:200px"><div class="skel" style="width:60%"></div><div class="skel"></div><div class="skel" style="width:80%"></div></div></div>
+  </div>
+</div>
+<script src="assets/iconos.js"></script>
+<script src="assets/marca.js"></script>
+<script src="assets/lucide.js"></script>
+<script src="assets/theme.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

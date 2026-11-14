@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TinyVigo · Rutas a pie</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/panel.css">
+<link rel="stylesheet" href="css/lista-ruta.css">
+<link rel="stylesheet" href="css/chip-filtro.css">
+<link rel="stylesheet" href="css/barra-tiempo.css">
+<link rel="stylesheet" href="css/aviso.css">
+<style>
+  .page-ruta { max-width: 620px; }
+  .input { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; color: var(--ink2); font-size: 14px; }
+  .input b { color: var(--ink); font-weight: 600; }
+
+  /* tres tarjetas comparadas, misma estructura */
+  .opciones { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  @media (min-width: 700px) { .opciones { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .opc { background: var(--glass); border-radius: var(--r-panel); box-shadow: inset 0 0 0 1px var(--hair); padding: 14px; display: flex; flex-direction: column; gap: 10px; position: relative; }
+  .opc.sel { box-shadow: inset 0 0 0 2px var(--ink); }
+  .opc .rec { position: absolute; top: -9px; left: 12px; background: var(--hi); color: var(--bg); font: 600 11px/1 var(--f-ui); padding: 4px 8px; border-radius: var(--r-sm); }
+  .opc h3 { margin: 0; font: 600 16px/1.3 var(--f-ui); letter-spacing: -.01em; }
+  .opc .why { color: var(--ink2); font-size: 12px; line-height: 1.4; margin: 0; }
+  .opc__nums { display: flex; gap: 14px; }
+  .opc__nums div { display: flex; flex-direction: column; }
+  .opc__nums .num { font: 600 22px/1 var(--f-ui); font-variant-numeric: tabular-nums; letter-spacing: -.01em; white-space: nowrap; }
+  .opc__nums .lbl { color: var(--mute); font-size: 11px; }
+  .opc .go { margin-top: auto; }
+
+  /* mapa con la ruta dibujada (los números van en Inter, no en píxel) */
+  .routemap { position: relative; height: 240px; border-radius: var(--r-panel); overflow: hidden; background: url(assets/mapa-escritorio.jpg) center/cover; box-shadow: inset 0 0 0 1px var(--hair); }
+  .routemap svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .routemap .stn { position: absolute; width: 22px; height: 22px; border-radius: 6px; background: var(--hi); color: #181206; font: 600 13px/22px var(--f-ui); text-align: center; transform: translate(-50%, -50%); }
+
+  /* línea de tiempo de tramos */
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline li { display: grid; grid-template-columns: 46px 22px 1fr; gap: 0 8px; position: relative; padding-bottom: 2px; }
+  .timeline .t { font: 500 13px/24px var(--f-ui); font-variant-numeric: tabular-nums; color: var(--ink2); }
+  .timeline .n { width: 18px; height: 18px; margin: 3px auto 0; border-radius: 5px; background: var(--ink); color: var(--bg); font: 600 12px/18px var(--f-ui); text-align: center; }
+  .timeline li.is-fixed .n { background: var(--hi); color: #181206; }
+  .timeline li::before { content: ""; position: absolute; left: 56px; top: 22px; bottom: 0; width: 2px; background: var(--sunk); }
+  .timeline li:last-child::before { display: none; }
+  .timeline h4 { margin: 0; font: 500 14px/24px var(--f-ui); }
+  .timeline .leg { display: flex; align-items: center; gap: 6px; color: var(--mute); font-size: 12px; min-height: 26px; }
+  .timeline .fixed { font-size: 12px; color: var(--hi); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="page page-ruta">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h1>Rutas a pie</h1>
+    <div style="display:flex;gap:8px">
+      <button class="btn sec ic" data-theme-toggle aria-label="Tema"><i class="lu"></i></button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel__top">
+      <div class="panel__title"><h2>Tu ruta de esta noche</h2><p class="panel__type">A pie · desde mi ubicación</p></div>
+    </div>
+    <div class="input"><i class="lu" data-lu="map-pin" data-size="16"></i>Desde <b>mi ubicación</b> · <b>esta noche, 19:00–22:30</b></div>
+    <div class="chips">
+      <button class="chip on" aria-pressed="true"><i class="lu" data-lu="footprints" data-size="16"></i>A pie</button>
+      <button class="chip" aria-pressed="false"><i class="lu" data-lu="bus" data-size="16"></i>A pie + bus</button>
+      <span style="align-self:center;color:var(--mute);font-size:13px">4 paradas · 2 eventos</span>
+    </div>
+
+    <div class="opciones">
+      <div class="opc sel">
+        <span class="rec">Recomendada</span>
+        <h3>La más rápida</h3>
+        <p class="why">Todo lo elegido en el menor tiempo total.</p>
+        <div class="opc__nums">
+          <div><span class="num">1 h 25</span><span class="lbl">tiempo</span></div>
+          <div><span class="num">3,4 km</span><span class="lbl">a pie</span></div>
+          <div><span class="num">5</span><span class="lbl">paradas</span></div>
+        </div>
+        <button class="btn pri go"><i class="lu" data-lu="route" data-size="16"></i>Elegir esta</button>
+      </div>
+      <div class="opc">
+        <h3>Después del anochecer</h3>
+        <p class="why">Las luces se visitan encendidas; lo que solo abre de día va primero.</p>
+        <div class="opc__nums">
+          <div><span class="num">1 h 40</span><span class="lbl">tiempo</span></div>
+          <div><span class="num">3,8 km</span><span class="lbl">a pie</span></div>
+          <div><span class="num">4</span><span class="lbl">paradas</span></div>
+        </div>
+        <button class="btn sec go"><i class="lu" data-lu="route" data-size="16"></i>Elegir esta</button>
+      </div>
+      <div class="opc">
+        <h3>Paseo suave</h3>
+        <p class="why">Evita las cuestas y los tramos largos sin donde sentarse.</p>
+        <div class="opc__nums">
+          <div><span class="num">1 h 55</span><span class="lbl">tiempo</span></div>
+          <div><span class="num">3,6 km</span><span class="lbl">a pie</span></div>
+          <div><span class="num">4</span><span class="lbl">paradas</span></div>
+        </div>
+        <button class="btn sec go"><i class="lu" data-lu="route" data-size="16"></i>Elegir esta</button>
+      </div>
+    </div>
+
+    <div class="panel__sec" style="display:flex;flex-wrap:wrap;gap:8px">
+      <span class="toast toast--warn"><i class="lu" data-lu="cloud-rain" data-size="16"></i>Lloverá a las 21:00 en esta ruta <button class="btn sec">Favorecer paradas cubiertas</button></span>
+      <span class="toast toast--info"><i class="lu" data-lu="ticket" data-size="16"></i>El mercadillo no se alcanza a tiempo · <button class="btn sec">Quitarlo</button></span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel__top">
+      <div class="panel__title"><h2>La más rápida, en el mapa</h2><p class="panel__type">5 paradas · 1 h 25 · 3,4 km</p></div>
+    </div>
+    <div class="routemap">
+      <svg viewBox="0 0 600 240" preserveAspectRatio="none" aria-hidden="true">
+        <polyline points="80,200 180,150 250,120 340,110 430,80 520,60" fill="none" stroke="var(--hi)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" shape-rendering="crispEdges"/>
+      </svg>
+      <span class="stn" style="left:13%;top:83%">1</span>
+      <span class="stn" style="left:30%;top:62%">2</span>
+      <span class="stn" style="left:42%;top:50%">3</span>
+      <span class="stn" style="left:57%;top:46%">4</span>
+      <span class="stn" style="left:72%;top:33%">5</span>
+      <span class="stn" style="left:87%;top:25%">6</span>
+    </div>
+
+    <ol class="timeline">
+      <li><span class="t">19:00</span><span class="n">1</span><h4>Salida · mi ubicación</h4></li>
+      <li><span class="t"></span><span></span><div class="leg"><i class="lu" data-lu="footprints" data-size="14"></i>11 min · 800 m</div></li>
+      <li><span class="t">19:11</span><span class="n">2</span><h4>Noria gigante</h4></li>
+      <li><span class="t"></span><span></span><div class="leg"><i class="lu" data-lu="footprints" data-size="14"></i>9 min · 600 m</div></li>
+      <li class="is-fixed"><span class="t">19:30</span><span class="n">3</span><h4>Desfile de los Reyes <span class="fixed">hora fija</span></h4></li>
+      <li><span class="t"></span><span></span><div class="leg"><i class="lu" data-lu="footprints" data-size="14"></i>4 min · 300 m</div></li>
+      <li><span class="t">20:00</span><span class="n">4</span><h4>Árbol gigante de Nadal</h4></li>
+      <li><span class="t"></span><span></span><div class="leg"><i class="lu" data-lu="bus" data-size="14"></i>Bus 4C, 12 min · horario</div></li>
+      <li><span class="t">20:45</span><span class="n">5</span><h4>Alameda</h4></li>
+    </ol>
+
+    <div class="timebar" style="--p:.9;align-self:flex-start">
+      <button class="btn ic timebar__toggle" aria-label="Cambiar entre día y noche"><i class="lu" data-lu="moon" data-size="20"></i></button>
+      <span class="timebar__time">21:30</span>
+      <div class="timebar__track" role="slider" aria-label="Hora"><span class="timebar__fill"></span><span class="timebar__thumb"></span></div>
+      <span class="timebar__note">ver la ruta a otra hora</span>
+    </div>
+    <p style="margin:0;color:var(--mute);font-size:12px">El estado (ruta, hora y capas) va en la URL para poder compartirlo.</p>
+  </div>
+</div>
+<script src="assets/lucide.js"></script>
+<script src="assets/theme.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

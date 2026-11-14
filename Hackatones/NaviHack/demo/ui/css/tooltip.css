@@ -1,0 +1,14 @@
+/* Tooltip — aclaración corta de un control. Vidrio, sin flecha ornamentada. */
+.tip {
+  position: relative;
+}
+.tip__bubble {
+  position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%);
+  max-width: 220px; padding: 6px 10px; border-radius: var(--r-sm);
+  background: var(--glass-strong); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  box-shadow: inset 0 0 0 1px var(--hair), var(--ov);
+  color: var(--ink); font: 400 var(--fs-meta)/1.4 var(--f-ui);
+  opacity: 0; pointer-events: none; white-space: normal;
+  transition: opacity .15s var(--ease);
+}
+.tip:hover .tip__bubble, .tip:focus-within .tip__bubble { opacity: 1; }

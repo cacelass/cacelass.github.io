@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NaviHack — TinyVigo: mapa navideño de Vigo</title>
+    <meta name="description" content="NaviHack: mapa isométrico pixel art del centro de Vigo en Navidad. Puntos con horario real, eventos del día, rutas a pie, autobuses y trenes, y postales pixel art a partir de una foto propia. Proyecto de hackathon." />
+    <script>
+      // Apply the saved theme before the first paint so it never flashes.
+      (function () {
+        var stored;
+        try { stored = localStorage.getItem('site-theme'); } catch (e) {}
+        document.documentElement.dataset.theme = stored === 'dark' ? 'dark' : 'light';
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="./assets/index-DgWmnQSd.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CZeERrrL.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

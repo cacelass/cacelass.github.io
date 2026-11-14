@@ -1,0 +1,80 @@
+/* TinyVigo UI v2 — base: reset, tipografía, vidrio, botones, foco, estados */
+@font-face { font-family: "Inter"; src: url(../assets/fonts/Inter.ttf); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Pixelify Sans"; src: url(../assets/fonts/PixelifySans.ttf); font-weight: 400 700; font-display: swap; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: var(--f-ui);
+  letter-spacing: -.006em;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+::selection { background: var(--hi); color: var(--bg); }
+
+/* marca: texto en Inter, nunca en fuente de píxel */
+.wm { font: 600 22px/1 var(--f-ui); letter-spacing: -.01em; color: var(--ink); }
+
+/* iconos de interfaz: Lucide, línea fina, heredan el color del texto */
+.lu { display: block; flex: none; }
+.lu svg, svg.lu { display: block; flex: none; stroke-width: 1.5; }
+
+/* marca: el símbolo isométrico se dibuja en SVG (assets/marca.js) */
+.marca, .marca__sym { display: block; flex: none; }
+.marca { display: inline-flex; align-items: center; gap: 8px; }
+.marca__wm { font: 600 22px/1 var(--f-ui); letter-spacing: -.02em; color: var(--ink); }
+
+/* vidrio: la única forma de panel que flota sobre el mapa */
+.glass {
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+/* botón base: tono, no borde; objetivo táctil de 44 px */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: var(--tap); min-width: var(--tap); padding: 0 16px;
+  border: 0; border-radius: var(--r-ctl);
+  background: var(--sunk); color: var(--ink);
+  font: 500 var(--fs-label)/1 var(--f-ui); cursor: pointer;
+  transition: background .25s var(--ease), color .25s var(--ease);
+}
+.btn:hover, .btn.is-hover { background: var(--raised); }
+.btn:active, .btn.is-active { background: var(--panel); color: var(--ink2); }
+.btn.pri { font-weight: 600; }
+.btn.sec { background: transparent; }
+.btn.sec:hover, .btn.sec.is-hover { background: var(--sunk); }
+.btn.ic { padding: 0; width: var(--tap); }
+.btn:disabled, .btn.is-disabled { opacity: .45; pointer-events: none; }
+.btn.is-added { color: var(--ok); }
+.btn small { color: var(--mute); font-weight: 400; font-size: var(--fs-meta); }
+
+/* texto accesible */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* estado de carga: texto con brillo (breve) y esqueleto (primera carga) */
+.shimmer {
+  background: linear-gradient(90deg, var(--mute) 0, var(--ink) 50%, var(--mute) 100%) 0 0/200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmer 1.8s linear infinite;
+  font: 500 var(--fs-label)/1.4 var(--f-ui);
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+.skel { height: 14px; border-radius: var(--r-sm); background: var(--sunk); position: relative; overflow: hidden; }
+.skel::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, var(--raised), transparent);
+  transform: translateX(-100%); animation: skel 1.6s infinite;
+}
+@keyframes skel { to { transform: translateX(100%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer, .skel::after { animation: none; }
+  * { transition-duration: 0s !important; }
+}

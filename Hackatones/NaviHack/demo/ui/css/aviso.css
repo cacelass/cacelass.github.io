@@ -1,0 +1,12 @@
+/* Aviso (toast) — componente. Icono + mensaje + acción. Estado no solo por color. */
+.toast {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  min-height: var(--tap); padding: 0 var(--sp-2) 0 14px; border-radius: var(--r-ctl);
+  background: var(--glass); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  box-shadow: inset 0 0 0 1px var(--hair), var(--ov);
+  font: 500 var(--fs-label)/1.2 var(--f-ui); color: var(--ink);
+}
+.toast .btn { min-height: 36px; padding: 0 10px; }
+.toast--ok .px { --i-g: var(--ok); }
+.toast--warn .px { --i-r: var(--bad); }
+.toast--info .px { --i-a: var(--hi); }

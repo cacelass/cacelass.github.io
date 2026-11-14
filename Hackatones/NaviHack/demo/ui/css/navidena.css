@@ -1,0 +1,121 @@
+/* A Navideña — página jugable. Sistema de tokens, cero sombras, el pixel en marca e iconos. */
+.nv { max-width: 620px; margin: 0 auto; padding: 16px 16px 48px; display: flex; flex-direction: column; gap: 16px; }
+.nv__head { display: flex; justify-content: space-between; align-items: center; }
+.nv__brand { display: flex; align-items: center; gap: 8px; }
+.nv__brand .px { width: 20px; height: 20px; --i-a: var(--accent-5); }
+
+.nv__hero { display: flex; flex-direction: column; gap: 10px; background: var(--surface); border-radius: var(--r-panel); padding: 16px; }
+.nv__count b { font: 600 var(--fs-display)/1 var(--f-ui); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.nv__count small { color: var(--fg-3); font-size: var(--fs-label); margin-left: 6px; }
+.nv__bar { height: 8px; border-radius: 4px; background: var(--sunk); overflow: hidden; }
+.nv__bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent-4), var(--accent-6)); border-radius: 4px; transition: width .3s var(--ease); }
+.nv__pct { font: 600 var(--fs-label)/1 var(--f-ui); font-variant-numeric: tabular-nums; color: var(--fg-2); }
+.nv__lead { margin: 0; color: var(--fg-2); font-size: var(--fs-label); line-height: 1.5; }
+
+.nv__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.nv__actions .nv__generate { flex: 1; min-width: 200px; }
+.nv__done { display: flex; }
+
+.nv__pts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.nv__pts li {
+  display: flex; align-items: center; gap: 12px; min-height: var(--tap);
+  padding: 4px 8px; border-bottom: 1px solid var(--line); cursor: pointer;
+  border-radius: var(--r-ctl);
+}
+.nv__pts li:hover { background: var(--surface); }
+.nv__ic { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--r-sm); background: var(--sunk); flex: none; }
+.nv__ic .px { opacity: .55; }
+.nv__name { flex: 1; font: 400 var(--fs-label)/1.3 var(--f-ui); }
+.nv__st { font-size: var(--fs-meta); color: var(--fg-3); }
+.nv__pts li.sealed .nv__ic { background: var(--accent-3); }
+.nv__pts li.sealed .nv__ic .px { opacity: 1; --i-a: var(--accent-6); }
+.nv__pts li.sealed .nv__name { color: var(--fg); }
+.nv__pts li.sealed .nv__st { color: var(--ok); }
+.nv__pts li.sealed .nv__st::before { content: "· "; }
+
+.nv__title { font: 600 var(--fs-title)/1.2 var(--f-ui); letter-spacing: -.01em; }
+.nv__headrow { display: flex; align-items: center; gap: 8px; }
+.nv__view { display: flex; gap: 4px; }
+.nv__view button { display: inline-flex; align-items: center; gap: 6px; min-height: var(--tap); padding: 0 12px; border: 0; border-radius: var(--r-ctl); background: var(--sunk); color: var(--fg-2); font: 500 var(--fs-label)/1 var(--f-ui); cursor: pointer; }
+.nv__view button.on { background: var(--surface); color: var(--ink); font-weight: 600; }
+
+/* cabecera del contador, fija arriba mientras se recorre la lista */
+.nv__prog { position: sticky; top: 0; z-index: 5; background: var(--bg); display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-2) 0; }
+.nv__prog .nv__bar { flex: 1; }
+.nv__gen { flex: none; }
+
+.nv__empty { margin: 0; color: var(--fg-2); font-size: var(--fs-label); }
+
+/* vista mapa: el mapa real con la capa de sellos encima (en la maqueta, sin coordenadas) */
+.nv__map { display: none; position: relative; height: 340px; border-radius: var(--r-panel); overflow: hidden; background: url(../assets/mapa-escritorio.jpg) center/cover; box-shadow: inset 0 0 0 1px var(--line); }
+.nv__map::after {
+  content: "Los 43 puntos van sobre el mapa en la app final.";
+  position: absolute; left: var(--sp-3); right: var(--sp-3); bottom: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3); border-radius: var(--r-ctl);
+  background: var(--glass); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  color: var(--fg-2); font: 400 var(--fs-meta)/1.4 var(--f-ui);
+}
+body[data-view="mapa"] .nv__map { display: block; }
+body[data-view="mapa"] .nv__zones, body[data-view="mapa"] .nv__empty { display: none; }
+
+.zone { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+.zone__h { margin: 0; font: 600 var(--fs-label)/1.3 var(--f-ui); color: var(--fg-2); }
+.zone__pts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.zone__pts li { display: flex; align-items: center; gap: 12px; min-height: var(--tap); padding: 4px 8px; border-bottom: 1px solid var(--line); cursor: pointer; border-radius: var(--r-ctl); }
+.zone__pts li:hover { background: var(--surface); }
+.zone__pts .p__ic { width: 32px; height: 32px; flex: none; display: flex; align-items: center; justify-content: center; border-radius: var(--r-sm); background: var(--sunk); }
+.zone__pts .p__name { flex: 1; font: 400 var(--fs-label)/1.3 var(--f-ui); }
+.zone__pts .p__stamp { flex: none; display: flex; }
+.zone__pts .sello { width: 44px; height: 44px; }
+.zone__pts li.sealed .p__ic { background: var(--accent-3); }
+
+/* matasellos: anillo y texto en Inter, el sprite del punto dentro (nada de píxel en texto) */
+.sello { color: var(--fg-2); }
+.sello circle { fill: none; stroke: currentColor; }
+.sello .stxt { font-family: var(--f-ui); font-weight: 500; fill: currentColor; letter-spacing: .6px; }
+.sello .sico { color: var(--fg); }
+.zone__pts li.sealed .sello { color: var(--accent-6); }
+.zone__pts li.sealed .sello .sico { color: var(--accent-6); }
+.sello.drop { animation: sello-drop .32s var(--ease); }
+@keyframes sello-drop { from { transform: scale(1.5) rotate(-9deg); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* aviso inferior (deshacer) */
+.nv__toast {
+  position: fixed; left: 50%; bottom: var(--sp-4); transform: translateX(-50%);
+  display: flex; align-items: center; gap: var(--sp-3); z-index: 30;
+  max-width: calc(100% - 24px); padding: 0 var(--sp-2) 0 14px; min-height: var(--tap);
+  border-radius: var(--r-ctl); background: var(--glass-strong);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: var(--fs-label); color: var(--ink);
+}
+.nv__toast[hidden] { display: none; }
+.nv__toast .undo { background: transparent; }
+
+/* certificado tipo Compostela */
+.cert { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(16, 18, 26, .55); z-index: 40; }
+.cert[hidden] { display: none; }
+.cert__inner {
+  position: relative; width: min(360px, 100%); background: var(--bg);
+  border: 1px solid var(--line); outline: 3px solid var(--accent-4); outline-offset: 4px;
+  border-radius: var(--r-16); padding: 28px 22px; text-align: center; display: flex; flex-direction: column; gap: 10px;
+}
+.cert__close { position: absolute; top: 8px; right: 8px; }
+.cert__mark { display: flex; justify-content: center; }
+.cert__title { margin: 4px 0 0; font: 600 var(--fs-display)/1.15 var(--f-ui); letter-spacing: -.02em; }
+.cert h2 { margin: 4px 0 0; font-size: 28px; }
+.cert__form { display: flex; flex-direction: column; gap: var(--sp-2); text-align: left; margin-top: var(--sp-2); }
+.cert__form[hidden], .cert__result[hidden] { display: none; }
+.cert__form label { font: 500 var(--fs-label)/1.3 var(--f-ui); color: var(--fg-2); }
+.cert__form input {
+  width: 100%; min-height: var(--tap); padding: 0 var(--sp-3);
+  border: 0; border-radius: var(--r-ctl); background: var(--sunk); color: var(--ink);
+  font: 400 var(--fs-copy)/1 var(--f-ui);
+}
+.cert__result { display: flex; flex-direction: column; gap: var(--sp-3); margin-top: var(--sp-2); }
+.cert__result .cert__share { align-self: center; }
+.cert__sub { margin: 0; color: var(--fg-2); font-size: var(--fs-label); line-height: 1.5; }
+.cert__sub .cert__nombre { color: var(--fg); font-weight: 600; }
+.cert__meta { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; font-variant-numeric: tabular-nums; }
+.cert__numero, .cert__fecha { font-size: var(--fs-meta); color: var(--fg-2); }
+.cert__pie { margin: 8px 0 0; font-size: var(--fs-meta); color: var(--fg-3); }

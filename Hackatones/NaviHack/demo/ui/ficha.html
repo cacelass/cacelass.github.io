@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TinyVigo · Ficha de un punto</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/panel.css">
+<link rel="stylesheet" href="css/panel-lugar.css">
+<link rel="stylesheet" href="css/tarjeta-evento.css">
+</head>
+<body>
+<div class="app">
+  <div class="map">
+    <img class="map__bg" src="assets/mapa-escritorio.jpg" alt="Mapa isométrico de Vigo">
+    <div class="map__tint"></div>
+  </div>
+  <div class="hud">
+    <div class="hud__brand"><i class="marca" data-marca data-size="22"></i><span class="wm">TinyVigo</span></div>
+    <div class="hud__right"><button class="btn ic" data-theme-toggle aria-label="Tema"><i class="lu"></i></button></div>
+  </div>
+
+  <div class="sheet sheet--wide">
+    <div class="panel panel--lugar" aria-label="Ficha del punto">
+      <div class="panel__media">
+        <img class="panel__photo" src="assets/foto-noria.jpg" alt="La noria gigante iluminada, junto a Vialia">
+        <span class="panel__sprite" aria-hidden="true"><i class="ic" data-ic="wheel" data-size="40"></i></span>
+      </div>
+
+      <div class="panel__body">
+        <div class="panel__top">
+          <div class="panel__title"><h2>Noria gigante</h2><p class="panel__type">Atracciones · Vialia</p></div>
+          <button class="btn ic panel__close" aria-label="Cerrar"><i class="lu" data-lu="x" data-size="20"></i></button>
+        </div>
+
+        <div class="panel__status" data-open="1"><i class="lu" data-lu="circle-check" data-size="20"></i><span>Abierto ahora, hasta las <span class="big">22:30</span></span></div>
+        <p class="panel__hours">Laborables de 17:00 a 22:30<small>Cambia del 21 de diciembre al 12 de enero</small><small>11 min andando desde Porta do Sol</small></p>
+
+        <div class="panel__actions">
+          <button class="btn sec"><i class="lu" data-lu="footprints" data-size="20"></i>Cómo llegar</button>
+          <button class="btn pri" data-addroute data-label="Añadir a la ruta"><span class="bi"><i class="lu" data-lu="route" data-size="20"></i></span><span class="lb">Añadir a la ruta</span></button>
+        </div>
+
+        <details class="panel__story" open><summary>Historia</summary><p>La noria cambia de sitio en 2026 y pasa a Vialia. La información viene de la prensa local y el Concello aún no la ha confirmado.</p><a href="#">Prensa local, sin confirmar por el Concello</a></details>
+
+        <div class="panel__near">
+          <h3 class="panel__h3">Cerca de aquí hoy</h3>
+          <div class="ev ev--compact"><span class="ev__time">19:30</span><div class="ev__body"><h4>Desfile de los Reyes Magos</h4><p>Rúa do Príncipe, 3 min</p></div></div>
+          <div class="ev ev--compact"><span class="ev__time">20:00</span><div class="ev__body"><h4>Pase de música y luz</h4><p>En este punto</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="assets/iconos.js"></script>
+<script src="assets/marca.js"></script>
+<script src="assets/lucide.js"></script>
+<script src="assets/theme.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

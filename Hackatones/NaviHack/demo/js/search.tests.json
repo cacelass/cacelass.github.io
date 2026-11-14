@@ -1,0 +1,62 @@
+[
+ {
+  "q": "noria",
+  "kind": "point",
+  "expect": "Noria Gigante"
+ },
+ {
+  "q": "NÓRIA",
+  "kind": "point",
+  "expect": "Noria Gigante"
+ },
+ {
+  "q": "Porta Do Sol",
+  "kind": "point",
+  "expect": "Árbol gigante de Nadal"
+ },
+ {
+  "q": "arbol",
+  "kind": "point",
+  "expect": "Árbol gigante de Nadal"
+ },
+ {
+  "q": "mercado navidad",
+  "kind": "point",
+  "expect": "Mercado de Navidad"
+ },
+ {
+  "q": "urzaiz",
+  "kind": "street",
+  "expect": "Rúa de Urzáiz"
+ },
+ {
+  "q": "principe",
+  "kind": "street",
+  "expect": "Rúa do Príncipe"
+ },
+ {
+  "q": "garcia barbon",
+  "kind": "street",
+  "expect": "Rúa García Barbón"
+ },
+ {
+  "q": "vigo urzaiz",
+  "kind": "station",
+  "expect": "Vigo Urzaiz"
+ },
+ {
+  "q": "guixar",
+  "kind": "station",
+  "expect": "Vigo-Guixar"
+ },
+ {
+  "q": "norai",
+  "kind": "point",
+  "expect": "Noria Gigante"
+ },
+ {
+  "q": "encendido luces",
+  "kind": "event",
+  "expect": "encendido de luces"
+ }
+]

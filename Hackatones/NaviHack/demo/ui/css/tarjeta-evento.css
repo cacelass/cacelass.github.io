@@ -1,0 +1,14 @@
+/* Tarjeta de evento del día — componente. Hora grande, icono, lugar, acción. */
+.ev {
+  display: grid; grid-template-columns: 52px 1fr auto; gap: var(--sp-3);
+  align-items: center; padding: var(--sp-2) 0; max-width: 520px;
+}
+.ev__time { font: 600 var(--fs-body)/1 var(--f-ui); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.ev__body h4 { margin: 0; font: 500 15px/1.3 var(--f-ui); }
+.ev__body p { margin: 2px 0 0; color: var(--mute); font-size: var(--fs-meta); display: flex; align-items: center; gap: 6px; }
+.ev__add { min-width: 0; }
+.ev__add.is-added { color: var(--ok); }
+
+/* la misma tarjeta dentro de un panel (el listado "cerca de aquí") */
+.ev--compact { grid-template-columns: 48px 1fr; padding: 4px 0; }
+.ev--compact .ev__add { display: none; }

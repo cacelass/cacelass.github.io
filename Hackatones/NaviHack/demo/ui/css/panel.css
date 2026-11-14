@@ -1,0 +1,35 @@
+/* Panel — patrón compartido de las pantallas de contenido (ficha de punto, rutas).
+   Un solo ancho, radio 12 y espaciado; la cabecera lleva el título y las acciones.
+   Vidrio sobre el mapa; tono plano cuando el panel vive dentro de una página. */
+.panel {
+  width: 100%;
+  background: var(--glass-strong);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  border-radius: var(--r-panel);
+  box-shadow: inset 0 0 0 1px var(--hair);
+  color: var(--ink);
+  padding: var(--sp-4);
+  display: flex; flex-direction: column; gap: var(--sp-3);
+}
+/* sobre una página (no sobre el mapa) el mismo panel va plano */
+.page .panel { background: var(--raised); }
+/* y dentro de un panel plano, la pastilla encendida necesita filo visible */
+.page .chip.on { background: var(--raised); box-shadow: inset 0 0 0 1px var(--line); }
+
+.panel__top { display: flex; align-items: flex-start; gap: var(--sp-2); }
+.panel__title { flex: 1; min-width: 0; }
+.panel__title h2 { margin: 0; font: 600 var(--fs-title)/1.25 var(--f-ui); letter-spacing: -.014em; }
+.panel__type { margin: 2px 0 0; color: var(--fg-2); font-size: var(--fs-label); }
+.panel__close { margin-left: auto; background: transparent; flex: none; }
+
+/* secciones dentro del panel: una línea fina separa, nada más */
+.panel__sec { border-top: 1px solid var(--line); padding-top: var(--sp-3); }
+.panel__h3 { margin: 0 0 var(--sp-2); font: 500 var(--fs-label)/1.4 var(--f-ui); color: var(--fg-2); }
+
+/* la hoja que flota sobre el mapa puede ser más ancha que la de un móvil */
+.sheet--wide { width: min(760px, calc(100% - 32px)); }
+
+@media (max-width: 700px) {
+  .panel { padding: var(--sp-3) var(--sp-3) var(--sp-4); }
+  .sheet--wide { width: calc(100% - 16px); }
+}

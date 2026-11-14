@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TinyVigo · Transporte</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/lista-ruta.css">
+<style>
+  .linea { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 4px 0; border-bottom: 1px solid var(--hair); }
+  .linea .n { font: 600 16px/1 var(--f-ui); font-variant-numeric: tabular-nums; min-width: 44px; }
+  .linea .dest { flex: 1; font-size: 15px; }
+  .linea .arr { font: 500 14px/1 var(--f-ui); font-variant-numeric: tabular-nums; color: var(--ink2); }
+  .linea .lbl { color: var(--mute); font-size: 12px; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: var(--r-ctl); background: var(--glass); font-size: 12px; color: var(--ink2); }
+  h2.sec { font: 500 14px/1.4 var(--f-ui); color: var(--mute); margin: 20px 0 6px; }
+</style>
+</head>
+<body>
+<div class="page" style="max-width:560px">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h1>Transporte</h1>
+    <button class="btn sec ic" data-theme-toggle aria-label="Tema"><i class="lu"></i></button>
+  </div>
+  <span class="badge"><i class="lu" data-lu="bus" data-size="16"></i>Horario, no en vivo</span>
+
+  <h2 class="sec">Desde García Barbón · ahora</h2>
+  <div class="linea"><span class="n">4C</span><span class="dest">García Barbón → Coia</span><span class="arr">2 min</span></div>
+  <div class="linea"><span class="n">5A</span><span class="dest">García Barbón → Navia</span><span class="arr">7 min</span></div>
+  <div class="linea"><span class="n">11</span><span class="dest">Urzáiz → Hospital</span><span class="arr">9 min</span></div>
+
+  <h2 class="sec">Estación Vigo-Urzáiz · trenes</h2>
+  <div class="linea"><span class="n">AVE</span><span class="dest">Vigo-Urzáiz → Madrid</span><span class="arr">17:45</span></div>
+  <div class="linea"><span class="n">MD</span><span class="dest">Vigo-Guixar → Ourense</span><span class="arr">18:10</span></div>
+  <div class="linea"><span class="n">ALVIA</span><span class="dest">Vigo-Urzáiz → Barcelona</span><span class="arr">18:30</span></div>
+  <p class="lead" style="margin:0;color:var(--mute);font-size:12px">Fuente: GTFS de Vitrasa y Renfe · <a href="#" style="color:var(--ink2)">ver fuentes</a></p>
+</div>
+<script src="assets/lucide.js"></script>
+<script src="assets/theme.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

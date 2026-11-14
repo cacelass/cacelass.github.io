@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TinyVigo · Mapa</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/chip-filtro.css">
+<link rel="stylesheet" href="css/barra-tiempo.css">
+<link rel="stylesheet" href="css/marcadores.css">
+<style>
+  /* assets integrados: la noria y el árbol viven en el mapa, no son chinchetas */
+  .asset-noria { position: absolute; left: 60%; top: 26%; }
+  .asset-arbol { position: absolute; left: 44%; top: 46%; }
+  .asset-noria .px { width: 72px; height: 72px; }
+  .asset-arbol .px { width: 80px; height: 80px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="map">
+    <img class="map__bg" src="assets/mapa-escritorio.jpg" alt="Mapa isométrico de Vigo">
+    <div class="map__tint"></div>
+    <div class="map__mks">
+      <button class="mk" data-kind="bus" data-state="normal" style="left:68%;top:60%" aria-label="Parada de bus"><i class="ic" data-ic="bus" data-size="20"></i></button>
+      <button class="mk" data-kind="train" data-state="normal" style="left:14%;top:20%" aria-label="Estación"><i class="ic" data-ic="train" data-size="20"></i></button>
+      <button class="asset asset-noria" aria-label="Noria gigante"><i class="ic" data-ic="wheel" data-size="72"></i></button>
+      <button class="asset asset-arbol" aria-label="Árbol gigante de Nadal"><i class="ic" data-ic="tree" data-size="80"></i></button>
+    </div>
+  </div>
+
+  <div class="hud">
+    <div class="hud__brand"><i class="marca" data-marca data-size="22"></i><span class="wm">TinyVigo</span></div>
+    <div class="hud__center">
+      <div class="search is-collapsed"><button class="search__btn btn ic" aria-label="Buscar"><i class="lu" data-lu="search" data-size="20"></i></button><input placeholder="Buscar un sitio, una calle o una estación" aria-label="Buscar"></div>
+      <div class="layers">
+        <button class="chip chip--layer on" aria-pressed="true"><i class="lu" data-lu="tree-pine" data-size="20"></i>Navidad</button>
+        <button class="chip chip--layer on" aria-pressed="true"><i class="lu" data-lu="calendar-days" data-size="20"></i>Eventos</button>
+        <button class="chip chip--layer on" aria-pressed="true"><i class="lu" data-lu="bus" data-size="20"></i>Buses</button>
+        <button class="chip chip--layer" aria-pressed="false"><i class="lu" data-lu="train-front" data-size="20"></i>Trenes</button>
+        <button class="chip chip--layer" aria-pressed="false"><i class="lu" data-lu="route" data-size="20"></i>Rutas</button>
+      </div>
+    </div>
+    <div class="hud__right">
+      <button class="btn ic tip" data-theme-toggle aria-label="Tema"><i class="lu"></i></button>
+    </div>
+  </div>
+
+  <div class="zoom"><button class="btn ic" aria-label="Acercar"><i class="lu" data-lu="plus" data-size="16"></i></button><button class="btn ic" aria-label="Alejar"><i class="lu" data-lu="minus" data-size="16"></i></button></div>
+
+  <div class="timebar" style="position:absolute;left:12px;bottom:12px;--p:.9">
+    <button class="btn ic timebar__toggle" aria-label="Cambiar entre día y noche"><i class="lu" data-lu="moon" data-size="20"></i></button>
+    <span class="timebar__time">21:30</span>
+    <div class="timebar__track" role="slider" aria-label="Hora"><span class="timebar__fill"></span><span class="timebar__thumb"></span></div>
+    <span class="timebar__weather"><i class="lu" data-lu="cloud-rain" data-size="20"></i><span class="timebar__temp">8°</span></span>
+  </div>
+</div>
+<script src="assets/iconos.js"></script>
+<script src="assets/marca.js"></script>
+<script src="assets/lucide.js"></script>
+<script src="assets/theme.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+/* TinyVigo UI v2 — tokens. Sistema copiado de Strivon (sistema, no identidad).
+   Neutros cálidos, profundidad por tonos, CERO sombras, color solo para estados.
+   El acento es la luz cálida de la Navidad: una rampa de 7 pasos para magnitudes
+   y para "cuánto falta/queda". El píxel es solo la ilustración del mapa; los iconos son Lucide. */
+:root {
+  /* tipografía única: Inter, 5 tamaños fijos, 3 pesos, nada entre medias */
+  --f-ui: "Inter", system-ui, sans-serif;
+  --fs-display: 28px; --fs-title: 20px; --fs-copy: 16px; --fs-label: 14px; --fs-meta: 12px;
+  --w-400: 400; --w-500: 500; --w-600: 600;
+  /* radios pequeños */
+  --r-sm: 6px; --r-ctl: 8px; --r-panel: 12px;
+  --r-16: 16px;
+  /* movimiento mínimo, una curva */
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  /* espaciado */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px;
+  /* objetivos táctiles */
+  --tap: 44px;
+}
+
+/* ——— tema claro ——— */
+:root, html[data-theme="light"] {
+  color-scheme: light;
+  /* superficies (5) */
+  --bg: #f8f7f4;
+  --surface: #efeee9;
+  --sunk: #e6e4dd;
+  --raised: #ffffff;
+  --line: rgba(29, 29, 29, .12);
+  /* texto (3) */
+  --fg: #1d1d1d;
+  --fg-2: #51554c;
+  --fg-3: #686d62;
+  /* vidrio: lo único que flota sobre el mapa. Sin sombra: el filo hace el trabajo */
+  --glass: rgba(255, 255, 255, .72);
+  --glass-strong: rgba(251, 250, 246, .9);
+  --ov: 0 0 0 0 transparent;
+  --stage: #f1efe9;
+  /* estados (3) */
+  --danger: #c4452f;
+  --warning: #b7791f;
+  --ok: #3f8a4f;
+  /* acento: luz cálida, 7 pasos (de casi blanco a marrón profundo) */
+  --accent-1: #fdf6e3;
+  --accent-2: #f7e7b8;
+  --accent-3: #eecb7a;
+  --accent-4: #d9a441;
+  --accent-5: #a9760f;
+  --accent-6: #7a4a00;
+  --accent-7: #4a2d00;
+  /* roles de color de los iconos pixel */
+  --i-a: #d9a441; --i-x: #fff1c0; --i-w: #fbf9f4;
+  --i-r: #b4472b; --i-b: #3d6a96; --i-g: #4b7a2c;
+}
+
+/* ——— tema oscuro ——— */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #10121a;
+  --surface: #171a24;
+  --sunk: #0b0d14;
+  --raised: #222634;
+  --line: rgba(255, 255, 255, .12);
+  --fg: #f4ecd9;
+  --fg-2: #bcb6a6;
+  --fg-3: #9a9484;
+  --glass: rgba(23, 26, 36, .72);
+  --glass-strong: rgba(26, 30, 42, .9);
+  --stage: #14161f;
+  --danger: #f09078;
+  --warning: #e0b06a;
+  --ok: #97c46f;
+  --accent-1: #241a0e;
+  --accent-2: #3a2b14;
+  --accent-3: #5c4218;
+  --accent-4: #a9802e;
+  --accent-5: #f4cd80;
+  --accent-6: #ffe2a0;
+  --accent-7: #fff1c9;
+  --i-a: #f4cd80; --i-x: #fff3c4; --i-w: #efe3c8;
+  --i-r: #d9715a; --i-b: #6a9bd1; --i-g: #86ad52;
+}
+
+/* ——— alias (compatibilidad con los componentes ya escritos) ———
+   Los nombres canónicos son los de arriba; estos quedan para no repetir HTML. */
+:root, html[data-theme="light"] {
+  --ink: var(--fg); --ink2: var(--fg-2); --mute: var(--fg-3);
+  --panel: var(--surface); --hair: var(--line);
+  --hi: var(--accent-5); --bad: var(--danger); --warn: var(--warning);
+}
+html[data-theme="dark"] {
+  --ink: var(--fg); --ink2: var(--fg-2); --mute: var(--fg-3);
+  --panel: var(--surface); --hair: var(--line);
+  --hi: var(--accent-5); --bad: var(--danger); --warn: var(--warning);
+}
+
+/* ——— barras de desplazamiento ———
+   Finas, solo el pulgar, sin carril ni flechas. Un único camino por motor, porque en Chromium
+   121+ poner scrollbar-width/color anula ::-webkit-scrollbar (y es lo único que quita las flechas):
+   · Chromium y Safari: ::-webkit-scrollbar (8 px, pulgar redondeado de 4 px, sin botones).
+   · Firefox: el estándar scrollbar-width / scrollbar-color. */
+:root, html[data-theme="light"], html[data-theme="dark"] {
+  --scroll-thumb: color-mix(in srgb, var(--fg-3) 45%, transparent);
+  --scroll-thumb-hover: var(--fg-3);
+}
+@supports selector(::-webkit-scrollbar) {
+  *::-webkit-scrollbar { width: 8px; height: 8px; background: transparent; }
+  *::-webkit-scrollbar-track, *::-webkit-scrollbar-corner { background: transparent; }
+  *::-webkit-scrollbar-thumb { background: var(--scroll-thumb); background-clip: padding-box; border: 2px solid transparent; border-radius: 6px; min-height: 40px; }
+  *::-webkit-scrollbar-thumb:hover, *::-webkit-scrollbar-thumb:active { background: var(--scroll-thumb-hover); background-clip: padding-box; }
+  *::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+}
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: var(--scroll-thumb) transparent; }
+  *:hover { scrollbar-color: var(--scroll-thumb-hover) transparent; }
+}

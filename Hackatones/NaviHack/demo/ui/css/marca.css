@@ -1,0 +1,163 @@
+/* TinyVigo · marca — "la V encendida".
+   Símbolo: la V de Vigo con el punto de luz de Porta do Sol en la punta.
+   Dos dibujos (pixel 16 para 16–32 px, vector para 32 en adelante) y una tinta.
+   El nombre, siempre Inter. Cero sombras, cero degradados, cero píldoras. */
+
+:root {
+  /* paleta de marca (hex, únicos valores permitidos para la marca) */
+  --tv-tinta: #1d1d1d;      /* el trazo */
+  --tv-noche: #10121a;      /* fondo de la vista nocturna */
+  --tv-luz: #d9a441;        /* el punto de luz, sobre fondo claro */
+  --tv-luz-alta: #f4cd80;   /* el punto de luz, sobre fondo oscuro */
+  --tv-papel: #fbfaf7;      /* la postal */
+  --tv-ria: #3d6a96;        /* la ría, solo en la ilustración */
+  --tv-sello: #b4472b;      /* el sello de correos */
+  --tv-tinta-sec: #51554c;  /* texto de apoyo de la marca */
+
+  /* reglas de proporción */
+  --tv-luz-r: .067;         /* radio del punto = 6,7 % del símbolo */
+  --tv-aire: .5;            /* aire mínimo alrededor = 50 % del punto */
+
+  /* vidrio (lo usan layout.css y aviso.css; aquí queda definido para las páginas de marca) */
+  --glass: rgba(248, 247, 244, .72);
+  --glass-strong: rgba(248, 247, 244, .92);
+  --ov: rgba(16, 18, 26, .18);
+}
+
+html[data-theme="dark"] {
+  --tv-tinta: #f4ecd9;
+  --tv-luz: #f4cd80;
+  --tv-tinta-sec: #bcb6a6;
+  --glass: rgba(16, 18, 26, .62);
+  --glass-strong: rgba(16, 18, 26, .86);
+  --ov: rgba(0, 0, 0, .34);
+}
+
+/* ——— símbolo, ya dibujado por assets/marca.js ——— */
+.tv-simbolo { display: inline-block; flex: none; line-height: 0; color: var(--tv-tinta); }
+.tv-simbolo svg { display: block; }
+/* la marca girada: el árbol pasa a ser la V */
+.tv-girada { display: inline-block; transform: rotate(180deg); }
+.tv-lockup { display: inline-flex; align-items: center; color: var(--tv-tinta); }
+.tv-nombre {
+  font: 600 calc(var(--tv-s, 28px) * .86)/1 var(--f-ui);
+  letter-spacing: -.02em; color: inherit;
+  /* el nombre no lleva píxel ni versalitas */
+  text-transform: none;
+}
+
+/* ——— matasellos (A Navideña) ——— */
+.tv-mat { display: block; color: var(--tv-tinta); }
+.tv-mat__luz { fill: var(--tv-luz); }
+.tv-mat__arco, .tv-mat__fecha { fill: currentColor; font-family: var(--f-ui); }
+.tv-mat__fecha { font-variant-numeric: tabular-nums; }
+
+/* =====================================================================
+   Aplicaciones: las tres formas en que la marca aparece en el producto.
+   ===================================================================== */
+
+/* 1 · cabecera del mapa: vidrio sobre el mapa, símbolo a 20 px y nombre a 16 px */
+.hud__brand.tv-hud {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 12px 8px 10px; border-radius: var(--r-ctl);
+  background: var(--glass, rgba(248, 247, 244, .72));
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  color: var(--fg); --tv-tinta: var(--fg); --tv-luz: var(--accent-4);
+}
+.tv-hud .tv-nombre { font-size: 16px; }
+html[data-theme="dark"] .tv-hud { --tv-luz: var(--tv-luz-alta); }
+
+/* 2 · matasellos de A Navideña: el sello que cierra los 43 puntos */
+.tv-sello-nav {
+  display: grid; place-items: center; gap: 6px;
+  padding: 16px; background: var(--surface);
+  border-radius: var(--r-panel);
+}
+.tv-sello-nav .tv-mat { color: var(--fg); }
+.tv-sello-nav p { margin: 0; font-size: var(--fs-meta); color: var(--fg-3); }
+
+/* 3 · certificado: una tinta, con filete y número */
+.tv-cert {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 24px 20px 18px; background: var(--raised);
+  border: 1px solid var(--line); border-radius: var(--r-16);
+  color: var(--fg);
+}
+.tv-cert__filete { width: 64px; height: 3px; background: var(--accent-4); }
+.tv-cert__marca { color: var(--fg); }        /* una tinta: todo el símbolo en el color del texto */
+.tv-cert__nombre-doc {
+  font: 600 var(--fs-title)/1.2 var(--f-ui); letter-spacing: -.02em; margin: 2px 0 0;
+}
+.tv-cert__texto {
+  margin: 0; max-width: 34ch; text-align: center;
+  font-size: var(--fs-label); line-height: 1.5; color: var(--fg-2);
+}
+.tv-cert__texto b { color: var(--fg); font-weight: 600; }
+.tv-cert__pie {
+  display: flex; gap: 16px; margin-top: 6px;
+  font-size: var(--fs-meta); color: var(--fg-3); font-variant-numeric: tabular-nums;
+}
+
+/* ——— lámina de marca (marca.html) ——— */
+.mk { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; display: flex; flex-direction: column; gap: 32px; }
+.mk__cab { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.mk h1 { margin: 0 0 6px; font: 600 var(--fs-display)/1.15 var(--f-ui); letter-spacing: -.02em; }
+.mk__lead { margin: 0; color: var(--fg-2); font-size: var(--fs-copy); line-height: 1.5; max-width: 52ch; }
+.mk__num { font: 500 var(--fs-meta)/1 var(--f-ui); color: var(--fg-3); letter-spacing: .08em; margin-right: 8px; }
+.mk h2 {
+  margin: 0 0 4px; font: 600 var(--fs-title)/1.2 var(--f-ui); letter-spacing: -.02em;
+}
+.mk h2 + p { margin: 0 0 16px; color: var(--fg-2); font-size: var(--fs-label); line-height: 1.5; max-width: 56ch; }
+.mk h3 { margin: 0 0 8px; font: 500 var(--fs-label)/1.4 var(--f-ui); color: var(--fg-2); }
+.mk section { display: flex; flex-direction: column; }
+.mk__fila { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; }
+.mk__caja {
+  display: grid; place-items: center; min-width: 140px; min-height: 120px; padding: 20px;
+  background: var(--surface); border-radius: var(--r-panel);
+}
+.mk__caja.base { background: var(--bg); border: 1px solid var(--line); }
+.mk__caja.noche { background: var(--tv-noche); color: var(--tv-papel); }
+.mk__caja.claro { background: var(--tv-papel); }
+.mk__caja.tinta { background: var(--bg); }
+.mk__caja figcaption {
+  margin-top: 10px; font-size: var(--fs-meta); color: var(--fg-3); text-align: center;
+}
+.mk__caja.claro figcaption, .mk__caja.noche figcaption { color: var(--tv-tinta-sec); }
+.mk figure { margin: 0; display: flex; flex-direction: column; align-items: center; }
+
+.mk__escala { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; }
+.mk__escala figure { gap: 8px; }
+.mk__escala figcaption { font-size: 12px; color: var(--fg-3); font-variant-numeric: tabular-nums; }
+
+.mk table { width: 100%; border-collapse: collapse; font-size: var(--fs-label); }
+.mk th, .mk td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.mk th { font-weight: 500; color: var(--fg-3); font-size: var(--fs-meta); text-transform: uppercase; letter-spacing: .04em; }
+.mk td code, .mk .hex { font: 500 var(--fs-meta)/1 var(--f-ui); color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.mk__chip { width: 28px; height: 28px; border-radius: var(--r-sm); border: 1px solid var(--line); }
+.mk__sw { display: flex; align-items: center; gap: 10px; }
+
+.mk__si-no { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.mk__si, .mk__no { padding: 14px 16px; border-radius: var(--r-panel); background: var(--surface); }
+.mk__si h3, .mk__no h3 { display: flex; align-items: center; gap: 8px; color: var(--fg); }
+.mk__si ul, .mk__no ul { margin: 0; padding-left: 18px; color: var(--fg-2); font-size: var(--fs-label); line-height: 1.6; }
+.mk__no { background: var(--bg); border: 1px solid var(--line); }
+
+/* muestra del HUD sobre un trozo del mapa */
+.mk__mapa {
+  position: relative; height: 200px; border-radius: var(--r-panel); overflow: hidden;
+  background: url(../assets/mapa-movil.jpg) center/cover; image-rendering: pixelated;
+}
+.mk__mapa::after { content: ""; position: absolute; inset: 0; background: rgba(20, 28, 58, .38); mix-blend-mode: multiply; }
+.mk__mapa .hud { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 1; }
+
+.mk__nota {
+  padding: 12px 14px; border-left: 3px solid var(--accent-4);
+  background: var(--surface); color: var(--fg-2);
+  font-size: var(--fs-meta); line-height: 1.55;
+}
+.mk__explorar { display: inline-flex; align-items: center; gap: 8px; }
+
+@media (max-width: 560px) {
+  .mk { padding: 24px 12px 48px; gap: 24px; }
+  .mk__caja { min-width: 0; }
+}

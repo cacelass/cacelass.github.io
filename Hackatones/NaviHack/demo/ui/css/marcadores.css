@@ -1,0 +1,36 @@
+/* Marcadores de mapa — por tipo, silueta y color propios en pixel. Nada genérico.
+   Las piezas gordas de Navidad (noria, árbol) no son marcadores: son assets animados
+   integrados en el mapa (ver .asset más abajo). Aquí solo lo que de verdad necesita un punto. */
+.mk {
+  width: 34px; height: 34px; border: 0; border-radius: var(--r-ctl);
+  background: var(--glass); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  color: var(--ink); box-shadow: inset 0 0 0 1px var(--hair);
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .3s var(--ease), transform .3s var(--ease);
+}
+.mk .px { width: 22px; height: 22px; }
+/* color propio por tipo: un filo interior fino del color del servicio */
+.mk[data-kind="bus"]    { box-shadow: inset 0 0 0 1px var(--hair), inset 0 0 0 2px var(--i-b); }
+.mk[data-kind="train"]  { box-shadow: inset 0 0 0 1px var(--hair), inset 0 0 0 2px var(--i-r); }
+.mk[data-kind="parking"]{ box-shadow: inset 0 0 0 1px var(--hair), inset 0 0 0 2px var(--i-b); }
+.mk[data-kind="camara"] { box-shadow: inset 0 0 0 1px var(--hair), inset 0 0 0 2px var(--ink2); }
+/* estados */
+.mk[data-state="sel"] { transform: scale(1.25); box-shadow: inset 0 0 0 2px var(--ink); }
+/* dentro del mapa, el punto se centra en sus coordenadas */
+.map__mks .mk { position: absolute; transform: translate(-50%, -50%); }
+.map__mks .mk[data-state="sel"] { transform: translate(-50%, -50%) scale(1.25); }
+.mk[data-state="open"]::after {
+  content: ""; position: absolute; right: -3px; top: -3px; width: 8px; height: 8px;
+  background: var(--hi); border-radius: 2px; box-shadow: 0 0 0 2px var(--panel);
+}
+
+/* Asset integrado: la noria, el árbol… dibujos pixel que viven en el mapa, no chinchetas.
+   En la maqueta se usa el sprite grande sobre un recorte del mapa. */
+.asset {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 0; padding: 0; background: transparent; color: var(--ink);
+  pointer-events: auto; cursor: pointer;
+  filter: drop-shadow(0 0 0 transparent);
+}
+.asset .px { image-rendering: pixelated; }
+.asset[data-open="1"] .px { --i-a: var(--hi); }

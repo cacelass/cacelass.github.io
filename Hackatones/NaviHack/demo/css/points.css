@@ -1,0 +1,568 @@
+/* TinyVigo — panel, ficha, tour, paseo y vista ciudad sobre los tokens de web/ui/css/tokens.css.
+   Guía: web/ui/DESIGN.md (superficie sólida, Inter 28/20/16/14/12 y 400/500/600, cero sombras,
+   color solo para estado o el dorado de las luces, iconos Lucide, objetivos de 44 px). */
+@font-face { font-family: "Inter"; src: url("../ui/assets/fonts/Inter.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+
+:root, html[data-theme="light"] { --acc: var(--accent-3); --on-acc: #1d1d1d; }
+html[data-theme="dark"] { --acc: var(--accent-5); --on-acc: #1d1d1d; }
+
+.tv-panel, .tv-sheet, .tv-tour, .tv-step, .tv-view, .tv-tour-open, .tv-theme, #about-open, #zoom button {
+  font-family: var(--f-ui); color: var(--fg);
+}
+.tv-panel button, .tv-sheet button, .tv-tour button, .tv-step button, .tv-search { font: inherit; color: inherit; }
+.lu { display: block; flex: none; }
+
+/* superficies sólidas: lo que flota va en --raised con filo de 1 px */
+.tv-panel, .tv-sheet, .tv-tour, .tv-step { background: var(--raised); border: 1px solid var(--line); border-radius: var(--r-panel); box-sizing: border-box; font-size: var(--fs-label); line-height: 1.4; }
+
+/* panel de lista */
+.tv-panel { position: fixed; z-index: 6; top: 12px; left: 12px; bottom: 12px; width: var(--panel-w, 380px); container-type: inline-size; padding: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3); }
+.tv-panel header { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.tv-panel h1 { margin: 0; font-size: var(--fs-title); font-weight: var(--w-600); }
+.tv-toggle { display: none; }
+.tv-panel.is-collapsed { bottom: auto; width: auto; min-width: 220px; padding: var(--sp-2); }
+.tv-panel.is-collapsed > :not(.tv-toggle) { display: none; }
+.tv-panel.is-collapsed .tv-toggle { display: flex; align-items: center; gap: var(--sp-2); width: 100%; min-height: var(--tap); border: 0; background: none; text-align: left; font-weight: var(--w-600); font-size: var(--fs-copy); padding: 0 var(--sp-2); cursor: pointer; }
+.tv-toggle-t { flex: 1; }
+.tv-min { flex: none; width: var(--tap); height: var(--tap); margin-right: calc(-1 * var(--sp-2)); display: grid; place-items: center; border: 0; background: none; color: var(--fg-2); cursor: pointer; }
+.tv-min:hover { color: var(--fg); }
+.tv-langs { display: flex; gap: 2px; background: var(--sunk); border-radius: var(--r-ctl); padding: 2px; }
+.tv-langs button { border: 0; background: none; border-radius: var(--r-sm); min-height: 40px; padding: 0 var(--sp-2); font-size: var(--fs-meta); font-weight: var(--w-500); cursor: pointer; color: var(--fg-2); }
+.tv-langs .is-on { background: var(--raised); color: var(--fg); }
+.tv-search { box-sizing: border-box; width: 100%; height: var(--tap); border: 0; border-radius: var(--r-ctl); padding: 0 var(--sp-3); background: var(--sunk); outline: none; font-size: var(--fs-copy); }
+.tv-search::placeholder { color: var(--fg-3); }
+.tv-search:focus-visible { outline: 2px solid var(--acc); }
+.tv-chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: none; }
+.tv-chips button { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; border: 0; border-radius: var(--r-ctl); padding: 0 var(--sp-3); background: var(--sunk); cursor: pointer; color: var(--fg-2); font-size: var(--fs-label); font-weight: var(--w-500); }
+.tv-chips .is-on { background: var(--accent-2); color: var(--accent-7); }
+html[data-theme="dark"] .tv-chips .is-on { background: var(--accent-3); }
+.tv-count { margin: 0; font-size: var(--fs-meta); color: var(--fg-3); }
+.tv-list { list-style: none; margin: 0 calc(-1 * var(--sp-2)); padding: 0; overflow-y: auto; flex: 1; }
+.tv-list button { width: 100%; display: flex; align-items: center; gap: var(--sp-3); min-height: 52px; border: 0; border-radius: var(--r-ctl); background: none; padding: 4px var(--sp-2); text-align: left; cursor: pointer; }
+.tv-list button:hover, .tv-list button:focus-visible { background: var(--surface); }
+.tv-thumb { width: 44px; height: 44px; flex: none; border-radius: var(--r-sm); object-fit: cover; background: var(--sunk); display: grid; place-items: center; color: var(--fg-3); }
+.tv-name { flex: 1; font-size: var(--fs-label); font-weight: var(--w-500); }
+.tv-badge { font-size: var(--fs-meta); color: var(--fg-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tv-badge.is-open { color: var(--ok); font-weight: var(--w-500); }
+
+/* marcador sobre el mapa. WEB-02: icono Lucide por tipo, grupo con número */
+
+/* ficha de un punto */
+.tv-sheet { position: fixed; z-index: 7; right: 12px; top: 12px; width: 380px; max-height: calc(100vh - 24px); overflow: auto; padding: var(--sp-4); transform: translateX(calc(100% + 24px)); transition: transform .5s var(--ease); }
+.tv-sheet.is-open { transform: none; }
+.tv-sheet h2, .tv-tour h2, .tv-step h2 { margin: 2px 0 6px; font-size: var(--fs-title); font-weight: var(--w-600); line-height: 1.25; }
+.tv-kicker, .tv-note { margin: 0; font-size: var(--fs-meta); color: var(--fg-3); }
+.tv-state { margin: 0 0 var(--sp-2); font-weight: var(--w-500); color: var(--fg-2); }
+.tv-state.is-open { color: var(--ok); }
+.tv-short { margin: 0 0 var(--sp-3); font-size: var(--fs-copy); color: var(--fg-2); }
+.tv-sched summary { cursor: pointer; color: var(--fg); font-weight: var(--w-500); min-height: 32px; }
+.tv-sched p { white-space: pre-line; margin: 0 0 var(--sp-3); font-size: var(--fs-label); color: var(--fg-2); }
+.tv-actions { display: flex; gap: var(--sp-2); margin-top: var(--sp-2); flex-wrap: wrap; }
+.tv-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: var(--tap); padding: 0 var(--sp-4); border: 0; border-radius: var(--r-ctl); background: var(--acc); color: var(--on-acc) !important; font-size: var(--fs-label); font-weight: var(--w-600); text-decoration: none; cursor: pointer; }
+.tv-btn-quiet { background: var(--sunk); color: var(--fg) !important; font-weight: var(--w-500); }
+.tv-btn:disabled { opacity: .45; cursor: default; }
+.tv-close { float: right; width: var(--tap); height: var(--tap); margin: -8px -8px 0 0; display: grid; place-items: center; border: 0; border-radius: var(--r-ctl); background: var(--sunk); cursor: pointer; }
+.tv-sheet img.tv-photo { width: calc(100% + 32px); margin: -16px -16px var(--sp-3); height: 190px; object-fit: cover; border-radius: var(--r-panel) var(--r-panel) 0 0; display: block; }
+
+/* tour */
+.tv-tour-open { position: fixed; z-index: 6; left: 50%; bottom: 14px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 52px; padding: 0 var(--sp-5); border: 0; border-radius: var(--r-panel); background: var(--acc); color: var(--on-acc); font-size: var(--fs-copy); font-weight: var(--w-600); cursor: pointer; }
+.tv-tour { position: fixed; z-index: 8; right: 12px; top: 12px; width: 400px; max-height: calc(100vh - 24px); overflow: auto; padding: var(--sp-4); display: none; flex-direction: column; gap: var(--sp-3); }
+.tv-tour.is-open { display: flex; }
+.tv-tour h3 { margin: var(--sp-2) 0 0; font-size: var(--fs-copy); font-weight: var(--w-600); }
+.tv-tour p { margin: 0; }
+.tv-tour .tv-close { position: absolute; top: 12px; right: 12px; margin: 0; }
+.tv-from { align-self: flex-start; }
+.tv-summary { font-size: var(--fs-copy); font-weight: var(--w-600); color: var(--fg); }
+.tv-later ul, .tv-parkings { list-style: none; margin: 0; padding: 0; }
+.tv-later button, .tv-parkings a { width: 100%; display: flex; align-items: center; gap: var(--sp-3); min-height: var(--tap); border: 0; border-radius: var(--r-ctl); background: none; padding: 0 6px; text-align: left; cursor: pointer; color: var(--fg); text-decoration: none; }
+.tv-later button:hover, .tv-parkings a:hover { background: var(--surface); }
+.tv-num { width: 24px; height: 24px; flex: none; display: grid; place-items: center; border-radius: var(--r-sm); background: var(--acc); color: var(--on-acc); font-weight: var(--w-600); font-size: var(--fs-meta); font-variant-numeric: tabular-nums; }
+.tv-later summary { cursor: pointer; color: var(--fg-2); min-height: 32px; font-weight: var(--w-500); }
+.tv-modes { display: grid; gap: 6px; }
+.tv-mode { display: grid; gap: 2px; padding: var(--sp-3); border-radius: var(--r-ctl); background: var(--surface); color: var(--fg); text-decoration: none; font-weight: var(--w-500); }
+.tv-mode:first-child { background: var(--accent-2); }
+.tv-mode span { font-size: var(--fs-meta); color: var(--fg-2); font-weight: var(--w-400); }
+
+/* tira «vas a ver» */
+.tv-story { list-style: none; margin: 0; padding: 0 0 4px; display: flex; gap: var(--sp-2); overflow-x: auto; }
+.tv-story li { flex: none; width: 132px; }
+.tv-story button { width: 100%; display: grid; gap: 4px; padding: 0 0 var(--sp-2); border: 0; border-radius: var(--r-ctl); background: var(--surface); cursor: pointer; text-align: left; position: relative; overflow: hidden; }
+.tv-story img, .tv-story-ph { width: 100%; height: 86px; object-fit: cover; display: block; background: var(--sunk); }
+.tv-story .tv-num { position: absolute; top: 6px; left: 6px; }
+.tv-story-name { padding: 0 var(--sp-2); font-size: var(--fs-meta); font-weight: var(--w-500); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 31px; }
+.tv-story .tv-badge { padding: 0 var(--sp-2); }
+
+/* paseo paso a paso: imagen a la izquierda con sitio, arriba en estrecho */
+.tv-step { position: fixed; z-index: 9; left: 50%; bottom: 12px; width: min(560px, calc(100vw - 16px)); transform: translate(-50%, calc(100% + 24px)); transition: transform .5s var(--ease); padding: var(--sp-4); overflow: hidden; container-type: inline-size; }
+.tv-step.is-open { transform: translate(-50%, 0); }
+.tv-step-body { display: grid; grid-template-columns: 200px 1fr; gap: var(--sp-4); }
+.tv-step-photo { width: 100%; height: 100%; min-height: 160px; object-fit: cover; display: block; border-radius: var(--r-ctl); }
+@container (max-width: 480px) { .tv-step-body { grid-template-columns: 1fr; } .tv-step-photo { height: 140px; min-height: 0; } }
+.tv-step-leg { margin: 0 0 6px; color: var(--fg); font-weight: var(--w-500); display: flex; align-items: center; gap: 6px; }
+.tv-step .tv-short { margin: 0 0 var(--sp-2); font-size: var(--fs-label); }
+.tv-step-dots { display: flex; gap: 4px; margin: var(--sp-3) 0 var(--sp-2); }
+.tv-step-dots span { flex: 1; height: 4px; border-radius: 2px; background: var(--sunk); }
+.tv-step-dots .is-done { background: var(--accent-3); } .tv-step-dots .is-on { background: var(--acc); }
+.tv-step .tv-actions { justify-content: space-between; }
+.tv-step .tv-close { position: absolute; top: 8px; right: 8px; margin: 0; z-index: 1; }
+
+/* ruta sobre el isométrico */
+.tv-route { pointer-events: none; overflow: visible; }
+.tv-route-casing { fill: none; stroke: #4a2d00; stroke-width: 18; stroke-linejoin: round; stroke-linecap: round; opacity: .8; }
+.tv-route-line { fill: none; stroke: #f4cd80; stroke-width: 9; stroke-linejoin: round; stroke-linecap: round; }
+.tv-route-start { fill: #3d6a96; stroke: #fff; stroke-width: 5; }
+.tv-route-stop circle { fill: #f4cd80; stroke: #4a2d00; stroke-width: 5; }
+.tv-route-stop text { font: 600 22px var(--f-ui); fill: #4a2d00; text-anchor: middle; }
+
+/* botones fijos sobre el mapa: sólidos */
+.tv-view, .tv-theme { position: fixed; z-index: 6; right: 12px; display: inline-flex; align-items: center; gap: 6px; min-height: var(--tap); min-width: var(--tap); justify-content: center; padding: 0 var(--sp-3); border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--raised); font-size: var(--fs-label); font-weight: var(--w-500); cursor: pointer; }
+.tv-view { bottom: 124px; }
+.tv-theme { top: 12px; padding: 0; }
+
+/* vista ciudad */
+#city { position: fixed; inset: 0; z-index: 4; display: none; background: var(--bg); }
+body.is-city #city { display: block; }
+body.is-city #zoom { display: none; }
+html[data-theme="dark"] .tv-osm { filter: brightness(.62) saturate(.7) contrast(1.1) hue-rotate(195deg) invert(.92); }
+/* marcador: la foto entera (no recortada) en una tarjeta con punta que señala el sitio exacto */
+.tv-pin { position: relative; width: 84px; height: 56px; overflow: visible; border-radius: var(--r-ctl); background: var(--sunk); border: 3px solid var(--acc); box-sizing: border-box; display: grid; place-items: center; color: var(--fg-2); box-shadow: 0 2px 6px rgba(0, 0, 0, .35); }
+.tv-pin::after { content: ""; position: absolute; left: 50%; bottom: -11px; transform: translateX(-50%); border: 8px solid transparent; border-top: 9px solid var(--acc); border-bottom: 0; }
+.tv-pin.is-open { border-color: var(--ok); }
+.tv-pin.is-open::after { border-top-color: var(--ok); }
+/* Leaflet fuerza width/height:auto en las img del panel de marcadores: hay que ganarle en especificidad */
+.leaflet-container .leaflet-marker-pane .tv-pin img, .tv-pin img { width: 78px !important; height: 50px !important; max-width: none; object-fit: contain; display: block; border-radius: calc(var(--r-ctl) - 3px); }
+.tv-park { display: inline-flex; align-items: center; gap: 4px; height: 26px; padding: 0 8px 0 3px; border-radius: var(--r-sm); font: var(--w-600) var(--fs-meta)/1 var(--f-ui); background: var(--raised); color: var(--fg); border: 1px solid var(--line); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tv-park b { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 4px; background: #3d6a96; color: #fff; }
+.tv-park-ok { color: var(--ok); } .tv-park-low { color: var(--warning); } .tv-park-full { color: var(--danger); }
+.tv-stopnum { width: 28px; height: 28px; display: grid; place-items: center; border-radius: var(--r-sm); background: #f4cd80; color: #4a2d00; font: var(--w-600) var(--fs-label) var(--f-ui); box-shadow: inset 0 0 0 2px #4a2d00; }
+.leaflet-container { font: var(--fs-label) var(--f-ui); background: var(--bg); }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--raised); color: var(--fg); box-shadow: none; border: 1px solid var(--line); }
+.leaflet-popup-content a { color: var(--fg); font-weight: var(--w-500); }
+.leaflet-bar { border: 1px solid var(--line) !important; box-shadow: none !important; }
+.leaflet-bar a { background: var(--raised); color: var(--fg); border-color: var(--line); width: var(--tap) !important; height: var(--tap) !important; line-height: var(--tap) !important; }
+.leaflet-control-attribution { font-size: var(--fs-meta); }
+
+/* móvil */
+@media (max-width: 700px) {
+  .tv-panel { top: 8px; left: 8px; right: 60px; bottom: auto; width: auto; max-height: 58vh; padding: var(--sp-3); }
+
+  .tv-sheet, .tv-tour { left: 8px; right: 8px; top: auto; bottom: 8px; width: auto; max-height: 72vh; }
+  .tv-sheet { transform: translateY(calc(100% + 16px)); }
+  .tv-sheet.is-open { transform: none; }
+  .tv-view { bottom: 76px; right: 8px; }
+  .tv-theme { top: 8px; right: 8px; }
+}
+
+/* D-18: frescura del dato (verificado / sin confirmar / caducado) */
+.tv-fresh { margin: var(--sp-2) 0 0; font-size: var(--fs-meta); color: var(--fg-3); }
+.tv-fresh.is-stale { color: var(--danger); }
+.tv-fresh.is-stale::before { content: "⚠ "; }
+.tv-park-stale { color: var(--fg-3); opacity: .75; }
+/* números de la ruta: se pueden pulsar (abren esa parada del paseo) */
+.tv-route .tv-route-stop { pointer-events: auto; cursor: pointer; }
+.tv-route-stop .tv-route-hit { fill: transparent; stroke: none; }
+.tv-route-stop:hover circle:first-child { fill: #fff1c9; }
+.tv-stopnum { cursor: pointer; }
+
+/* Hoy en Vigo: dos botones abajo, Tour y Hoy */
+.tv-tour-open { transform: translateX(calc(-100% - 4px)); }
+.tv-today-open { position: fixed; z-index: 6; left: 50%; bottom: 14px; transform: translateX(4px); display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 52px; padding: 0 var(--sp-5); border: 1px solid var(--line); border-radius: var(--r-panel); background: var(--raised); color: var(--fg); font: var(--w-600) var(--fs-copy)/1 var(--f-ui); cursor: pointer; }
+.tv-evlist { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-2); }
+.tv-ev { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3); border-radius: var(--r-ctl); background: var(--surface); }
+.tv-ev-main { flex: 1; min-width: 0; }
+.tv-ev-title { margin: 0 0 2px; font-size: var(--fs-label); font-weight: var(--w-500); }
+.tv-ev-place { margin: 0 0 2px; display: flex; align-items: center; gap: 4px; font-size: var(--fs-meta); color: var(--fg-2); }
+.tv-ev-go { flex: none; min-height: 40px; padding: 0 var(--sp-3); font-size: var(--fs-meta); }
+.tv-events .tv-note a { color: var(--fg); }
+@media (max-width: 700px) { .tv-tour-open, .tv-today-open { padding: 0 var(--sp-4); bottom: 10px; } }
+
+/* X-04: bus y tren programados */
+.tv-transit { margin-top: var(--sp-3); padding-top: var(--sp-2); border-top: 1px solid var(--line); }
+.tv-deps { list-style: none; margin: var(--sp-2) 0; padding: 0; display: grid; gap: 2px; font-size: var(--fs-label); }
+.tv-deps b { font-variant-numeric: tabular-nums; }
+.tv-transit-leg { margin-top: var(--sp-2); }
+.tv-train { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--raised); border: 1px solid var(--line); color: var(--fg); }
+/* lo fijo del panel no encoge; solo la lista */
+.tv-panel > header, .tv-panel > .tv-search, .tv-panel > .tv-chips, .tv-panel > .tv-count { flex: none; }
+@media (max-width: 700px) {
+  #zoom, body.is-city .leaflet-control-zoom { display: none; }   /* en móvil se hace zoom con los dedos */
+  .tv-panel.is-collapsed { right: auto; }
+  .tv-today-open, .tv-tour-open { min-height: 48px; }
+}
+
+/* Navidad hoy: línea de tiempo con horas reales */
+.tv-timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.tv-timeline button { width: 100%; display: flex; align-items: center; gap: var(--sp-3); min-height: var(--tap); padding: 6px var(--sp-2); border: 0; border-radius: var(--r-ctl); background: none; text-align: left; cursor: pointer; color: var(--fg); }
+.tv-timeline button:hover { background: var(--surface); }
+.tv-timeline .is-past { opacity: .5; }
+.tv-time { flex: none; width: 52px; font-size: var(--fs-label); font-weight: var(--w-600); font-variant-numeric: tabular-nums; }
+.tv-tl-main { display: grid; gap: 1px; min-width: 0; }
+.tv-open-list { gap: 0; }
+.tv-open-list button { width: 100%; display: flex; align-items: center; gap: var(--sp-3); min-height: 52px; padding: 4px var(--sp-2); border: 0; border-radius: var(--r-ctl); background: none; text-align: left; cursor: pointer; color: var(--fg); }
+.tv-open-list button:hover { background: var(--surface); }
+
+/* búsqueda (WEB-03): resultados agrupados bajo el cuadro del panel */
+.tv-panel { position: fixed; }
+.tv-results { display: none; position: absolute; z-index: 10; left: var(--sp-4); right: var(--sp-4); top: 120px; max-height: calc(100% - 140px); overflow: auto; padding: var(--sp-2); background: var(--raised); border: 1px solid var(--line); border-radius: var(--r-ctl); }
+.tv-results.is-open { display: block; }
+.tv-res-head { display: flex; align-items: center; gap: 6px; margin: var(--sp-2) var(--sp-2) 4px; font-size: var(--fs-meta); font-weight: var(--w-500); color: var(--fg-3); }
+.tv-res { width: 100%; display: flex; align-items: center; gap: var(--sp-2); min-height: var(--tap); padding: 0 var(--sp-2); border: 0; border-radius: var(--r-sm); background: none; text-align: left; cursor: pointer; color: var(--fg); font: var(--w-500) var(--fs-label)/1.3 var(--f-ui); }
+.tv-res:hover, .tv-res.is-active { background: var(--surface); }
+.tv-res .tv-badge { max-width: 45%; overflow: hidden; text-overflow: ellipsis; }
+.tv-res-empty { padding: var(--sp-2); }
+@media (max-width: 700px) { .tv-results { left: var(--sp-3); right: var(--sp-3); top: 108px; } }
+
+/* número del grupo de marcadores */
+.tv-marker.is-group .tv-grp { position: absolute; z-index: 2; top: -8px; right: -10px; min-width: 18px; height: 18px; padding: 0 4px; box-sizing: border-box; display: grid; place-items: center; border-radius: 9px; background: #f4cd80; color: #1d1d1d; font: 600 12px/1 var(--f-ui); font-variant-numeric: tabular-nums; }
+.tv-marker:not(.is-group) .tv-grp { display: none; }
+
+/* compartir (SHARE-01) */
+.tv-toast { position: fixed; z-index: 20; left: 50%; bottom: 84px; transform: translateX(-50%); padding: var(--sp-3) var(--sp-4); border-radius: var(--r-ctl); background: var(--fg); color: var(--raised); font: var(--w-500) var(--fs-label)/1 var(--f-ui); }
+
+/* parking más cercano en la ficha (PREVIEW-01) */
+.tv-parking:not(:empty) { margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--line); display: grid; gap: 4px; }
+.tv-parking a { display: flex; align-items: center; gap: var(--sp-2); min-height: var(--tap); padding: 0 var(--sp-2); border-radius: var(--r-ctl); background: var(--surface); color: var(--fg); text-decoration: none; font-weight: var(--w-500); }
+.tv-parking a::before { content: "P"; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 4px; background: #3d6a96; color: #fff; font-weight: var(--w-600); font-size: var(--fs-meta); }
+
+/* GO-01: cómo llegar al primer punto */
+.tv-go { display: grid; gap: var(--sp-2); margin-top: var(--sp-3); }
+.tv-go h3 { margin: 0; font-size: var(--fs-copy); font-weight: var(--w-600); }
+.tv-goopts { display: grid; gap: var(--sp-2); }
+.tv-goopt { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: var(--sp-3); min-height: var(--tap); padding: var(--sp-3); border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--surface); color: var(--fg); text-align: left; cursor: pointer; font: inherit; }
+.tv-goopt:hover:not(:disabled), .tv-goopt:focus-visible { border-color: var(--acc); }
+.tv-goopt.is-off { opacity: .55; cursor: default; }
+.tv-goopt-body { display: grid; gap: 2px; min-width: 0; }
+.tv-goopt-body span { font-size: var(--fs-meta); color: var(--fg-2); overflow: hidden; text-overflow: ellipsis; }
+.tv-leg-icon { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--sunk); color: var(--fg); }
+.tv-leg-time { font-weight: var(--w-600); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tv-legs { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.tv-leg { display: grid; grid-template-columns: 36px 1fr auto; gap: var(--sp-3); align-items: start; padding: var(--sp-2) 0; position: relative; }
+.tv-leg + .tv-leg::before { content: ""; position: absolute; left: 17px; top: -6px; height: 12px; border-left: 2px dotted var(--line); }
+.tv-leg-body { display: grid; gap: 2px; min-width: 0; }
+.tv-leg-body span { font-size: var(--fs-meta); color: var(--fg-2); }
+.tv-leg-maps { display: inline-flex; align-items: center; gap: 4px; font-size: var(--fs-meta); color: var(--acc); text-decoration: none; width: fit-content; }
+.tv-leg-car .tv-leg-icon { background: #4ea3ff; color: #0d1320; }
+.tv-leg-bus .tv-leg-icon { background: #34c38f; color: #0d1320; }
+.tv-leg-walk .tv-leg-icon { background: #f4cd80; color: #0d1320; }
+.tv-go-alt { justify-content: flex-start; gap: 6px; }
+.tv-loading::before { content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 8px; vertical-align: -1px; border: 2px solid var(--fg-3); border-top-color: transparent; border-radius: 50%; animation: tv-spin .8s linear infinite; }
+@keyframes tv-spin { to { transform: rotate(360deg); } }
+.tv-legpin { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13px; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, .4); color: #0d1320; }
+.tv-legpin.is-park { background: #4ea3ff; }
+.tv-legpin.is-bus { background: #34c38f; }
+
+/* fotos completas, sin recorte ni zoom, aunque queden pequeñas (fondo neutro alrededor) */
+.tv-pin img, .tv-sheet img.tv-photo, .tv-story img, .tv-step-photo { object-fit: contain; background: var(--sunk); }
+.tv-pin { background: var(--sunk); }
+
+/* marcadores del isométrico a 2/3 del tamaño */
+.tv-marker.is-group .tv-grp { top: -7px; right: -9px; min-width: 16px; height: 16px; font-size: 12px; }
+.tv-offmap { display: grid; gap: 6px; margin-top: var(--sp-3); justify-items: start; }
+
+/* UI-05: ficha rediseñada */
+.tv-sheet { padding-top: var(--sp-4); }
+.tv-hero { position: relative; margin: -16px -16px var(--sp-3); }
+.tv-hero-zoom { display: block; width: 100%; padding: 0; border: 0; background: var(--sunk); cursor: zoom-in; border-radius: var(--r-panel) var(--r-panel) 0 0; overflow: hidden; }
+.tv-sheet .tv-hero img.tv-photo { width: 100%; height: 210px; margin: 0; border-radius: 0; object-fit: contain; }
+.tv-close-float { position: absolute; top: 10px; right: 10px; float: none; margin: 0; background: rgba(16, 18, 26, .72); color: #fff; }
+.tv-hero.is-empty { display: none; }
+.tv-sched summary { display: flex; align-items: center; gap: 6px; }
+.tv-addr { display: grid; gap: var(--sp-2); margin-top: var(--sp-3); }
+.tv-addr-line { margin: 0; display: flex; align-items: center; gap: 6px; font-size: var(--fs-label); color: var(--fg-2); }
+.tv-mini { position: relative; height: 120px; padding: 0; border: 1px solid var(--line); border-radius: var(--r-ctl); overflow: hidden; background: var(--sunk); cursor: pointer; }
+.tv-mini-tiles { position: absolute; left: 0; top: 0; width: 768px; display: grid; grid-template-columns: repeat(3, 256px); }
+.tv-mini-tiles img { width: 256px; height: 256px; display: block; }
+html[data-theme="dark"] .tv-mini-tiles { filter: brightness(.62) saturate(.7) contrast(1.1) hue-rotate(195deg) invert(.92); }
+.tv-mini-pin { position: absolute; left: 50%; top: 60px; width: 26px; height: 32px; margin: -32px 0 0 -13px; }
+.tv-lightbox { padding: 0; border: 0; background: transparent; max-width: 96vw; max-height: 92vh; }
+.tv-lightbox::backdrop { background: rgba(8, 10, 16, .88); }
+.tv-lightbox img { display: block; max-width: 96vw; max-height: 88vh; object-fit: contain; border-radius: var(--r-ctl); cursor: zoom-out; }
+.tv-lightbox .tv-close { position: fixed; top: 12px; right: 12px; float: none; margin: 0; background: rgba(255, 255, 255, .14); color: #fff; }
+/* bus en la ficha: icono, línea como chip, distancia clara, «programado» discreto */
+.tv-transit-head { display: flex; align-items: center; gap: var(--sp-3); }
+.tv-transit-ic { width: 36px; height: 36px; flex: none; display: grid; place-items: center; border-radius: var(--r-ctl); background: var(--surface); color: var(--fg); }
+.tv-transit-stop { display: grid; gap: 1px; min-width: 0; }
+.tv-transit-stop strong { font-size: var(--fs-label); font-weight: var(--w-500); }
+.tv-transit-stop span { font-size: var(--fs-meta); color: var(--fg-2); }
+.tv-deps li { display: flex; align-items: center; gap: var(--sp-2); min-height: 32px; }
+.tv-dep-time { width: 44px; font-variant-numeric: tabular-nums; }
+.tv-line { display: inline-grid; place-items: center; min-width: 32px; height: 22px; padding: 0 6px; border-radius: var(--r-sm); background: #3d6a96; color: #fff; font-size: var(--fs-meta); font-weight: var(--w-600); }
+.tv-dep-to { font-size: var(--fs-meta); color: var(--fg-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tv-transit-note { font-size: var(--fs-meta); opacity: .8; }
+
+/* UI-06: un botón de Ajustes reúne idioma, vista, tema e información */
+body.tv-has-settings #about-open, body.tv-has-settings .tv-theme, body.tv-has-settings .tv-view, body.tv-has-settings .tv-panel .tv-langs { display: none !important; }
+.tv-settings-open { position: fixed; z-index: 8; top: 12px; right: 12px; width: var(--tap); height: var(--tap); display: grid; place-items: center; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--raised); color: var(--fg); cursor: pointer; }
+body:has(.tv-sheet.is-open) .tv-settings-open, body:has(.tv-tour.is-open) .tv-settings-open { display: none; }
+.tv-settings { display: none; position: fixed; z-index: 11; top: 64px; right: 12px; width: 300px; padding: var(--sp-4); box-sizing: border-box; flex-direction: column; gap: var(--sp-2); background: var(--raised); border: 1px solid var(--line); border-radius: var(--r-panel); font: var(--fs-label)/1.4 var(--f-ui); color: var(--fg); }
+.tv-settings.is-open { display: flex; }
+.tv-settings h2 { margin: 0 0 var(--sp-2); font-size: var(--fs-title); font-weight: var(--w-600); }
+.tv-settings .tv-close { position: absolute; top: 10px; right: 10px; margin: 0; float: none; color: var(--fg); }
+.tv-settings button { font: inherit; color: inherit; }
+.tv-seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; }
+.tv-seg button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: var(--fs-label); }
+.tv-settings .tv-btn { margin-top: var(--sp-2); }
+@media (max-width: 700px) { .tv-settings-open { top: 8px; right: 8px; } .tv-settings { top: 60px; left: 8px; right: 8px; width: auto; } }
+
+/* UI-06: marcadores del isométrico con forma de pin de mapa */
+
+/* UI-06: «Hoy» con imagen o icono en cada fila */
+.tv-tl-img { width: 40px; height: 40px; }
+.tv-timeline .tv-thumb, .tv-ev > .tv-thumb { width: 40px; height: 40px; }
+
+/* ── A11Y (Miguel2: settings, ficha, Hoy, marcadores) ───────────────────────── */
+.tv-panel :focus-visible, .tv-sheet :focus-visible, .tv-tour :focus-visible, .tv-step :focus-visible, .tv-settings :focus-visible,
+.tv-settings-open:focus-visible, .tv-tour-open:focus-visible, .tv-today-open:focus-visible, .tv-marker:focus-visible, #zoom button:focus-visible, .tv-mini:focus-visible, .tv-hero-zoom:focus-visible {
+  outline: 3px solid var(--acc); outline-offset: 2px;
+}
+.tv-sheet h2:focus, .tv-events h2:focus { outline: none; }
+.tv-sheet h2:focus-visible, .tv-events h2:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.tv-timeline .is-past { opacity: .62; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
+
+/* UI-07: imágenes con proporción fija (aspect-ratio + object-fit) y datos sobre la imagen, como en una red social */
+:root { --chip-ok: #2f7a41; --chip-bad: #b53a26; --chip-dark: #1b1f2c; --chip-gold: #f4cd80; }
+.tv-thumb { width: 84px; height: auto; aspect-ratio: 3 / 2; flex: none; border-radius: var(--r-ctl); object-fit: cover; background: var(--sunk); display: grid; place-items: center; color: var(--fg-3); }
+.tv-list button { min-height: 72px; align-items: center; }
+.tv-row { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.tv-row .tv-name { flex: none; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.3; }
+.tv-sub, .tv-row .tv-badge { display: flex; align-items: center; gap: 4px; font-size: var(--fs-meta); color: var(--fg-2); white-space: normal; }
+.tv-row .tv-badge.is-open { color: var(--ok); }
+.tv-row .tv-badge.is-closed { color: var(--danger); }
+.tv-sub svg { color: var(--accent-5); }
+.tv-timeline .tv-thumb, .tv-ev > .tv-thumb { width: 60px; height: auto; aspect-ratio: 3 / 2; }
+
+/* hero de la ficha: marco 3:2; la foto va entera (contain) sobre su propio desenfoque, sin barras vacías ni recorte */
+.tv-hero { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-radius: var(--r-panel) var(--r-panel) 0 0; background: var(--sunk); isolation: isolate; }
+.tv-hero::before { content: ""; position: absolute; inset: -24px; z-index: -1; background: var(--photo, none) center / cover; filter: blur(22px); }
+.tv-hero-zoom { position: absolute; inset: 0; border-radius: 0; background: none; }
+.tv-sheet .tv-hero img.tv-photo { width: 100%; height: 100%; object-fit: contain; display: block; background: transparent; }
+.tv-hero.is-empty { display: none; }
+.tv-hero.is-ph { aspect-ratio: 3 / 1; display: grid; place-items: center; }
+.tv-hero.is-ph::before { display: none; }
+.tv-hero-ic { color: var(--fg-3); }
+.tv-chip { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 0 var(--sp-3) 0 var(--sp-2); border-radius: var(--r-ctl); font-size: var(--fs-meta); font-weight: var(--w-600); color: #fff; background: var(--chip-dark); }
+.tv-chip-type { top: 10px; left: 10px; }
+.tv-chip-type svg { color: var(--chip-gold); }
+.tv-chip-state { bottom: 10px; left: 10px; font-variant-numeric: tabular-nums; }
+.tv-chip-state.is-open { background: var(--chip-ok); }
+.tv-chip-state.is-closed { background: var(--chip-bad); }
+.tv-hero.is-ph .tv-chip-state { bottom: 10px; }
+.tv-hero .tv-close-float { z-index: 3; background: var(--chip-dark); color: #fff; }
+@media (max-width: 700px) { .tv-hero:not(.is-ph) { aspect-ratio: 16 / 9; } }
+
+/* UI-07: acciones a todo el ancho; compartir es solo el icono */
+.tv-actions { flex-wrap: nowrap; align-items: stretch; width: 100%; }
+.tv-actions > .tv-btn { flex: 1 1 0; min-width: 0; text-align: center; }
+.tv-actions > .tv-btn-icon { flex: 0 0 var(--tap); width: var(--tap); padding: 0; }
+.tv-sheet > :not(.tv-hero), .tv-tour > * { max-width: 100%; box-sizing: border-box; }
+.tv-sheet .tv-btn-quiet:not(.tv-btn-icon) { width: 100%; }
+.tv-offmap { justify-items: stretch; }
+
+/* Scroll sin romper al padre: el desplazamiento no se encadena al mapa y la lista puede encoger dentro del flex */
+.tv-list, .tv-sheet, .tv-tour, .tv-results, .tv-settings, .tv-step, .about-dialog, dialog { overscroll-behavior: contain; }
+.tv-list { min-height: 0; scrollbar-gutter: stable; }
+.tv-chips, .tv-story { overscroll-behavior-x: contain; }
+
+/* Marcadores de ubicación: pin de Lucide (map-pin) con relleno amarillo y el icono del tipo dentro.
+   Oscuro: amarillo claro con icono casi negro. Claro: amarillo dorado con icono casi negro (el blanco sobre amarillo no llega a AA). */
+:root, html[data-theme="light"] { --pin-fill: #f0bf4c; --pin-ink: #1d1d1d; }
+html[data-theme="dark"] { --pin-fill: #f4cd80; --pin-ink: #1d1d1d; }
+.tv-marker { width: 26px; height: 32px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; display: block; color: var(--pin-ink); transition: transform .25s var(--ease); transform-origin: 50% 100%; }
+.tv-marker:hover, .tv-marker.is-selected { transform: scale(1.18); }
+.tv-pin-shape { position: absolute; inset: 0; width: 26px; height: 32px; fill: var(--pin-fill); stroke: none; }
+.tv-marker > svg.lu { position: absolute; left: 6px; top: 6px; width: 14px; height: 14px; z-index: 1; }
+.tv-mini-pin .tv-pin-shape { width: 26px; height: 32px; }
+.tv-mini-pin::after { content: ""; position: absolute; left: 10px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--pin-ink); }
+
+/* UI-07: panel redimensionable, imágenes grandes que crecen con el ancho (container query) */
+.tv-grip { position: absolute; top: 0; right: -6px; width: 12px; height: 100%; cursor: ew-resize; touch-action: none; z-index: 2; }
+.tv-grip::after { content: ""; position: absolute; top: 50%; left: 5px; width: 3px; height: 40px; margin-top: -20px; border-radius: 2px; background: var(--fg-3); opacity: 0; transition: opacity .2s; }
+.tv-panel:hover .tv-grip::after, .tv-grip:focus-visible::after, .tv-panel.is-resizing .tv-grip::after { opacity: .6; }
+.tv-panel.is-resizing { user-select: none; }
+.tv-panel.is-collapsed .tv-grip { display: none; }
+.tv-thumb { width: 112px; }
+.tv-list button { min-height: 96px; }
+@container (min-width: 440px) {
+  .tv-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: var(--sp-3); align-content: start; padding: 0 var(--sp-2); }
+  .tv-list button { flex-direction: column; align-items: stretch; gap: var(--sp-2); padding: 0 0 var(--sp-2); min-height: 0; height: 100%; }
+  .tv-list .tv-thumb { width: 100%; }
+  .tv-list .tv-row { padding: 0 var(--sp-1); }
+}
+@media (max-width: 700px) { .tv-grip { display: none; } .tv-panel { width: auto; } }
+
+/* Hoy: a toda la altura, y «ver en el mapa» sin fondo, con el icono en color */
+:root, html[data-theme="light"] { --link: var(--accent-6); }
+html[data-theme="dark"] { --link: var(--accent-5); }
+.tv-events.is-open { height: calc(100vh - 24px); max-height: none; }
+.tv-ev .tv-ev-go { background: none; color: var(--fg) !important; padding: 0 var(--sp-2); gap: 6px; font-weight: var(--w-500); }
+.tv-ev .tv-ev-go svg { color: var(--link); }
+.tv-ev .tv-ev-go:hover { text-decoration: underline; text-underline-offset: 3px; }
+.tv-timeline .tv-thumb, .tv-ev > .tv-thumb { width: 84px; }
+
+/* hero sin marco: la foto llena el hueco; el desenfoque solo asoma en fotos muy verticales */
+.tv-hero { background: none; }
+@media (max-width: 700px) { .tv-hero:not(.is-ph) { aspect-ratio: auto; } }
+/* tiempo en «Navidad hoy» (D-10, Open-Meteo) — Miguel2 */
+.tv-wx { display: grid; gap: var(--sp-2); padding: var(--sp-3); border-radius: var(--r-ctl); background: var(--surface); }
+.tv-wx-now { display: flex; align-items: center; gap: var(--sp-2); }
+.tv-wx-now strong { font-size: var(--fs-display); font-weight: var(--w-600); font-variant-numeric: tabular-nums; line-height: 1; }
+.tv-wx-now span { color: var(--fg-2); font-weight: var(--w-500); }
+.tv-wx-hint { margin: 0; font-weight: var(--w-500); }
+.tv-wx-hint.is-rain { color: var(--warning); }
+.tv-wx-hours { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+.tv-wx-hours li { display: grid; justify-items: center; gap: 2px; font-size: var(--fs-meta); color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.tv-wx-hours .is-rain { color: var(--warning); font-weight: var(--w-600); }
+
+/* ── MOB-01 (Miguel): móvil — hojas inferiores, áreas seguras, una sola hoja a la vez (js/sheets.js) ── */
+@media (max-width: 700px) {
+  /* todas las hojas iguales: ancladas abajo, a todo lo ancho, con asa y scroll propio */
+  .tv-sheet, .tv-tour, .tv-step, .tv-settings {
+    left: 0 !important; right: 0 !important; bottom: 0 !important; top: auto !important;
+    width: auto !important; max-width: none !important;
+    max-height: calc(100dvh - 72px - env(safe-area-inset-top)) !important;
+    border-radius: 20px 20px 0 0 !important; border-bottom: 0 !important;
+    padding-bottom: calc(var(--sp-4) + env(safe-area-inset-bottom)) !important;
+    overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, .4);
+  }
+  .tv-tour, .tv-settings { padding-top: 22px !important; }
+  .tv-tour::before, .tv-settings::before, .tv-step::before {
+    content: ""; position: absolute; top: 8px; left: 50%; width: 40px; height: 4px; margin-left: -20px;
+    border-radius: 2px; background: var(--line); pointer-events: none;
+  }
+  .tv-step { transform: translateY(calc(100% + 24px)) !important; }
+  .tv-step.is-open { transform: none !important; }
+  .tv-sheet { transform: translateY(calc(100% + 24px)); }
+  .tv-sheet.is-open { transform: none; }
+
+  /* con una hoja abierta, la barra inferior (Tour, Hoy, vista, zoom) se aparta: nada solapado */
+  .tv-tour-open, .tv-today-open, .tv-view, #zoom, #about-open { transition: opacity .2s, transform .25s; }
+  .tv-tour-open, .tv-today-open { bottom: calc(10px + env(safe-area-inset-bottom)); }
+  body.tv-has-sheet .tv-tour-open, body.tv-has-sheet .tv-today-open,
+  body.tv-has-sheet .tv-view, body.tv-has-sheet #zoom, body.tv-has-sheet #about-open { opacity: 0; pointer-events: none; }
+  body.tv-has-sheet .tv-tour-open { transform: translate(calc(-100% - 4px), 24px); }
+  body.tv-has-sheet .tv-today-open { transform: translate(4px, 24px); }
+
+  /* la lista desplegada no tapa la barra ni el engranaje */
+  .tv-panel { max-height: calc(100dvh - 150px - env(safe-area-inset-bottom)); overflow: hidden; }
+
+  /* objetivos táctiles y textos legibles */
+  .tv-close { min-width: var(--tap); min-height: var(--tap); }
+  .tv-chips button, .tv-langs button, .tv-goopt, .tv-res, .tv-btn { min-height: var(--tap); }
+  .tv-note, .tv-kicker, .tv-leg-body span, .tv-goopt-body span { font-size: 13px; }
+  .tv-chips { flex-wrap: wrap; }
+  .tv-legs .tv-leg-maps { min-height: 32px; }
+  .leaflet-popup-content { font-size: 14px; }
+}
+@media (max-width: 380px) {
+  .tv-tour-open, .tv-today-open { padding: 0 var(--sp-3); font-size: var(--fs-label); }
+  .tv-goopt { grid-template-columns: 36px 1fr auto; gap: var(--sp-2); padding: var(--sp-2); }
+}
+
+/* MOB-01: cabecera plegada del tour cuando ya hay ruta */
+.tv-tour-head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); padding-right: calc(var(--tap) + var(--sp-2)); }
+.tv-tour-head .tv-kicker { margin: 0; font-size: var(--fs-label); color: var(--fg-2); }
+.tv-tour-head .tv-edit { min-height: 36px; padding: 0 var(--sp-3); flex: none; }
+@media (max-width: 700px) {
+  .tv-tour.has-result { max-height: 62dvh !important; }
+}
+
+/* «Ir a la parada» en la ficha */
+.tv-transit-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-2); }
+.tv-stop-maps { min-height: var(--tap); display: inline-flex; align-items: center; font-weight: var(--w-500); }
+
+/* MOB-01: la × de cada hoja se queda arriba a la derecha al hacer scroll (sticky, sin ocupar sitio) */
+.tv-sheet > .tv-close, .tv-tour > .tv-close, .tv-settings > .tv-close {
+  position: sticky !important; top: 8px; float: none !important; z-index: 6;
+  display: grid; margin: 0 0 calc(-1 * var(--tap)) auto !important;
+  background: rgba(16, 18, 26, .72); color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .35); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.tv-sheet > .tv-close + .tv-hero { margin-top: 0; }
+.tv-tour > h2, .tv-settings > h2, .tv-events > h2 { padding-right: calc(var(--tap) + var(--sp-2)); }
+@media (max-width: 700px) {
+  .tv-sheet > .tv-close, .tv-tour > .tv-close, .tv-settings > .tv-close { top: 10px; }
+}
+
+/* ── ambiente (ambient.js): estático y barato. --night 0..1 marca la intensidad. ─────────── */
+.tv-night { position: absolute; inset: 0; pointer-events: none; background: #0a1030; opacity: calc(var(--night, 0) * .55); }
+/* luces: un resplandor cálido pequeño por punto y dos bombillas, sin animación */
+.tv-glow { pointer-events: none; position: relative; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 205, 120, .55) 0%, rgba(255, 180, 80, .18) 38%, transparent 70%);
+  opacity: calc(var(--night, 0) * .7); }
+.tv-glow::before, .tv-glow::after { content: ""; position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #ffe9b0; opacity: .9; }
+.tv-glow::before { left: 38%; top: 42%; } .tv-glow::after { left: 58%; top: 54%; }
+.tv-glow-attraction { background: radial-gradient(circle, rgba(255, 170, 215, .5) 0%, rgba(170, 150, 255, .16) 38%, transparent 70%); }
+.tv-glow-santa_kings { background: radial-gradient(circle, rgba(255, 150, 120, .5) 0%, rgba(255, 110, 80, .16) 38%, transparent 70%); }
+.tv-rain { position: fixed; inset: 0; z-index: 3; pointer-events: none; display: none; }
+/* nubes: dos sombras quietas, sin animar */
+.tv-clouds { position: fixed; inset: 0; z-index: 2; pointer-events: none; display: none;
+  background: radial-gradient(ellipse 60% 40% at 25% 30%, rgba(25, 32, 50, .16), transparent 70%), radial-gradient(ellipse 55% 35% at 75% 70%, rgba(25, 32, 50, .14), transparent 70%); }
+.tv-clouds.is-on { display: block; }
+.tv-clouds span { display: none; }
+
+/* botón rápido de hora (Ahora / Noche / Día) junto a Ajustes — Miguel2 */
+.tv-time-quick { position: fixed; z-index: 8; top: 12px; right: 64px; height: var(--tap); display: inline-flex; align-items: center; gap: 6px; padding: 0 var(--sp-3); border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--raised); color: var(--fg); font: var(--w-500) var(--fs-label)/1 var(--f-ui); cursor: pointer; }
+.tv-time-quick.is-forced { background: var(--acc); color: var(--on-acc); border-color: transparent; }
+.tv-time-quick:focus-visible { outline: 3px solid var(--acc); outline-offset: 2px; }
+body.is-city .tv-time-quick, body:has(.tv-sheet.is-open) .tv-time-quick, body:has(.tv-tour.is-open) .tv-time-quick { display: none; }
+@media (max-width: 700px) { .tv-time-quick { top: 8px; right: 60px; } .tv-time-quick span { display: none; } }
+
+/* seguimiento en ruta (track.js) — Miguel2 */
+.tv-walked { pointer-events: none; overflow: visible; }
+.tv-walked-line { fill: none; stroke: #8a8f9c; stroke-width: 10; stroke-linejoin: round; stroke-linecap: round; }
+.tv-me-dot { fill: #3d8bff; stroke: #fff; stroke-width: 5; }
+.tv-me-pulse { fill: rgba(61, 139, 255, .28); animation: tv-pulse 1.6s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes tv-pulse { 0% { transform: scale(.4); opacity: 1; } 100% { transform: scale(1.4); opacity: 0; } }
+.tv-track-go { position: fixed; z-index: 7; left: 50%; bottom: 76px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: var(--sp-2); min-height: var(--tap); padding: 0 var(--sp-4); border: 0; border-radius: var(--r-panel); background: #3d8bff; color: #fff; font: var(--w-600) var(--fs-label)/1 var(--f-ui); cursor: pointer; }
+.tv-track { display: none; position: fixed; z-index: 9; left: 50%; top: 12px; transform: translateX(-50%); width: min(460px, calc(100vw - 140px)); box-sizing: border-box; padding: var(--sp-3) var(--sp-4); gap: var(--sp-2); flex-direction: column; background: var(--raised); color: var(--fg); border: 1px solid var(--line); border-radius: var(--r-panel); font: var(--fs-label)/1.35 var(--f-ui); }
+.tv-track.is-on { display: flex; }
+.tv-track-main { display: grid; gap: 2px; }
+.tv-track-main strong { font-size: var(--fs-title); font-weight: var(--w-600); font-variant-numeric: tabular-nums; }
+.tv-track-main span { color: var(--fg-2); }
+.tv-track-bar { height: 6px; border-radius: 3px; background: var(--sunk); overflow: hidden; }
+.tv-track-bar span { display: block; height: 100%; background: #3d8bff; transition: width .3s linear; }
+.tv-track-actions { display: flex; gap: var(--sp-2); align-items: center; justify-content: flex-end; }
+.tv-track button { font: inherit; }
+@media (max-width: 700px) { .tv-track { top: auto; bottom: 70px; width: calc(100vw - 16px); } .tv-track-go { bottom: 70px; } }
+@media (prefers-reduced-motion: reduce) { .tv-me-pulse { animation: none; } }
+
+/* MOB-02: vista ciudad con zoom lejano — pin tipo gota (Google Maps) en vez de la foto */
+.tv-z-far .tv-pin { width: 24px; height: 24px; margin: 39px 0 0 30px; padding: 0; border-width: 3px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--acc); box-shadow: 0 1px 4px rgba(0, 0, 0, .45); }
+.tv-z-far .tv-pin.is-open { background: var(--ok); }
+.tv-z-far .tv-pin::after { display: none; }
+.tv-z-far .tv-pin img { display: none !important; }
+.tv-z-far .tv-pin::before { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: #151b2a; }
+/* el resumen plegado del tour no se pega a la × */
+.tv-tour-head { padding-right: calc(var(--tap) + var(--sp-3)); }
+
+body.is-city .tv-night { display: none !important; }
+
+/* niebla: velo estático claro sobre el mapa (sin animación) */
+body.tv-fog #map::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(225, 230, 236, .55), rgba(225, 230, 236, .3) 60%, rgba(225, 230, 236, .45)); }
+.tv-story-card p { white-space: pre-line; }
+
+/* la × sticky de MOB-01 va primero; el hero sube hasta el borde de la hoja */
+.tv-sheet > .tv-close + .tv-hero { margin-top: calc(-16px - var(--tap)); }
+.tv-sheet > .tv-close { box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--chip-dark); }
+/* PLANNER-01: salida y 3 opciones de ruta */
+.tv-from { display: grid; gap: 6px; }
+.tv-from label { margin: 0; }
+.tv-start, .tv-street { width: 100%; min-height: var(--tap); padding: 0 var(--sp-3); border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--sunk); color: var(--fg); font: var(--w-500) var(--fs-copy)/1.2 var(--f-ui); box-sizing: border-box; }
+.tv-start:focus-visible, .tv-street:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.tv-btn:disabled { opacity: .45; cursor: not-allowed; }
+.tv-planmodes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.tv-planmodes button { display: grid; justify-items: center; gap: 2px; min-height: 56px; padding: 6px 4px; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--sunk); color: var(--fg); font: var(--w-500) var(--fs-label)/1.2 var(--f-ui); cursor: pointer; }
+.tv-planmodes button small { font-size: var(--fs-meta); color: var(--fg-2); font-variant-numeric: tabular-nums; }
+.tv-planmodes button.is-on { border-color: var(--acc); background: var(--surface); box-shadow: inset 0 0 0 1px var(--acc); }
+.tv-why { margin: 0; }
+.tv-from { width: 100%; }
+
+/* Ajustes: las filas de opciones pasan a otra línea si no caben (Clima tiene 5) — Miguel2 */
+.tv-settings { width: 340px; }
+.tv-settings .tv-seg { grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: 2px; }
+.tv-settings .tv-seg button { min-width: 0; white-space: nowrap; }
+@media (max-width: 700px) { .tv-settings { width: auto; } }
