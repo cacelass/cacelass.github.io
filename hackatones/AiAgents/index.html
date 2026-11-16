@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#e6e6e6" />
+  <script>
+    (function () {
+      var stored;
+      try { stored = localStorage.getItem('site-theme'); } catch (e) {}
+      document.documentElement.dataset.theme = stored === 'dark' ? 'dark' : 'light';
+    })();
+  </script>
+  <title>AIAgents — Hackatones · Alejandro Cancelas</title>
+  <meta name="description" content="Fábrica personal de agentes: diseño y arnés para que un solo propietario especifique, construya y evalúe agentes con reglas escritas en código." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+</head>
+<body class="proj-page">
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <div class="nav-id"><a href="../../" class="nav-back">← index</a> <strong>Alejandro Cancelas</strong> <span>/ aiagents</span></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../../#about">about</a></li>
+        <li><a href="../../#projects">projects</a></li>
+        <li><a href="../../#stack">stack</a></li>
+        <li><a href="../">hackatones</a></li>
+        <li><button class="theme-toggle" type="button" aria-label="Cambiar entre modo claro y oscuro" aria-pressed="false" title="Modo claro / oscuro"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="proj-hero">
+    <div class="container">
+      <div class="hero-eyebrow">hackathon · ai agents · meshharmes</div>
+      <h1>Una fábrica de agentes<br /><span class="hl">con las reglas en código.</span></h1>
+      <p class="hero-sub">
+        Diseño y arnés de una fábrica personal de agentes: un solo propietario
+        especifica, construye y evalúa agentes sobre su propio equipo. El
+        proyecto de hackathon donde probé hasta dónde llega un sistema
+        multiagente cuando las reglas del juego no viven en un prompt.
+      </p>
+      <div class="proj-links">
+        <a class="hero-cta" href="https://github.com/cacelass/aiagents" target="_blank" rel="noopener noreferrer">github.com/cacelass/aiagents</a>
+        <a class="hero-cta hero-cta-secondary" href="../">← volver a hackatones</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-tag">propósito</span>
+      </div>
+      <h2 class="sec-title">Qué problema resuelve</h2>
+      <div class="proj-field-val proj-wide">
+        Los asistentes de IA fallan de forma silenciosa: dicen que una tarea está
+        hecha sin haberla verificado, olvidan el estado entre sesiones y no
+        distinguen una acción reversible de una que no lo es. Este repositorio
+        invierte el orden: en vez de confiar en el prompt, <strong>escribe las
+        reglas del juego en código</strong> — una puerta de entrada que decide si
+        se puede trabajar, un backlog con criterios de aceptación explícitos y
+        una puerta de permisos para las acciones que no se deshacen.
+      </div>
+      <div class="dskit-grid">
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Tipo</div>
+          <div class="dskit-stat-val">Arnés de IA + paquete de diseño</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Agentes</div>
+          <div class="dskit-stat-val">24 agentes Python deterministas</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">Stack</div>
+          <div class="dskit-stat-val"><code>uv</code> · pytest · RAG local · graphify</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-tag">arquitectura</span>
+      </div>
+      <h2 class="sec-title">Las piezas del arnés</h2>
+      <div class="proj-list">
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">init.sh <span class="proj-desc">— la puerta de entrada</span></div>
+            <span class="proj-tag">gate</span>
+          </div>
+          <div class="proj-grid">
+            <div>
+              <div class="proj-field-lbl">Qué hace</div>
+              <div class="proj-field-val">Verifica entorno, estructura del arnés y que los tests pasan en verde. Si algo falla, el agente <strong>para</strong>: no se trabaja sobre un proyecto roto.</div>
+            </div>
+            <div>
+              <div class="proj-field-lbl">Por qué importa</div>
+              <div class="proj-field-val">La regla que no se salta: ninguna feature se cierra sin que la puerta pase en verde. El agente demuestra su trabajo, no lo declara.</div>
+            </div>
+          </div>
+          <div class="dec-block">
+            <div class="dec-lbl">comando</div>
+            <ul>
+              <li><code>make init</code> — comprueba que se puede trabajar</li>
+              <li><code>make check</code> — lint + typecheck + test + arnés</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">harness/featureslist.json <span class="proj-desc">— el backlog</span></div>
+            <span class="proj-tag">backlog</span>
+          </div>
+          <div class="proj-grid">
+            <div>
+              <div class="proj-field-lbl">Qué hace</div>
+              <div class="proj-field-val">Cada feature tiene criterios de aceptación explícitos: qué, cómo y qué evidencia la cierra. Sin criterios no hay feature.</div>
+            </div>
+            <div>
+              <div class="proj-field-lbl">Dueño</div>
+              <div class="proj-field-val">El agente <strong>harness</strong>. Ningún humano ni asistente lo edita a mano: se modifica ejecutando el agente.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">harness/progress/ <span class="proj-desc">— la memoria</span></div>
+            <span class="proj-tag">memory</span>
+          </div>
+          <div class="proj-grid">
+            <div>
+              <div class="proj-field-lbl">Qué hace</div>
+              <div class="proj-field-val">Guarda la tarea actual y el histórico fuera de la ventana de contexto del asistente. El estado sobrevive entre sesiones.</div>
+            </div>
+            <div>
+              <div class="proj-field-lbl">Por qué importa</div>
+              <div class="proj-field-val">Un agente no puede «recordar» lo que hizo ayer. La memoria vive en el repositorio, no en el modelo.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <div class="proj-name">agents/permissions.py <span class="proj-desc">— la puerta de permisos</span></div>
+            <span class="proj-tag">permissions</span>
+          </div>
+          <div class="proj-grid">
+            <div>
+              <div class="proj-field-lbl">Qué hace</div>
+              <div class="proj-field-val">Matriz de permisos, datos y secretos. Las acciones irreversibles (publicar, borrar, desplegar) requieren aprobación explícita.</div>
+            </div>
+            <div>
+              <div class="proj-field-lbl">Por qué importa</div>
+              <div class="proj-field-val">Un agente no distingue por sí solo una acción reversible de una que no lo es. La distinción está en código.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-tag">agentes</span>
+      </div>
+      <h2 class="sec-title">24 agentes con contrato</h2>
+      <div class="proj-field-val proj-wide">
+        Cada agente tiene un rol definido y sabe exactamente qué hace, qué no
+        hace y qué evidencia debe aportar. Los cuatro subagentes del ciclo
+        trabajan juntos:
+      </div>
+      <div class="dskit-grid">
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">lider</div>
+          <div class="dskit-stat-val">Dirige el ciclo y elige la siguiente feature del backlog.</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">explorer</div>
+          <div class="dskit-stat-val">Investiga en solo lectura, sin modificar nada.</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">implementer</div>
+          <div class="dskit-stat-val">Escribe código y tests con criterios de aceptación.</div>
+        </div>
+      </div>
+      <div class="dskit-grid">
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">reviewer</div>
+          <div class="dskit-stat-val">Aprueba o rechaza el trabajo del implementer.</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">documentación</div>
+          <div class="dskit-stat-val">Mantiene CHANGELOG, README y docs al día.</div>
+        </div>
+        <div class="dskit-stat">
+          <div class="dskit-stat-lbl">seguridad</div>
+          <div class="dskit-stat-val">Detecta y rota secretos expuestos en el código.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-tag">uso</span>
+      </div>
+      <h2 class="sec-title">Cómo se usa</h2>
+      <p class="proj-wide" style="max-width:700px;">
+        El ciclo es siempre el mismo: verificar, leer el backlog, implementar,
+        revisar y cerrar. Nada se marca como terminado sin evidencia.
+      </p>
+      <div class="hero-term" style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:24px;">
+        <div><span class="term-prompt">$</span> <span class="term-cmd">make init</span> <span style="color:var(--dim);font-family:var(--mono);font-size:.72rem;"># ¿se puede trabajar?</span></div>
+        <div><span class="term-prompt">$</span> <span class="term-cmd">make run</span> <span style="color:var(--dim);font-family:var(--mono);font-size:.72rem;"># estado del backlog</span></div>
+        <div><span class="term-prompt">$</span> <span class="term-cmd">make check</span> <span style="color:var(--dim);font-family:var(--mono);font-size:.72rem;"># lint + tipos + tests + arnés</span></div>
+        <div><span class="term-prompt">$</span> <span class="term-cmd">git commit_feature --dry-run</span> <span style="color:var(--dim);font-family:var(--mono);font-size:.72rem;"># propone, tú confirmas</span></div>
+      </div>
+      <p class="proj-wide" style="max-width:700px;">
+        El protocolo completo vive en <code>AGENTS.md</code>, el punto de entrada
+        que lee cualquier asistente. El proyecto incluye además un vault de
+        conocimiento en <code>vault/</code> con indexación RAG local opcional.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="sec-tag">enlaces</span>
+      </div>
+      <h2 class="sec-title">Repositorio y documentación</h2>
+      <div class="proj-links">
+        <a class="hero-cta" href="https://github.com/cacelass/aiagents" target="_blank" rel="noopener noreferrer">github</a>
+        <a class="hero-cta hero-cta-secondary" href="https://github.com/cacelass/aiagents/blob/main/README.md" target="_blank" rel="noopener noreferrer">README</a>
+        <a class="hero-cta hero-cta-secondary" href="https://github.com/cacelass/aiagents/blob/main/AGENTS.md" target="_blank" rel="noopener noreferrer">AGENTS.md</a>
+        <a class="hero-cta hero-cta-secondary" href="https://github.com/cacelass/aiagents/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">CHANGELOG</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-id">
+        <div class="footer-dot"></div>
+        <strong>Alejandro Cancelas</strong>
+        <span>— ML Engineer · Galicia, ES</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/cacelass" target="_blank" rel="noopener noreferrer">github.com/cacelass</a></li>
+        <li><a href="../../blog/">blog</a></li>
+        <li><a href="https://www.linkedin.com/in/cacelas/" target="_blank" rel="noopener noreferrer">linkedin.com/in/cacelas</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../../js/app.js"></script>
+  <script src="../../js/site.js" defer></script>
+</body>
+</html>
